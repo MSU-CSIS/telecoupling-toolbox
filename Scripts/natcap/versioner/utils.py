@@ -1,3 +1,4 @@
+from . import parse_version
 import os
 
 VERSION_FILE_TEMPLATE = """
@@ -17,8 +18,11 @@ def distutils_keyword(dist, keyword, value):
         # If the user didn't use our keyword
         return
 
+    new_version = parse_version()
+    dist.metadata.version = new_version
+
     # Assume the value is the file to write to.
     out_file = os.path.join('.', value)
     with open(out_file, 'w') as version_file:
         version_file.write(
-            VERSION_FILE_TEMPLATE.format(version=dist.get_version()))
+            VERSION_FILE_TEMPLATE.format(version=new_version))

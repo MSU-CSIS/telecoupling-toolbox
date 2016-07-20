@@ -15,7 +15,6 @@ class VersionNotFound(RuntimeError):
     pass
 
 
-__version__ = '0.4.0'
 SCM_ALLOW = 'allow scm fallback'
 SCM_DISALLOW = 'disallow scm fallback'
 SCM_NOTFROZEN = 'allow scm in non-frozen enviroments (disallow when frozen)'
@@ -121,15 +120,25 @@ def vcs_version(root='.', on_error=ERROR_RAISE):
     from versioning import HgArchive, HgRepo, GitRepo
 
     error = False
-    try:
-        for scm_class in [HgArchive, HgRepo, GitRepo]:
-            repo_data = os.path.join(root, scm_class.repo_data_location)
-            if os.path.exists(repo_data):
-                break
-        repo = scm_class(root)
-        version = repo.pep440(branch=False)
-    except Exception as error:
-        LOGGER.exception(error)
+    version = None
+    repo = None
+    nested_path = ''
+    for scm_class in [HgArchive, HgRepo, GitRepo]:
+        try:
+            repo = scm_class(root)
+            repo_root = os.path.abspath(repo._repo_path)
+            # Check that this repo's path is the deepest one available.
+            if ((repo_root.startswith(nested_path) and repo_root != nested_path)
+                    or nested_path == None):
+                nested_path = repo._repo_path
+                repo = repo
+            # If no error raised, we've found a match!
+            version = repo.pep440(branch=False)
+            break
+        except ValueError:
+            # Raised when the repo type is not found.
+            pass
+    if version == None:
         version = 'UNKNOWN'
         error = True
 
@@ -139,3 +148,6 @@ def vcs_version(root='.', on_error=ERROR_RAISE):
             'A version could not be loaded from scm in %s' % root_path))
 
     return version
+
+
+__version__ = get_version('natcap.versioner')

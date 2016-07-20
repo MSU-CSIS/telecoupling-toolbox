@@ -8,10 +8,32 @@ LOGGER.setLevel(logging.ERROR)
 
 
 class VCSQuerier(object):
+    name = 'VCS'
     is_archive = False
+    repo_data_location = ''
 
     def __init__(self, repo_path):
-        self._repo_path = repo_path
+        repo_root = self._find_repo_root(repo_path)
+        if not repo_root:
+            raise ValueError('Not within a %s repository: %s' % (
+                self.name, repo_path))
+
+        self._repo_path = repo_root
+
+    def _find_repo_root(self, dirpath):
+        """Walk up the directory tree and locate the directory that contains
+        the repo data."""
+        abs_repo_path = os.path.abspath(dirpath)
+
+        def _locate_data(path):
+            # base case: we can't go up another directory and still haven't
+            # found the repo data.
+            if os.path.dirname(path) == path:
+                return None
+            if os.path.exists(os.path.join(path, self.repo_data_location)):
+                return path
+            return _locate_data(os.path.dirname(path))
+        return _locate_data(abs_repo_path)
 
     def _run_command(self, cmd, cwd=None):
         """Run a subprocess.Popen command.
@@ -106,6 +128,7 @@ class VCSQuerier(object):
 
 
 class HgArchive(VCSQuerier):
+    name = 'Mercurial Archive'
     shortnode_len = 12
     is_archive = True
     repo_data_location = '.hg_archival.txt'
@@ -146,14 +169,15 @@ class HgArchive(VCSQuerier):
 
 
 class HgRepo(VCSQuerier):
+    name = 'Mercurial'
     is_archive = False
     repo_data_location = '.hg'
 
     def _log_template(self, template_string):
-        hg_call = 'hg log -R %s -r . --config ui.report_untrusted=False'
-        cmd = (hg_call + ' --template="%s"') % (self._repo_path,
-                                                template_string)
-        return self._run_command(cmd)
+        hg_call = 'hg log -r . --config ui.report_untrusted=False'
+        cmd = (hg_call + ' --template="%s"') % template_string
+
+        return self._run_command(cmd, cwd=self._repo_path)
 
     @property
     def build_id(self):
@@ -185,6 +209,7 @@ class HgRepo(VCSQuerier):
 
 
 class GitRepo(VCSQuerier):
+    name = 'Git'
     repo_data_location = '.git'
 
     def __init__(self, repo_uri):
