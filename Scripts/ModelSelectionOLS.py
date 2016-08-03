@@ -78,7 +78,7 @@ def runExploratoryRegression():
     weightsFile = UTILS.getTextParameter(3)
 
     #### Derived Output ####
-    outputReportFile = OS.path.join(ARCPY.env.scratchFolder, "OLSReport.txt")
+    outputReportFile = OS.path.join(ARCPY.env.scratchFolder, "ModelSelectionOLS.txt")
 
     #### Search Criterion ####
     maxIndVars = UTILS.getNumericParameter(5)
