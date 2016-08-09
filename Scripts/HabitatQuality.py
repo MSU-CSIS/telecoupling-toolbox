@@ -91,7 +91,7 @@ else:
         }
         if access_uri:
                 args[u'access_uri'] = access_uri
-            
+
         outQuality_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "quality_out_c.tif")
         outQuality_fut_rast = os.path.join(arcpy.env.scratchFolder, "output", "quality_out_f.tif")
         outDegSum_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "deg_sum_out_c.tif")
