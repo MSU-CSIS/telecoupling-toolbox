@@ -104,7 +104,9 @@ else:
 if __name__ == '__main__':
     natcap.invest.recreation.recmodel_client.execute(args)
     #### Set Parameters ####
+    outList_shp = [l for sublist in outList_shp for l in sublist]
     results_shp = ";".join(outList_shp)
+    outList_tabs = [l for sublist in outList_tabs for l in sublist]
     results_tabs = ";".join(outList_tabs)
     arcpy.SetParameter(9, results_shp)
     arcpy.SetParameter(10, results_tabs)
