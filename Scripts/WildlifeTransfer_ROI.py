@@ -18,21 +18,14 @@ def run_CBA():
         arcpy.AddMessage('Joining Economics Data to Input Feature Class ...')
         arcpy.SetProgressorLabel('Joining Economics Data to Input Feature Class ...')
 
-        ### Create a temporary copy of the input feature to manipulate ###
-        outFC_temp = os.path.join(arcpy.env.scratchGDB, "outFC_temp")
-        arcpy.CopyFeatures_management(inputFC, outFC_temp)
-
         # add three new fields ("costs", "revenues", "returns")
-        arcpy.AddField_management(in_table=outFC_temp, field_name="COSTS", field_type="DOUBLE", field_scale=2)
-        arcpy.AddField_management(in_table=outFC_temp, field_name="REVENUES", field_type="DOUBLE", field_scale=2)
-        arcpy.AddField_management(in_table=outFC_temp, field_name="RETURNS", field_type="DOUBLE", field_scale=2)
+        arcpy.AddField_management(in_table=inputFC, field_name="COSTS", field_type="DOUBLE", field_scale=2)
+        arcpy.AddField_management(in_table=inputFC, field_name="REVENUES", field_type="DOUBLE", field_scale=2)
+        arcpy.AddField_management(in_table=inputFC, field_name="RETURNS", field_type="DOUBLE", field_scale=2)
 
         # Process: Copy Table to a temporary GDB table (workaround for bug in MakeTableView --ArcGIS 10.3.1)
         strata_tab = os.path.join(arcpy.env.scratchGDB, "JoinTable")
         arcpy.CopyRows_management(economics_table, strata_tab)
-
-        #strata_tab = "StrataTbl_temp"
-        #arcpy.MakeTableView_management(tempGDBTable, strata_tab)
 
         ### Create list of value fields, leaving out OID field and key/join field ###
         flistObj = arcpy.ListFields(strata_tab)
@@ -52,7 +45,7 @@ def run_CBA():
         arcpy.AddMessage('Calculating Returns from Costs and Revenues ...')
         arcpy.SetProgressorLabel('Calculating Returns from Costs and Revenues ...')
 
-        with arcpy.da.UpdateCursor(outFC_temp, [inputFC_join_field, 'COSTS', 'REVENUES', 'RETURNS'],
+        with arcpy.da.UpdateCursor(inputFC, [inputFC_join_field, 'COSTS', 'REVENUES', 'RETURNS'],
                                    where_clause="\"%s\" IS NOT NULL" % inputFC_join_field) as cursor:
             for row in cursor:
                 strata = row[0]
@@ -77,7 +70,7 @@ def run_CBA():
                     cursor.updateRow(row)
 
         #### Set Parameters ####
-        arcpy.SetParameterAsText(4, outFC_temp)
+        arcpy.SetParameterAsText(4, inputFC)
 
     except Exception:
         e = sys.exc_info()[1]
