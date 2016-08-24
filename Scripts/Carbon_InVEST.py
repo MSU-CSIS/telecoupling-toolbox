@@ -88,14 +88,20 @@ if do_biophysical:
                         u'do_biophysical': True,
                         u'do_uncertainty': False,
                         u'do_valuation': False,
-                        u'hwp_cur_shape_uri': hwp_cur_shape_uri,
-                        u'hwp_fut_shape_uri': hwp_fut_shape_uri,
                         u'lulc_cur_uri': lulc_cur_uri,
                         u'lulc_cur_year': lulc_cur_year,
                         u'lulc_fut_uri': lulc_fut_uri,
                         u'lulc_fut_year': lulc_fut_year,
                         u'workspace_dir': workspace_dir,
                 }
+                if hwp_cur_shape_uri:
+                        args[u'hwp_cur_shape_uri'] = hwp_cur_shape_uri
+                        if not hwp_fut_shape_uri:
+                                arcpy.AddError("A harvest rate map must be provided for FUTURE scenario!")
+                                raise SystemExit()
+                        else:
+                                args[u'hwp_fut_shape_uri'] = hwp_fut_shape_uri
+
                 outCarbon_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "tot_C_cur.tif")
                 outCarbon_fut_rast = os.path.join(arcpy.env.scratchFolder, "output", "tot_C_fut.tif")
                 outCarbon_seq_rast = os.path.join(arcpy.env.scratchFolder, "output", "sequest_fut.tif")
