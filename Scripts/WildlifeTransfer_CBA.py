@@ -52,6 +52,13 @@ def run_CBA():
         arcpy.AddMessage('Calculating Returns from Costs and Revenues ...')
         arcpy.SetProgressorLabel('Calculating Returns from Costs and Revenues ...')
 
+        #LOOP through nested dictionaries to check whether any values are missing or n/a
+        for k, v in strataDict.iteritems():
+            for k2, v2 in strataDict[k].iteritems():
+                if v2 is None or v2 == "n/a" or v2 == r"n\a":
+                    strataDict[k][k2] = 0.0
+
+
         with arcpy.da.UpdateCursor(outFC, [inputFC_join_field, 'COSTS', 'REVENUES', 'RETURNS'],
                                    where_clause="\"%s\" IS NOT NULL" % inputFC_join_field) as cursor:
             for row in cursor:
@@ -60,14 +67,15 @@ def run_CBA():
                     arcpy.AddWarning("The attribute \"{}\" was not found in the economics table!".format(strata))
                     continue
                 else:
-                    costs = strataDict[strata]['cost_per_animal_transfer'] + \
-                            strataDict[strata]['cost_feeding_per_animal'] + \
-                              strataDict[strata]['cost_transportation_per_travel'] + \
-                                    strataDict[strata]['cost_maintenance_per_animal']
 
-                    revenues = strataDict[strata]['revenue_from_transfer_per_animal'] + \
-                                     strataDict[strata]['revenue_from_tourism'] + \
-                                           strataDict[strata]['revenue_from_food_prod']
+                    costs = float(strataDict[strata]['cost_per_animal_transfer']) + \
+                            float(strataDict[strata]['cost_feeding_per_animal']) + \
+                            float(strataDict[strata]['cost_transportation_per_travel']) + \
+                            float(strataDict[strata]['cost_maintenance_per_animal'])
+
+                    revenues = float(strataDict[strata]['revenue_from_transfer_per_animal']) + \
+                               float(strataDict[strata]['revenue_from_tourism']) + \
+                               float(strataDict[strata]['revenue_from_food_prod'])
 
                     returns = revenues - costs
 
@@ -77,6 +85,8 @@ def run_CBA():
 
                     cursor.updateRow(row)
 
+        arcpy.AddWarning("Warning: negative monetary values in 'RETURNS' " + \
+                         "can be the consequence of missing values in the financial table!!")
         #### Set Parameters ####
         arcpy.SetParameterAsText(4, outFC)
 
