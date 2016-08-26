@@ -18,7 +18,7 @@ def calc_CO2_emissions():
         arcpy.SetProgressorLabel('Adding CO2 Emission Field to Input Feature Class ...')
 
         # add new CO2 emission field
-        arcpy.AddField_management(in_table=inputFC, field_name="CO2_EMISSIONS_KG", field_type="DOUBLE", field_scale=2)
+        arcpy.AddField_management(in_table=inputFC, field_name="CO2_EMISSIONS_KG", field_type="LONG")
 
         ### ADD FIELD: creating new field to store CO2 total emission per trip ###
         arcpy.AddMessage('Calculating CO2 Emissions for Each Flow ...')
@@ -27,7 +27,7 @@ def calc_CO2_emissions():
         with arcpy.da.UpdateCursor(inputFC, ['SHAPE@LENGTH', 'CO2_EMISSIONS_KG']) as cursor:
             for row in cursor:
                 #SHAPE@LENGTH will be likely in meters (depending on coordinate system)
-                row[1] = float(row[0] * CO2_emission)
+                row[1] = row[0] * CO2_emission
                 cursor.updateRow(row)
 
         #### Set Parameters ####
