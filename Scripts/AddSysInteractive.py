@@ -47,7 +47,7 @@ def ExportToCSV(fc, output):
         for row in cursor:
             row = [v.decode('utf8') if isinstance(v, str) else v for v in row]
             outWriter.writerow([unicode(s).encode("utf-8") for s in row])
-    del row, cursor
+    del cursor
 
 def AddSystems():
     """Draws telecoupling systems on top of basemap interactively or from table"""
@@ -67,11 +67,8 @@ def AddSystems():
         try:
             # Process: Make Feature Layer (temporary)
             arcpy.MakeFeatureLayer_management(in_features=inFeatureSet, out_layer=out_layer)
-
             arcpy.AddField_management(in_table=out_layer, field_name="Name", field_type="TEXT", field_length=50)
-            arcpy.AddField_management(in_table=out_layer, field_name="Description", field_type="TEXT", field_length=100)
 
-            fields = ['Name', 'Description']
             sysTable = json.loads(in_RecordSet.JSON)
 
             idx = 0
@@ -81,10 +78,9 @@ def AddSystems():
                 arcpy.AddError("Number of records in 'Input Attribute Table' MUST equal number of systems on the map!!")
                 raise arcpy.ExecuteError
             else:
-                with arcpy.da.UpdateCursor(out_layer, fields) as cursor:
+                with arcpy.da.UpdateCursor(out_layer, 'Name') as cursor:
                     for row in cursor:
                         row[0] = sysTable['features'][idx]['attributes']['Name']
-                        row[1] = sysTable['features'][idx]['attributes']['Description']
                         # Update the cursor with the updated list
                         cursor.updateRow(row)
                         idx += 1
@@ -111,14 +107,15 @@ def AddSystems():
             outTable_CSV = os.path.join(arcpy.env.scratchFolder, "Systems_Table.csv")
             ExportToCSV(fc=outSystems_fc, output=outTable_CSV)
 
+            #### Set Parameters ####
+            arcpy.SetParameterAsText(3, outSystems_fc)
+
         except Exception:
             e = sys.exc_info()[1]
             arcpy.AddError('An error occurred: {}'.format(e.args[0]))
+
     else:
         arcpy.AddError('No Features Have Been Added to the Map!')
-
-    #### Set Parameters ####
-    arcpy.SetParameterAsText(3, outSystems_fc)
 
 
 if __name__ == '__main__':

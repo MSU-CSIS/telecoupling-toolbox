@@ -111,14 +111,14 @@ def AddAgents():
             outTable_CSV = os.path.join(arcpy.env.scratchFolder, "Agents_Table.csv")
             ExportToCSV(fc=outAgents_fc, output=outTable_CSV)
 
+            #### Set Parameters ####
+            arcpy.SetParameterAsText(3, outAgents_fc)
+
         except Exception:
             e = sys.exc_info()[1]
             arcpy.AddError('An error occurred: {}'.format(e.args[0]))
     else:
         arcpy.AddError('No Features Have Been Added to the Map!')
-
-    #### Set Parameters ####
-    arcpy.SetParameterAsText(3, outAgents_fc)
 
 
 if __name__ == '__main__':
