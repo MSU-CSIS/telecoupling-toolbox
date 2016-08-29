@@ -13,9 +13,9 @@ yield_function = arcpy.GetParameterAsText(3)
 percentile_column = arcpy.GetParameterAsText(4)
 fertilizer_dir = arcpy.GetParameterAsText(5)
 irrigation_raster = arcpy.GetParameterAsText(6)
-compute_financial_analysis = arcpy.GetParameter(7)
+compute_nutritional_contents = arcpy.GetParameter(7)
 nutrient_table = arcpy.GetParameterAsText(8)
-compute_nutritional_contents = arcpy.GetParameter(9)
+compute_financial_analysis = arcpy.GetParameter(9)
 economics_table = arcpy.GetParameterAsText(10)
 
 outList_tabs = []
@@ -38,29 +38,26 @@ args = {
 }
 
 if fertilizer_dir and fertilizer_dir != "#":
-    args['fertilizer_dir'] = fertilizer_dir
+    args[u'fertilizer_dir'] = fertilizer_dir
 
-if yield_function == 'observed':
-    pass
-elif yield_function == 'percentile':
-    args['percentile_column'] = percentile_column
-### Regression ###
-else:
+if yield_function == 'percentile':
+    args[u'percentile_column'] = percentile_column
+if yield_function == 'regression':
     if not fertilizer_dir or fertilizer_dir == "#":
         arcpy.AddError("A fertilizer raster folder is required when choosing regression as 'Yield Function'!")
         raise SystemExit()
-    args['irrigation_raster'] = irrigation_raster
+    args[u'irrigation_raster'] = irrigation_raster
 
 out_yield = os.path.join(arcpy.env.scratchFolder, _OUTPUT['yield_raster'])
 
 if compute_financial_analysis:
-    args['compute_financial_analysis'] = True
-    args['economics_table'] = economics_table
+    args[u'compute_financial_analysis'] = True
+    args[u'economics_table'] = economics_table
     out_economic_tab = os.path.join(arcpy.env.scratchFolder, _OUTPUT['financial_analysis_table'])
     outList_tabs.append(out_economic_tab)
 if compute_nutritional_contents:
-    args['compute_nutritional_contents'] = True
-    args['nutrient_table'] = nutrient_table
+    args[u'compute_nutritional_contents'] = True
+    args[u'nutrient_table'] = nutrient_table
     out_nutr_tab = os.path.join(arcpy.env.scratchFolder, _OUTPUT['nutrient_contents_table'])
     outList_tabs.append(out_nutr_tab)
 
