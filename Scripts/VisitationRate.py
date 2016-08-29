@@ -7,8 +7,8 @@ Model Used: InVEST 3.3.x Recreation Model
 import arcpy
 import SSUtilities as UTILS
 import natcap.invest.recreation.recmodel_client
+import natcap.invest.recreation.recmodel_server
 import os
-import shutil
 
 arcpy.env.overwriteOutput = True
 workspace_dir = arcpy.env.scratchFolder
@@ -23,90 +23,67 @@ grid_aoi = arcpy.GetParameter(6)
 grid_type = arcpy.GetParameterAsText(7)
 cell_size = UTILS.getNumericParameter(8)
 
-outList_shp = []
-outList_tabs = []
+_OUTPUT = {
+    'pud_map': 'pud_results.shp',
+    'pud_scenario_map': 'scenario_results.shp',
+    'coefficients_map': 'regression_coefficients.shp',
+    'coefficients_table': 'regression_coefficients.txt',
+    'monthly_pud_table': 'monthly_table.csv'
+}
 
-if compute_regression and grid_aoi:
-
-    args = {
-        u'aoi_path': aoi_path,
-        u'start_year': start_year,
-        u'end_year': end_year,
-        u'compute_regression': compute_regression,
-        u'predictor_table_path': predictor_table_path,
-        u'scenario_predictor_table_path': scenario_predictor_table_path,
-        u'grid_aoi': grid_aoi,
-        u'grid_type': grid_type,
-        u'cell_size': cell_size,
-        u'workspace_dir': workspace_dir,
-    }
-    out_scenario_shp = os.path.join(arcpy.env.scratchFolder, "scenario_results.shp")
-    out_pud_shp = os.path.join(arcpy.env.scratchFolder, "pud_results.shp")
-    out_coeff_shp = os.path.join(arcpy.env.scratchFolder, "regression_coefficients.shp")
-    outList_shp.append([out_scenario_shp, out_pud_shp, out_coeff_shp])
-
-    out_coeff_txt = os.path.join(arcpy.env.scratchFolder, "regression_coefficients.txt")
-    out_monthlyTab_csv = os.path.join(arcpy.env.scratchFolder, "monthly_table.csv")
-    outList_tabs.append([out_coeff_txt, out_monthlyTab_csv])
-
-elif compute_regression and not grid_aoi:
+def run_PUD():
 
     args = {
         u'aoi_path': aoi_path,
         u'start_year': start_year,
         u'end_year': end_year,
         u'compute_regression': compute_regression,
-        u'predictor_table_path': predictor_table_path,
-        u'scenario_predictor_table_path': scenario_predictor_table_path,
-        u'grid_aoi': False,
-        u'workspace_dir': workspace_dir,
-    }
-    out_scenario_shp = os.path.join(arcpy.env.scratchFolder, "scenario_results.shp")
-    out_pud_shp = os.path.join(arcpy.env.scratchFolder, "pud_results.shp")
-    out_coeff_shp = os.path.join(arcpy.env.scratchFolder, "regression_coefficients.shp")
-    outList_shp.append([out_scenario_shp, out_pud_shp, out_coeff_shp])
-
-    out_coeff_txt = os.path.join(arcpy.env.scratchFolder, "regression_coefficients.txt")
-    out_monthlyTab_csv = os.path.join(arcpy.env.scratchFolder, "monthly_table.csv")
-    outList_tabs.append([out_coeff_txt, out_monthlyTab_csv])
-
-elif not compute_regression and grid_aoi:
-
-    args = {
-        u'aoi_path': aoi_path,
-        u'start_year': start_year,
-        u'end_year': end_year,
-        u'compute_regression': False,
         u'grid_aoi': grid_aoi,
-        u'grid_type': grid_type,
-        u'cell_size': cell_size,
         u'workspace_dir': workspace_dir,
     }
-    out_pud_shp = os.path.join(arcpy.env.scratchFolder, "pud_results.shp")
+
+    if predictor_table_path and predictor_table_path != '#':
+        args[u'predictor_table_path'] = predictor_table_path
+        if scenario_predictor_table_path and scenario_predictor_table_path != '#':
+            args[u'scenario_predictor_table_path'] = scenario_predictor_table_path
+
+    if grid_aoi:
+        args[u'grid_type'] = grid_type
+        args[u'cell_size'] = cell_size
+
+    return args
+
+
+def path_to_output_files(compute_regression, scenario_predictor_table_path, _OUTPUT, outList_shp, outList_tabs):
+
+    out_pud_shp = os.path.join(arcpy.env.scratchFolder, _OUTPUT['pud_map'])
     outList_shp.append(out_pud_shp)
-    out_monthlyTab_csv = os.path.join(arcpy.env.scratchFolder, "monthly_table.csv")
+    out_monthlyTab_csv = os.path.join(arcpy.env.scratchFolder, _OUTPUT['monthly_pud_table'])
     outList_tabs.append(out_monthlyTab_csv)
 
-else:
-    args = {
-        u'aoi_path': aoi_path,
-        u'start_year': start_year,
-        u'end_year': end_year,
-        u'compute_regression': False,
-        u'grid_aoi': False,
-        u'workspace_dir': workspace_dir,
-    }
-    out_pud_shp = os.path.join(arcpy.env.scratchFolder, "pud_results.shp")
-    outList_shp.append(out_pud_shp)
-    out_monthlyTab_csv = os.path.join(arcpy.env.scratchFolder, "monthly_table.csv")
-    outList_tabs.append(out_monthlyTab_csv)
+    if compute_regression:
+        out_coeff_shp = os.path.join(arcpy.env.scratchFolder, _OUTPUT['coefficients_map'])
+        outList_shp.append(out_coeff_shp)
+        out_coeff_txt = os.path.join(arcpy.env.scratchFolder, _OUTPUT['coefficients_table'])
+        outList_tabs.append(out_coeff_txt)
+        if scenario_predictor_table_path and scenario_predictor_table_path != '#':
+            out_scenario_shp = os.path.join(arcpy.env.scratchFolder, _OUTPUT['pud_scenario_map'])
+            outList_shp.append(out_scenario_shp)
+
+    return outList_shp, outList_tabs
+
 
 if __name__ == '__main__':
+
+    args = run_PUD()
     natcap.invest.recreation.recmodel_client.execute(args)
-    #### Set Parameters ####
+
+    #### Connect to Output Files ####
+    outList_shp, outList_tabs = path_to_output_files(compute_regression, scenario_predictor_table_path, _OUTPUT, outList_shp=[], outList_tabs=[])
     outList_shp = [l for sublist in outList_shp for l in sublist]
     results_shp = ";".join(outList_shp)
     outList_tabs = [l for sublist in outList_tabs for l in sublist]
     results_tabs = ";".join(outList_tabs)
+    #### Set Parameters ####
     arcpy.SetParameter(9, results_shp)
     arcpy.SetParameter(10, results_tabs)
