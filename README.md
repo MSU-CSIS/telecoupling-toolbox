@@ -2,7 +2,6 @@ Telecoupling Toolbox v0.9-alpha
 ===========
 To install the Telecoupling Toolbox, make sure to follow all the steps specified below.
 
-<br />
 
 ##Prerequisites
 -----------
@@ -10,13 +9,11 @@ To install the Telecoupling Toolbox, make sure to follow all the steps specified
 * Python 2.7.x (32- and/or 64-bit)
 * ArcGIS (>= 10.3. Not yet tested for 10.2 or 10.4)
 
-<br data-effect="nomal"/>
 
 ##Locate Python and add it to your system PATH
 ------------
 If you have never done this, you can check the [blog post](https://pythongisandstuff.wordpress.com/2013/07/10/locating-python-adding-to-path-and-accessing-arcpy/) on how to accomplish this. Although this step is *NOT* mandatory to follow the next steps, we **STRONGLY** recommend it to avoid having to copy/paste the full path to your python installation every time you want to open Python from command line or install any Python libraries using a package manager.
 
-<br data-effect="slide"/>
 
 ##Install Python library dependencies
 ---------------------
