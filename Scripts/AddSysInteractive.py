@@ -78,7 +78,7 @@ def AddSystems():
                 arcpy.AddError("Number of records in 'Input Attribute Table' MUST equal number of systems on the map!!")
                 raise arcpy.ExecuteError
             else:
-                with arcpy.da.UpdateCursor(out_layer, 'Name') as cursor:
+                with arcpy.da.UpdateCursor(out_layer, 'NAME') as cursor:
                     for row in cursor:
                         row[0] = sysTable['features'][idx]['attributes']['Name']
                         # Update the cursor with the updated list
