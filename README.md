@@ -1,23 +1,25 @@
-Telecoupling Toolbox v0.9-alpha
+Telecoupling Toolbox v1.0-alpha
 ===========
 To install the Telecoupling Toolbox, make sure to follow all the steps specified below.
 
 
-##Prerequisites
+## Prerequisites
 -----------
 * R (>= 3.2.0)
 * Python 2.7.x (32- and/or 64-bit)
 * ArcGIS (>= 10.3. Not yet tested for 10.2 or 10.4)
 
 
-##Locate Python and add it to your system PATH
+## Locate Python and add it to your system PATH
 ------------
 If you have never done this, you can check the [blog post](https://pythongisandstuff.wordpress.com/2013/07/10/locating-python-adding-to-path-and-accessing-arcpy/) on how to accomplish this. Although this step is *NOT* mandatory to follow the next steps, we **STRONGLY** recommend it to avoid having to copy/paste the full path to your python installation every time you want to open Python from command line or install any Python libraries using a package manager.
 
 
-##Install Python library dependencies
+## Install Python library dependencies
 ---------------------
-These are needed to run any tool that uses InVEST 3.3.1 models, thus it is NOT a toolbox requirement but rather an InVEST-specific requirement. You can help yourself with the [PyPI page](https://pypi.python.org/pypi/natcap.invest/3.3.1 ) for the natcap.invest package or the [InVEST API documentation](http://invest.readthedocs.io/en/latest/installing.html). Your Windows version should come with a C/C++ compiler installed and configured for your system. However, you can always download and installed the correct compiler for Python 2.7 from the [Microsoft webpage](https://www.microsoft.com/en-us/download/details.aspx?id=44266). The python [wiki page](https://wiki.python.org/moin/WindowsCompilers) on compilation under Windows can also be of help.
+The Telecoupling Toolbox (v1.0a) relies on a number of external software libraries that need to be installed prior to running any script tools. 
+
+At present, these libraries include Python and R modules. Most of the Python libraries you will install are necessary to run any script tool that makes use of the [NatCap InVEST software](http://www.naturalcapitalproject.org/invest/). Therefore, these libraries are required by InVEST itself, not the Telecoupling Toolbox. You can help yourself with the [PyPI page](https://pypi.python.org/pypi/natcap.invest/3.3.1 ) for the natcap.invest package or the [InVEST API documentation](http://invest.readthedocs.io/en/latest/installing.html). Your Windows version should come with a C/C++ compiler installed and configured for your system. However, you can always download and installed the correct compiler for Python 2.7 from the [Microsoft webpage](https://www.microsoft.com/en-us/download/details.aspx?id=44266). The python [wiki page](https://wiki.python.org/moin/WindowsCompilers) on compilation under Windows can also be of help.
 
 After installing the C/C++ compiler, you can start installing all the necessary python libraries. If you are not too familiar with Python, you may find yourself lost in installing libraries. The easiest way out is to use a "package manager", such as __*pip*__. If you have ArcGIS >= 10.4 installed on your system, the Python distribution should already come with *pip* installed (among other libraries such as *SciPy*). If you have ArcGIS < 10.4, then you should make sure to install *pip* manually, following [these directions](https://pip.pypa.io/en/stable/installing/). 
 
@@ -68,19 +70,28 @@ There are no .whl (wheels) versions for either *natcap.invest* or *pygeoprocessi
 pip install natcap.invest
 ```
 
-##Install the R-ArcGIS tools
+After you are done installing all Python libraries needed to use InVEST models, make sure to install these additional ones:
+
+* bs4 
+* BeautifulSoup 
+
+## Install the R-ArcGIS tools <a id="r-arcgis"></a>
 ---------------------
 
 ArcGIS has developed a nice [Github webpage](https://github.com/R-ArcGIS/r-bridge-install) with lots of useful documentation on how to install a set of libraries to make sure R and ArcGIS can talk to each other.
 
 Inside the .zip folder of the toolbox you will find another .zip folder called *r-bridge-install-master*. As the instructions in the webpage above point out, unzip the folder and open ArcMap. Go to the toolboxes menu, right-click and select to "add toolbox". Then, find the **R Integration.pyt** toolbox inside the unzipped folder and you should see a new toolbox appearing in the list of existing ones. At this point, follow the instructions from the github webpage above to make sure you have the correct R software version installed and install the appropriate libraries that ArcGIS and R need to talk to each other.
 
-##Add the Telecoupling Toolbox to ArcGIS
+## Add the Telecoupling Toolbox to ArcGIS
 ---------------------
 
-We are almost done. At this point, you are ready to add the Telecoupling Toolbox that came with the .zip folder. Follow the same procedure at step (3) to add this new toolbox to the list inside ArcMap. If all goes well, you should see it appearing in the list. Feel free to expand the 5 toolsets (*__agents__*, *__causes__*, *__effects__*, *__flows__*, *__systems__*) and find the python tool scripts inside each one of them. To learn more about the geoprocessing and mapping tasks for each one of the tool scripts, please read the documentation attached to each tool. You can either use ArcCatalog to read about description of purpose and parameters of each tool, OR you can double-click each tool inside ArcMap and read the main description found in the 'help' tab opened on the right of the user interface for the tool.
+You are almost done! 
 
-##Test the tools using the sample data provided
+On the home page of the Telecoupling Toolbox repository, find the [Downloads](https://bitbucket.org/f-tonini/telecoupling-geoapp/downloads) menu on the left. Click on 'Download repository' and save the .zip file on your local computer. The zipped folder contains a snapshot of ALL current files and documents that are found in this repository. After unzipping the file, you will notice an ArcMap file (.mxd) called **TelecouplingApplication.mxd**. If you double-click on it, your ArcGIS will open and show a set of GIS layers used by the application as a basemap. Moreover, if you open the ArcToolbox tab, you should see the current version of the Telecoupling Toolbox already added to the list. Alternatively, you can open a brand new ArcMap document and follow the same procedure shown in the [Install the R-ArcGIS tools](#r-arcgis) section to add the Telecoupling Toolbox. 
+
+Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__effects__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. To learn more about what each tool script does and what parameters it takes, please refer to the help documentation that comes with it. To do so, you can either use ArcCatalog, clicking on the 'description' tab for a tool or, alternatively, click on the 'show help' button found at the bottom of each tool script after opening it (double-click on the tool script to open the user interface). 
+
+## Test the tools using the sample data provided
 ---------------------
 
-You can start testing and using each tool inside the **Telecoupling Toolbox** with the set of sample data provided inside the .zip folder. There you will see a mix of GIS (vector, raster) data and tables (.csv) needed by the tools.
+You can now start testing and using the toolbox using the set of sample data ('SampleData.zip') provided with this repository. After unzipping the sample data folder, you will see a mix of GIS (vector, raster) data and tables (.csv) needed as input parameters by the script tools.
