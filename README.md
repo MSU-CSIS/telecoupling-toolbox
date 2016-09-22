@@ -75,7 +75,7 @@ After you are done installing all Python libraries needed to use InVEST models, 
 * bs4 
 * BeautifulSoup 
 
-## Install the R-ArcGIS tools <a id="r-arcgis"></a>
+## Install the R-ArcGIS tools 
 ---------------------
 
 ArcGIS has developed a nice [Github webpage](https://github.com/R-ArcGIS/r-bridge-install) with lots of useful documentation on how to install a set of libraries to make sure R and ArcGIS can talk to each other.
@@ -87,7 +87,7 @@ Inside the .zip folder of the toolbox you will find another .zip folder called *
 
 You are almost done! 
 
-On the home page of the Telecoupling Toolbox repository, find the [Downloads](https://bitbucket.org/f-tonini/telecoupling-geoapp/downloads) menu on the left. Click on 'Download repository' and save the .zip file on your local computer. The zipped folder contains a snapshot of ALL current files and documents that are found in this repository. After unzipping the file, you will notice an ArcMap file (.mxd) called **TelecouplingApplication.mxd**. If you double-click on it, your ArcGIS will open and show a set of GIS layers used by the application as a basemap. Moreover, if you open the ArcToolbox tab, you should see the current version of the Telecoupling Toolbox already added to the list. Alternatively, you can open a brand new ArcMap document and follow the same procedure shown in the [Install the R-ArcGIS tools](#r-arcgis) section to add the Telecoupling Toolbox. 
+On the home page of the Telecoupling Toolbox repository, find the [Downloads](https://bitbucket.org/f-tonini/telecoupling-geoapp/downloads) menu on the left. Click on 'Download repository' and save the .zip file on your local computer. The zipped folder contains a snapshot of ALL current files and documents that are found in this repository. After unzipping the file, you will notice an ArcMap file (.mxd) called **TelecouplingApplication.mxd**. If you double-click on it, your ArcGIS will open and show a set of GIS layers used by the application as a basemap. Moreover, if you open the ArcToolbox tab, you should see the current version of the Telecoupling Toolbox already added to the list. Alternatively, you can open a brand new ArcMap document and follow the same procedure shown in the 'Install the R-ArcGIS tools' section to add the Telecoupling Toolbox. 
 
 Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__effects__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. To learn more about what each tool script does and what parameters it takes, please refer to the help documentation that comes with it. To do so, you can either use ArcCatalog, clicking on the 'description' tab for a tool or, alternatively, click on the 'show help' button found at the bottom of each tool script after opening it (double-click on the tool script to open the user interface). 
 
