@@ -106,7 +106,9 @@ tool_exec <- function(in_params, out_params)
   
   #### Run Factor Analysis for Mixed Data (FAMD) ####
   message("Running Factor Analysis...")
-  tryCatch(
+  if (!is.null(out_pdf)){
+  
+    tryCatch(
    {
 	  #### Run PCA if ONLY QUANTITATIVE vars were selected #### 
 	  if ( !is.null(quant_variables) ) 
@@ -141,10 +143,11 @@ tool_exec <- function(in_params, out_params)
    message("Creating Plots for Report...")
    tryCatch(
      {
-       #wkspath <- env$workspace
-	   #print(wkspath)
-	   #print(file.path(wkspath,"Report.pdf"))
-       pdf("D:/Report_FAMD.pdf")  # <----- CHANGE THIS TO ARCGIS SCRATCH WORKSPACE!!
+      #wkspath <- env$workspace
+	  #print(wkspath)
+	  #print(file.path(wkspath,"Report.pdf"))
+      #pdf("D:/Report_FAMD.pdf")  # <----- CHANGE THIS TO ARCGIS SCRATCH WORKSPACE!!
+	  pdf(out_pdf)
 	  if ( !is.null(quant_variables) ) 
 	  {
 	    if ( is.null(qual_variables) | (!is.null(quali_sup) && unlist(qual_variables)==unlist(quali_sup)) ){
@@ -182,6 +185,8 @@ tool_exec <- function(in_params, out_params)
 	  }	  
 
      }, finally = { dev.off() })  
+  
+  }
 
   return(out_params)
 }
