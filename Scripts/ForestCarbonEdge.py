@@ -59,5 +59,7 @@ if __name__ == '__main__':
     #### Set Parameters ####
     outCarbon_rast = os.path.join(arcpy.env.scratchFolder, "carbon_map.tif")
     arcpy.SetParameter(8, outCarbon_rast)
-    outAggrCstock_shp = os.path.join(arcpy.env.scratchFolder, "aggregated_carbon_stocks.shp")
-    arcpy.SetParameter(9, outAggrCstock_shp)
+    if aoi_uri != "":
+        args['aoi_uri'] = aoi_uri
+        outAggrCstock_shp = os.path.join(arcpy.env.scratchFolder, "aggregated_carbon_stocks.shp")
+        arcpy.SetParameter(9, outAggrCstock_shp)
