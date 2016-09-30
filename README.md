@@ -27,16 +27,16 @@ After installing the C/C++ compiler, you can start installing all the necessary 
 
 Once you installed *pip* you can start using it to install all Python libraries needed for InVEST to run:
 
-* gdal>=1.11.2,<2.0
+* gdal (>=1.11.2,<2.0)
 * matplotlib
-* natcap.versioner>=0.4.2
-* numpy>=1.11.0
-* pyamg>=2.2.1
-* pygeoprocessing>=0.3.0a17
-* rtree>=0.8.2
-* scipy>=0.16.1
+* numpy+mkl (>=1.11.0)
+* scipy (>=0.16.1)
+* pyamg (>=2.2.1)
+* rtree (>=0.8.2)
 * shapely
-* setuptools>=8.0
+* setuptools (>=8.0)
+* natcap.versioner (>=0.4.2)
+* pygeoprocessing (>=0.3.0a17)
 
 **NOTE**: *you __MUST__ to install all the above packages prior to install the natcap.invest python library*
 
