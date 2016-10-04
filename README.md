@@ -5,9 +5,9 @@ To install the Telecoupling Toolbox, make sure to follow all the steps specified
 
 ## Prerequisites
 -----------
-* R (>= 3.2.0)
+* R (3.2.0 or later)
 * Python 2.7.x (32- and/or 64-bit)
-* ArcGIS (>= 10.3. Not yet tested for 10.2 or 10.4)
+* ArcGIS (10.3.1 or later)
 
 
 ## Locate Python and add it to your system PATH
