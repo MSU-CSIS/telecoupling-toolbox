@@ -7,7 +7,6 @@ Model Used: InVEST 3.3.x Recreation Model
 import arcpy
 import SSUtilities as UTILS
 import natcap.invest.recreation.recmodel_client
-import natcap.invest.recreation.recmodel_server
 import os
 
 arcpy.env.overwriteOutput = True
@@ -76,13 +75,13 @@ def path_to_output_files(compute_regression, scenario_predictor_table_path, _OUT
 if __name__ == '__main__':
 
     args = run_PUD()
+    arcpy.AddMessage(args)
+
     natcap.invest.recreation.recmodel_client.execute(args)
 
     #### Connect to Output Files ####
     outList_shp, outList_tabs = path_to_output_files(compute_regression, scenario_predictor_table_path, _OUTPUT, outList_shp=[], outList_tabs=[])
-    outList_shp = [l for sublist in outList_shp for l in sublist]
     results_shp = ";".join(outList_shp)
-    outList_tabs = [l for sublist in outList_tabs for l in sublist]
     results_tabs = ";".join(outList_tabs)
     #### Set Parameters ####
     arcpy.SetParameter(9, results_shp)

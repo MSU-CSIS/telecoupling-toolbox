@@ -65,6 +65,6 @@ if __name__ == '__main__':
     out_yield = os.path.join(arcpy.env.scratchFolder, _OUTPUT['yield_raster'])
     arcpy.SetParameter(11, out_yield)
     if compute_financial_analysis or compute_nutritional_contents:
-        outList_tabs = [l for sublist in outList_tabs for l in sublist]
+        #outList_tabs = [l for sublist in outList_tabs for l in sublist]
         results_tabs = ";".join(outList_tabs)
         arcpy.SetParameter(12, results_tabs)
