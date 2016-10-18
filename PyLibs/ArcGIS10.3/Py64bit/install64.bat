@@ -1,7 +1,5 @@
-ECHO Adding 64-bit ArcGISx64 Python27 to system PATH...
-SETX PATH "%PATH%;C:\Python27\ArcGISx6410.3;C:\Python27\ArcGISx6410.3\Scripts"
+@echo off
 SET PATH=%PATH%C:\Python27\ArcGISx6410.3;C:\Python27\ArcGISx6410.3\Scripts
-ECHO Installing Required Python Modules...
 pip install GDAL-1.11.4-cp27-none-win_amd64.whl
 pip install matplotlib-1.5.2-cp27-cp27m-win_amd64.whl
 pip install numpy-1.11.1+mkl-cp27-cp27m-win_amd64.whl
