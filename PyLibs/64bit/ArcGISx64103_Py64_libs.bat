@@ -9,8 +9,8 @@ pip install Rtree-0.8.2-cp27-cp27m-win_amd64.whl
 pip install Shapely-1.5.16-cp27-cp27m-win_amd64.whl
 pip install natcap.versioner
 pip install setuptools
-pip install --upgrade --pre --no-deps pygeoprocessing
-pip install natcap.invest
+pip install pygeoprocessing==0.3.0a22
+pip install natcap.invest==3.3.1
 pip install bs4
 pip install BeautifulSoup
 PAUSE
