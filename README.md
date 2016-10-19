@@ -26,21 +26,21 @@ The Telecoupling Toolbox (v1.0a) relies on a number of python libraries that are
         * Open the CMD prompt on Windows and type:
         `C:\Python27\ArcGIS10.3\python.exe` followed by the full path to `get-pip.py` downloaded file
         * Hit _Enter_ to run the command above
-        * Open the folder `PyLibs\ArcGIS10.3\Py32bit` found inside the (unzipped) telecoupling toolbox folder
-        * Double-click on the `install32.bat` file
+        * Open the folder `PyLibs\32bit` found inside the (unzipped) telecoupling toolbox folder
+        * Double-click on the `ArcGIS103_Py32_libs.bat` file
     * **ArcGIS 10.3.1 (with 64-bit Background Geoprocessing)**: 
         * Download [get-pip.py](https://bootstrap.pypa.io/get-pip.py)
         * Open the CMD prompt on Windows and type:
         `C:\Python27\ArcGISx6410.3\python.exe` followed by the full path to `get-pip.py` downloaded file
         * Hit _Enter_ to run the command above
-        * Open the folder `PyLibs\ArcGIS10.3\Py64bit` found inside the (unzipped) telecoupling toolbox folder
-        * Double-click on the `install64.bat` file
+        * Open the folder `PyLibs\64bit` found inside the (unzipped) telecoupling toolbox folder
+        * Double-click on the `ArcGISx64103_Py64_libs.bat` file
     * **ArcGIS 10.4.x (standard 32-bit version)**: 
-        * Open the folder `PyLibs\ArcGIS10.4\Py32bit` 
-        * Double-click on the `install32.bat` file
+        * Open the folder `PyLibs\32bit` 
+        * Double-click on the `ArcGIS104_Py32_libs.bat` file
     * **ArcGIS 10.4.x (with 64-bit Background Geoprocessing)**:
-        * Open the folder `PyLibs\ArcGIS10.4\Py64bit` 
-        * Double-click on the `install64.bat` file
+        * Open the folder `PyLibs\64bit` 
+        * Double-click on the `ArcGISx64104_Py64_libs.bat` file
 
 ## Install the R-ArcGIS tools 
 ---------------------
