@@ -1,10 +1,26 @@
-Telecoupling Toolbox v1.0-alpha
+Telecoupling Toolbox v1.0.1-alpha
 ===========
-To install the Telecoupling Toolbox, make sure to follow all the steps specified below.
 
+## Major Releases
+------------------
+* Version 1.0 (_alpha_)
+
+This is the first version officially released for the Telecoupling Toolbox for ArcGIS. 
+The toolbox is still in _alpha_ development stage and is being tested for bugs and errors that need to be addressed before releasing a more stable _beta_ version.
+
+## Minor Releases
+------------------
+
+* Version 1.0.1 (_alpha_)
+
+Fixed bug in the script tools linked to InVEST (3.3.1) that caused any output vector and raster files to incorrectly align with the input layers. The issue seems to be caused by the way ArcGIS interprets the spatial reference (projection string) of output files saved by the InVEST software. 
+A workaround has been implemented, automatically re-defining the projection of the output layers before showing in the table of content in ArcGIS
 
 ## Prerequisites
 -----------
+
+To install the Telecoupling Toolbox, make sure to follow all the steps specified below.
+
 * R (3.2.0 or later)
 * ArcGIS (10.3.1 or later)
 * Python 2.7.x (**do NOT install a standalone version of Python! This is installed automatically with ArcGIS**)
@@ -17,7 +33,7 @@ To install the Telecoupling Toolbox, make sure to follow all the steps specified
 
 ## Install Python libraries for 3rd party external software
 ---------------------
-The Telecoupling Toolbox (v1.0a) relies on a number of python libraries that are required to run tools that use external software (e.g. InVEST). If you skip this step, tools using any external software will NOT work. 
+The Telecoupling Toolbox relies on a number of python libraries that are required to run tools that use external software (e.g. InVEST). If you skip this step, tools using any external software will NOT work. 
 
 1. Download and install the [Microsoft Visual C++ Compiler for Python 2.7](https://www.microsoft.com/en-us/download/details.aspx?id=44266)
 2. Follow the instructions below depending on the version of ArcGIS installed on your system:
