@@ -19,12 +19,13 @@ def DrawRadialFlows():
     spRef = arcpy.GetParameterAsText(7)
     joinFields = arcpy.GetParameterAsText(8)
     joinFields = joinFields.split(";")
+    outLyrName = arcpy.GetParameterAsText(9)
 
     if inTable and inTable != "#":
 
         try:
             # XY To Line
-            flowsOutputFC = os.path.join(arcpy.env.scratchGDB, "FlowLines")
+            flowsOutputFC = os.path.join(arcpy.env.scratchGDB, outLyrName)
             arcpy.AddMessage('Saved Flow Lines to: ' + flowsOutputFC)
             arcpy.SetProgressorLabel('Creating Radial Flow Lines ...')
             if id_field:
@@ -57,7 +58,7 @@ def DrawRadialFlows():
                                           line_type=lineType_str, spatial_reference=spRef)
 
             # Send string of (derived) output parameters back to the tool
-            arcpy.SetParameterAsText(9, flowsOutputFC)
+            arcpy.SetParameterAsText(10, flowsOutputFC)
             arcpy.ResetProgressor()
 
         except Exception:

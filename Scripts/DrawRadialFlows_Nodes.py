@@ -19,6 +19,8 @@ def DrawRadialFlows_Nodes():
     spRef = arcpy.GetParameterAsText(7)
     joinFields = arcpy.GetParameterAsText(8)
     joinFields = joinFields.split(";")
+    outLyrName = arcpy.GetParameterAsText(9)
+    outNodesLyrName = arcpy.GetParameterAsText(10)
 
     if inTable and inTable != "#":
 
@@ -35,12 +37,12 @@ def DrawRadialFlows_Nodes():
                                               out_layer=nodesOutput)
 
             # Copy XY Event Layer to Feature Class
-            nodesOutputFC = os.path.join(arcpy.env.scratchGDB, "DestNodesFC")
+            nodesOutputFC = os.path.join(arcpy.env.scratchGDB, outNodesLyrName)
             arcpy.CopyFeatures_management(in_features=nodesOutput, out_feature_class=nodesOutputFC)
             outList.append(nodesOutputFC)
 
             # XY To Line
-            flowsOutputFC = os.path.join(arcpy.env.scratchGDB, "FlowLines")
+            flowsOutputFC = os.path.join(arcpy.env.scratchGDB, outLyrName)
             arcpy.AddMessage('Saved Flow Lines to: ' + flowsOutputFC)
             arcpy.SetProgressorLabel('Creating Radial Flow Lines ...')
             if id_field:
@@ -77,7 +79,7 @@ def DrawRadialFlows_Nodes():
 
             results = ";".join(outList)
             # Send string of (derived) output parameters back to the tool
-            arcpy.SetParameterAsText(9, results)
+            arcpy.SetParameterAsText(11, results)
             arcpy.ResetProgressor()
 
         except Exception:
