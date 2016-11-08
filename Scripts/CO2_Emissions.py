@@ -2,6 +2,7 @@ import arcpy
 import sys
 import os
 import SSUtilities as UTILS
+import math
 
 arcpy.env.overwriteOutput = True
 
@@ -9,7 +10,9 @@ def calc_CO2_emissions():
 
     # Get the value of the input parameter
     inputFC = arcpy.GetParameterAsText(0)  # Polygon or point feature class
-    CO2_emission = UTILS.getNumericParameter(1)  # Amount of CO2 emission (kg/unit)
+    wildlife_units = arcpy.GetParameterAsText(1) # Field from input FC representing number of wildlife units transferred
+    capacity_per_trip = UTILS.getNumericParameter(2) # Transportation capacity (wildlife units per trip)
+    CO2_emission = UTILS.getNumericParameter(3)  # Amount of CO2 emission (kg/unit)
 
     try:
 
@@ -24,14 +27,15 @@ def calc_CO2_emissions():
         arcpy.AddMessage('Calculating CO2 Emissions for Each Flow ...')
         arcpy.SetProgressorLabel('Calculating CO2 Emissions for Each Flow ...')
 
-        with arcpy.da.UpdateCursor(inputFC, ['SHAPE@LENGTH', 'CO2_EMISSIONS_KG']) as cursor:
+        with arcpy.da.UpdateCursor(inputFC, ['SHAPE@LENGTH', wildlife_units, 'CO2_EMISSIONS_KG']) as cursor:
             for row in cursor:
+                total_trips = math.ceil(float(row[1])/capacity_per_trip)
                 #SHAPE@LENGTH will be likely in meters (depending on coordinate system)
-                row[1] = row[0] * CO2_emission
+                row[2] = row[0] * total_trips * CO2_emission
                 cursor.updateRow(row)
 
         #### Set Parameters ####
-        arcpy.SetParameterAsText(2, inputFC)
+        arcpy.SetParameterAsText(4, inputFC)
 
     except Exception:
         e = sys.exc_info()[1]

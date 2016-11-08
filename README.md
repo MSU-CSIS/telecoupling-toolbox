@@ -1,8 +1,13 @@
-Telecoupling Toolbox v1.0.1a
+Telecoupling Toolbox v1.1.1a
 ===========
 
 ## Major Releases
 ------------------
+* Version 1.1 (_alpha_)
+
+This release includes an upgrade in the CO2 emission script tool accounting for number of wildlife units transferred and transportation capacity of the medium used. 
+The toolbox is still in alpha development stage and is being tested for bugs and errors that need to be addressed before releasing a more stable beta version.
+
 * Version 1.0 (_alpha_)
 
 This is the first version officially released for the Telecoupling Toolbox for ArcGIS. 
