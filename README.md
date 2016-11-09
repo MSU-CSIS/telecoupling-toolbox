@@ -6,6 +6,7 @@ Telecoupling Toolbox v1.1.1a
 * Version 1.1 (_alpha_)
 
 This release includes an upgrade in the CO2 emission script tool accounting for number of wildlife units transferred and transportation capacity of the medium used. 
+The tool now allows testing of future CO2 emission scenarios for wildlife transfer compared to current conditions.
 The toolbox is still in alpha development stage and is being tested for bugs and errors that need to be addressed before releasing a more stable beta version.
 
 * Version 1.0 (_alpha_)
