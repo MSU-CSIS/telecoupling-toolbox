@@ -19,13 +19,35 @@ def DrawRadialFlows():
     spRef = arcpy.GetParameterAsText(7)
     joinFields = arcpy.GetParameterAsText(8)
     joinFields = joinFields.split(";")
-    outLyrName = arcpy.GetParameterAsText(9)
+    isChecked_AddNodes = arcpy.GetParameter(9)
+    outFlowsLyrName = arcpy.GetParameterAsText(10)
+    outNodesLyrName = arcpy.GetParameterAsText(11)
 
     if inTable and inTable != "#":
 
         try:
+            # create empty list to append all output layers
+            outList = []
+
+            if isChecked_AddNodes and outNodesLyrName != '':
+
+                # Make XY Event Layer (temporary)
+                # Local variable:
+                nodesXY = r"in_memory\nodes_lyr"
+                arcpy.AddMessage('Creating Nodes at Flow Destinations ...')
+                arcpy.SetProgressorLabel('Creating Nodes at Flow Destinations ...')
+                arcpy.MakeXYEventLayer_management(table=inTable,
+                                                  in_x_field=endX_field, in_y_field=endY_field,
+                                                  out_layer=nodesXY)
+
+                # Copy XY Event Layer to Feature Class
+                nodesOutputFC = os.path.join(arcpy.env.scratchGDB, outNodesLyrName)
+                arcpy.CopyFeatures_management(in_features=nodesXY, out_feature_class=nodesOutputFC)
+                outList.append(nodesOutputFC)
+
+
             # XY To Line
-            flowsOutputFC = os.path.join(arcpy.env.scratchGDB, outLyrName)
+            flowsOutputFC = os.path.join(arcpy.env.scratchGDB, outFlowsLyrName)
             arcpy.AddMessage('Saved Flow Lines to: ' + flowsOutputFC)
             arcpy.SetProgressorLabel('Creating Radial Flow Lines ...')
             if id_field:
@@ -57,8 +79,12 @@ def DrawRadialFlows():
                                           endx_field=endX_field, endy_field=endY_field,
                                           line_type=lineType_str, spatial_reference=spRef)
 
+            outList.append(flowsOutputFC)
+
             # Send string of (derived) output parameters back to the tool
-            arcpy.SetParameterAsText(10, flowsOutputFC)
+            results = ";".join(outList)
+            # Send string of (derived) output parameters back to the tool
+            arcpy.SetParameterAsText(12, results)
             arcpy.ResetProgressor()
 
         except Exception:
