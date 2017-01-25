@@ -22,6 +22,10 @@ The toolbox is still in _alpha_ development stage and is being tested for bugs a
 
 ## Minor Releases
 ------------------
+* Version 1.2.1 (_alpha_)
+
+Fixed bug in the Habitat Quality tool (Effects toolset) potentially producing negative values for habitat quality and degradation output rasters.
+
 * Version 1.1.1 (_alpha_)
 
 Added output layer name fields in the Cost-Benefit Analysis (Wildlife Transfer) and Draw Radial Flows tools.
