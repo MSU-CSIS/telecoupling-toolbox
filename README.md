@@ -3,11 +3,17 @@ Telecoupling Toolbox v1.1.1a
 
 ## Major Releases
 ------------------
+* Version 1.2 (_alpha_)
+
+This release eliminates the redundant presence of the “Draw Radial Flows and Nodes” tool (Flows toolset) while incorporating its old functionality into the existing “Draw Radial Flows” tool. 
+The latter can now optionally draw and additional layer on top of the default flow lines, showing nodes at each flow destination, which can then be symbolized according to an attribute (quantity) of interest. 
+The toolbox is still in _alpha_ development stage and is being tested for bugs and errors that need to be addressed before releasing a more stable _beta_ version.
+
 * Version 1.1 (_alpha_)
 
 This release includes an upgrade in the CO2 emission script tool accounting for number of wildlife units transferred and transportation capacity of the medium used. 
 The tool now allows testing of future CO2 emission scenarios for wildlife transfer compared to current conditions.
-The toolbox is still in alpha development stage and is being tested for bugs and errors that need to be addressed before releasing a more stable beta version.
+The toolbox is still in _alpha_ development stage and is being tested for bugs and errors that need to be addressed before releasing a more stable _beta_ version.
 
 * Version 1.0 (_alpha_)
 
@@ -16,11 +22,18 @@ The toolbox is still in _alpha_ development stage and is being tested for bugs a
 
 ## Minor Releases
 ------------------
+* Version 1.2.1 (_alpha_)
+
+Fixed bug in the Habitat Quality tool (Effects toolset) potentially producing negative values for habitat quality and degradation output rasters.
+
+* Version 1.1.1 (_alpha_)
+
+Added output layer name fields in the Cost-Benefit Analysis (Wildlife Transfer) and Draw Radial Flows tools.
 
 * Version 1.0.1 (_alpha_)
 
 Fixed bug in the script tools linked to InVEST (3.3.1) that caused any output vector and raster files to incorrectly align with the input layers. The issue seems to be caused by the way ArcGIS interprets the spatial reference (projection string) of output files saved by the InVEST software. 
-A workaround has been implemented, automatically re-defining the projection of the output layers before showing in the table of content in ArcGIS
+A workaround has been implemented, automatically re-defining the projection of the output layers before showing in the table of content in ArcGIS.
 
 ## Prerequisites
 -----------
