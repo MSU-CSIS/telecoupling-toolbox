@@ -8,11 +8,24 @@ import natcap.invest.habitat_quality.habitat_quality
 import arcpy
 import SSUtilities as UTILS
 import os
+import glob
 import shutil
 import sys
+from arcpy.sa import *
 
 arcpy.env.overwriteOutput = True
 workspace_dir = arcpy.env.scratchFolder
+
+def isLicensed():
+    """Set whether tool is licensed to execute."""
+    try:
+        if arcpy.CheckExtension("Spatial") == "Available":
+            arcpy.CheckOutExtension("Spatial")
+        else:
+            raise Exception
+    except:
+        return False
+    return True
 
 def GetArgs():
 
@@ -41,11 +54,6 @@ def GetArgs():
             if access_uri:
                     args[u'access_uri'] = access_uri
 
-            outQuality_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "quality_out_c.tif")
-            outDegSum_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "deg_sum_out_c.tif")
-            outList.append(outQuality_cur_rast)
-            outList.append(outDegSum_cur_rast)
-
         elif landuse_fut_uri and not landuse_bas_uri:
             args = {
                     u'half_saturation_constant': half_saturation_constant,
@@ -58,15 +66,6 @@ def GetArgs():
             }
             if access_uri:
                     args[u'access_uri'] = access_uri
-
-            outQuality_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "quality_out_c.tif")
-            outQuality_fut_rast = os.path.join(arcpy.env.scratchFolder, "output", "quality_out_f.tif")
-            outDegSum_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "deg_sum_out_c.tif")
-            outDegSum_fut_rast = os.path.join(arcpy.env.scratchFolder, "output", "deg_sum_out_f.tif")
-            outList.append(outQuality_cur_rast)
-            outList.append(outQuality_fut_rast)
-            outList.append(outDegSum_cur_rast)
-            outList.append(outDegSum_fut_rast)
 
         elif not landuse_fut_uri and landuse_bas_uri:
 
@@ -82,13 +81,6 @@ def GetArgs():
             if access_uri:
                     args[u'access_uri'] = access_uri
 
-            outQuality_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "quality_out_c.tif")
-            outDegSum_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "deg_sum_out_c.tif")
-            outRarity_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "rarity_c.tif")
-            outList.append(outQuality_cur_rast)
-            outList.append(outDegSum_cur_rast)
-            outList.append(outRarity_cur_rast)
-
         else:
             args = {
                     u'half_saturation_constant': half_saturation_constant,
@@ -103,24 +95,28 @@ def GetArgs():
             if access_uri:
                 args[u'access_uri'] = access_uri
 
-            outQuality_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "quality_out_c.tif")
-            outQuality_fut_rast = os.path.join(arcpy.env.scratchFolder, "output", "quality_out_f.tif")
-            outDegSum_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "deg_sum_out_c.tif")
-            outDegSum_fut_rast = os.path.join(arcpy.env.scratchFolder, "output", "deg_sum_out_f.tif")
-            outRarity_cur_rast = os.path.join(arcpy.env.scratchFolder, "output", "rarity_c.tif")
-            outRarity_fut_rast = os.path.join(arcpy.env.scratchFolder, "output", "rarity_f.tif")
-            outList.append(outQuality_cur_rast)
-            outList.append(outQuality_fut_rast)
-            outList.append(outDegSum_cur_rast)
-            outList.append(outDegSum_fut_rast)
-            outList.append(outRarity_cur_rast)
-            outList.append(outRarity_fut_rast)
-
     except Exception:
         e = sys.exc_info()[1]
         arcpy.AddError('An error occurred: {}'.format(e.args[0]))
 
-    return args, outList
+    return args
+
+def ClampRaster(in_raster):
+
+    try:
+        inRaster = Raster(in_raster)
+        outCon = Con(inRaster >= 0, inRaster, 0)
+        outFile = os.path.splitext(in_raster)[0] + "_cl0.tif"
+        outCon.save(os.path.join(arcpy.env.scratchFolder, "output", outFile))
+        del inRaster, outCon
+        os.remove(in_raster)
+
+    except arcpy.ExecuteError:
+        arcpy.AddError(arcpy.GetMessages(2))
+
+    except Exception as ex:
+        arcpy.AddError(ex.args[0])
+
 
 def DefineProj(ref_lyr, out_lyr):
 
@@ -139,13 +135,18 @@ def DefineProj(ref_lyr, out_lyr):
 
 
 if __name__ == '__main__':
-    args, outList = GetArgs()
+    isLicensed()
+    args = GetArgs()
     natcap.invest.habitat_quality.habitat_quality.execute(args)
     #remove entire folder and all its content
     shutil.rmtree(os.path.join(arcpy.env.scratchFolder, "intermediate"))
-    for lyr in outList:
+    os.chdir(os.path.join(arcpy.env.scratchFolder, "output"))
+    for lyr in glob.glob("*.tif"):
         ##This step is a workaround to correct proj alignment issue in ArcGIS with output from InVEST
         DefineProj(args[u'landuse_cur_uri'], lyr)
+        if "deg_sum" in lyr or "quality" in lyr:
+            ClampRaster(lyr)
+    outList = [lyr for lyr in glob.glob(os.path.join(arcpy.env.scratchFolder, "output/*.tif"))]
     results = ";".join(outList)
     #### Set Parameters ####
     arcpy.SetParameter(8, results)
