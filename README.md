@@ -102,6 +102,7 @@ You can now start testing and using the toolbox using the set of sample data ('S
 ---------------------
 
 © 2017 Francesco Tonini <ftonini84@gmail.com>
+
 © 2017 ESRI 
 
 ## LICENSE
@@ -113,8 +114,8 @@ See [LICENSE](LICENSE) for details.
 
 This toolbox depends on the R Statistical Computing Software:
 
-Copyright (C) 2017 The R Foundation for Statistical Computing R is free software and comes with ABSOLUTELY NO WARRANTY. See the [COPYRIGHTS](https://github.com/wch/r-source/blob/trunk/doc/COPYRIGHTS) file for details.
+© 2017 The R Foundation for Statistical Computing R is free software and comes with ABSOLUTELY NO WARRANTY. See the [COPYRIGHTS](https://github.com/wch/r-source/blob/trunk/doc/COPYRIGHTS) file for details.
 
 This toolbox depends on ESRI software:
 
-Copyright (C) 2017 ESRI. See the [Software License and Agreement](http://www.esri.com/legal/software-license) for details.
+© 2017 ESRI. See the [Software License and Agreement](http://www.esri.com/legal/software-license) for details.
