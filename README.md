@@ -97,3 +97,24 @@ Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__caus
 ---------------------
 
 You can now start testing and using the toolbox using the set of sample data ('SampleData.zip') provided with this repository. After unzipping the sample data folder, you will see a mix of GIS (vector, raster) data and tables (.csv) needed as input parameters by the script tools. Follow the Telecoupling Toolbox User Guide found inside the Documentation folder and start testing the Telecoupling Toolbox!
+
+## Credits
+---------------------
+
+© 2017 Francesco Tonini <ftonini84@gmail.com>
+© 2017 ESRI 
+
+## LICENSE
+---------------------
+
+Telecoupling Toolbox (“Software”) is the property of Michigan State University (“MSU”) and is made available solely for educational or non-commercial use.
+See [LICENSE](LICENSE) for details.
+
+
+This toolbox depends on the R Statistical Computing Software:
+
+Copyright (C) 2017 The R Foundation for Statistical Computing R is free software and comes with ABSOLUTELY NO WARRANTY. See the [COPYRIGHTS](https://github.com/wch/r-source/blob/trunk/doc/COPYRIGHTS) file for details.
+
+This toolbox depends on ESRI software:
+
+Copyright (C) 2017 ESRI. See the [Software License and Agreement](http://www.esri.com/legal/software-license) for details.
