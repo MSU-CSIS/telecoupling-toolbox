@@ -80,19 +80,12 @@ In order to allow interaction between ArcGIS and the R software, you will need t
 
 1. Open ArcMap (**NOTE: make sure you have admin rights on your computer or the next steps will not work!**)
 2. Find and open the Geoprocessing ArcToolbox window (Menu > Geoprocessing > ArcToolbox) 
-
 ![Figure 1](Figs/ex1.png)
-
 3. Right-click the ArcToolbox folder and select "Add Toolbox..."
-
 ![Figure 2](Figs/ex2.png)
-
 4. Browse to the `r-bridge-install-master` folder found inside the unzipped telecoupling project folder and select the `R Integration.pyt` toolbox
-
 ![Figure 3](Figs/ex3.png)
-
 5. After the toolbox has been added to the ArcToolbox list, click on it to open it and double-click on the `Install R Bindings` tool to open its interface. Click on OK to run it.  
-
 ![Figure 4](Figs/ex4.png)
 
 If you need more details and information, ESRI has developed a nice [Github webpage](https://github.com/R-ArcGIS/r-bridge-install) with lots of useful documentation on how to install a set of libraries to make sure R and ArcGIS can talk to each other.
@@ -112,7 +105,7 @@ Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__caus
 
 ![Figure 5](Figs/ex5.png)
 
-To learn more about what each tool script does and what parameters it takes, please refer to the user guide found inside the `Documentation` folder. Alternatively, each tool will have a help window associated with it, that explain what each parameter is and a general description of the tool. To open the help window, click on the 'show help' button found at the bottom of each tool script after opening it (double-click on the tool script to open the user interface).
+To learn more about what each tool script does and what parameters it takes, please refer to the user guide found inside the `Documentation` folder. Alternatively, each tool will have a help window associated with it explaining what each parameter is and a general description of the tool. To open the help window, click on the 'show help' button found at the bottom of each tool script after opening it (double-click on the tool script to open the user interface).
 
 ![Figure 6](Figs/ex6.png)
 ![Figure 7](Figs/ex7.png)
