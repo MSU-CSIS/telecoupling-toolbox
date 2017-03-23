@@ -67,24 +67,32 @@ The Telecoupling Toolbox relies on a number of python libraries that are require
         * Double-click on the `ArcGIS103_Py32_libs.bat` file
         * If you get errors that prevent installation of any of the required packages, please contact us with detailed information
     * **ArcGIS 10.4.x (standard 32-bit version)**: 
-        * Open the folder `PyLibs` 
+        * Open the folder `PyLibs` found inside the (unzipped) telecoupling project folder
         * Double-click on the `ArcGIS104_Py32_libs.bat` file
     * **ArcGIS 10.5.x (standard 32-bit version)**: 
-        * Open the folder `PyLibs` 
+        * Open the folder `PyLibs` found inside the (unzipped) telecoupling project folder
         * Double-click on the `ArcGIS105_Py32_libs.bat` file
 
 ## Install the R-ArcGIS Bridge  
 ---------------------
 
 In order to allow interaction between ArcGIS and the R software, you will need to follow the next few steps:
-* Open ArcMap (**NOTE: make sure you have admin rights on your computer or the next steps will not work!**)
-* Find and open the Geoprocessing ArcToolbox window (Menu > Geoprocessing > ArcToolbox) 
+
+1. Open ArcMap (**NOTE: make sure you have admin rights on your computer or the next steps will not work!**)
+2. Find and open the Geoprocessing ArcToolbox window (Menu > Geoprocessing > ArcToolbox) 
+
 ![Figure 1](Figs/ex1.png)
-* Right-click the ArcToolbox folder and select "Add Toolbox..."
+
+3. Right-click the ArcToolbox folder and select "Add Toolbox..."
+
 ![Figure 2](Figs/ex2.png)
-* Browse to the `r-bridge-install-master` folder found inside the unzipped telecoupling project folder and select the `R Integration.pyt` toolbox
+
+4. Browse to the `r-bridge-install-master` folder found inside the unzipped telecoupling project folder and select the `R Integration.pyt` toolbox
+
 ![Figure 3](Figs/ex3.png)
-* After the toolbox has been added to the ArcToolbox list, click on it to open it and double-click on the `Install R Bindings` tool to open its interface. Click on OK to run it.  
+
+5. After the toolbox has been added to the ArcToolbox list, click on it to open it and double-click on the `Install R Bindings` tool to open its interface. Click on OK to run it.  
+
 ![Figure 4](Figs/ex4.png)
 
 If you need more details and information, ESRI has developed a nice [Github webpage](https://github.com/R-ArcGIS/r-bridge-install) with lots of useful documentation on how to install a set of libraries to make sure R and ArcGIS can talk to each other.
@@ -96,9 +104,9 @@ You are almost done! Now that you installed all Python 3rd party libraries and t
 
 Follow these steps to add the Toolbox to your ArcMap document:
 
-* Open ArcMap
-* Right-click on the ArcToolbox folder and select "Add Toolbox"
-* Browse to the unzipped folder of the telecoupling project and select `Telecoupling Tools v1.2.1a.tbx`
+1. Open ArcMap
+2. Right-click on the ArcToolbox folder and select "Add Toolbox"
+3. Browse to the unzipped folder of the telecoupling project and select `Telecoupling Tools v1.2.1a.tbx`
 
 Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__effects__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. 
 
@@ -117,9 +125,11 @@ That's it! The Telecoupling Toolbox is now added to the ArcToolbox list and you 
 © 2017 Michigan State University 
 
 Francesco Tonini 
+
 <ftonini84@gmail.com>
 
 Jianguo 'Jack' Liu
+
 <liuji@anr.msu.edu>
 
 ## LICENSE
