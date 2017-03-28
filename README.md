@@ -63,17 +63,23 @@ The Telecoupling Toolbox relies on a number of python libraries that are require
         * Open the CMD prompt on Windows and type:
         `C:\Python27\ArcGIS10.3\python.exe` followed by the **full path** to `get-pip.py` (*for example if you downloaded and saved the file on your D:\ drive, the full path would be ``D:\get-pip.py``*)
         * Hit _Enter_ to run the command above
+		* Make sure `pip` is installed and upgraded to latest version by running the command 
+		`C:\Python27\ArcGIS10.3\python.exe -m pip install -U pip`
         * Open the folder `PyLibs` found inside the (unzipped) telecoupling toolbox folder
         * Double-click on the `ArcGIS103_Py32_libs.bat` file
         * If you get errors that prevent installation of any of the required packages, please contact us with detailed information
     * **ArcGIS 10.4.x (standard 32-bit version)**: 
+	    * Open the CMD prompt on Windows and make sure the Python package manager `pip` is installed and upgraded to latest version by running the command 
+		`C:\Python27\ArcGIS10.4\python.exe -m pip install -U pip`
         * Open the folder `PyLibs` found inside the (unzipped) telecoupling project folder
         * Double-click on the `ArcGIS104_Py32_libs.bat` file
     * **ArcGIS 10.5.x (standard 32-bit version)**: 
+		* Open the CMD prompt on Windows and make sure the Python package manager `pip` is installed and upgraded to latest version by running the command 
+		`C:\Python27\ArcGIS10.5\python.exe -m pip install -U pip`
         * Open the folder `PyLibs` found inside the (unzipped) telecoupling project folder
         * Double-click on the `ArcGIS105_Py32_libs.bat` file
 
-## Install the R-ArcGIS Bridge  
+## Install the R-ArcGIS Bridge (*this step does NOT depend on the previous section and can be completed separately!*)
 ---------------------
 
 In order to allow interaction between ArcGIS and the R software, you will need to follow the next few steps:
