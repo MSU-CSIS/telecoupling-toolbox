@@ -14,4 +14,5 @@ C:\Python27\ArcGIS10.3\python.exe -m pip install natcap.invest==3.3.1
 C:\Python27\ArcGIS10.3\python.exe -m pip install bs4
 C:\Python27\ArcGIS10.3\python.exe -m pip install BeautifulSoup
 C:\Python27\ArcGIS10.3\python.exe -m pip install Pyro4
+C:\Python27\ArcGIS10.3\python.exe -m pip install lxml
 PAUSE
