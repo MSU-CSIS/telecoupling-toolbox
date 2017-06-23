@@ -4,6 +4,7 @@ Telecoupling Toolbox v1.0b
 ## Major Releases
 ------------------
 * Version 1.0 (_beta_)
+
 This version moves the development stage from _alpha_ to _beta_ after several months of testing. Some tools might still return errors or have bugs in it, but testing was successful on several different machines and settings. This version updates the InVEST tools to version __3.3.3__ and its dependencies such as the PyGeoprocessing library (_updated to version 0.3.2_). All .bat files inside the PyLibs folder have been updated to reflect this change. The main toolbox file (.tbx) has been updated to reflect the change in version and development stage.
 
 * Version 1.2 (_alpha_)
