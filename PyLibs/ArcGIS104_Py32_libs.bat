@@ -9,8 +9,8 @@ C:\Python27\ArcGIS10.4\python.exe -m pip install Rtree-0.8.2-cp27-cp27m-win32.wh
 C:\Python27\ArcGIS10.4\python.exe -m pip install Shapely-1.5.17-cp27-cp27m-win32.whl
 C:\Python27\ArcGIS10.4\python.exe -m pip install natcap.versioner
 C:\Python27\ArcGIS10.4\python.exe -m pip install setuptools
-C:\Python27\ArcGIS10.4\python.exe -m pip install pygeoprocessing==0.3.0a22
-C:\Python27\ArcGIS10.4\python.exe -m pip install natcap.invest==3.3.1
+C:\Python27\ArcGIS10.4\python.exe -m pip install pygeoprocessing==0.3.2
+C:\Python27\ArcGIS10.4\python.exe -m pip install natcap.invest==3.3.3
 C:\Python27\ArcGIS10.4\python.exe -m pip install bs4
 C:\Python27\ArcGIS10.4\python.exe -m pip install BeautifulSoup
 C:\Python27\ArcGIS10.4\python.exe -m pip install Pyro4

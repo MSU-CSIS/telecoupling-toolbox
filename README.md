@@ -1,8 +1,11 @@
-Telecoupling Toolbox v1.2.1a
+Telecoupling Toolbox v1.0b
 ===========
 
 ## Major Releases
 ------------------
+* Version 1.0 (_beta_)
+This version moves the development stage from _alpha_ to _beta_ after several months of testing. Some tools might still return errors or have bugs in it, but testing was successful on several different machines and settings. This version updates the InVEST tools to version __3.3.3__ and its dependencies such as the PyGeoprocessing library (_updated to version 0.3.2_). All .bat files inside the PyLibs folder have been updated to reflect this change. The main toolbox file (.tbx) has been updated to reflect the change in version and development stage.
+
 * Version 1.2 (_alpha_)
 
 This release eliminates the redundant presence of the “Draw Radial Flows and Nodes” tool (Flows toolset) while incorporating its old functionality into the existing “Draw Radial Flows” tool. 
@@ -112,7 +115,7 @@ Follow these steps to add the Toolbox to your ArcMap document:
 
 1. Open ArcMap
 2. Right-click on the ArcToolbox folder and select "Add Toolbox"
-3. Browse to the unzipped folder of the telecoupling project and select `Telecoupling Tools v1.2.1a.tbx`
+3. Browse to the unzipped folder of the telecoupling project and select `Telecoupling Tools v1.0b.tbx`
 
 Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__effects__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. 
 
