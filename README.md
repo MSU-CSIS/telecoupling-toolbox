@@ -1,4 +1,4 @@
-Telecoupling Toolbox v1.0b
+Telecoupling Toolbox v1.1b
 ===========
 
 ## Major Releases
