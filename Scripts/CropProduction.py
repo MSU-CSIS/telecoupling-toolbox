@@ -107,21 +107,43 @@ def ExtractMask(in_lyr, msk_lyr, out_lyr):
     # Save the output
     outExtractByMask.save(out_lyr)
 
+def ModifyRaster(in_raster, new_name):
+    try:
+        # Get input Raster properties
+        inRaster = Raster(in_raster)
+        lowerLeft = arcpy.Point(inRaster.extent.XMin,inRaster.extent.YMin)
+        cellSize = inRaster.meanCellWidth
+
+        # Convert Raster to numpy array
+        arr = arcpy.RasterToNumPyArray(inRaster, nodata_to_value=0)
+        #Convert Array to raster (keep the origin and cellsize the same as the input)
+        newRaster = arcpy.NumPyArrayToRaster(arr, lowerLeft, cellSize, value_to_nodata=0)
+        newRaster.save(os.path.join(arcpy.env.scratchFolder, new_name))
+        del inRaster, newRaster
+
+    except arcpy.ExecuteError:
+        arcpy.AddError(arcpy.GetMessages(2))
+
+    except Exception as ex:
+        arcpy.AddError(ex.args[0])
+
 if __name__ == '__main__':
     isLicensed()
     args, outList_tabs = GetArgs()
     natcap.invest.crop_production.crop_production.execute(args)
     out_yield = os.path.join(arcpy.env.scratchFolder, _OUTPUT['yield_raster'])
+    out_yield_null = os.path.join(arcpy.env.scratchFolder, "output", "yield_mod.tif")
+    ModifyRaster(out_yield, out_yield_null)
     ##This step is a workaround to correct proj alignment issue in ArcGIS with output from InVEST
-    DefineProj(args[u'aoi_raster'], out_yield)
+    DefineProj(args[u'aoi_raster'], out_yield_null)
     ##This step is a workaround the fact that yield output from InVEST is not masked to the
     ##input raster area but rather a rectangular frame encompassing the entire extent
-    out_yield_msk = os.path.join(arcpy.env.scratchFolder, _OUTPUT['yield_raster_mask'])
-    ExtractMask(out_yield, args[u'aoi_raster'], out_yield_msk)
+    #out_yield_msk = os.path.join(arcpy.env.scratchFolder, _OUTPUT['yield_raster_mask'])
+    #ExtractMask(out_yield, args[u'aoi_raster'], out_yield_msk)
     #remove file not needed
     os.remove(os.path.join(arcpy.env.scratchFolder, _OUTPUT['yield_raster']))
     #### Set Parameters ####
-    arcpy.SetParameter(11, out_yield_msk)
+    arcpy.SetParameter(11, out_yield_null)
     if args[u'compute_financial_analysis'] == True or args[u'compute_nutritional_contents'] == True:
         results_tabs = ";".join(outList_tabs)
         arcpy.SetParameter(12, results_tabs)

@@ -3,6 +3,10 @@ Telecoupling Toolbox v1.0b
 
 ## Major Releases
 ------------------
+* Version 1.1 (_beta_)
+
+This release adds two new tools, the _Habitat Risk Assessment Preprocessor_ and the _Habitat Risk Assessment_, both customized from InVEST (3.3.3). Sample data is now shipped separately from the main code repository to reduce its size. The main toolbox file (.tbx) has been updated to reflect the change in version and development stage as well as naming convention (Telecoupling _Toolbox_ instead of _Tools_). The old ‘Effect’ toolset has now been partitioned into two new toolsets: Environmental Analysis and Socioeconomic Analysis. 
+
 * Version 1.0 (_beta_)
 
 This version moves the development stage from _alpha_ to _beta_ after several months of testing. Some tools might still return errors or have bugs in it, but testing was successful on several different machines and settings. This version updates the InVEST tools to version __3.3.3__ and its dependencies such as the PyGeoprocessing library (_updated to version 0.3.2_). All .bat files inside the PyLibs folder have been updated to reflect this change. The main toolbox file (.tbx) has been updated to reflect the change in version and development stage.
@@ -52,8 +56,8 @@ To install the Telecoupling Toolbox, make sure to follow all the steps specified
 
 ## Download and unzip the Telecoupling Toolbox repository
 ---------------------
-1. Find the [Downloads](https://bitbucket.org/f-tonini/telecoupling-geoapp/downloads) menu on the left of the main overview page. 
-2. Click on 'Download repository' and save the .zip file on your local computer. 
+1. Find the [Clone or Download](https://github.com/f-tonini/telecoupling-toolbox) button on the top right of the main repository page. 
+2. Click on the button and save the .zip file on your local computer.
 3. Unzip the folder and take a look at the file content and structure. The zipped folder contains a snapshot of ALL current files and documents that are found in this repository. 
 
 ## Install Python libraries for 3rd party external software
@@ -116,9 +120,9 @@ Follow these steps to add the Toolbox to your ArcMap document:
 
 1. Open ArcMap
 2. Right-click on the ArcToolbox folder and select "Add Toolbox"
-3. Browse to the unzipped folder of the telecoupling project and select `Telecoupling Tools v1.0b.tbx`
+3. Browse to the unzipped folder of the telecoupling project and select `Telecoupling Tools v1.1b.tbx`
 
-Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__effects__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. 
+Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__environmental analysis__*, *__socioeconomic analysis__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. 
 
 ![Figure 5](Figs/ex5.png)
 
@@ -127,7 +131,8 @@ To learn more about what each tool script does and what parameters it takes, ple
 ![Figure 6](Figs/ex6.png)
 ![Figure 7](Figs/ex7.png)
 
-That's it! The Telecoupling Toolbox is now added to the ArcToolbox list and you can start using it with the set of sample data (`SampleData.zip`) found inside the telecoupling project folder. After unzipping the sample data folder, you will see a mix of GIS (vector, raster) data and tables (.csv) needed as input parameters by the script tools.
+That's it! The Telecoupling Toolbox is now added to the ArcToolbox list and you can start using it with the set of [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData.zip)
+After unzipping the sample data folder, you will see a mix of GIS (vector, raster) data and tables (.csv) needed as input parameters by the script tools.
 
 ## Credits and Contacts
 ---------------------

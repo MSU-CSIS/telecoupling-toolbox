@@ -4,9 +4,8 @@ Generated: 08/04/16 11:20:04
 InVEST version: 3.3.1
 """
 
-import natcap.invest.habitat_quality.habitat_quality
+import natcap.invest.habitat_quality
 import arcpy
-import SSUtilities as UTILS
 import os
 import glob
 import shutil
@@ -36,7 +35,7 @@ def GetArgs():
     threats_uri = arcpy.GetParameterAsText(4)
     access_uri = arcpy.GetParameterAsText(5)
     sensitivity_uri = arcpy.GetParameterAsText(6)
-    half_saturation_constant = UTILS.getNumericParameter(7)
+    half_saturation_constant = arcpy.GetParameter(7)
 
     outList = []
 
@@ -137,7 +136,7 @@ def DefineProj(ref_lyr, out_lyr):
 if __name__ == '__main__':
     isLicensed()
     args = GetArgs()
-    natcap.invest.habitat_quality.habitat_quality.execute(args)
+    natcap.invest.habitat_quality.execute(args)
     #remove entire folder and all its content
     shutil.rmtree(os.path.join(arcpy.env.scratchFolder, "intermediate"))
     os.chdir(os.path.join(arcpy.env.scratchFolder, "output"))
