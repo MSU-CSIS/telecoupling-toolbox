@@ -1,4 +1,4 @@
-Copyright © 2016 Board of Trustees of Michigan State University. All rights reserved
+Copyright © 2017 Board of Trustees of Michigan State University. All rights reserved
 
 Telecoupling Toolbox (“Software”) is the property of Michigan State University (“MSU”) and is made 
 available solely for educational or non-commercial use.  Your receipt and use of the Software is governed by the following terms and conditions.  
@@ -24,7 +24,7 @@ You agree that Software will not be disclosed in violation of any applicable exp
 
 Please include the following notice of attribution in any publications or presentations reporting on your use of the Software: 
 
-Telecoupling Toolbox [version_number_here] (https://bitbucket.org/f-tonini/telecoupling-geoapp) developed by Dr. Tonini at Michigan State University.
+Telecoupling Toolbox v1.1b (https://github.com/f-tonini/telecoupling-toolbox) developed by Dr. Tonini at Michigan State University.
 
 Other than the notice of attribution described above, neither the name of MSU nor the names of Software developers may be used without prior written permission.
 
