@@ -1,5 +1,5 @@
-Telecoupling Toolbox v1.1b
-===========
+Telecoupling Toolbox: ArcGIS Toolbox v1.1b
+========================
 
 ## Major Releases
 ------------------
@@ -46,7 +46,7 @@ A workaround has been implemented, automatically re-defining the projection of t
 ## Prerequisites
 -----------
 
-To install the Telecoupling Toolbox, make sure to follow all the steps specified below.
+To install the Telecoupling Toolbox for ArcGIS, make sure to follow all the steps specified below.
 
 * [R (3.2.0 or later)](https://www.r-project.org/)
 * ArcGIS (10.3.1 or later)
@@ -54,15 +54,16 @@ To install the Telecoupling Toolbox, make sure to follow all the steps specified
 
 **_NOTE: versions of ArcGIS prior to 10.3.1 may still work with some of our tools but have NOT been tested. ArcGIS Pro has also NOT been tested yet! Python 2.7.x ships together with ArcGIS and is automatically installed with it. If possible, avoid installing multiple versions of Python on your system as it may create conflicts and errors. If you are using Anaconda, you may need additional settings to make sure you can run the tools smoothly. For more info, check [this website](https://pymorton.wordpress.com/2014/06/17/using-arcpy-with-anaconda/)._**)
 
-## Download and unzip the Telecoupling Toolbox repository
+## Download and unzip the Telecoupling Toolbox: ArcGIS Toolbox repository
 ---------------------
-1. Find the [Clone or Download](https://github.com/f-tonini/telecoupling-toolbox) button on the top right of the main repository page. 
+1. Find the [Clone or Download](https://github.com/MSU-CSIS/telecoupling-toolbox) button on the top right of the main repository page. 
 2. Click on the button and save the .zip file on your local computer.
-3. Unzip the folder and take a look at the file content and structure. The zipped folder contains a snapshot of ALL current files and documents that are found in this repository. 
+3. Unzip the folder and take a look at the file content and structure. The zipped folder contains a snapshot of the full suite of software components that are part of the Telecoupling Toolbox. 
+4. Go inside the **ArcGIS Toolbox** folder to find all the code, images, and documentation of the Telecoupling Toolbox for ArcGIS. 
 
 ## Install Python libraries for 3rd party external software
 ---------------------
-The Telecoupling Toolbox relies on a number of python libraries that are required to run tools that use external software (e.g. InVEST). If you skip this step, tools using any external software will NOT work. 
+The Telecoupling Toolbox for ArcGIS relies on a number of python libraries that are required to run tools that use external software (e.g. InVEST). If you skip this step, tools using any external software will NOT work. 
 
 1. Although your computer may already have a C++ compiler installed, follow this step and **Download** and **install** the [Microsoft Visual C++ Compiler for Python 2.7](https://www.microsoft.com/en-us/download/details.aspx?id=44266)
 2. Follow the instructions below depending on the version of ArcGIS installed on your system:
@@ -73,7 +74,7 @@ The Telecoupling Toolbox relies on a number of python libraries that are require
         * Hit _Enter_ to run the command above
 		* Make sure `pip` is installed and upgraded to latest version by running the command 
 		`C:\Python27\ArcGIS10.3\python.exe -m pip install -U pip`
-        * Open the folder `PyLibs` found inside the (unzipped) telecoupling toolbox folder
+        * Open the folder `PyLibs` found inside the (unzipped) ArcGIS Toolbox folder
         * Double-click on the `ArcGIS103_Py32_libs.bat` file
         * If you get errors that prevent installation of any of the required packages, please contact us with detailed information
     * **ArcGIS 10.4.x (standard 32-bit version)**: 
@@ -112,7 +113,7 @@ In order to allow interaction between ArcGIS and the R software, you will need t
 If you need more details and information, ESRI has developed a nice [Github webpage](https://github.com/R-ArcGIS/r-bridge-install) with lots of useful documentation on how to install a set of libraries to make sure R and ArcGIS can talk to each other.
 
 ## Add the Telecoupling Toolbox to ArcGIS
----------------------
+-------------------------------------------
 
 You are almost done! Now that you installed all Python 3rd party libraries and the R-ArcGIS Bridge, you are ready to use and test the **Telecoupling Toolbox for ArcGIS**. 
 
@@ -120,7 +121,7 @@ Follow these steps to add the Toolbox to your ArcMap document:
 
 1. Open ArcMap
 2. Right-click on the ArcToolbox folder and select "Add Toolbox"
-3. Browse to the unzipped folder of the telecoupling project and select `Telecoupling Tools v1.1b.tbx`
+3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v1.1b.tbx`
 
 Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__environmental analysis__*, *__socioeconomic analysis__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. 
 
