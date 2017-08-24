@@ -1,0 +1,3 @@
+define({
+  "selectSocialNetwork": "Freigabeoptionen auswählen"
+});

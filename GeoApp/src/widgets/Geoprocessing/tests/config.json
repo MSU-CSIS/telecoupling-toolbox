@@ -1,0 +1,510 @@
+{
+  "name": "CreateDriveTimePolygons",
+  "displayName": "CreateDriveTimePolygons",
+  "category": "",
+  "helpUrl": "http://sampleserver1b.arcgisonline.com/arcgisoutput/Network_ESRI_DriveTime_US/CreateDriveTimePolygons.htm",
+  "serverInfo": {
+    "currentVersion": 0,
+    "executionType": "esriExecutionTypeSynchronous",
+    "url": "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/",
+    "hasResultMapServer": false,
+    "supportsUpload": false
+  },
+  "taskUrl": "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons",
+  "isSynchronous": true,
+  "inputParams": [
+    {
+      "name": "Input_Location",
+      "dataType": "GPFeatureRecordSetLayer",
+      "defaultValue": {
+        "geometryType": "esriGeometryPoint",
+        "spatialReference": {
+          "wkid": 4326
+        },
+        "Fields": [
+          {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          },
+          {
+            "name": "Shape",
+            "type": "esriFieldTypeGeometry",
+            "alias": "Shape"
+          },
+          {
+            "name": "Id",
+            "type": "esriFieldTypeInteger",
+            "alias": "Id"
+          }
+        ],
+        "fields": [
+          {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          },
+          {
+            "name": "Shape",
+            "type": "esriFieldTypeGeometry",
+            "alias": "Shape"
+          },
+          {
+            "name": "Id",
+            "type": "esriFieldTypeInteger",
+            "alias": "Id"
+          }
+        ]
+      },
+      "category": "",
+      "choiceList": [],
+      "label": "Input Location",
+      "visible": true,
+      "required": true,
+      "featureSetMode": "draw",
+      "tooltip": "Input Location",
+      "symbol": {
+        "color": [
+          255,
+          127,
+          80,
+          128
+        ],
+        "size": 16.5,
+        "angle": 0,
+        "xoffset": 0,
+        "yoffset": 0,
+        "type": "esriSMS",
+        "style": "esriSMSDiamond",
+        "outline": {
+          "color": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "width": 0.75,
+          "type": "esriSLS",
+          "style": "esriSLSSolid"
+        }
+      }
+    },
+    {
+      "name": "Test_Input_Feature",
+      "dataType": "GPFeatureRecordSetLayer",
+      "defaultValue": {
+        "geometryType": "esriGeometryPoint",
+        "spatialReference": {
+          "wkid": 4326
+        },
+        "Fields": [
+          {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          },
+          {
+            "name": "Shape",
+            "type": "esriFieldTypeGeometry",
+            "alias": "Shape"
+          },
+          {
+            "name": "Id",
+            "type": "esriFieldTypeInteger",
+            "alias": "Id"
+          }
+        ],
+        "fields": [
+          {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          },
+          {
+            "name": "Shape",
+            "type": "esriFieldTypeGeometry",
+            "alias": "Shape"
+          },
+          {
+            "name": "Id",
+            "type": "esriFieldTypeInteger",
+            "alias": "Id"
+          }
+        ]
+      },
+      "category": "",
+      "choiceList": [],
+      "label": "Input Location",
+      "visible": true,
+      "required": true,
+      "featureSetMode": "draw",
+      "tooltip": "Input Location",
+      "symbol": {
+        "color": [
+          255,
+          127,
+          80,
+          128
+        ],
+        "size": 16.5,
+        "angle": 0,
+        "xoffset": 0,
+        "yoffset": 0,
+        "type": "esriSMS",
+        "style": "esriSMSDiamond",
+        "outline": {
+          "color": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "width": 0.75,
+          "type": "esriSLS",
+          "style": "esriSLSSolid"
+        }
+      }
+    },
+    {
+      "name": "Drive_Times",
+      "dataType": "GPString",
+      "defaultValue": "5 10 15 22",
+      "category": "",
+      "choiceList": [],
+      "label": "Drive Times",
+      "visible": true,
+      "required": false,
+      "tooltip": "Drive Times"
+    },
+    {
+      "name": "Test_Boolean",
+      "dataType": "GPBoolean",
+      "defaultValue": true,
+      "category": "",
+      "choiceList": [],
+      "label": "Test Boolean",
+      "visible": true,
+      "required": false,
+      "tooltip": "Test Boolean"
+    },
+    {
+      "name": "Test_Long",
+      "dataType": "GPLong",
+      "defaultValue": 29,
+      "category": "",
+      "choiceList": [],
+      "label": "Test Long",
+      "visible": true,
+      "required": false,
+      "tooltip": "Test Long"
+    },
+    {
+      "name": "Test_Double",
+      "dataType": "GPDouble",
+      "defaultValue": 0.8,
+      "category": "",
+      "choiceList": [],
+      "label": "Test Double",
+      "visible": true,
+      "required": false,
+      "tooltip": "Test Double"
+    },
+    {
+      "name": "Test_String_Select",
+      "dataType": "GPString",
+      "defaultValue": "Meters",
+      "category": "",
+      "choiceList": [
+        "Meters",
+        "KiloMeters",
+        "Feet",
+        "Yard",
+        "Miles"
+      ],
+      "label": "Test String Select",
+      "visible": true,
+      "required": false,
+      "tooltip": "Test String Select"
+    },
+    {
+      "name": "Test_MultiValueString",
+      "dataType": "GPMultiValue:GPString",
+      "defaultValue": [
+        5,
+        30
+      ],
+      "category": "",
+      "choiceList": [
+        5,
+        10,
+        15,
+        20,
+        25,
+        30
+      ],
+      "label": "Test MultiValueString",
+      "visible": true,
+      "required": false,
+      "tooltip": "Test MultiValueString"
+    },
+    {
+      "name": "Test_LinearUnit",
+      "dataType": "GPLinearUnit",
+      "defaultValue": "150:esriKilometers",
+      "category": "",
+      "choiceList": [],
+      "label": "Test LinearUnit",
+      "visible": true,
+      "required": false,
+      "tooltip": "Test LinearUnit"
+    },
+    {
+      "name": "Test_Date",
+      "dataType": "GPDate",
+      "defaultValue": 1426032000387,
+      "category": "",
+      "choiceList": [],
+      "label": "Test Date",
+      "visible": true,
+      "required": false,
+      "tooltip": "Test Date"
+    },
+    {
+      "name": "Test_DataFile",
+      "dataType": "GPDataFile",
+      "defaultValue": "url:http://esridevbeijing.maps.arcgis.com/",
+      "category": "",
+      "choiceList": [],
+      "label": "Test DataFile",
+      "visible": true,
+      "required": false,
+      "tooltip": "Test DataFile"
+    },
+    {
+      "name": "Test_RasterDataLayer",
+      "dataType": "GPRasterDataLayer",
+      "defaultValue": "url:http://www.arcgis.com,format:jpg",
+      "category": "",
+      "choiceList": [],
+      "label": "Test RasterDataLayer",
+      "visible": true,
+      "required": false,
+      "tooltip": "Test RasterDataLayer"
+    }
+  ],
+  "outputParams": [
+    {
+      "name": "Output_Drive_Time_Polygons",
+      "dataType": "GPFeatureRecordSetLayer",
+      "defaultValue": {
+        "geometryType": "esriGeometryPolygon",
+        "spatialReference": {
+          "wkid": 4326
+        },
+        "Fields": [
+          {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          },
+          {
+            "name": "Shape",
+            "type": "esriFieldTypeGeometry",
+            "alias": "Shape"
+          },
+          {
+            "name": "FacilityID",
+            "type": "esriFieldTypeInteger",
+            "alias": "FacilityID"
+          },
+          {
+            "name": "Name",
+            "type": "esriFieldTypeString",
+            "alias": "Name"
+          },
+          {
+            "name": "FromBreak",
+            "type": "esriFieldTypeDouble",
+            "alias": "FromBreak"
+          },
+          {
+            "name": "ToBreak",
+            "type": "esriFieldTypeDouble",
+            "alias": "ToBreak"
+          },
+          {
+            "name": "Shape_Length",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Length"
+          },
+          {
+            "name": "Shape_Area",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Area"
+          }
+        ],
+        "fields": [
+          {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          },
+          {
+            "name": "Shape",
+            "type": "esriFieldTypeGeometry",
+            "alias": "Shape"
+          },
+          {
+            "name": "FacilityID",
+            "type": "esriFieldTypeInteger",
+            "alias": "FacilityID"
+          },
+          {
+            "name": "Name",
+            "type": "esriFieldTypeString",
+            "alias": "Name"
+          },
+          {
+            "name": "FromBreak",
+            "type": "esriFieldTypeDouble",
+            "alias": "FromBreak"
+          },
+          {
+            "name": "ToBreak",
+            "type": "esriFieldTypeDouble",
+            "alias": "ToBreak"
+          },
+          {
+            "name": "Shape_Length",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Length"
+          },
+          {
+            "name": "Shape_Area",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Area"
+          }
+        ]
+      },
+      "category": "",
+      "choiceList": [],
+      "label": "Output Drive Time Polygons",
+      "visible": true,
+      "required": true,
+      "featureSetMode": "draw"
+    },
+    {
+      "name": "Output_Test_Polygons",
+      "dataType": "GPFeatureRecordSetLayer",
+      "defaultValue": {
+        "geometryType": "esriGeometryPolygon",
+        "spatialReference": {
+          "wkid": 4326
+        },
+        "Fields": [
+          {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          },
+          {
+            "name": "Shape",
+            "type": "esriFieldTypeGeometry",
+            "alias": "Shape"
+          },
+          {
+            "name": "FacilityID",
+            "type": "esriFieldTypeInteger",
+            "alias": "FacilityID"
+          },
+          {
+            "name": "Name",
+            "type": "esriFieldTypeString",
+            "alias": "Name"
+          },
+          {
+            "name": "FromBreak",
+            "type": "esriFieldTypeDouble",
+            "alias": "FromBreak"
+          },
+          {
+            "name": "ToBreak",
+            "type": "esriFieldTypeDouble",
+            "alias": "ToBreak"
+          },
+          {
+            "name": "Shape_Length",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Length"
+          },
+          {
+            "name": "Shape_Area",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Area"
+          }
+        ],
+        "fields": [
+          {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          },
+          {
+            "name": "Shape",
+            "type": "esriFieldTypeGeometry",
+            "alias": "Shape"
+          },
+          {
+            "name": "FacilityID",
+            "type": "esriFieldTypeInteger",
+            "alias": "FacilityID"
+          },
+          {
+            "name": "Name",
+            "type": "esriFieldTypeString",
+            "alias": "Name"
+          },
+          {
+            "name": "FromBreak",
+            "type": "esriFieldTypeDouble",
+            "alias": "FromBreak"
+          },
+          {
+            "name": "ToBreak",
+            "type": "esriFieldTypeDouble",
+            "alias": "ToBreak"
+          },
+          {
+            "name": "Shape_Length",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Length"
+          },
+          {
+            "name": "Shape_Area",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Area"
+          }
+        ]
+      },
+      "category": "",
+      "choiceList": [],
+      "label": "Output Drive Time Polygons",
+      "visible": true,
+      "required": true,
+      "featureSetMode": "draw"
+    },
+    {
+      "name": "Output_LinearUnit",
+      "dataType": "GPLinearUnit",
+      "defaultValue": null,
+      "category": "",
+      "choiceList": [],
+      "label": "Test LinearUnit",
+      "visible": true,
+      "required": false,
+      "tooltip": "Test LinearUnit"
+    }
+  ],
+  "shareResults": true,
+  "layerOrder": []
+}

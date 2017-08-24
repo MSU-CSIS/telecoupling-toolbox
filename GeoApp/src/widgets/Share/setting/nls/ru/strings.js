@@ -1,0 +1,3 @@
+define({
+  "selectSocialNetwork": "Способ публикации"
+});

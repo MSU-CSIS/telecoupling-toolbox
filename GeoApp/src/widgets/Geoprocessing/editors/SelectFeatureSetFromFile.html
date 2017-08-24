@@ -1,0 +1,32 @@
+<div>
+  <div data-dojo-attach-point="inputNode">
+    <div class="jimu-r-row" style="margin-top: 10px;">
+      <div class="col-1-2">
+        <form data-dojo-attach-point="fileForm"
+            enctype="multipart/form-data"
+            method="POST" data-dojo-type="dijit/form/Form">
+          <input id="${uniqueID}_fs_file" type="file" multiple="false" name="file"
+            data-dojo-attach-point="fileInput" accept="application/zip"
+            data-dojo-attach-event="onChange: _onUpload" style="display:none"/>
+          <div class="jimu-btn jimu-leading-margin10 jimu-float-leading">
+            <label class="file-input-label" for="${uniqueID}_fs_file">
+              ${nls.addShapefile}
+            </label>
+          </div>
+          <input type="hidden" name="f" value="json"/>
+        </form>
+      </div>
+      <div class="col-1-2">
+        <div data-dojo-attach-point="clearLink"
+          data-dojo-attach-event="onClick: _clear"
+          class="jimu-float-trailing shp-clear" style="">${nls.clear}</div>
+      </div>
+    </div>
+    <div class="jimu-r-row shp-info">
+      <img data-dojo-attach-point="uploadStatus" class="upload-status" src=""/>
+      <span data-dojo-attach-point="fileInfo"></span>
+    </div>
+  </div>
+  <div data-dojo-attach-point="featuresetNode">
+  </div>
+</div>

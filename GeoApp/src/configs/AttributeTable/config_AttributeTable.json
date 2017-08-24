@@ -1,0 +1,707 @@
+{
+  "layerInfos": [
+    {
+      "name": "Urban Systems: Major Urban Areas",
+      "id": "World_Urban_Areas_562",
+      "layer": {
+        "url": "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/World_Urban_Areas/FeatureServer/0"
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Boundaries & Places: World Countries",
+      "id": "World__Countries_Generalized_analysis_trim_4356",
+      "layer": {
+        "url": "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/World__Countries_Generalized_analysis_trim/FeatureServer/0",
+        "fields": [
+          {
+            "name": "OBJECTID",
+            "alias": "OBJECTID",
+            "show": false,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "FIPS_CNTRY",
+            "alias": "FIPS_CNTRY",
+            "show": true
+          },
+          {
+            "name": "ISO_2DIGIT",
+            "alias": "ISO_2DIGIT",
+            "show": false
+          },
+          {
+            "name": "ISO_3DIGIT",
+            "alias": "ISO_3DIGIT",
+            "show": false
+          },
+          {
+            "name": "NAME",
+            "alias": "NAME",
+            "show": true
+          },
+          {
+            "name": "COUNTRYAFF",
+            "alias": "COUNTRYAFF",
+            "show": false
+          },
+          {
+            "name": "CONTINENT",
+            "alias": "CONTINENT",
+            "show": true
+          },
+          {
+            "name": "Shape_Length",
+            "alias": "Shape_Length",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "Shape_Area",
+            "alias": "Shape_Area",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Boundaries & Places: Administrative Divisions",
+      "id": "World_Administrative_Divisions_667",
+      "layer": {
+        "url": "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/World_Administrative_Divisions/FeatureServer/0"
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Demographics: Population Estimated Density (2015)",
+      "id": "World_Population_Estimated_Density_2015_9981",
+      "layer": {
+        "url": "https://landscape7.arcgis.com/arcgis/rest/services/World_Population_Estimated_Density_2015/ImageServer"
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Climate & Weather: Evapotranspiration (2000-Present)",
+      "id": "GLDAS_Evapotranspiration_9197",
+      "layer": {
+        "url": "https://earthobs2.arcgis.com/arcgis/rest/services/GLDAS_Evapotranspiration/ImageServer",
+        "fields": [
+          {
+            "name": "OBJECTID",
+            "alias": "OBJECTID",
+            "show": true
+          },
+          {
+            "name": "Shape",
+            "alias": "Shape",
+            "show": false
+          },
+          {
+            "name": "LowPS",
+            "alias": "LowPS",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "Category",
+            "alias": "Category",
+            "show": false
+          },
+          {
+            "name": "GroupName",
+            "alias": "GroupName",
+            "show": false
+          },
+          {
+            "name": "Variable",
+            "alias": "Variable",
+            "show": false
+          },
+          {
+            "name": "StdTime",
+            "alias": "Standard Time",
+            "show": false,
+            "format": {
+              "dateFormat": "shortDateShortTime",
+              "timezone": "utc"
+            }
+          },
+          {
+            "name": "Month",
+            "alias": "Month",
+            "show": false,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Land Cover: ESA 2010 (250m)",
+      "id": "World_Land_Cover_ESA_2010_963",
+      "layer": {
+        "url": "https://landscape7.arcgis.com/arcgis/rest/services/World_Land_Cover_ESA_2010/ImageServer"
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Land Cover: BaseVue 2013 (30m)",
+      "id": "World_Land_Cover_30m_BaseVue_2013_8291",
+      "layer": {
+        "url": "https://landscape6.arcgis.com/arcgis/rest/services/World_Land_Cover_30m_BaseVue_2013/ImageServer"
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Elevation: Terrain GMTED 2010 (250m)",
+      "id": "World_Elevation_GMTED_6462",
+      "layer": {
+        "url": "https://landscape6.arcgis.com/arcgis/rest/services/World_Elevation_GMTED/ImageServer"
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Soil: Lithology (250m)",
+      "id": "World_Lithology_3659",
+      "layer": {
+        "url": "https://landscape6.arcgis.com/arcgis/rest/services/World_Lithology/ImageServer"
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "World Hydro Reference Overlay",
+      "id": "Esri_Hydro_Reference_Overlay_2468_0",
+      "layer": {
+        "url": "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/0"
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Landscape: Ecophysiographic Facets",
+      "id": "World_Ecophysiographic_Land_Units_2015_3604",
+      "layer": {
+        "url": "https://landscape7.arcgis.com/arcgis/rest/services/World_Ecophysiographic_Land_Units_2015/ImageServer"
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Landscape: Ecological Land Units (ELUs)",
+      "id": "World_Ecophysiographic_Land_Units_2015_4807",
+      "layer": {
+        "url": "https://landscape7.arcgis.com/arcgis/rest/services/World_Ecophysiographic_Land_Units_2015/ImageServer"
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Imagery: Multispectral Landsat",
+      "id": "MS_9853",
+      "layer": {
+        "url": "https://landsat2.arcgis.com/arcgis/rest/services/Landsat/MS/ImageServer",
+        "fields": [
+          {
+            "name": "Shape",
+            "alias": "Shape",
+            "show": false
+          },
+          {
+            "name": "Name",
+            "alias": "Name",
+            "show": true
+          },
+          {
+            "name": "Category",
+            "alias": "Category",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ProductName",
+            "alias": "Product Name",
+            "show": true
+          },
+          {
+            "name": "AcquisitionDate",
+            "alias": "Acquisition Date",
+            "show": true,
+            "format": {
+              "dateFormat": "longMonthDayYear"
+            }
+          },
+          {
+            "name": "Month",
+            "alias": "Month",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "DayOfYear",
+            "alias": "Day Of Year",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LowPS",
+            "alias": "Pixel Size (m)",
+            "show": true,
+            "format": {
+              "places": 1,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "WRS_Path",
+            "alias": "WRS Path",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "WRS_Row",
+            "alias": "WRS Row",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CloudCover",
+            "alias": "Cloud Cover",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SunAzimuth",
+            "alias": "Sun Azimuth",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SunElevation",
+            "alias": "Sun Elevation",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "MaxPS",
+            "alias": "MaxPS",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HighPS",
+            "alias": "HighPS",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "GroupName",
+            "alias": "SceneID",
+            "show": false
+          },
+          {
+            "name": "CenterX",
+            "alias": "CenterX",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CenterY",
+            "alias": "CenterY",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "Shape_Length",
+            "alias": "Shape_Length",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "Shape_Area",
+            "alias": "Shape_Area",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "MinPS",
+            "alias": " MinPS",
+            "show": false,
+            "format": {
+              "places": 0,
+              "digitSeparator": false
+            }
+          },
+          {
+            "name": "PR",
+            "alias": "PR",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "Best",
+            "alias": "Best",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": false
+            }
+          },
+          {
+            "name": "DateUpdated",
+            "alias": "DateUpdated",
+            "show": false,
+            "format": {
+              "dateFormat": "longMonthDayYear"
+            }
+          },
+          {
+            "name": "Latest",
+            "alias": "Latest",
+            "show": false,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SensorName",
+            "alias": "Sensor Name",
+            "show": true
+          },
+          {
+            "name": "dataset_id",
+            "alias": "dataset_id",
+            "show": false
+          },
+          {
+            "name": "OBJECTID",
+            "alias": "OBJECTID",
+            "show": true
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false
+    },
+    {
+      "name": "Imagery: Panchromatic Landsat",
+      "id": "Pan_2069",
+      "layer": {
+        "url": "https://landsat2.arcgis.com/arcgis/rest/services/Landsat/Pan/ImageServer",
+        "fields": [
+          {
+            "name": "Shape",
+            "alias": "Shape",
+            "show": false
+          },
+          {
+            "name": "Name",
+            "alias": "Name",
+            "show": true
+          },
+          {
+            "name": "Category",
+            "alias": "Category",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ProductName",
+            "alias": "Product Name",
+            "show": true
+          },
+          {
+            "name": "AcquisitionDate",
+            "alias": "Acquisition Date",
+            "show": true,
+            "format": {
+              "dateFormat": "longMonthDayYear"
+            }
+          },
+          {
+            "name": "Month",
+            "alias": "Month",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "DayOfYear",
+            "alias": "Day Of Year",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LowPS",
+            "alias": "Pixel Size (m)",
+            "show": true,
+            "format": {
+              "places": 1,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "GroupName",
+            "alias": "SceneID",
+            "show": false
+          },
+          {
+            "name": "MinPS",
+            "alias": "MinPS",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "MaxPS",
+            "alias": "MaxPS",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HighPS",
+            "alias": "HighPS",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "Tag",
+            "alias": "Tag",
+            "show": false
+          },
+          {
+            "name": "CenterX",
+            "alias": "CenterX",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CenterY",
+            "alias": "CenterY",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "Shape_Length",
+            "alias": "Shape_Length",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "Shape_Area",
+            "alias": "Shape_Area",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "WRS_Path",
+            "alias": "WRS Path",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "WRS_Row",
+            "alias": "WRS Row",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "DateUpdated",
+            "alias": "DateUpdated",
+            "show": false,
+            "format": {
+              "dateFormat": "longMonthDayYear"
+            }
+          },
+          {
+            "name": "CloudCover",
+            "alias": "Cloud Cover",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SunAzimuth",
+            "alias": "Sun Azimuth",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SunElevation",
+            "alias": "Sun Elevation",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "Latest",
+            "alias": "Latest",
+            "show": false,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "dataset_id",
+            "alias": "Dataset ID",
+            "show": false
+          },
+          {
+            "name": "PR",
+            "alias": "PR",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "Best",
+            "alias": "Best",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SensorName",
+            "alias": "Sensor Name",
+            "show": true
+          },
+          {
+            "name": "OBJECTID",
+            "alias": "OBJECTID",
+            "show": true
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false
+    }
+  ],
+  "table": {
+    "pageSizeOptions": [
+      25,
+      50,
+      100,
+      1000
+    ]
+  },
+  "hideExportButton": false,
+  "initiallyExpand": false,
+  "filterByMapExtent": false
+}

@@ -1,0 +1,136 @@
+@import './basemap-item.scss';
+@import './edit.scss';
+@import './group-selector.scss';
+@import './basemap-table.scss';
+
+.jimu-widget-basemapgallery-setting{
+  margin:0;
+  padding:0;
+  font-size:15px;
+  height:100%;
+
+  .mode-section {
+    font-family: "Avenir Light";
+    font-size: 14px;
+    color: #000000;
+
+    div {
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+
+    input {
+      margin: 2px;
+    }
+
+    label {
+      margin: 0 8px;
+    }
+  }
+
+  .settings-div{
+    margin-bottom: 0px;
+    font-size: 18px;
+  }
+
+  .baseMapsDiv {
+    width: 100%;
+    height: auto;
+  }
+
+  .maps-div{
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+    bottom: 0;
+    top: 115px;
+
+    &.mode-online {
+      top: 70px;
+    }
+
+    .import-tip, .nomap-tip {
+      text-align: center;
+      color: #898989;
+      font-family: "Avenir Light";
+      font-size: 12px;
+    }
+
+    .import-tip {
+      margin-top: 120px;
+    }
+
+    .nomap-tip {
+      margin-top: 90px;
+      .no-basemaptip {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .map-add-div{
+    position:relative;
+    width:176px;
+    height:118px;
+    line-height:18px;
+    /*padding:3px;*/
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align:center;
+    color:#999999;
+    font-size:16px;
+    border:1px dotted gray;
+    /*-webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -o-border-radius:5px;
+    -ms-border-radius:5px;
+    border-radius:5px;*/
+    background-size:cover;
+    cursor: pointer;
+
+    .add_map_image{
+      display: block;
+      position: absolute;
+      left: 77px;
+      top: 20px;
+      width:20px;
+      height:20px;
+      background-position:center center;
+      background-image:url(images/add_map.png);
+    }
+
+    .add_map_text{
+      display: block;
+      margin: 0px auto;
+      margin-top: 35px;
+    }
+  }
+
+  .btn {
+    height: 30px;
+    line-height: 30px;
+    border-radius: 0;
+    font-family: "Avenir Light";
+    font-size: 12px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 0;
+  }
+
+  .btn-normal {
+    border: 1px solid #D5D5D5;
+    color: #000;
+  }
+
+  .btn-normal:hover {
+    border: none;
+    color:#ffffff;
+    background-color: #0090A7;
+  }
+
+  .btn-warn {
+    border: 1px solid #C21712;
+    color: #C21712;
+  }
+}

@@ -1,0 +1,85 @@
+.jimu-widget-select-setting {
+  margin: 20px 0;
+}
+.jimu-widget-select-setting .config-section {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.jimu-widget-select-setting .config-section label {
+  color: #353535;
+  font-size: 12px;
+}
+.jimu-widget-select-setting .config-section .jimu-color-picker {
+  width: 30px;
+  height: 30px;
+  margin: 0 20px;
+}
+.jimu-widget-select-setting .config-section .option {
+  margin: 15px;
+}
+.jimu-widget-select-setting .config-section .option input {
+  margin: 0 10px;
+}
+.jimu-widget-select-setting .inline > div {
+  display: inline-block;
+}
+.jimu-widget-select-setting .label {
+  color: #353535;
+  font-size: 14px;
+}
+.jimu-widget-select-setting .drawing-tools-container {
+  margin-top: 5px;
+  overflow: hidden;
+}
+.jimu-widget-select-setting .drawing-tools-container .draw-item {
+  float: left;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-left: 5px;
+  position: relative;
+  border: 1px solid #DBDBDB;
+  border-radius: 1px;
+}
+.jimu-rtl .jimu-widget-select-setting .drawing-tools-container .draw-item {
+  float: right;
+  margin-left: 0;
+  margin-right: 5px;
+}
+.jimu-widget-select-setting .drawing-tools-container .draw-item:first-child {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.jimu-widget-select-setting .drawing-tools-container .draw-item .draw-item-icon {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  display: none;
+  background: url(images/checked.png) center center no-repeat;
+  background-color: #fff;
+}
+.jimu-rtl .jimu-widget-select-setting .drawing-tools-container .draw-item .draw-item-icon {
+  left: auto;
+  right: 2px;
+}
+.jimu-widget-select-setting .drawing-tools-container .draw-item.selected .draw-item-icon {
+  display: block;
+}
+.jimu-widget-select-setting .draw-item.polyline {
+  background-image: url(../../../../jimu.js/css/images/draw_polyline.png);
+}
+.jimu-widget-select-setting .draw-item.extent {
+  background-image: url(../../../../jimu.js/css/images/draw_extent.png);
+}
+.jimu-widget-select-setting .draw-item.circle {
+  background-image: url(../../../../jimu.js/css/images/draw_circle.png);
+}
+.jimu-widget-select-setting .draw-item.polygon {
+  background-image: url(../../../../jimu.js/css/images/draw_polygon.png);
+}
+
+/*# sourceMappingURL=style.css.map */

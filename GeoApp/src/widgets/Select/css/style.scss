@@ -1,0 +1,290 @@
+$light_font: 'Avenir Light';
+$medium_font: 'Avenir Medium';
+
+.jimu-widget-select {
+  width: 100%;
+  height: 100%;
+  min-width: 280px;
+  overflow: hidden;
+
+  .jimu-viewstack {
+    height: 100%;
+
+    .view {
+      position: relative;
+    }
+  }
+
+  .seperator {
+    width: 100%;
+    height: 1px;
+    background: #D7D7D7;
+    margin: 20px 0;
+  }
+
+  .title {
+    font: {
+      family: $light_font;
+      size: 12px;
+    }
+    line-height: 16px;
+    color: #000000;
+    margin: 20px 0;
+  }
+
+  // label for layer name and number of selected features
+  .normal-label {
+    line-height: 36px;
+    height: 36px;
+    font-size: 12px;
+    color: #000000;
+  }
+
+  .light-label {
+    @extend .normal-label;
+    font-family: $light_font;
+  }
+
+  .medium-label {
+    @extend .normal-label;
+    font-family: $medium_font;
+  }
+
+  .layer-nodes {
+    position: absolute;
+    top: 65px;
+    bottom: 0;
+    width: 100%;
+    overflow: auto;
+  }
+
+  .jimu-multiple-layers-featureset-chooser{
+    .draw-item {
+      padding: 0;
+      width: 60%;
+    }
+
+    .btn-clear {
+      padding: 0;
+      width: 30%;
+      float: right;
+
+      .jimu-rtl & {
+        float: left;
+      }
+    }
+  }
+
+  //Style for selectable layer in the first panel
+  .selectable-layer-item {
+    width: 100%;
+    height: 36px;
+    position: relative;
+
+    .layer-row {
+      height: 36px;
+      position: relative;
+      cursor: pointer;
+
+      > div {
+        display: inline-block;
+      }
+
+      // CheckBox of the layer
+      .selectable-check {
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        background: url(images/unchecked.svg) no-repeat center;
+
+        &:hover {
+          background: url(images/unchecked_hover.svg) no-repeat center;
+        }
+
+        &.checked {
+          background: url(images/checked.svg) no-repeat center;
+
+          &:hover {
+            background: url(images/checked_hover.svg) no-repeat center;
+          }
+        }
+      }
+
+      .layer-name {
+        @extend .light-label;
+        margin: 0 5px;
+        position: absolute;
+        left: 36px;
+        right: 72px;
+
+        .jimu-rtl & {
+          left: 72px;
+          right: 36px;
+        }
+      }
+
+      .selected-num {
+        @extend .light-label;
+        width: 36px;
+        margin: 0 5px;
+        text-align: center;
+        position: absolute;
+        right: 36px;
+
+        .jimu-rtl & {
+          right: auto;
+          left: 36px;
+        }
+      }
+
+      .popup-menu-button {
+        position: absolute;
+        right: 0;
+
+        .jimu-rtl & {
+          right: auto;
+          left: 0;
+        }
+      }
+    }
+
+    &:hover {
+      background-color: #E5E5E5;
+
+      .selected-num {
+        font-weight: bold;
+      }
+    }
+
+    &.no-action {
+      .selected-num {
+        font-weight: normal;
+      }
+
+      &:hover {
+        background-color: #FFFFFF;
+      }
+
+      .layer-row {
+        cursor: default;
+      }
+
+      .selected-num {
+        color: #B7B7B7;
+        &:hover {
+          font-weight: normal;
+        }
+      }
+
+      .popup-menu-button {
+        background: url(images/more_disabled.svg) no-repeat center;
+        cursor: default;
+        background-color: #FFFFFF;
+      }
+    }
+
+    &.invisible {
+      .selectable-check {
+        background: url(images/unchecked_invisible.svg) no-repeat center;
+
+        &:hover {
+          background: url(images/unchecked_invisible_hover.svg) no-repeat center;
+        }
+
+        &.checked {
+          background: url(images/checked_invisible.svg) no-repeat center;
+
+          &:hover {
+            background: url(images/checked_invisible_hover.svg) no-repeat center;
+          }
+        }
+      }
+
+      .layer-name {
+        color: #B7B7B7;
+      }
+    }
+  }
+
+  .details-node {
+    widows: 100%;
+
+    .header {
+      height: 40px;
+      text-align: center;
+
+      .switch-back {
+        width: 40px;
+        height: 40px;
+
+        .feature-action {
+          margin: 12px;
+        }
+      }
+
+      .layer-name {
+        font: {
+          family: $medium_font;
+          size: 14px;
+        }
+        font-size: 14px;
+        color: #000000;
+        height: 40px;
+        line-height: 40px;
+      }
+    }
+
+    .content {
+      position: absolute;
+      top: 40px;
+      bottom: 0;
+      width: 100%;
+      overflow: auto;
+
+      .graphic-item {
+        height: 36px;
+        width: 100%;
+        position: relative;
+
+        &:hover {
+          background: #E5E5E5;
+        }
+
+        .feature-item-row {
+          position: relative;
+          height: 36px;
+          cursor: pointer;
+
+          .feature-icon {
+            position: absolute;
+            left: 0;
+            width: 36px;
+            height: 36px;
+
+            .jimu-rtl & {
+              left: auto;
+              right: 0;
+            }
+          }
+
+          .action-btn {
+            position: absolute;
+            right: 0;
+
+            .jimu-rtl & {
+              right: auto;
+              left: 0;
+            }
+          }
+
+          .label-node {
+            position: absolute;
+            left: 36px;
+            right: 36px;
+            margin: 0 10px;
+          }
+        }
+      }
+    }
+  }
+}

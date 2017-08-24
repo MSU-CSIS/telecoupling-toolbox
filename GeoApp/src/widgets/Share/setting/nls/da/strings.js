@@ -1,0 +1,3 @@
+define({
+  "selectSocialNetwork": "Vælg delingsindstillinger"
+});

@@ -1,0 +1,21 @@
+<div class="speed-container jimu-float-trailing" data-dojo-attach-point="speedContainerNode">
+	<div class="speed-label" data-dojo-attach-point="speedLabelNode" data-dojo-attach-event="click:_onSpeedLabelClick">1x</div>
+	<div class="speed-menu hide" data-dojo-attach-point="speedMenu" data-dojo-attach-event="click:_onSelectSpeedItem">
+		<!--<div class="speed-menu-item item-label jimu-ellipsis" title="${nls.speedLabel}">${nls.speedLabel}</div>-->
+		<div class="speed-menu-item" speed="0.25">
+			0.25x<div class="jimu-float-trailing check hide"></div>
+		</div>
+		<div class="speed-menu-item" speed="0.5">
+			0.5x<div class="jimu-float-trailing check hide"></div>
+		</div>
+		<div class="speed-menu-item" speed="1" data-dojo-attach-point="initSpeedItem">
+			1x<div class="jimu-float-trailing check hide"></div>
+		</div>
+		<div class="speed-menu-item" speed="1.5">
+			1.5x<div class="jimu-float-trailing check hide"></div>
+		</div>
+		<div class="speed-menu-item" speed="2">
+			2x<div class="jimu-float-trailing check hide"></div>
+		</div>
+	</div>
+</div>

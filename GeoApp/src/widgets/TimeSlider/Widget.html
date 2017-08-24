@@ -1,0 +1,24 @@
+<div class="jimu-widget-timeslider mini-mode">
+	<div class="close-btn" data-dojo-attach-point="closeBtn"></div>
+
+	<div class="no-time-content drag-handler" data-dojo-attach-point="noTimeContentNode">${nls.disableTips}</div>
+
+	<div class="time-content" data-dojo-attach-point="timeContentNode">
+		<div class="label-container drag-handler" data-dojo-attach-point="labelContainer" data-dojo-attach-event="onclick:_onHandleClick">
+			<div class="time-extent jimu-ellipsis" data-dojo-attach-point="timeExtentLabelNode">${nls.timeExtent}</div>
+			<div class="layer-labels jimu-ellipsis" data-dojo-attach-point="layerLabelsNode">${nls.layers}</div>
+		</div>
+
+		<div class="slider-content clearFix jimu-float-leading" data-dojo-attach-point="sliderContent">
+			<div data-dojo-attach-point="sliderNodeContainer" class="slider-node-container jimu-float-leading"></div>
+
+			<div data-dojo-attach-point="btnsContainer" class="btns-container jimu-float-leading">
+				<div data-dojo-attach-point="previousBtn" class="previousBtn btn jimu-float-leading"></div>
+				<div data-dojo-attach-point="playBtn" class="playBtn btn jimu-float-leading"></div>
+				<div data-dojo-attach-point="nextBtn" class="nextBtn btn jimu-float-leading"></div>
+			</div>
+
+			<!--speedMenuNode-->
+		</div>
+	</div>
+</div>

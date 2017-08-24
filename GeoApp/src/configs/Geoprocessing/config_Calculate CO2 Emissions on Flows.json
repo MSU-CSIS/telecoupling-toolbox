@@ -1,0 +1,267 @@
+{
+  "name": "CO2Emissions",
+  "displayName": "CO2 Emissions",
+  "description": "This tools calculate the amount of CO2 emissions associated with each flow segment of material transported",
+  "category": "",
+  "helpUrl": "https://lb.telecoupling.msu.edu/arcgis/rest/directories/arcgisoutput/Geoprocessing/CO2Emissions_GPServer/Geoprocessing_CO2Emissions/CO2Emissions.htm",
+  "serverInfo": {
+    "currentVersion": 10.41,
+    "url": "https://lb.telecoupling.msu.edu/arcgis/rest/services/Geoprocessing/CO2Emissions/GPServer/",
+    "hasResultMapServer": true,
+    "supportsUpload": false
+  },
+  "useResultMapServer": true,
+  "taskUrl": "https://lb.telecoupling.msu.edu/arcgis/rest/services/Geoprocessing/CO2Emissions/GPServer/CO2 Emissions",
+  "isSynchronous": false,
+  "inputParams": [
+    {
+      "name": "Flows_Layer",
+      "dataType": "GPFeatureRecordSetLayer",
+      "description": "Input Feature representing the linear flows of material between telecoupling systems across the globe.",
+      "defaultValue": {
+        "displayFieldName": "",
+        "geometryType": "esriGeometryPolyline",
+        "spatialReference": {
+          "wkid": 102100,
+          "latestWkid": 3857
+        },
+        "fields": [
+          {
+            "name": "OID",
+            "type": "esriFieldTypeOID",
+            "alias": "OID"
+          },
+          {
+            "name": "FID",
+            "type": "esriFieldTypeInteger",
+            "alias": "FID"
+          },
+          {
+            "name": "FROM_X",
+            "type": "esriFieldTypeDouble",
+            "alias": "FROM_X"
+          },
+          {
+            "name": "FROM_Y",
+            "type": "esriFieldTypeDouble",
+            "alias": "FROM_Y"
+          },
+          {
+            "name": "TO_X",
+            "type": "esriFieldTypeDouble",
+            "alias": "TO_X"
+          },
+          {
+            "name": "TO_Y",
+            "type": "esriFieldTypeDouble",
+            "alias": "TO_Y"
+          },
+          {
+            "name": "Quantity",
+            "type": "esriFieldTypeInteger",
+            "alias": "Quantity"
+          },
+          {
+            "name": "Shape_Length",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Length"
+          }
+        ],
+        "features": [],
+        "exceededTransferLimit": false
+      },
+      "category": "",
+      "label": "Flows Layer",
+      "visible": true,
+      "required": true,
+      "featureSetMode": "layers",
+      "tooltip": "Flows Layer"
+    },
+    {
+      "name": "Transportation_Units",
+      "dataType": "GPString",
+      "description": "Attribute value of the existing flows table representing the flow amount transported by a medium (e.g. airplane) used to transfer all units. NOTE: this tool assumes homogeneity of transporation medium (e.g. same type of airplane), hence the estimates do not account for variations in CO2 emissions caused by multiple carriers or weather conditions (e.g. wind) affecting the transfer.",
+      "defaultValue": "Quantity",
+      "category": "",
+      "label": "Transportation Units (optional)",
+      "visible": true,
+      "required": false,
+      "tooltip": "Transportation Units (optional)"
+    },
+    {
+      "name": "Transportation_Capacity",
+      "dataType": "GPLong",
+      "description": "Integer number representing the maximum capacity of the transportation medium (e.g. airplane) used to transfer all units. NOTE: this tool assumes homogeneity of transportation medium (e.g. same type of airplane), hence the estimates do not account for variations in CO2 emissions caused by multiple carriers or weather conditions (e.g. wind) affecting the transfer.",
+      "defaultValue": 1,
+      "category": "",
+      "label": "Transportation Capacity",
+      "visible": true,
+      "required": true,
+      "tooltip": "Transportation Capacity"
+    },
+    {
+      "name": "Units_of_CO2_Emitted",
+      "dataType": "GPDouble",
+      "description": "Specify the approximate amount (in kilograms) of CO2 emitted per unit of length. Make sure the unit of length corresponds to the coordinate system used (e.g. meters in the case of Web Mercator). ",
+      "defaultValue": 0.029,
+      "category": "",
+      "label": "Units of CO2 Emitted",
+      "visible": true,
+      "required": true,
+      "tooltip": "Units of CO2 Emitted"
+    }
+  ],
+  "outputParams": [
+    {
+      "name": "Output_Flows_Layer",
+      "dataType": "GPFeatureRecordSetLayer",
+      "description": "",
+      "defaultValue": {
+        "displayFieldName": "",
+        "geometryType": "esriGeometryPolyline",
+        "spatialReference": {
+          "wkid": 102100,
+          "latestWkid": 3857
+        },
+        "fields": [
+          {
+            "name": "OBJECTID",
+            "type": "esriFieldTypeOID",
+            "alias": "OID"
+          },
+          {
+            "name": "FID",
+            "type": "esriFieldTypeInteger",
+            "alias": "FID"
+          },
+          {
+            "name": "FROM_X",
+            "type": "esriFieldTypeDouble",
+            "alias": "FROM_X"
+          },
+          {
+            "name": "FROM_Y",
+            "type": "esriFieldTypeDouble",
+            "alias": "FROM_Y"
+          },
+          {
+            "name": "TO_X",
+            "type": "esriFieldTypeDouble",
+            "alias": "TO_X"
+          },
+          {
+            "name": "TO_Y",
+            "type": "esriFieldTypeDouble",
+            "alias": "TO_Y"
+          },
+          {
+            "name": "Quantity",
+            "type": "esriFieldTypeInteger",
+            "alias": "Quantity"
+          },
+          {
+            "name": "CO2_EMISSIONS_KG",
+            "type": "esriFieldTypeInteger",
+            "alias": "CO2_EMISSIONS_KG"
+          },
+          {
+            "name": "Shape_Length",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Length"
+          }
+        ],
+        "features": [],
+        "exceededTransferLimit": false
+      },
+      "category": "",
+      "label": "CO2 Emissions",
+      "visible": true,
+      "required": false,
+      "featureSetMode": "layers",
+      "tooltip": "CO2 Emissions",
+      "renderer": {
+        "type": "simple",
+        "symbol": {
+          "color": [
+            155,
+            187,
+            89,
+            255
+          ],
+          "width": 2.25,
+          "type": "esriSLS",
+          "style": "esriSLSSolid"
+        }
+      },
+      "popup": {
+        "title": "",
+        "fields": [
+          {
+            "name": "OBJECTID",
+            "alias": "OID",
+            "type": "esriFieldTypeOID"
+          },
+          {
+            "name": "FID",
+            "alias": "FID",
+            "type": "esriFieldTypeInteger"
+          },
+          {
+            "name": "FROM_X",
+            "alias": "FROM_X",
+            "type": "esriFieldTypeDouble"
+          },
+          {
+            "name": "FROM_Y",
+            "alias": "FROM_Y",
+            "type": "esriFieldTypeDouble"
+          },
+          {
+            "name": "TO_X",
+            "alias": "TO_X",
+            "type": "esriFieldTypeDouble"
+          },
+          {
+            "name": "TO_Y",
+            "alias": "TO_Y",
+            "type": "esriFieldTypeDouble"
+          },
+          {
+            "name": "Quantity",
+            "alias": "Quantity",
+            "type": "esriFieldTypeInteger"
+          },
+          {
+            "name": "CO2_EMISSIONS_KG",
+            "alias": "CO2_EMISSIONS_KG",
+            "type": "esriFieldTypeInteger"
+          },
+          {
+            "name": "Shape_Length",
+            "alias": "Shape_Length",
+            "type": "esriFieldTypeDouble"
+          }
+        ],
+        "enablePopup": true
+      }
+    },
+    {
+      "name": "Output_CO2_Report",
+      "dataType": "GPDataFile",
+      "description": "",
+      "defaultValue": null,
+      "category": "",
+      "label": "CO2 Report",
+      "visible": true,
+      "required": false,
+      "tooltip": "CO2 Report"
+    }
+  ],
+  "shareResults": true,
+  "layerOrder": [
+    "Output_Flows_Layer",
+    "Flows_Layer"
+  ],
+  "showExportButton": true,
+  "useDynamicSchema": false
+}

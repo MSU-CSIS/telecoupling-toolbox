@@ -1,0 +1,20 @@
+<div>
+	<div data-dojo-attach-point="showLabelsBox"></div>
+
+	<div class="dateAndTimeFormat clearFix">
+		<div class="tips">${nls.dateAndTimeFormat}</div>
+		<div class="jimu-float-leading timeFormats">
+			<div data-dojo-attach-point="timeFormat" ></div>
+		</div>
+
+		<div data-dojo-attach-point="customDateContainer" class="customdate-container jimu-float-leading hide">
+			<input class="customdate jimu-input jimu-float-trailing"
+			data-dojo-attach-point="customDateFormat" data-dojo-attach-event="blur:_onCustomDateFormatBlur" required="true"
+			data-dojo-type="dijit/form/ValidationTextBox"/>
+
+			<a class="help-icon" data-dojo-attach-point="helpIcon"
+			 href="http://momentjs.com/docs/#/displaying/format/" 
+			 title="${nls.formatInstruction}" target="_blank"></a>
+		</div>
+	</div>
+</div>

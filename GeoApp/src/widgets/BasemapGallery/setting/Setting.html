@@ -1,0 +1,28 @@
+<div style="width:100%;">
+  <div class="mode-section">
+    <div>
+      <input data-dojo-attach-point="respectOnlineRaido" type="radio" class="jimu-radio-btn" name="modeRaido"/>
+      <label data-dojo-attach-point="respectOnlineLabel">${nls.repectOnline}</label>
+    </div>
+    <div>
+      <input data-dojo-attach-point="customRaido" type="radio" class="jimu-radio-btn" name="modeRaido"/>
+      <label data-dojo-attach-point="customLabel">${nls.customBasemap}</label>
+    </div>
+  </div>
+  <div class="custom-section" data-dojo-attach-point="customBasemapSection">
+    <div class="jimu-btn btn btn-normal" data-dojo-attach-event="onclick: onChooseFromOnlineClick">
+      ${nls.importBasemap}
+    </div>
+    <div class="jimu-btn btn btn-normal" data-dojo-attach-event="onclick: onAddBaseMapClick">${nls.createBasemap}</div>
+    <div class="jimu-btn btn btn-warn jimu-float-trailing" data-dojo-attach-point="deleteBasemapBtn"
+     style="display:none;" data-dojo-attach-event="onclick: onDeleteBaseMapBtnClick">${nls.deleteText}</div>
+  </div>
+  <div class="maps-div" data-dojo-attach-point="baseMapsDiv">
+    <div class="import-tip" data-dojo-attach-point="tipsSection" style="display:none;"></div>
+    <div class="nomap-tip" data-dojo-attach-point="nomapTipsSection" style="display:none;">
+      <div class="no-basemaptip">${nls.noBasemaps}</div>
+			<div class="search-none-tip">${nls.noBasemapAvailable}</div>
+    </div>
+  </div>
+  <div data-dojo-type="jimu/dijit/LoadingIndicator" data-dojo-attach-point="loadingShelter" data-dojo-props='hidden:true'></div>
+</div>

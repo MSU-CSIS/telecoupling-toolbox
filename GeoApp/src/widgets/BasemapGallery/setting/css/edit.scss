@@ -1,0 +1,94 @@
+.jimu-basemapgallery-Edit{
+  height: 100%;
+  overflow-y: auto;
+
+  .setting-content-div {
+    overflow: auto;
+  }
+
+  .error-massage-div {
+    border: 0px solid;
+    /*width: 200px;
+    height: 20px;*/
+    font-size: 11px;
+    color: red;
+    margin-left: 126px;
+  }
+
+  .edit-section {
+    margin-bottom: 20px;
+    position: relative;
+
+    .add-layer-url {
+      position: absolute;
+      height: 20px;
+      cursor: pointer;
+      border: 1px solid #CCCCCC;
+      font-family: Avenir Medium;
+      font-size: 12px;
+      color: #666666;
+      top: 0;
+      right: 0;
+      line-height: 20px;
+      padding: 0 10px;
+
+      &:hover {
+        background: #EEEEEE;
+      }
+
+      .jimu-rtl & {
+        right: auto;
+        left: 0;
+      }
+    }
+
+    .input-url {
+      width: 98%;
+      margin-top: 10px;
+
+      .delete-layer-url {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        vertical-align: bottom;
+        cursor: pointer;
+        margin: 5px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .delete-layer-url {
+        background-image: url(images/Delete.svg);
+      }
+    }
+
+    div.input {
+      margin-top: 10px;
+    }
+
+    input {
+      font-size: 12px;
+      font-family: "Avenir Light";
+      color: #898989;
+    }
+
+    .header {
+      font-family: "Avenir Medium";
+      font-size: 14px;
+      color: #161616;
+      margin-bottom: 10px;
+    }
+
+    .img-chooser {
+      width: 135px;
+      height: 90px;
+    }
+
+    .thumbnail-tip {
+      font-family: "Avenir Light";
+      font-style: italic;
+      font-size: 12px;
+      color: #353535;
+    }
+  }
+}

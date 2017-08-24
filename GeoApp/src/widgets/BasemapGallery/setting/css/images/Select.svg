@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>Select</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="8" cy="8" r="8"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Basemap" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Basemap_Setting-Custom-Delete" transform="translate(-416.000000, -443.000000)">
+            <g id="Setting" transform="translate(220.000000, 112.000000)">
+                <g id="Basemap" transform="translate(30.000000, 144.000000)">
+                    <g id="Select" transform="translate(5.000000, 182.000000)">
+                        <g transform="translate(161.000000, 5.000000)">
+                            <use id="Check" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" fill="#24B5CC" xlink:href="#path-1"></use>
+                            <polygon id="Shape" fill="#FFFFFF" points="6.8068967 9.63448294 4.15862074 6.98620698 3 8.14482771 6.8068967 11.9517244 12.6000004 6.15862074 11.4413796 5"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,29 @@
+<div style="width: 100%">
+<!--   <div data-dojo-attach-point="secondPage" > -->
+  <div class="setting-content-div" data-dojo-attach-point="settingContentDiv">
+    <div class="error-massage-div" data-dojo-attach-point="errorMassage"></div>
+    <div class="edit-section title-section">
+      <div class="header">*${nls.title}</div>
+      <div class="input">
+        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-attach-point="title"
+            required="true" placeHolder='${nls.titlePH}' data-dojo-props='style:{width:"100%"}'/></input>
+      </div>
+    </div>
+    <div class="edit-section thumbnail-section">
+      <div class="header">${nls.thumbnail}</div>
+      <div class="input">
+        <div class="image_chooser_base thumbnail" data-dojo-attach-point="imageChooserBase"></div>
+        <span class="thumbnail-tip">&nbsp;&nbsp;&nbsp;&nbsp;(${nls.thumbnailHint}) </span>
+      </div>
+    </div>
+    <div class="edit-section url-section" data-dojo-attach-point="urlEditSection">
+      <div class="header">${nls.url}</div>
+      <div class="add-layer-url" data-dojo-attach-event="onclick: onAddLayerUrl">+ ${nls.addUrl}</div>
+      <div class="input-url">
+        <input class="url_field_dom" type="text" data-dojo-type="jimu/dijit/ServiceURLInput" data-dojo-attach-point="url"
+            required="true"
+            placeHolder='${nls.urlPH}' data-dojo-props='style:{width:"95%"}'/></input>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,865 @@
+{
+  "theme": {
+    "name": "FoldableTheme",
+    "styles": [
+      "yellow",
+      "cyan",
+      "default",
+      "black",
+      "green",
+      "red",
+      "purple",
+      "blue"
+    ],
+    "version": "2.5",
+    "customStyles": {
+      "mainBackgroundColor": "#18453b"
+    },
+    "sharedTheme": {
+      "useHeader": false,
+      "useLogo": false,
+      "isPortalSupport": false
+    }
+  },
+  "portalUrl": "https://msugis.maps.arcgis.com",
+  "appId": "",
+  "authorizedCrossOriginDomains": ["https://lb.telecoupling.msu.edu"],
+  "title": "Telecoupling GeoApp",
+  "subtitle": "",
+  "keepAppState": true,
+  "logo": "images/logo.png",
+  "geometryService": "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer",
+  "links": [
+    {
+      "label": "Center for Systems Integration & Sustainability",
+      "url": "http://csis.msu.edu/telecoupling"
+    }
+  ],
+  "widgetOnScreen": {
+    "widgets": [
+      {
+        "uri": "themes/FoldableTheme/widgets/HeaderController/Widget",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "height": 40,
+          "relativeTo": "browser"
+        },
+        "version": "2.5",
+        "id": "themes_FoldableTheme_widgets_HeaderController_Widget_19",
+        "name": "HeaderController"
+      },
+      {
+        "uri": "widgets/Scalebar/Widget",
+        "position": {
+          "left": 12,
+          "bottom": 25,
+          "relativeTo": "map"
+        },
+        "version": "2.5",
+        "id": "widgets_Scalebar_Widget_20",
+        "name": "Scalebar"
+      },
+      {
+        "uri": "widgets/Search/Widget",
+        "position": {
+          "left": 14,
+          "top": 12,
+          "relativeTo": "map"
+        },
+        "version": "2.5",
+        "id": "widgets_Search_Widget_21",
+        "name": "Search"
+      },
+      {
+        "uri": "widgets/Coordinate/Widget",
+        "position": {
+          "left": 12,
+          "bottom": 5,
+          "relativeTo": "map"
+        },
+        "version": "2.5",
+        "id": "widgets_Coordinate_Widget_22",
+        "name": "Coordinate"
+      },
+      {
+        "position": {
+          "left": 14,
+          "top": 54,
+          "relativeTo": "map"
+        },
+        "placeholderIndex": 1,
+        "id": "_23",
+        "name": "Measurement",
+        "version": "2.5",
+        "closeable": true,
+        "uri": "widgets/Measurement/Widget",
+        "config": "configs/Measurement/config_Measurement.json"
+      },
+      {
+        "position": {
+          "left": 74,
+          "top": 54,
+          "relativeTo": "map"
+        },
+        "placeholderIndex": 1,
+        "id": "_24",
+        "name": "Share",
+        "version": "2.5",
+        "closeable": true,
+        "uri": "widgets/Share/Widget",
+        "config": "configs/Share/config_Share.json"
+      },
+      {
+        "position": {
+          "left": 134,
+          "top": 54,
+          "relativeTo": "map"
+        },
+        "placeholderIndex": 1,
+        "id": "_25",
+        "name": "Print",
+        "version": "2.5",
+        "closeable": true,
+        "uri": "widgets/Print/Widget",
+        "config": "configs/Print/config_Print.json"
+      },
+      {
+        "position": {
+          "left": 194,
+          "top": 54,
+          "relativeTo": "map"
+        },
+        "placeholderIndex": 1,
+        "id": "_26",
+        "name": "BasemapGallery",
+        "version": "2.5",
+        "closeable": true,
+        "uri": "widgets/BasemapGallery/Widget",
+        "config": "configs/BasemapGallery/config_BasemapGallery.json"
+      },
+      {
+        "position": {
+          "left": 254,
+          "top": 54,
+          "relativeTo": "map"
+        },
+        "placeholderIndex": 1,
+        "id": "_27",
+        "version": "2.5",
+        "closeable": true,
+        "uri": "widgets/TimeSlider/Widget",
+        "name": "TimeSlider",
+        "config": "configs/TimeSlider/config_TimeSlider.json"
+      },
+      {
+        "uri": "widgets/OverviewMap/Widget",
+        "position": {
+          "right": 0,
+          "bottom": 0,
+          "zIndex": 1,
+          "relativeTo": "map"
+        },
+        "version": "2.5",
+        "id": "widgets_OverviewMap_Widget_28",
+        "name": "OverviewMap"
+      },
+      {
+        "uri": "widgets/HomeButton/Widget",
+        "position": {
+          "left": 12,
+          "bottom": 126,
+          "relativeTo": "map"
+        },
+        "version": "2.5",
+        "id": "widgets_HomeButton_Widget_29",
+        "name": "HomeButton"
+      },
+      {
+        "uri": "widgets/MyLocation/Widget",
+        "position": {
+          "left": 12,
+          "bottom": 164,
+          "relativeTo": "map"
+        },
+        "version": "2.5",
+        "id": "widgets_MyLocation_Widget_30",
+        "name": "MyLocation"
+      },
+      {
+        "uri": "widgets/AttributeTable/Widget",
+        "version": "2.5",
+        "position": {
+          "relativeTo": "browser"
+        },
+        "id": "widgets_AttributeTable_Widget_31",
+        "name": "AttributeTable",
+        "config": "configs/AttributeTable/config_AttributeTable.json"
+      },
+      {
+        "uri": "widgets/Splash/Widget",
+        "position": {
+          "relativeTo": "browser"
+        },
+        "version": "2.5",
+        "id": "widgets_Splash_Widget_32",
+        "name": "Splash",
+        "config": "configs/Splash/config_Splash.json"
+      },
+      {
+        "uri": "widgets/ZoomSlider/Widget",
+        "position": {
+          "left": 12,
+          "bottom": 58,
+          "relativeTo": "map"
+        },
+        "version": "2.5",
+        "id": "widgets_ZoomSlider_Widget_33",
+        "name": "ZoomSlider"
+      },
+      {
+        "uri": "widgets/ExtentNavigate/Widget",
+        "visible": false,
+        "position": {
+          "left": 12,
+          "bottom": 203,
+          "relativeTo": "map"
+        },
+        "version": "2.5",
+        "id": "widgets_ExtentNavigate_Widget_34",
+        "name": "ExtentNavigate"
+      },
+      {
+        "uri": "widgets/FullScreen/Widget",
+        "visible": false,
+        "position": {
+          "right": 8,
+          "top": 8,
+          "relativeTo": "map"
+        },
+        "version": "2.5",
+        "id": "widgets_FullScreen_Widget_80",
+        "name": "FullScreen"
+      }
+    ],
+    "panel": {
+      "uri": "jimu/OnScreenWidgetPanel",
+      "position": {
+        "relativeTo": "map"
+      }
+    }
+  },
+  "map": {
+    "3D": false,
+    "2D": true,
+    "position": {
+      "left": 0,
+      "top": 40,
+      "right": 0,
+      "bottom": 0
+    },
+    "itemId": "d6338e8a66b04273b445b725cc332eaa",
+    "mapOptions": {
+      "extent": {
+        "xmin": -14913717.084450653,
+        "ymin": -5636918.8645784,
+        "xmax": 14829459.361869225,
+        "ymax": 10976210.611030532,
+        "spatialReference": {
+          "wkid": 102100
+        }
+      }
+    },
+    "id": "map",
+    "portalUrl": "https://msugis.maps.arcgis.com"
+  },
+  "widgetPool": {
+    "panel": {
+      "uri": "themes/FoldableTheme/panels/FoldablePanel/Panel",
+      "position": {
+        "top": 5,
+        "right": 5,
+        "bottom": 5,
+        "zIndex": 5,
+        "relativeTo": "map"
+      }
+    },
+    "widgets": [
+      {
+        "uri": "widgets/Legend/Widget",
+        "version": "2.5",
+        "id": "widgets_Legend_Widget_17",
+        "name": "Legend",
+        "index": 2
+      },
+      {
+        "uri": "widgets/LayerList/Widget",
+        "version": "2.5",
+        "id": "widgets_LayerList_Widget_18",
+        "name": "LayerList",
+        "index": 3,
+        "config": "configs/LayerList/config_LayerList.json"
+      },
+      {
+        "name": "AddData",
+        "version": "2.5",
+        "uri": "widgets/AddData/Widget",
+        "index": 11,
+        "id": "widgets_AddData_Widget_35",
+        "config": "configs/AddData/config_AddData.json"
+      },
+      {
+        "name": "Select",
+        "version": "2.5",
+        "uri": "widgets/Select/Widget",
+        "config": "configs/Select/config_Select.json",
+        "index": 12,
+        "id": "widgets_Select_Widget_65"
+      },
+      {
+        "name": "Draw",
+        "version": "2.5",
+        "uri": "widgets/Draw/Widget",
+        "config": "configs/Draw/config_Draw.json",
+        "index": 13,
+        "id": "widgets_Draw_Widget_36"
+      }
+    ],
+    "groups": [
+      {
+        "label": "Systems",
+        "icon": "jimu.js/images/SystemsWidgetGroup_icon.png",
+        "widgets": [
+          {
+            "name": "Geoprocessing",
+            "label": "Upload Systems from Table",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Upload Systems from Table.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Upload Systems from Table.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_75"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Add Systems",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Add Systems.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Add Systems.json",
+            "index": 8,
+            "id": "widgets_Geoprocessing_Widget_39"
+          }
+        ],
+        "index": 4,
+        "id": "_44",
+        "visible": true,
+        "panel": {
+          "uri": "themes/FoldableTheme/panels/FoldablePanel/Panel",
+          "position": {
+            "top": 5,
+            "right": 5,
+            "bottom": 5,
+            "zIndex": 5,
+            "relativeTo": "map"
+          }
+        }
+      },
+      {
+        "label": "Agents",
+        "icon": "jimu.js/images/AgentsWidgetGroup_icon.png",
+        "widgets": [
+          {
+            "name": "Geoprocessing",
+            "label": "Upload Agents from Table",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Upload Agents from Table.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Upload Agents from Table.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_76"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Add Agents",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Add Agents.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Add Agents.json",
+            "index": 9,
+            "id": "widgets_Geoprocessing_Widget_42"
+          }
+        ],
+        "index": 5,
+        "id": "_43",
+        "visible": true,
+        "panel": {
+          "uri": "themes/FoldableTheme/panels/FoldablePanel/Panel",
+          "position": {
+            "top": 5,
+            "right": 5,
+            "bottom": 5,
+            "zIndex": 5,
+            "relativeTo": "map"
+          }
+        }
+      },
+      {
+        "label": "Flows",
+        "icon": "jimu.js/images/FlowsWidgetGroup_icon.png",
+        "widgets": [
+          {
+            "name": "Geoprocessing",
+            "label": "Draw Radial Flows",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Draw Radial Flows.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Draw Radial Flows.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_77"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Add Media Flows",
+            "version": "2.5",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Add Media Flows.json",
+            "index": 18,
+            "id": "widgets_Geoprocessing_Widget_69",
+            "icon": "configs\\Geoprocessing\\icon_Add Media Flows.png"
+          }
+        ],
+        "index": 6,
+        "id": "_67",
+        "visible": true,
+        "panel": {
+          "uri": "themes/FoldableTheme/panels/FoldablePanel/Panel",
+          "position": {
+            "top": 5,
+            "right": 5,
+            "bottom": 5,
+            "zIndex": 5,
+            "relativeTo": "map"
+          }
+        }
+      },
+      {
+        "label": "Causes",
+        "icon": "jimu.js/images/CausesWidgetGroup_icon.png",
+        "widgets": [
+          {
+            "name": "Geoprocessing",
+            "label": "Model Selection (OLS)",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Model Selection (OLS).png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Model Selection (OLS).json",
+            "index": 11,
+            "id": "widgets_Geoprocessing_Widget_48"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Factor Analysis Mixed Data",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Factor Analysis Mixed Data.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Factor Analysis Mixed Data.json",
+            "index": 22,
+            "id": "widgets_Geoprocessing_Widget_79"
+          }
+        ],
+        "index": 7,
+        "id": "_54",
+        "visible": true,
+        "panel": {
+          "uri": "themes/FoldableTheme/panels/FoldablePanel/Panel",
+          "position": {
+            "top": 5,
+            "right": 5,
+            "bottom": 5,
+            "zIndex": 5,
+            "relativeTo": "map"
+          }
+        }
+      },
+      {
+        "label": "Environmental Analysis",
+        "icon": "jimu.js/images/EnvironmentalGroupWidget_icon.png",
+        "widgets": [
+          {
+            "name": "Geoprocessing",
+            "label": "Calculate CO2 Emissions on Flows",
+            "version": "2.5",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Calculate CO2 Emissions on Flows.json",
+            "index": 17,
+            "id": "widgets_Geoprocessing_Widget_53",
+            "icon": "configs\\Geoprocessing\\icon_Calculate CO2 Emissions on Flows.png"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Habitat Quality",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Habitat Quality.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Habitat Quality.json",
+            "index": 22,
+            "id": "widgets_Geoprocessing_Widget_56"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Crop Production",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Crop Production.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Crop Production.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_73"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Forest Carbon Edge Effect",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Forest Carbon Edge Effect.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Forest Carbon Edge Effect.json",
+            "index": 22,
+            "id": "widgets_Geoprocessing_Widget_78"
+          }
+        ],
+        "index": 8,
+        "id": "_55",
+        "visible": true,
+        "panel": {
+          "uri": "themes/FoldableTheme/panels/FoldablePanel/Panel",
+          "position": {
+            "top": 5,
+            "right": 5,
+            "bottom": 5,
+            "zIndex": 5,
+            "relativeTo": "map"
+          }
+        }
+      },
+      {
+        "label": "Socioeconomic Analysis",
+        "icon": "jimu.js/images/SocioEconomicGroupWidget_icon.png",
+        "widgets": [
+          {
+            "name": "Geoprocessing",
+            "label": "Visitation Rate",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Visitation Rate.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Visitation Rate.json",
+            "index": 18,
+            "id": "widgets_Geoprocessing_Widget_71"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Cost-Benefit Analysis",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Cost-Benefit Analysis.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Cost-Benefit Analysis.json",
+            "index": 17,
+            "id": "widgets_Geoprocessing_Widget_57"
+          }
+        ],
+        "index": 9,
+        "id": "_72",
+        "visible": true,
+        "panel": {
+          "uri": "themes/FoldableTheme/panels/FoldablePanel/Panel",
+          "position": {
+            "top": 5,
+            "right": 5,
+            "bottom": 5,
+            "zIndex": 5,
+            "relativeTo": "map"
+          }
+        }
+      },
+      {
+        "label": "Imagery Analysis",
+        "icon": "jimu.js/images/ImageryAnalysisGroup_icon.png",
+        "widgets": [
+          {
+            "name": "ISLayers",
+            "version": "",
+            "uri": "widgets/ISLayers/Widget",
+            "config": "configs/ISLayers/config_Pick Imagery Layers.json",
+            "index": 13,
+            "id": "widgets_ISLayers_Widget_81",
+            "openAtStart": false,
+            "label": "Pick Imagery Layers"
+          },
+          {
+            "name": "ISImageSelector",
+            "label": "Temporal Selector",
+            "version": "",
+            "uri": "widgets/ISImageSelector/Widget",
+            "config": "configs/ISImageSelector/config_Temporal Selector.json",
+            "index": 14,
+            "id": "widgets_ISImageSelector_Widget_87"
+          },
+          {
+            "name": "ISChangeDetection",
+            "version": "",
+            "uri": "widgets/ISChangeDetection/Widget",
+            "config": "configs/ISChangeDetection/config_Change Detection.json",
+            "index": 14,
+            "id": "widgets_ISChangeDetection_Widget_82",
+            "label": "Change Detection"
+          },
+          {
+            "name": "ISCompare",
+            "version": "",
+            "uri": "widgets/ISCompare/Widget",
+            "config": "configs/ISCompare/config_Imagery Comparison.json",
+            "index": 14,
+            "id": "widgets_ISCompare_Widget_84",
+            "label": "Imagery Comparison"
+          },
+          {
+            "name": "ISProfile",
+            "label": "Temporal & Spectral Profile",
+            "version": "",
+            "uri": "widgets/ISProfile/Widget",
+            "config": "configs/ISProfile/config_Temporal & Spectral Profile.json",
+            "index": 14,
+            "id": "widgets_ISProfile_Widget_86"
+          },
+          {
+            "name": "ISExport",
+            "label": "Export to Disk",
+            "version": "",
+            "uri": "widgets/ISExport/Widget",
+            "config": "configs/ISExport/config_Export to Disk.json",
+            "index": 14,
+            "id": "widgets_ISExport_Widget_85"
+          }
+        ],
+        "index": 10,
+        "id": "_88",
+        "visible": true,
+        "panel": {
+          "uri": "themes/FoldableTheme/panels/FoldablePanel/Panel",
+          "position": {
+            "top": 5,
+            "right": 5,
+            "bottom": 5,
+            "zIndex": 5,
+            "relativeTo": "map"
+          }
+        }
+      }
+    ]
+  },
+  "mobileLayout": {
+    "widgetOnScreen": {
+      "widgets": [
+        {
+          "uri": "themes/FoldableTheme/widgets/HeaderController/Widget",
+          "position": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "height": 40,
+            "relativeTo": "browser"
+          },
+          "version": "2.3"
+        },
+        {
+          "uri": "widgets/Scalebar/Widget",
+          "position": {
+            "left": 12,
+            "bottom": 40,
+            "relativeTo": "map"
+          },
+          "version": "2.3"
+        },
+        {
+          "uri": "widgets/Search/Widget",
+          "position": {
+            "left": 12,
+            "right": 12,
+            "top": 10,
+            "relativeTo": "map"
+          },
+          "version": "2.3"
+        },
+        {
+          "uri": "widgets/Coordinate/Widget",
+          "position": {
+            "left": 12,
+            "bottom": 18,
+            "relativeTo": "map"
+          },
+          "version": "2.3"
+        },
+        {
+          "position": {
+            "left": 12,
+            "top": 62,
+            "relativeTo": "map"
+          }
+        },
+        {
+          "position": {
+            "left": 12,
+            "top": 112,
+            "relativeTo": "map"
+          }
+        },
+        {
+          "position": {
+            "left": 12,
+            "top": 162,
+            "relativeTo": "map"
+          }
+        },
+        {
+          "position": {
+            "left": 12,
+            "top": 212,
+            "relativeTo": "map"
+          }
+        },
+        {
+          "position": {
+            "left": 12,
+            "top": 262,
+            "relativeTo": "map"
+          }
+        },
+        {
+          "uri": "widgets/OverviewMap/Widget",
+          "position": {
+            "right": 0,
+            "bottom": 0,
+            "zIndex": 1
+          },
+          "version": "2.3"
+        },
+        {
+          "uri": "widgets/HomeButton/Widget",
+          "inPanel": false,
+          "position": {
+            "right": 12,
+            "top": 102,
+            "relativeTo": "map"
+          },
+          "version": "2.3"
+        },
+        {
+          "uri": "widgets/MyLocation/Widget",
+          "inPanel": false,
+          "position": {
+            "right": 12,
+            "top": 62,
+            "relativeTo": "map"
+          },
+          "version": "2.3"
+        },
+        {
+          "uri": "widgets/AttributeTable/Widget",
+          "version": "2.3",
+          "position": {
+            "relativeTo": "browser"
+          }
+        },
+        {
+          "uri": "widgets/Splash/Widget",
+          "visible": false,
+          "position": {
+            "relativeTo": "browser"
+          },
+          "version": "2.3"
+        },
+        {
+          "uri": "widgets/ZoomSlider/Widget",
+          "visible": true,
+          "position": {
+            "right": 12,
+            "top": 142,
+            "relativeTo": "map"
+          },
+          "version": "2.3"
+        },
+        {
+          "uri": "widgets/ExtentNavigate/Widget",
+          "visible": false,
+          "position": {
+            "right": 12,
+            "top": 211,
+            "relativeTo": "map"
+          },
+          "version": "2.3"
+        }
+      ]
+    },
+    "map": {
+      "position": {
+        "left": 0,
+        "top": 40,
+        "right": 0,
+        "bottom": 0
+      }
+    },
+    "widgetPool": {
+      "panel": {
+        "uri": "themes/FoldableTheme/panels/FoldablePanel/Panel",
+        "position": {
+          "top": 5,
+          "right": 5,
+          "bottom": 5,
+          "zIndex": 5
+        }
+      }
+    }
+  },
+  "loadingPage": {
+    "backgroundColor": "#18453b",
+    "backgroundImage": {
+      "visible": false,
+      "uri": "configs/loading/images/background.jpeg",
+      "width": 2000,
+      "height": 1183
+    },
+    "loadingGif": {
+      "visible": true,
+      "uri": "configs/loading/images/loading.gif",
+      "width": 125,
+      "height": 125
+    }
+  },
+  "wabVersion": "2.5",
+  "isTemplateApp": true,
+  "isWebTier": false,
+  "httpProxy": {
+    "useProxy": true,
+    "alwaysUseProxy": false,
+    "url": "",
+    "rules": [
+	{
+		"urlPrefix": "https://msugis.maps.arcgis.com",
+		"proxyUrl": "https://telecoupling.msu.edu/DotNet/proxy.ashx"
+	},{
+		"urlPrefix": "https://landscape7.arcgis.com",
+		"proxyUrl": "https://telecoupling.msu.edu/DotNet/proxy.ashx"
+	},{
+		"urlPrefix": "https://landscape6.arcgis.com",
+		"proxyUrl": "https://telecoupling.msu.edu/DotNet/proxy.ashx"
+	},{
+		"urlPrefix": "https://earthobs2.arcgis.com",
+		"proxyUrl": "https://telecoupling.msu.edu/DotNet/proxy.ashx"
+	}
+	]
+  },
+  "dataSource": {
+    "dataSources": {},
+    "settings": {}
+  }
+}

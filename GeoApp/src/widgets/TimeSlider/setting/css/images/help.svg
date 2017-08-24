@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.1 (35376) - http://www.bohemiancoding.com/sketch -->
+    <title>help</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Timeslider" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.600000024">
+        <g id="configue_custom" transform="translate(-724.000000, -365.000000)" fill="#000000">
+            <g id="Layout" transform="translate(250.000000, 332.000000)">
+                <g id="help" transform="translate(474.000000, 33.000000)">
+                    <path d="M8,0 C3.6,0 0,3.6 0,8 C0,12.4 3.6,16 8,16 C12.4,16 16,12.4 16,8 C16,3.6 12.4,0 8,0 L8,0 Z M8.8,13.6 L7.2,13.6 L7.2,12 L8.8,12 L8.8,13.6 L8.8,13.6 Z M10.48,7.44 L9.76,8.16 C9.12,8.72 8.8,9.2 8.8,10.4 L7.2,10.4 L7.2,10 C7.2,9.12 7.52,8.32 8.16,7.76 L9.12,6.72 C9.44,6.48 9.6,6.08 9.6,5.6 C9.6,4.72 8.88,4 8,4 C7.12,4 6.4,4.72 6.4,5.6 L4.8,5.6 C4.8,3.84 6.24,2.4 8,2.4 C9.76,2.4 11.2,3.84 11.2,5.6 C11.2,6.32 10.88,6.96 10.48,7.44 L10.48,7.44 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

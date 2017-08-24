@@ -1,0 +1,107 @@
+.jimu-widget-select-setting {
+  margin: 20px 0;
+
+  .config-section {
+    width: 100%;
+    margin-bottom: 20px;
+
+    label {
+      color: #353535;
+      font: {
+        size: 12px;
+      }
+    }
+
+    .jimu-color-picker {
+      width: 30px;
+      height: 30px;
+      margin: 0 20px;
+    }
+
+    .option {
+      margin: 15px;
+
+      input {
+        margin: 0 10px;
+      }
+    }
+  }
+
+  .inline > div {
+    display: inline-block;
+  }
+
+  .label {
+    color: #353535;
+    font: {
+      size: 14px;
+    }
+  }
+
+  .drawing-tools-container{
+    margin-top:5px;
+    overflow: hidden;
+
+    .draw-item{
+      float: left;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-position: center center;
+      margin-left: 5px;
+      position: relative;
+      border: 1px solid #DBDBDB;
+      border-radius: 1px;
+
+      .jimu-rtl & {
+        float: right;
+        margin-left: 0;
+        margin-right: 5px;
+      }
+
+      &:first-child {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+
+      .draw-item-icon{
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        width: 16px;
+        height: 16px;
+        display: none;
+        background: url(images/checked.png) center center no-repeat;
+        background-color: #fff;
+
+        .jimu-rtl & {
+          left: auto;
+          right: 2px;
+        }
+      }
+
+      &.selected {
+        .draw-item-icon{
+          display: block;
+        }
+      }
+    }
+  }
+
+  .draw-item.polyline{
+    background-image: url(../../../../jimu.js/css/images/draw_polyline.png);
+  }
+
+  .draw-item.extent{
+    background-image: url(../../../../jimu.js/css/images/draw_extent.png);
+  }
+
+  .draw-item.circle{
+    background-image: url(../../../../jimu.js/css/images/draw_circle.png);
+  }
+
+  .draw-item.polygon{
+    background-image: url(../../../../jimu.js/css/images/draw_polygon.png);
+  }
+}
