@@ -13,10 +13,14 @@ It is our hope that the innovative, free and open-source toolbox can provide a u
 ## ArcGIS Toolbox 
 ------------------
 
-Geoprocessing script tools for use within ESRI's ArcGIS Desktop (version 10.3.1 or later). Look inside the folder for code, images, documentation, and detailed instructions on installation and use.
+<img src="ArcGIS Toolbox/Figs/ArcGIS_Toolbox_icon.png" alt="ArcGIS Toolbox Icon" title="ArcGIS Toolbox Icon" height="225" >
+
+The ArcGIS Toolbox is a large collection of mapping and analysis tools for use within ESRI's ArcGIS Desktop (version 10.3.1 or later) to systematically study telecoupling. Look inside the folder for code, images, documentation, and detailed instructions on installation and use.
 
 ## GeoApp
 ------------------
+
+<img src="GeoApp/img/chansnet_globe_bkgr.png" alt="GeoApp Icon" title="GeoApp Icon" height="200" >
 
 The GeoApp offers a dynamic, interactive web-GIS platform along with a large collection of mapping and analysis tools to systematically study telecoupling. Look inside the folder for source code and images linked to the GeoApp.
 
