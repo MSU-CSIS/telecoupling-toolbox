@@ -13,7 +13,7 @@ It is our hope that the innovative, free and open-source toolbox can provide a u
 ## ArcGIS Toolbox 
 ------------------
 
-<img src="ArcGIS Toolbox/Figs/ArcGIS_Toolbox_icon.png" alt="ArcGIS Toolbox Icon" title="ArcGIS Toolbox Icon" height="225" >
+<img src="ArcGIS Toolbox/Figs/ArcGIS_Toolbox_icon.png" alt="ArcGIS Toolbox Icon" title="ArcGIS Toolbox Icon" height="200" >
 
 The ArcGIS Toolbox is a large collection of mapping and analysis tools for use within ESRI's ArcGIS Desktop (version 10.3.1 or later) to systematically study telecoupling. Look inside the folder for code, images, documentation, and detailed instructions on installation and use.
 
