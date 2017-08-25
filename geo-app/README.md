@@ -19,17 +19,11 @@ The GeoApp is still in _beta_ development stage and is being tested for bugs and
 
 © 2017 Michigan State University 
 
-Francesco Tonini 
+Francesco Tonini: <ftonini84@gmail.com>
 
-<ftonini84@gmail.com>
+Paul McCord: <paulfmccord@gmail.com>
 
-Paul McCord
-
-<paulfmccord@gmail.com>
-
-Jianguo 'Jack' Liu
-
-<liuji@anr.msu.edu>
+Jianguo 'Jack' Liu: <liuji@anr.msu.edu>
 
 ## LICENSE
 ---------------------

@@ -140,13 +140,11 @@ After unzipping the sample data folder, you will see a mix of GIS (vector, raste
 
 © 2017 Michigan State University 
 
-Francesco Tonini 
+Francesco Tonini: <ftonini84@gmail.com>
 
-<ftonini84@gmail.com>
+Paul McCord: <paulfmccord@gmail.com>
 
-Jianguo 'Jack' Liu
-
-<liuji@anr.msu.edu>
+Jianguo 'Jack' Liu: <liuji@anr.msu.edu>
 
 ## LICENSE
 ---------------------
