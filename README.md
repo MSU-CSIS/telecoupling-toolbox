@@ -11,14 +11,14 @@ It is our hope that the innovative, free and open-source toolbox can provide a u
 ## ArcGIS Toolbox 
 ------------------
 
-<img src="ArcGIS Toolbox/Figs/ArcGIS_Toolbox_icon.png" alt="ArcGIS Toolbox Icon" title="ArcGIS Toolbox Icon" height="200" >
+<img src="arcgis-toolbox/Figs/ArcGIS_Toolbox_icon.png" alt="ArcGIS Toolbox Icon" title="ArcGIS Toolbox Icon" height="200" >
 
 The ArcGIS Toolbox is a large collection of mapping and analysis tools for use within ESRI's ArcGIS Desktop (version 10.3.1 or later) to systematically study telecoupling. Look inside the [ArcGIS Toolbox](./arcgis-toolbox) project folder for code, images, documentation, and detailed instructions on installation and use.
 
 ## GeoApp
 ------------------
 
-<img src="GeoApp/img/chansnet_globe_bkgr.png" alt="GeoApp Icon" title="GeoApp Icon" height="200" >
+<img src="geo-app/img/chansnet_globe_bkgr.png" alt="GeoApp Icon" title="GeoApp Icon" height="200" >
 
 The GeoApp offers a dynamic, interactive, online geo-enabled platform along with a large collection of mapping and analysis tools to systematically study telecoupling. Look inside the [GeoApp](./geo-app) project folder for source code and images linked to the GeoApp.
 
@@ -27,11 +27,11 @@ The GeoApp offers a dynamic, interactive, online geo-enabled platform along with
 
 © 2017 Michigan State University 
 
-Francesco Tonini <ftonini84@gmail.com>
+Francesco Tonini: <ftonini84@gmail.com>
 
-Paul McCord <paulfmccord@gmail.com>
+Paul McCord: <paulfmccord@gmail.com>
 
-Jianguo 'Jack' Liu <liuji@anr.msu.edu>
+Jianguo 'Jack' Liu: <liuji@anr.msu.edu>
 
 ## LICENSE
 ---------------------
