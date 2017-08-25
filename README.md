@@ -1,8 +1,3 @@
-Telecoupling Toolbox
-=====================================
-
-## _A suite of software components and tools for socioeconomic and environmental analysis on coupled human-natural systems (CHANS) from local to global scales_.
-
 Telecoupling is a novel interdisciplinary umbrella concept that enables natural and social scientists to understand and generate information for managing how humans and nature can sustainably coexist worldwide. 
 The telecoupling framework gains its distinction by enabling researchers to dive deeply into systemic complexities, even if systems are far away from each other. 
 It is also ambitious in its aim to meet challenges unencumbered by disciplines. To understand the forces affecting sustainability across local to global scales, it is essential to build a comprehensive set of spatially explicit tools for describing and quantifying multiple reciprocal socioeconomic and environmental interactions over distances. 
