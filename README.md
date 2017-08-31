@@ -36,9 +36,9 @@ Help yourself with our introductory tutorial if you need more time to familiariz
 
 © 2017 Michigan State University 
 
-Francesco Tonini: <ftonini84@gmail.com>
+Francesco Tonini: <ftonini@msu.edu>
 
-Paul McCord: <paulfmccord@gmail.com>
+Paul McCord: <mccordpa@msu.edu>
 
 Jianguo 'Jack' Liu: <liuji@msu.edu>
 
