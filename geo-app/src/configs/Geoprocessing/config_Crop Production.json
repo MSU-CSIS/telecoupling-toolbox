@@ -8,6 +8,7 @@
     "currentVersion": 10.41,
     "url": "https://lb.telecoupling.msu.edu/arcgis/rest/services/Geoprocessing/CropProduction/GPServer/",
     "hasResultMapServer": true,
+    "resultMapServerName": "Geoprocessing/CropProduction",
     "supportsUpload": true,
     "maxUploadFileSize": 2000
   },
@@ -21,10 +22,10 @@
       "description": "Filepath to a CSV table used to convert the crop code provided in the Crop Map to the crop name that can be used for searching through inputs and formatting outputs.",
       "defaultValue": "itemID:",
       "category": "",
-      "label": "Lookup Table",
+      "label": "Crop Lookup Table",
       "visible": true,
       "required": true,
-      "tooltip": "Lookup Table"
+      "tooltip": "Crop Lookup Table"
     },
     {
       "name": "Crop_Management_Scenario_Map",
@@ -36,17 +37,6 @@
       "visible": true,
       "required": true,
       "tooltip": "Crop Management Scenario Map"
-    },
-    {
-      "name": "Zipped_Global_Dataset_Folder",
-      "dataType": "GPDataFile",
-      "description": "Zipped folder containing global datasets for crop model",
-      "defaultValue": "itemID:",
-      "category": "",
-      "label": "Zipped Global Dataset Folder",
-      "visible": true,
-      "required": true,
-      "tooltip": "Zipped Global Dataset Folder"
     },
     {
       "name": "Yield_Function",
@@ -77,10 +67,10 @@
         "yield_95th",
         "none"
       ],
-      "label": "Percentile Column (optional)",
+      "label": "Percentile Column",
       "visible": true,
       "required": false,
-      "tooltip": "Percentile Column (optional)"
+      "tooltip": "Percentile Column"
     },
     {
       "name": "Zipped_Fertilizer_Raster_Folder",
@@ -88,10 +78,10 @@
       "description": "Zipped folder containing fertilized raster maps",
       "defaultValue": "itemID:",
       "category": "",
-      "label": "Zipped Fertilizer Raster Folder (optional)",
+      "label": "Zipped Fertilizer Raster Folder (optional, only with regression)",
       "visible": true,
       "required": false,
-      "tooltip": "Zipped Fertilizer Raster Folder (optional)"
+      "tooltip": "Zipped Fertilizer Raster Folder (optional, only with regression)"
     },
     {
       "name": "Irrigation_Map",
@@ -99,10 +89,10 @@
       "description": "Filepath to a GDAL-supported raster representing whether irrigation occurs or not. A zero value indicates that no irrigation occurs. A one value indicates that irrigation occurs. If any other values are provided, irrigation is assumed to occur within that cell area.",
       "defaultValue": "itemID:",
       "category": "",
-      "label": "Irrigation Map (optional)",
+      "label": "Irrigation Map (optional, only with regression)",
       "visible": true,
       "required": false,
-      "tooltip": "Irrigation Map (optional)"
+      "tooltip": "Irrigation Map (optional, only with regression)"
     },
     {
       "name": "Compute_Nutrient_Contents",
@@ -121,10 +111,10 @@
       "description": "Filepath to a CSV table containing information about the nutrient contents of each crop.",
       "defaultValue": "itemID:",
       "category": "",
-      "label": "Crop Nutrient Information (optional)",
+      "label": "Crop Nutrient Information Table",
       "visible": true,
       "required": false,
-      "tooltip": "Crop Nutrient Information (optional)"
+      "tooltip": "Crop Nutrient Information Table"
     },
     {
       "name": "Compute_Financial_Analysis",
@@ -143,26 +133,25 @@
       "description": "Filepath to a CSV table containing information related to market price of a given crop and the costs involved with producing that crop.",
       "defaultValue": "itemID:",
       "category": "",
-      "label": "Crop Economic Information (optional)",
+      "label": "Crop Economic Information Table",
       "visible": true,
       "required": false,
-      "tooltip": "Crop Economic Information (optional)"
+      "tooltip": "Crop Economic Information Table"
     }
   ],
   "outputParams": [
     {
-      "name": "Output_Raster",
+      "name": "Yield__tonnes_ha_",
       "dataType": "GPRasterDataLayer",
       "description": "",
       "defaultValue": null,
       "category": "",
-      "label": "Crop Yield",
+      "label": "Yield (tonnes/ha)",
       "visible": true,
-      "required": false,
-      "tooltip": "Crop Yield"
+      "required": false
     },
     {
-      "name": "Output_Economic_Table",
+      "name": "Economic_Table",
       "dataType": "GPDataFile",
       "description": "",
       "defaultValue": null,
@@ -173,7 +162,7 @@
       "tooltip": "Economic Table"
     },
     {
-      "name": "Output_Nutritional_Table",
+      "name": "Nutritional_Table",
       "dataType": "GPDataFile",
       "description": "",
       "defaultValue": null,
@@ -182,6 +171,19 @@
       "visible": true,
       "required": false,
       "tooltip": "Nutritional Table"
+    },
+    {
+      "name": "Geoprocessing/CropProduction",
+      "label": "Crop Production Map",
+      "tooltip": "Crop Production Map",
+      "dataType": "MapServiceLayer",
+      "layerNames": [
+        "Crop Production",
+        "Yield (tonnes/ha)"
+      ],
+      "visible": true,
+      "required": "",
+      "defaultValue": null
     }
   ],
   "shareResults": false,

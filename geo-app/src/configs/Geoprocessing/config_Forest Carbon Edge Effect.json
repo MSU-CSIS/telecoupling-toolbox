@@ -17,15 +17,15 @@
   "isSynchronous": false,
   "inputParams": [
     {
-      "name": "Land_Use_Land_Cover_Map",
+      "name": "Land_Cover_Map",
       "dataType": "GPRasterDataLayer",
       "description": "A GDAL-supported raster file, with an integer LULC code for each cell.",
       "defaultValue": "itemID:",
       "category": "",
-      "label": "Land Use/Land Cover Map",
+      "label": "Land Cover Map",
       "visible": true,
       "required": true,
-      "tooltip": "Land Use/Land Cover Map"
+      "tooltip": "Land Cover Map"
     },
     {
       "name": "Biophysical_Table",
@@ -42,7 +42,7 @@
       "name": "Carbon_Pools_to_Calculate",
       "dataType": "GPString",
       "description": "If 'all carbon pools' is selected then the headers 'c_above', 'c_below', 'c_dead', 'c_soil' are used in the carbon pool calculation. Otherwise only 'c_above' is considered.",
-      "defaultValue": "above ground only",
+      "defaultValue": "all carbon pools",
       "category": "",
       "choiceList": [
         "all carbon pools",
@@ -70,10 +70,10 @@
       "description": "A shapefile with fields 'method', 'theta1', 'theta2', 'theta3' describing the global forest carbon edge models. Provided as default data for the model.",
       "defaultValue": "itemID:",
       "category": "",
-      "label": "Zipped Global Forest Carbon Edge Regression Models (optional)",
+      "label": "Global Forest Carbon Edge Regression Models (zipped shapefile)",
       "visible": true,
       "required": false,
-      "tooltip": "Zipped Global Forest Carbon Edge Regression Models (optional)"
+      "tooltip": "Global Forest Carbon Edge Regression Models (zipped shapefile)"
     },
     {
       "name": "Number_of_Nearest_Model_Points_to_Average",
@@ -81,10 +81,10 @@
       "description": "Used when calculating the biomass in a pixel. This number determines the number of closest regression models that are used when calculating the total biomass. Each local model is linearly weighted by distance such that the biomass in the pixel is a function of each of these points with the closest point having the highest effect.",
       "defaultValue": null,
       "category": "",
-      "label": "Number of Nearest Model Points to Average (optional)",
+      "label": "Nearest Model Points to Average (only with edge regression)",
       "visible": true,
       "required": false,
-      "tooltip": "Number of Nearest Model Points to Average (optional)"
+      "tooltip": "Nearest Model Points to Average (only with edge regression)"
     },
     {
       "name": "Forest_Edge_Biomass_to_Carbon_Conversion_Factor",
@@ -92,23 +92,22 @@
       "description": "Number by which to scale forest edge biomass to convert to carbon. Default value is 0.47 (according to IPCC 2006). This pertains to forest classes only; values in the biophysical table for non-forest classes should already be in terms of carbon, not biomass.\n\n",
       "defaultValue": null,
       "category": "",
-      "label": "Forest Edge Biomass to Carbon Conversion Factor (optional)",
+      "label": "Biomass to Carbon Conversion Factor (only with edge regression)",
       "visible": true,
       "required": false,
-      "tooltip": "Forest Edge Biomass to Carbon Conversion Factor (optional)"
+      "tooltip": "Biomass to Carbon Conversion Factor (only with edge regression)"
     }
   ],
   "outputParams": [
     {
-      "name": "Output_Raster",
+      "name": "Carbon_Stock__Mg_",
       "dataType": "GPRasterDataLayer",
       "description": "",
       "defaultValue": null,
       "category": "",
-      "label": "Carbon Map",
+      "label": "Carbon Stock (Mg)",
       "visible": true,
-      "required": false,
-      "tooltip": "Carbon Map"
+      "required": false
     },
     {
       "name": "Geoprocessing/ForestCarbonEdgeEffect",
@@ -117,7 +116,7 @@
       "dataType": "MapServiceLayer",
       "layerNames": [
         "Forest Carbon Edge Effect",
-        "Output Raster"
+        "Carbon Stock (Mg)"
       ],
       "visible": true,
       "required": "",

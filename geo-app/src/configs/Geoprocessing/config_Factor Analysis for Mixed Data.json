@@ -8,6 +8,7 @@
     "currentVersion": 10.41,
     "url": "https://lb.telecoupling.msu.edu/arcgis/rest/services/Geoprocessing/FactorAnalysisMixedData/GPServer/",
     "hasResultMapServer": false,
+    "resultMapServerName": "",
     "supportsUpload": true,
     "maxUploadFileSize": 2000
   },
@@ -197,66 +198,55 @@
         "exceededTransferLimit": false
       },
       "category": "",
-      "label": "Input Table",
+      "label": "Input Shapefile",
       "visible": true,
       "required": true,
       "featureSetMode": "file",
-      "tooltip": "Input Table"
+      "tooltip": "Input Shapefile"
     },
     {
       "name": "Quantitative_Variables",
-      "dataType": "GPMultiValue:GPString",
+      "dataType": "GPString",
       "description": "Select one or more quantitative variables from the input table.",
-      "defaultValue": [
-        "GTGP",
-        "GTBP",
-        "Crop_produ",
-        "Number_of"
-      ],
+      "defaultValue": "var1, var2",
       "category": "",
-      "label": "Quantitative Variables (optional)",
+      "label": "Quantitative Variables (comma separated)",
       "visible": true,
       "required": false,
-      "tooltip": "Quantitative Variables (optional)"
+      "tooltip": "Quantitative Variables (comma separated)"
     },
     {
       "name": "Qualitative_Variables",
-      "dataType": "GPMultiValue:GPString",
+      "dataType": "GPString",
       "description": "Select one or more qualitative variables from the input table",
-      "defaultValue": [
-        "Tourism_pa"
-      ],
+      "defaultValue": "var1, var2",
       "category": "",
-      "label": "Qualitative Variables (optional)",
+      "label": "Qualitative Variables (comma separated)",
       "visible": true,
       "required": false,
-      "tooltip": "Qualitative Variables (optional)"
+      "tooltip": "Qualitative Variables (comma separated)"
     },
     {
       "name": "Supplementary_Quantitative_Variables",
-      "dataType": "GPMultiValue:GPString",
+      "dataType": "GPString",
       "description": "Select one or more supplementary quantitative variables from the input table.",
-      "defaultValue": [
-        ""
-      ],
+      "defaultValue": "",
       "category": "Supplementary Variables",
-      "label": "Supplementary Quantitative Variables (optional)",
+      "label": "Supplementary Quantitative Variables (comma separated)",
       "visible": true,
       "required": false,
-      "tooltip": "Supplementary Quantitative Variables (optional)"
+      "tooltip": "Supplementary Quantitative Variables (comma separated)"
     },
     {
       "name": "Supplementary_Qualitative_Variables",
-      "dataType": "GPMultiValue:GPString",
+      "dataType": "GPString",
       "description": "Select one or more supplementary qualitative variables from the input table.",
-      "defaultValue": [
-        ""
-      ],
+      "defaultValue": "",
       "category": "Supplementary Variables",
-      "label": "Supplementary Qualitative Variables (optional)",
+      "label": "Supplementary Qualitative Variables (comma separated)",
       "visible": true,
       "required": false,
-      "tooltip": "Supplementary Qualitative Variables (optional)"
+      "tooltip": "Supplementary Qualitative Variables (comma separated)"
     },
     {
       "name": "Compute_Missing_Values",
@@ -284,28 +274,28 @@
       "name": "Color_Plots_By",
       "dataType": "GPString",
       "description": "String corresponding to the color which are used.Quantitative-only dataset: If \"none\", no color is used for the individuals; if \"ind\", a color for each individual (\"ind\"); if \"var\", color the individuals based on a categorical variable.Qualitative-only dataset: . If \"none\", one color is used for the individual, another one for the categorical variables; if \"quali\", one color is used for each categorical variables; if \"var\", colors are used according to the different categories of a categorical variableFor mixed-data: If \"none\", no color is used for the individuals; if \"ind\", one color is used for each individual; if \"var\", colors are used according to the different categories of a categorical variable",
-      "defaultValue": "var",
+      "defaultValue": "none",
       "category": "Plotting Options",
       "choiceList": [
         "none",
         "ind",
         "var"
       ],
-      "label": "Color Plots By (optional)",
+      "label": "Color Plots By",
       "visible": true,
       "required": false,
-      "tooltip": "Color Plots By (optional)"
+      "tooltip": "Color Plots By"
     },
     {
       "name": "Categorical_Variable",
       "dataType": "GPString",
       "description": "When \"var\" is selected, this name corresponds to that of a categorical variable selected from the input table. The variable will be used to color final plots according to its different levels/categories.",
-      "defaultValue": "Tourism_pa",
+      "defaultValue": "",
       "category": "Plotting Options",
-      "label": "Categorical Variable (optional)",
+      "label": "Categorical Variable (from Input Shapefile)",
       "visible": true,
       "required": false,
-      "tooltip": "Categorical Variable (optional)"
+      "tooltip": "Categorical Variable (from Input Shapefile)"
     },
     {
       "name": "Individuals_Selection",
@@ -332,10 +322,10 @@
         "dist 20",
         "none"
       ],
-      "label": "Individuals Selection (optional)",
+      "label": "Individuals Selection",
       "visible": true,
       "required": false,
-      "tooltip": "Individuals Selection (optional)"
+      "tooltip": "Individuals Selection"
     },
     {
       "name": "Categories_Selection",
@@ -362,10 +352,9 @@
         "dist 20",
         "none"
       ],
-      "label": "Categories Selection (optional)",
+      "label": "Categories Selection",
       "visible": true,
-      "required": false,
-      "tooltip": "Categories Selection (optional)"
+      "required": false
     },
     {
       "name": "Add_Label_to_Individuals",
@@ -375,31 +364,31 @@
       "category": "Plotting Options",
       "label": "Add Label to Individuals",
       "visible": true,
-      "required": false,
-      "tooltip": "Add Label to Individuals"
+      "required": false
     }
   ],
   "outputParams": [
     {
-      "name": "Output_Plots",
+      "name": "Factor_Analysis_Plots",
       "dataType": "GPDataFile",
       "description": "",
       "defaultValue": null,
       "category": "",
-      "label": "Output Plots",
+      "label": "Factor Analysis Plots",
       "visible": true,
       "required": false,
-      "tooltip": "Output Plots"
+      "tooltip": "Factor Analysis Plots"
     },
     {
-      "name": "Output_Diagnostics",
+      "name": "Factor_Analysis_Diagnostics",
       "dataType": "GPDataFile",
       "description": "",
       "defaultValue": null,
       "category": "",
-      "label": "Output Diagnostics",
+      "label": "Factor Analysis Diagnostics",
       "visible": true,
-      "required": false
+      "required": false,
+      "tooltip": "Factor Analysis Diagnostics"
     }
   ],
   "shareResults": false,

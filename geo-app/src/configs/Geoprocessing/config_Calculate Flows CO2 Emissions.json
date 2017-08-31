@@ -8,6 +8,7 @@
     "currentVersion": 10.41,
     "url": "https://lb.telecoupling.msu.edu/arcgis/rest/services/Geoprocessing/CO2Emissions/GPServer/",
     "hasResultMapServer": true,
+    "resultMapServerName": "Geoprocessing/CO2Emissions",
     "supportsUpload": false
   },
   "useResultMapServer": true,
@@ -15,9 +16,9 @@
   "isSynchronous": false,
   "inputParams": [
     {
-      "name": "Flows_Layer",
+      "name": "Telecoupling_Flows_Layer",
       "dataType": "GPFeatureRecordSetLayer",
-      "description": "Input Feature representing the linear flows of material between telecoupling systems across the globe.",
+      "description": "Input Feature representing the linear flows of material between telecoupling systems across the globe. ",
       "defaultValue": {
         "displayFieldName": "",
         "geometryType": "esriGeometryPolyline",
@@ -71,49 +72,49 @@
         "exceededTransferLimit": false
       },
       "category": "",
-      "label": "Flows Layer",
+      "label": "Telecoupling Flows Layer",
       "visible": true,
       "required": true,
       "featureSetMode": "layers",
-      "tooltip": "Flows Layer"
+      "tooltip": "Telecoupling Flows Layer"
     },
     {
-      "name": "Transportation_Units",
+      "name": "Flow_Amount_Field",
       "dataType": "GPString",
-      "description": "Attribute value of the existing flows table representing the flow amount transported by a medium (e.g. airplane) used to transfer all units. NOTE: this tool assumes homogeneity of transporation medium (e.g. same type of airplane), hence the estimates do not account for variations in CO2 emissions caused by multiple carriers or weather conditions (e.g. wind) affecting the transfer.",
-      "defaultValue": "Quantity",
+      "description": "The numeric field containing values for the flow quantity to be transferred.\n",
+      "defaultValue": "",
       "category": "",
-      "label": "Transportation Units (optional)",
-      "visible": true,
-      "required": false,
-      "tooltip": "Transportation Units (optional)"
-    },
-    {
-      "name": "Transportation_Capacity",
-      "dataType": "GPLong",
-      "description": "Integer number representing the maximum capacity of the transportation medium (e.g. airplane) used to transfer all units. NOTE: this tool assumes homogeneity of transportation medium (e.g. same type of airplane), hence the estimates do not account for variations in CO2 emissions caused by multiple carriers or weather conditions (e.g. wind) affecting the transfer.",
-      "defaultValue": 1,
-      "category": "",
-      "label": "Transportation Capacity",
+      "label": "Flow Amount Field",
       "visible": true,
       "required": true,
-      "tooltip": "Transportation Capacity"
+      "tooltip": "Flow Amount Field"
+    },
+    {
+      "name": "Max_Flow_Capacity__per_trip_",
+      "dataType": "GPLong",
+      "description": "Integer number representing the maximum capacity of the transportation medium (e.g. airplane) used to transfer all flow quantities.\n\nNOTE: this tool assumes homogeneity of transporation medium (e.g. same type of airplane), hence the estimates do not account for variations in CO2 emissions caused by multiple carriers or weather conditions (e.g. wind) affecting the transfer.\n\n",
+      "defaultValue": 1,
+      "category": "",
+      "label": "Max Flow Capacity (per trip)",
+      "visible": true,
+      "required": true,
+      "tooltip": "Max Flow Capacity (per trip)"
     },
     {
       "name": "Units_of_CO2_Emitted",
       "dataType": "GPDouble",
       "description": "Specify the approximate amount (in kilograms) of CO2 emitted per unit of length. Make sure the unit of length corresponds to the coordinate system used (e.g. meters in the case of Web Mercator). ",
-      "defaultValue": 0.029,
+      "defaultValue": null,
       "category": "",
-      "label": "Units of CO2 Emitted",
+      "label": "Units of CO2 Emitted (kg/unit length)",
       "visible": true,
       "required": true,
-      "tooltip": "Units of CO2 Emitted"
+      "tooltip": "Units of CO2 Emitted (kg/unit length)"
     }
   ],
   "outputParams": [
     {
-      "name": "Output_Flows_Layer",
+      "name": "CO2_Emissions_Layer__kg_",
       "dataType": "GPFeatureRecordSetLayer",
       "description": "",
       "defaultValue": {
@@ -174,93 +175,40 @@
         "exceededTransferLimit": false
       },
       "category": "",
-      "label": "CO2 Emissions",
+      "label": "CO2 Emissions Layer (kg)",
       "visible": true,
       "required": false,
-      "featureSetMode": "layers",
-      "tooltip": "CO2 Emissions",
-      "renderer": {
-        "type": "simple",
-        "symbol": {
-          "color": [
-            155,
-            187,
-            89,
-            255
-          ],
-          "width": 2.25,
-          "type": "esriSLS",
-          "style": "esriSLSSolid"
-        }
-      },
-      "popup": {
-        "title": "",
-        "fields": [
-          {
-            "name": "OBJECTID",
-            "alias": "OID",
-            "type": "esriFieldTypeOID"
-          },
-          {
-            "name": "FID",
-            "alias": "FID",
-            "type": "esriFieldTypeInteger"
-          },
-          {
-            "name": "FROM_X",
-            "alias": "FROM_X",
-            "type": "esriFieldTypeDouble"
-          },
-          {
-            "name": "FROM_Y",
-            "alias": "FROM_Y",
-            "type": "esriFieldTypeDouble"
-          },
-          {
-            "name": "TO_X",
-            "alias": "TO_X",
-            "type": "esriFieldTypeDouble"
-          },
-          {
-            "name": "TO_Y",
-            "alias": "TO_Y",
-            "type": "esriFieldTypeDouble"
-          },
-          {
-            "name": "Quantity",
-            "alias": "Quantity",
-            "type": "esriFieldTypeInteger"
-          },
-          {
-            "name": "CO2_EMISSIONS_KG",
-            "alias": "CO2_EMISSIONS_KG",
-            "type": "esriFieldTypeInteger"
-          },
-          {
-            "name": "Shape_Length",
-            "alias": "Shape_Length",
-            "type": "esriFieldTypeDouble"
-          }
-        ],
-        "enablePopup": true
-      }
+      "featureSetMode": "layers"
     },
     {
-      "name": "Output_CO2_Report",
+      "name": "CO2_Emissions_Table",
       "dataType": "GPDataFile",
       "description": "",
       "defaultValue": null,
       "category": "",
-      "label": "CO2 Report",
+      "label": "CO2 Emissions Table",
       "visible": true,
       "required": false,
-      "tooltip": "CO2 Report"
+      "tooltip": "CO2 Emissions Table"
+    },
+    {
+      "name": "Geoprocessing/CO2Emissions",
+      "label": "CO2 Emissions Map",
+      "tooltip": "CO2 Emissions Map",
+      "dataType": "MapServiceLayer",
+      "layerNames": [
+        "CO2 Emissions",
+        "CO2 Emissions Layer (kg)"
+      ],
+      "visible": true,
+      "required": "",
+      "defaultValue": null
     }
   ],
   "shareResults": true,
   "layerOrder": [
-    "Output_Flows_Layer",
-    "Flows_Layer"
+    "CO2_Emissions_Layer__kg_",
+    "Telecoupling_Flows_Layer"
   ],
   "showExportButton": true,
   "useDynamicSchema": false

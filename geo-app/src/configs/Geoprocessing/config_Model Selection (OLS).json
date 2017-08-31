@@ -196,17 +196,17 @@
         "exceededTransferLimit": false
       },
       "category": "",
-      "label": "Input Features",
+      "label": "Input Shapefile",
       "visible": true,
       "required": true,
       "featureSetMode": "file",
-      "tooltip": "Input Features"
+      "tooltip": "Input Shapefile"
     },
     {
       "name": "Dependent_Variable",
       "dataType": "GPString",
       "description": "The numeric field containing the observed values you want to model using OLS.",
-      "defaultValue": "Crop_produ",
+      "defaultValue": "var1",
       "category": "",
       "label": "Dependent Variable",
       "visible": true,
@@ -218,12 +218,8 @@
       "dataType": "GPMultiValue:GPString",
       "description": "A list of fields to try as OLS model explanatory variables.",
       "defaultValue": [
-        "GTGP",
-        "GTBP",
-        "Tourism_pa",
-        "Number_of",
-        "Log__dista",
-        "Log_Income"
+        "var1",
+        "var2"
       ],
       "category": "",
       "label": "Candidate Explanatory Variables",
@@ -327,10 +323,10 @@
       "description": "",
       "defaultValue": null,
       "category": "",
-      "label": "Output Report File",
+      "label": "OLS Report Diagnostics",
       "visible": true,
       "required": false,
-      "tooltip": "Output Report File"
+      "tooltip": "OLS Report Diagnostics"
     }
   ],
   "shareResults": false,

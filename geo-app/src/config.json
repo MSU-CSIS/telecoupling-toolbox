@@ -25,7 +25,7 @@
   "appId": "",
   "authorizedCrossOriginDomains": ["https://lb.telecoupling.msu.edu"],
   "title": "Telecoupling GeoApp",
-  "subtitle": "",
+  "subtitle": "<div class=\"attribute-custom-style\"><b><i><font color=\"#ff0000\" size=\"3\">BETA</font></i></b></div>",
   "keepAppState": true,
   "logo": "images/logo.png",
   "geometryService": "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer",
@@ -305,7 +305,7 @@
         "name": "AddData",
         "version": "2.5",
         "uri": "widgets/AddData/Widget",
-        "index": 11,
+        "index": 19,
         "id": "widgets_AddData_Widget_35",
         "config": "configs/AddData/config_AddData.json"
       },
@@ -314,7 +314,7 @@
         "version": "2.5",
         "uri": "widgets/Select/Widget",
         "config": "configs/Select/config_Select.json",
-        "index": 12,
+        "index": 20,
         "id": "widgets_Select_Widget_65"
       },
       {
@@ -322,7 +322,7 @@
         "version": "2.5",
         "uri": "widgets/Draw/Widget",
         "config": "configs/Draw/config_Draw.json",
-        "index": 13,
+        "index": 21,
         "id": "widgets_Draw_Widget_36"
       }
     ],
@@ -416,8 +416,8 @@
             "icon": "configs\\Geoprocessing\\icon_Draw Radial Flows.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Draw Radial Flows.json",
-            "index": 23,
-            "id": "widgets_Geoprocessing_Widget_77"
+            "index": 22,
+            "id": "widgets_Geoprocessing_Widget_96"
           },
           {
             "name": "Geoprocessing",
@@ -460,13 +460,13 @@
           },
           {
             "name": "Geoprocessing",
-            "label": "Factor Analysis Mixed Data",
+            "label": "Factor Analysis for Mixed Data",
             "version": "2.5",
-            "icon": "configs\\Geoprocessing\\icon_Factor Analysis Mixed Data.png",
+            "icon": "configs\\Geoprocessing\\icon_Factor Analysis for Mixed Data.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Factor Analysis Mixed Data.json",
+            "config": "configs/Geoprocessing/config_Factor Analysis for Mixed Data.json",
             "index": 22,
-            "id": "widgets_Geoprocessing_Widget_79"
+            "id": "widgets_Geoprocessing_Widget_97"
           }
         ],
         "index": 7,
@@ -489,13 +489,23 @@
         "widgets": [
           {
             "name": "Geoprocessing",
-            "label": "Calculate CO2 Emissions on Flows",
+            "label": "Calculate Flows CO2 Emissions",
             "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Calculate Flows CO2 Emissions.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Calculate CO2 Emissions on Flows.json",
-            "index": 17,
-            "id": "widgets_Geoprocessing_Widget_53",
-            "icon": "configs\\Geoprocessing\\icon_Calculate CO2 Emissions on Flows.png"
+            "config": "configs/Geoprocessing/config_Calculate Flows CO2 Emissions.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_101"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Crop Production",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Crop Production.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Crop Production.json",
+            "index": 26,
+            "id": "widgets_Geoprocessing_Widget_99"
           },
           {
             "name": "Geoprocessing",
@@ -509,23 +519,33 @@
           },
           {
             "name": "Geoprocessing",
-            "label": "Crop Production",
-            "version": "2.5",
-            "icon": "configs\\Geoprocessing\\icon_Crop Production.png",
-            "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Crop Production.json",
-            "index": 23,
-            "id": "widgets_Geoprocessing_Widget_73"
-          },
-          {
-            "name": "Geoprocessing",
             "label": "Forest Carbon Edge Effect",
             "version": "2.5",
             "icon": "configs\\Geoprocessing\\icon_Forest Carbon Edge Effect.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Forest Carbon Edge Effect.json",
-            "index": 22,
-            "id": "widgets_Geoprocessing_Widget_78"
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_100"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Habitat Risk Assessment Preprocessor",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Habitat Risk Assessment Preprocessor.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Habitat Risk Assessment Preprocessor.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_102"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Habitat Risk Assessment",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Habitat Risk Assessment.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Habitat Risk Assessment.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_91"
           }
         ],
         "index": 8,
@@ -567,7 +587,7 @@
             "id": "widgets_Geoprocessing_Widget_57"
           }
         ],
-        "index": 9,
+        "index": 17,
         "id": "_72",
         "visible": true,
         "panel": {
@@ -632,6 +652,14 @@
             "id": "widgets_ISProfile_Widget_86"
           },
           {
+            "name": "ISRenderer",
+            "version": "",
+            "uri": "widgets/ISRenderer/Widget",
+            "config": "configs/ISRenderer/config_ISRenderer.json",
+            "index": 15,
+            "id": "widgets_ISRenderer_Widget_89"
+          },
+          {
             "name": "ISExport",
             "label": "Export to Disk",
             "version": "",
@@ -641,7 +669,7 @@
             "id": "widgets_ISExport_Widget_85"
           }
         ],
-        "index": 10,
+        "index": 18,
         "id": "_88",
         "visible": true,
         "panel": {
@@ -859,7 +887,171 @@
 	]
   },
   "dataSource": {
-    "dataSources": {},
+    "dataSources": {
+      "widget~widgets_Geoprocessing_Widget_91~filter-Output_Risk_Shapefiles": {
+        "id": "widget~widgets_Geoprocessing_Widget_91~filter-Output_Risk_Shapefiles",
+        "type": "Features",
+        "label": "Output_Risk_Shapefiles",
+        "dataSchema": {
+          "geometryType": "esriGeometryPolygon",
+          "fields": [
+            {
+              "name": "FID",
+              "type": "esriFieldTypeOID",
+              "alias": "FID"
+            },
+            {
+              "name": "VALUE",
+              "type": "esriFieldTypeDouble",
+              "alias": "VALUE"
+            },
+            {
+              "name": "CLASSIFY",
+              "type": "esriFieldTypeString",
+              "alias": "CLASSIFY",
+              "length": 80
+            },
+            {
+              "name": "Shape_Length",
+              "type": "esriFieldTypeDouble",
+              "alias": "Shape_Length"
+            },
+            {
+              "name": "Shape_Area",
+              "type": "esriFieldTypeDouble",
+              "alias": "Shape_Area"
+            }
+          ],
+          "objectIdField": {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          }
+        }
+      },
+      "widget~widgets_Geoprocessing_Widget_96~filter-Telecoupling_Flows": {
+        "id": "widget~widgets_Geoprocessing_Widget_96~filter-Telecoupling_Flows",
+        "type": "Features",
+        "label": "Telecoupling_Flows",
+        "dataSchema": {
+          "geometryType": "esriGeometryPolyline",
+          "fields": [
+            {
+              "name": "OBJECTID",
+              "type": "esriFieldTypeOID",
+              "alias": "OBJECTID"
+            },
+            {
+              "name": "FID",
+              "type": "esriFieldTypeInteger",
+              "alias": "FID"
+            },
+            {
+              "name": "FROM_X",
+              "type": "esriFieldTypeDouble",
+              "alias": "FROM_X"
+            },
+            {
+              "name": "FROM_Y",
+              "type": "esriFieldTypeDouble",
+              "alias": "FROM_Y"
+            },
+            {
+              "name": "TO_X",
+              "type": "esriFieldTypeDouble",
+              "alias": "TO_X"
+            },
+            {
+              "name": "TO_Y",
+              "type": "esriFieldTypeDouble",
+              "alias": "TO_Y"
+            },
+            {
+              "name": "Quantity",
+              "type": "esriFieldTypeInteger",
+              "alias": "Quantity"
+            },
+            {
+              "name": "Shape_Length",
+              "type": "esriFieldTypeDouble",
+              "alias": "Shape_Length"
+            }
+          ],
+          "objectIdField": {
+            "name": "OBJECTID",
+            "type": "esriFieldTypeOID",
+            "alias": "OBJECTID"
+          }
+        }
+      },
+      "widget~widgets_Geoprocessing_Widget_57~filter-Output_Feature": {
+        "id": "widget~widgets_Geoprocessing_Widget_57~filter-Output_Feature",
+        "type": "Features",
+        "label": "Output_Feature",
+        "dataSchema": {
+          "geometryType": "esriGeometryPoint",
+          "fields": [
+            {
+              "name": "OBJECTID",
+              "type": "esriFieldTypeOID",
+              "alias": "OBJECTID"
+            },
+            {
+              "name": "NAME",
+              "type": "esriFieldTypeString",
+              "alias": "NAME",
+              "length": 8000
+            },
+            {
+              "name": "Role",
+              "type": "esriFieldTypeString",
+              "alias": "Role",
+              "length": 8000
+            },
+            {
+              "name": "X",
+              "type": "esriFieldTypeDouble",
+              "alias": "X"
+            },
+            {
+              "name": "Y",
+              "type": "esriFieldTypeDouble",
+              "alias": "Y"
+            },
+            {
+              "name": "POINT_X",
+              "type": "esriFieldTypeDouble",
+              "alias": "POINT_X"
+            },
+            {
+              "name": "POINT_Y",
+              "type": "esriFieldTypeDouble",
+              "alias": "POINT_Y"
+            },
+            {
+              "name": "COSTS",
+              "type": "esriFieldTypeDouble",
+              "alias": "COSTS"
+            },
+            {
+              "name": "REVENUES",
+              "type": "esriFieldTypeDouble",
+              "alias": "REVENUES"
+            },
+            {
+              "name": "RETURNS",
+              "type": "esriFieldTypeDouble",
+              "alias": "RETURNS"
+            }
+          ],
+          "objectIdField": {
+            "name": "OBJECTID",
+            "type": "esriFieldTypeOID",
+            "alias": "OBJECTID"
+          }
+        }
+      }
+    },
     "settings": {}
   }
 }

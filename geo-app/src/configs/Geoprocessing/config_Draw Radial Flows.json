@@ -8,6 +8,7 @@
     "currentVersion": 10.41,
     "url": "https://lb.telecoupling.msu.edu/arcgis/rest/services/Geoprocessing/DrawRadialFlows/GPServer/",
     "hasResultMapServer": false,
+    "resultMapServerName": "",
     "supportsUpload": true,
     "maxUploadFileSize": 2000
   },
@@ -18,7 +19,7 @@
     {
       "name": "Input_Flows_Table",
       "dataType": "GPDataFile",
-      "description": "The table containing records on each flow between an origin and a destination. The input table that can be a text file, CSV file, Excel file, dBASE table, or geodatabase table.",
+      "description": "The table containing records on each flow between an origin and a destination. The input table that can be a text file, CSV file, Excel file, dBASE table, or geodatabase tableNOTE: table attributes should at minimum include XY coordinates of both the origin and destination nodes of the flows.",
       "defaultValue": "itemID:",
       "category": "",
       "label": "Input Flows Table",
@@ -27,70 +28,70 @@
       "tooltip": "Input Flows Table"
     },
     {
-      "name": "Start_X",
+      "name": "Origin_X_Field",
       "dataType": "GPString",
       "description": "A numerical field in the input table containing the x coordinates (or longitudes) of the starting points of lines to be positioned in the output coordinate system specified by the Spatial Reference parameter.",
-      "defaultValue": "FROM_X",
+      "defaultValue": "",
       "category": "",
-      "label": "Start X",
+      "label": "Origin X Field",
       "visible": true,
       "required": true,
-      "tooltip": "Start X"
+      "tooltip": "Origin X Field"
     },
     {
-      "name": "Start_Y",
+      "name": "Origin_Y_Field",
       "dataType": "GPString",
       "description": "A numerical field in the input table containing the y coordinates (or latitudes) of the starting points of lines to be positioned in the output coordinate system specified by the Spatial Reference parameter.",
-      "defaultValue": "FROM_Y",
+      "defaultValue": "",
       "category": "",
-      "label": "Start Y",
+      "label": "Origin Y Field",
       "visible": true,
       "required": true,
-      "tooltip": "Start Y"
+      "tooltip": "Origin Y Field"
     },
     {
-      "name": "End_X",
+      "name": "Destination_X_Field",
       "dataType": "GPString",
       "description": "A numerical field in the input table containing the x coordinates (or longitudes) of the ending points of lines to be positioned in the output coordinate system specified by the Spatial Reference parameter.",
-      "defaultValue": "TO_X",
+      "defaultValue": "",
       "category": "",
-      "label": "End X",
+      "label": "Destination X Field",
       "visible": true,
       "required": true,
-      "tooltip": "End X"
+      "tooltip": "Destination X Field"
     },
     {
-      "name": "End_Y",
+      "name": "Destination_Y_Field",
       "dataType": "GPString",
       "description": "A numerical field in the input table containing the y coordinates (or latitudes) of the ending points of lines to be positioned in the output coordinate system specified by the Spatial Reference parameter.",
-      "defaultValue": "TO_Y",
+      "defaultValue": "",
       "category": "",
-      "label": "End Y",
+      "label": "Destination Y Field",
       "visible": true,
       "required": true,
-      "tooltip": "End Y"
+      "tooltip": "Destination Y Field"
     },
     {
       "name": "ID_Field",
       "dataType": "GPString",
       "description": "A field in the input table; this field and the values are included in the output and can be used to join the output features with the records in the input table.",
-      "defaultValue": "FID",
+      "defaultValue": "",
       "category": "",
-      "label": "ID Field (optional)",
+      "label": "ID Field",
       "visible": true,
-      "required": false,
-      "tooltip": "ID Field (optional)"
+      "required": true,
+      "tooltip": "ID Field"
     },
     {
-      "name": "Flow_Amount_Attribute",
+      "name": "Flow_Amount_Field",
       "dataType": "GPString",
-      "description": "Attribute representing flow amounts",
-      "defaultValue": "Quantity",
+      "description": "Attribute representing flow amounts ",
+      "defaultValue": "",
       "category": "",
-      "label": "Flow Amount Attribute (optional)",
+      "label": "Flow Amount Field",
       "visible": true,
-      "required": false,
-      "tooltip": "Flow Amount Attribute (optional)"
+      "required": true,
+      "tooltip": "Flow Amount Field"
     },
     {
       "name": "Line_Type",
@@ -104,26 +105,26 @@
         "RHUMB_LINE",
         "NORMAL_SECTION"
       ],
-      "label": "Line Type (optional)",
+      "label": "Line Type",
       "visible": true,
-      "required": false,
-      "tooltip": "Line Type (optional)"
+      "required": true,
+      "tooltip": "Line Type"
     },
     {
-      "name": "Spatial_Reference_WKID",
+      "name": "XY_Coordinate_Systems__WKID_",
       "dataType": "GPString",
       "description": "The spatial reference of the origin and destination coordinates found inside the input flows table. Each projected and geographic coordinate system can be defined by a well-known ID (WKID). By default, the WKID code assumes a WGS84 geographic coordinate system.",
       "defaultValue": "4326",
       "category": "",
-      "label": "Spatial Reference WKID (optional)",
+      "label": "XY Coordinate Systems (WKID)",
       "visible": true,
-      "required": false,
-      "tooltip": "Spatial Reference WKID (optional)"
+      "required": true,
+      "tooltip": "XY Coordinate Systems (WKID)"
     }
   ],
   "outputParams": [
     {
-      "name": "Output_Flows_Lines",
+      "name": "Telecoupling_Flows",
       "dataType": "GPFeatureRecordSetLayer",
       "description": "",
       "defaultValue": {
@@ -195,11 +196,12 @@
           ],
           "width": 3.75,
           "type": "esriSLS",
-          "style": "esriSLSSolid"
+          "style": "esriSLSSolid",
+          "marker": null
         }
       },
       "popup": {
-        "title": "Flow",
+        "title": "Flow Line",
         "fields": [
           {
             "name": "FROM_X",
@@ -238,7 +240,7 @@
   ],
   "shareResults": true,
   "layerOrder": [
-    "Output_Flows_Lines"
+    "Telecoupling_Flows"
   ],
   "showExportButton": true,
   "useDynamicSchema": false

@@ -69,11 +69,11 @@
         "exceededTransferLimit": false
       },
       "category": "",
-      "label": "Input Feature",
+      "label": "Telecoupling Systems",
       "visible": true,
       "required": true,
       "featureSetMode": "layers",
-      "tooltip": "Input Feature"
+      "tooltip": "Telecoupling Systems"
     },
     {
       "name": "Input_Join_Field",
@@ -81,10 +81,10 @@
       "description": "A field in the input feature layer used by the tool to join with the economics table provided by the user.",
       "defaultValue": "NAME",
       "category": "",
-      "label": "Input Join Field",
+      "label": "Telecoupling Systems Join Field",
       "visible": true,
       "required": true,
-      "tooltip": "Input Join Field"
+      "tooltip": "Telecoupling Systems Join Field"
     },
     {
       "name": "Economics_Table",
@@ -209,7 +209,8 @@
             ],
             "width": 0.75,
             "type": "esriSLS",
-            "style": "esriSLSSolid"
+            "style": "esriSLSSolid",
+            "marker": null
           }
         },
         "minValue": -100000000,
