@@ -55,11 +55,9 @@ To install the Telecoupling Toolbox for ArcGIS, make sure to follow all the step
 **_NOTE: versions of ArcGIS prior to 10.3.1 may still work with some of our tools but have NOT been tested. ArcGIS Pro has also NOT been tested yet! Python 2.7.x ships together with ArcGIS and is automatically installed with it. If possible, avoid installing multiple versions of Python on your system as it may create conflicts and errors. If you are using Anaconda, you may need additional settings to make sure you can run the tools smoothly. For more info, check [this website](https://pymorton.wordpress.com/2014/06/17/using-arcpy-with-anaconda/)._**)
 
 ## Download and unzip the Telecoupling Toolbox: ArcGIS Toolbox repository
----------------------
-1. Find the [Clone or Download](https://github.com/MSU-CSIS/telecoupling-toolbox) button on the top right of the main repository page. 
-2. Click on the button and save the .zip file on your local computer.
-3. Unzip the folder and take a look at the file content and structure. The zipped folder contains a snapshot of the full suite of software components that are part of the Telecoupling Toolbox. 
-4. Go inside the **ArcGIS Toolbox** folder to find all the code, images, and documentation of the Telecoupling Toolbox for ArcGIS. 
+--------------------- 
+1. Unzip the Telecoupling Toolbox project repository and take a look at the file content and sub folders structure.
+2. Go inside the **ArcGIS Toolbox** folder to find all the code, images, and documentation of the Telecoupling Toolbox for ArcGIS. 
 
 ## Install Python libraries for 3rd party external software
 ---------------------
