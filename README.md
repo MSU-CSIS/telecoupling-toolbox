@@ -30,7 +30,8 @@ The ArcGIS Toolbox is a large collection of mapping and analysis tools for use w
 
 The GeoApp offers a dynamic, interactive, online geo-enabled platform along with a large collection of mapping and analysis tools to systematically study telecoupling. Check out and test our brand new [GeoApp](https://telecoupling.msu.edu/geo-app/) (_beta_) by using your own data or by downloading our [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData.zip). Help yourself with our introductory tutorial if you need more time to familiarize yourself with the app widgets and tools. Look inside the [GeoApp](./geo-app) project folder for source code and images linked to the GeoApp.
 
-## Sample Data
+# Sample Data
+------------------
 
 <img src="img/beige-folder-downloads.png" alt="Sample Data Icon" title="Sample Data Icon" height="200" >
 
