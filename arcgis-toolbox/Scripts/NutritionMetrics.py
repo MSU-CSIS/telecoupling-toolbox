@@ -238,7 +238,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster):
 			
 		#The male 30-34 age group
 		elif OID in ["66", "67", "68", "69", "70"]:
-			arcpy.AddMessage("Calculating calorie requirement for male 30-34 age group.")
+			arcpy.AddMessage("Calculating calorie requirement for male 30 - 34 age group.")
 			height = (maleStatureInt / 175.7) * 176.8492
 			arcpy.AddMessage("male height for m3034 is " + str(height))
 			kg5 = 18.66 * ((height / 100)**2)
@@ -250,6 +250,97 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster):
 			arcpy.AddMessage("LLER for m3034 age group (total kcal/day): " + str(m3034))
 			LLER += m3034
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
+			
+		#The female 35-39 age group
+		elif OID in ["71", "72", "73", "74", "75"]:
+			arcpy.AddMessage("Calculating calorie requirement for female 35 - 39 age group.")
+			height = (femaleStatureInt / 161.8) * 163.3383
+			arcpy.AddMessage("female height for f3539 is " + str(height))
+			kg5 = 17.38 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for f3539 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for f3539 is " + str(pop))
+			f3539 = (1.55 * (845.6 + 8.118 * kg5)) * pop
+			arcpy.AddMessage("LLER for f3539 age group (total kcal/day): " + str(f3539))
+			LLER += f3539
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
+		
+		#The male 35-39 age group
+		elif OID in ["76", "77", "78", "79", "80"]:
+			arcpy.AddMessage("Calculating calorie requirement for male 35 - 39 age group.")
+			height = (maleStatureInt / 175.7) * 176.8492
+			arcpy.AddMessage("male height for m3539 is " + str(height))
+			kg5 = 18.66 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for m3539 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for m3539 is " + str(pop))
+			m3539 = (1.55 * (873.1 + 11.472 * kg5)) * pop
+			arcpy.AddMessage("LLER for m3539 age group (total kcal/day): " + str(m3539))
+			LLER += m3539
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
+			
+		#The female 40-44 age group
+		elif OID in ["81", "82", "83", "84", "85"]:
+			arcpy.AddMessage("Calculating calorie requirement for female 40 - 44 age group.")
+			height = (femaleStatureInt / 161.8) * 163.3383
+			arcpy.AddMessage("female height for f4044 is " + str(height))
+			kg5 = 17.38 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for f4044 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for f4044 is " + str(pop))
+			f4044 = (1.55 * (845.6 + 8.118 * kg5)) * pop
+			arcpy.AddMessage("LLER for f4044 age group (total kcal/day): " + str(f4044))
+			LLER += f4044
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
+			
+		#The male 40-44 age group
+		elif OID in ["86", "87", "88", "89", "90"]:
+			arcpy.AddMessage("Calculating calorie requirement for male 40 - 44 age group.")
+			height = (maleStatureInt / 175.7) * 176.8492
+			arcpy.AddMessage("male height for m4044 is " + str(height))
+			kg5 = 18.66 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for m4044 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for m4044 is " + str(pop))
+			m4044 = (1.55 * (873.1 + 11.472 * kg5)) * pop
+			arcpy.AddMessage("LLER for m4044 age group (total kcal/day): " + str(m4044))
+			LLER += m4044
+			arcpy.AddMessage("Total LLER is " + str(LLER))
+			
+		#The female 45-49 age group
+		elif OID in ["91", "92", "93", "94", "95"]:
+			arcpy.AddMessage("Calculating calorie requirement for female 45 - 49.")
+			height = (femaleStatureInt / 161.8) * 163.3383
+			arcpy.AddMessage("female height for f4549 is " + str(height))
+			kg5 = 17.38 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for f4549 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for f4549 is " + str(pop))
+			f4549 = (1.55 * (845.6 + 8.118 * kg5)) * pop
+			arcpy.AddMessage("LLER for f4549 age group (total kcal/day): " + str(f4549))
+			LLER += f4549
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
+			
+		#The male 45-49 age group
+		elif OID in ["96", "97", "98", "99", "100"]:
+			arcpy.AddMessage("Calculating calorie requirement for male 45 - 49.")
+			height = (maleStatureInt / 175.7) * 176.8492
+			arcpy.AddMessage("male height for m4549 is " + str(height))
+			kg5 = 18.66 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for m4549 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for m4549 is " + str(pop))
+			m4549 = (1.55 * (873.1 + 11.472 * kg5)) * pop
+			arcpy.AddMessage("LLER for m4549 age group (total kcal/day): " + str(m4549))
+			LLER += m4549
+			arcpy.AddMessage("Total LLER is " + str(LLER))
+			
 			
 			
 		else:
