@@ -5,7 +5,6 @@ Model Used: InVEST 3.3.x Recreation Model
 
 
 import arcpy
-import SSUtilities as UTILS
 import natcap.invest.recreation.recmodel_client
 import os
 import sys
@@ -32,7 +31,7 @@ def GetArgs():
         scenario_predictor_table_path = arcpy.GetParameterAsText(5)
         grid_aoi = arcpy.GetParameter(6)
         grid_type = arcpy.GetParameterAsText(7)
-        cell_size = UTILS.getNumericParameter(8)
+        cell_size = arcpy.GetParameter(8)
 
         args = {
             u'aoi_path': aoi_path,
