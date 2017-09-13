@@ -10,9 +10,7 @@ import re
 
 arcpy.env.overwriteOutput = True
 
-def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster):
-	#This is the path to the mosaic database with demographic information
-	mosaicDB = "Z:\\Francesco Tonini\\Telecoupling\\Data\\TelecouplingDB.gdb\\test_age_structure_worldpop_Africa"
+def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB):
 
 	#Create intermediate folder where output will be temporarily saved
 	arcpy.CreateFolder_management(arcpy.env.scratchFolder, "intOutput")
@@ -60,16 +58,16 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster):
 		elif OID in ["6", "7", "8", "9", "10"]:
 			arcpy.AddMessage("Calculating calorie requirement for male 00 - 04 age group.")
 			height = (maleStatureInt / 175.7) * 86.4522
-			#arcpy.AddMessage("male height for m0004 is " + str(height))
+			arcpy.AddMessage("male height for m0004 is " + str(height))
 			kg50 = 15.8 * ((height / 100)**2)
-			#arcpy.AddMessage("kg50 for m0004 is " + str(kg50))
+			arcpy.AddMessage("kg50 for m0004 is " + str(kg50))
 			array = arcpy.RasterToNumPyArray(r)
 			pop = array.sum()
-			#arcpy.AddMessage("population for m0004 is " + str(pop))
+			arcpy.AddMessage("population for m0004 is " + str(pop))
 			m0004 = ((310.2 + 63.3 * kg50 - 0.263 * (kg50)**2) + (6.3 * 2)) * pop
 			arcpy.AddMessage("LLER for m0004 age group (total kcal/day): " + str(m0004))
 			LLER += m0004
-			#arcpy.AddMessage("Total LLER for m and f 0004 is: " + str(LLER))
+			arcpy.AddMessage("Total LLER for m and f 0004 is: " + str(LLER))
 		
 		#The female 05-09 age group
 		elif OID in ["11", "12", "13", "14", "15"]:
@@ -341,23 +339,158 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster):
 			LLER += m4549
 			arcpy.AddMessage("Total LLER is " + str(LLER))
 			
+		#The female 50-54 age group
+		elif OID in ["101", "102", "103", "104", "105"]:
+			arcpy.AddMessage("Calculating calorie requirement for female 50 - 54.")
+			height = (femaleStatureInt / 161.8) * 163.3383
+			arcpy.AddMessage("female height for f5054 is " + str(height))
+			kg5 = 17.38 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for f5054 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for f5054 is " + str(pop))
+			f5054 = (1.55 * (845.6 + 8.118 * kg5)) * pop
+			arcpy.AddMessage("LLER for f5054 age group (total kcal/day): " + str(f5054))
+			LLER += f5054
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
+		#The male 50-54 age group
+		elif OID in ["106", "107", "108", "109", "110"]:
+			arcpy.AddMessage("Calculating calorie requirement for male 50 - 54.")
+			height = (maleStatureInt / 175.7) * 176.8492
+			arcpy.AddMessage("male height for m5054 is " + str(height))
+			kg5 = 18.66 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for m5054 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for m5054 is " + str(pop))
+			m5054 = (1.55 * (873.1 + 11.472 * kg5)) * pop
+			arcpy.AddMessage("LLER for m5054 age group (total kcal/day): " + str(m5054))
+			LLER += m5054
+			arcpy.AddMessage("Total LLER is " + str(LLER))
+			
+		#The female 55-59 age group
+		elif OID in ["111", "112", "113", "114", "115"]:
+			arcpy.AddMessage("Calculating calorie requirement for female 55 - 59.")
+			height = (femaleStatureInt / 161.8) * 163.3383
+			arcpy.AddMessage("female height for f5559 is " + str(height))
+			kg5 = 17.38 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for f5559 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for f5559 is " + str(pop))
+			f5559 = (1.55 * (845.6 + 8.118 * kg5)) * pop
+			arcpy.AddMessage("LLER for f5559 age group (total kcal/day): " + str(f5559))
+			LLER += f5559
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
+			
+		#The male 55-59 age group
+		elif OID in ["116", "117", "118", "119", "120"]:
+			arcpy.AddMessage("Calculating calorie requirement for male 55 - 59.")
+			height = (maleStatureInt / 175.7) * 176.8492
+			arcpy.AddMessage("male height for m5559 is " + str(height))
+			kg5 = 18.66 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for m5559 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for m5559 is " + str(pop))
+			m5559 = (1.55 * (873.1 + 11.472 * kg5)) * pop
+			arcpy.AddMessage("LLER for m5559 age group (total kcal/day): " + str(m5559))
+			LLER += m5559
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
+			
+		#The female 60-64 age group
+		elif OID in ["121", "122", "123", "124", "125"]:
+			arcpy.AddMessage("Calculating calorie requirement for female 60 - 64.")
+			height = (femaleStatureInt / 161.8) * 163.3383
+			arcpy.AddMessage("female height for f6064 is " + str(height))
+			kg5 = 17.38 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for f6064 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for f6064 is " + str(pop))
+			f6064 = (1.55 * (658.5 + 9.082 * kg5)) * pop
+			arcpy.AddMessage("LLER for f6064 age group (total kcal/day): " + str(f6064))
+			LLER += f6064
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
+			
+		#The male 60-64 age group
+		elif OID in ["126", "127", "128", "129", "130"]:
+			arcpy.AddMessage("Calculating calorie requirement for male 60 - 64.")
+			height = (maleStatureInt / 175.7) * 176.8492
+			arcpy.AddMessage("male height for m6064 is " + str(height))
+			kg5 = 18.66 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for m6064 is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for m6064 is " + str(pop))
+			m6064 = (1.55 * (587.7 + 11.711 * kg5)) * pop
+			arcpy.AddMessage("LLER for m6064 age group (total kcal/day): " + str(m6064))
+			LLER += m6064
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
+			
+		#The female 65+ age group
+		elif OID in ["131", "132", "133", "134", "135"]:
+			arcpy.AddMessage("Calculating calorie requirement for female 65+.")
+			height = (femaleStatureInt / 161.8) * 163.3383
+			arcpy.AddMessage("female height for f65+ is " + str(height))
+			kg5 = 17.38 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for f65+ is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for f65+ is " + str(pop))
+			f65pl = (1.55 * (658.5 + 9.082 * kg5)) * pop
+			arcpy.AddMessage("LLER for f65pl age group (total kcal/day): " + str(f65pl))
+			LLER += f65pl
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
+			
+		#The male 65+ age group
+		elif OID in ["136", "137", "138", "139", "140"]:
+			arcpy.AddMessage("Calculating calorie requirement fo male 65+.")
+			height = (maleStatureInt / 175.7) * 176.8492
+			arcpy.AddMessage("male height for m65+ is " + str(height))
+			kg5 = 18.66 * ((height / 100)**2)
+			arcpy.AddMessage("kg5 for m65+ is " + str(kg5))
+			array = arcpy.RasterToNumPyArray(r)
+			pop = array.sum()
+			arcpy.AddMessage("population for m65+ is " + str(pop))
+			m65pl = (1.55 * (587.7 + 11.711 * kg5)) * pop
+			arcpy.AddMessage("LLER for m65pl age group (total kcal/day): " + str(m65pl))
+			LLER += m65pl
+			arcpy.AddMessage("Total LLER is: " + str(LLER))	
 			
 		else:
-			arcpy.AddMessage("False")
+			arcpy.AddMessage("Age group and/or Year for " + str(OID) + " does not exist")
 	
 	
 if __name__ == '__main__':
 	#Get the values of the input parameters
 	AOI = arcpy.GetParameterAsText(0)
-	year = arcpy.GetParameterAsText(1)
-	maleStature = arcpy.GetParameterAsText(2)
-	femaleStature = arcpy.GetParameterAsText(3)
-	outRaster = arcpy.GetParameterAsText(4)
+	mosaicDB = arcpy.GetParameterAsText(1)
+	year = arcpy.GetParameterAsText(2)
+	maleStature = arcpy.GetParameterAsText(3)
+	femaleStature = arcpy.GetParameterAsText(4)
+	outRaster = arcpy.GetParameterAsText(5)
 	
+	###-----------------------------------------------------------------------------------###
+	#The below content has been commented out, but will be used in the geo web app
+	
+	#This is the path to the mosaic database with demographic information
+	#if continent == "Africa":
+	#	mosaicDB = "Z:\\Francesco Tonini\\Telecoupling\\Data\\TelecouplingDB.gdb\\WorldPop_AgeStructures_1km_Africa"
+	#elif continent == "Asia":
+	#	mosaicDB = "Z:\\Francesco Tonini\\Telecoupling\\Data\\TelecouplingDB.gdb\\WorldPop_AgeStructures_1km_Asia"
+	#else:
+	#	mosaicDB = "Z:\\Francesco Tonini\\Telecoupling\\Data\\TelecouplingDB.gdb\\WorldPop_AgeStructures_1km_LAC"
+	#arcpy.AddMessage("continent is " + continent)
 	#Run the Nutrition Metrics tool
+	
+	#End commented out section
+	###-----------------------------------------------------------------------------------###
+	
+	
 	try:
-		nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster)
+		nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 		
 	except Exception:
 		e = sys.exc_info()[1]
