@@ -13,6 +13,11 @@ import re
 arcpy.CheckOutExtension("Spatial")
 arcpy.env.overwriteOutput = True
 
+def autoIncrement(pInterval = 1):
+	global rec
+	rec = rec + pInterval
+	return rec
+
 def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB):
 
 	#Create intermediate folder where output will be temporarily saved
@@ -521,8 +526,49 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 	for field in fieldObjList:
 		if field.type == "OID":
 			dissolveField = field.name
+			break
+		else:
+			arcpy.AddField_management(copyAOI, "uniqueID", "LONG")
+			with arcpy.da.UpdateCursor(copyAOI, "uniqueID") as cursor:
+				for row in cursor:
+					row[0] = autoIncrement()
+					cursor.updateRow(row)
+				del cursor
+			fields = arcpy.ListFields(copyAOI)
+			for field in fields:
+				if field.name == "uniqueID":
+					dissolveField = field.name
+	copyAOIDis = arcpy.Dissolve_management(copyAOI, os.path.join(arcpy.env.scratchFolder, "intOutput", "copyAOIDis"), dissolveField)
+	arcpy.AddField_management(copyAOIDis, "ageGroup", "TEXT")
+	arcpy.AddField_management(copyAOIDis, "Pop", "DOUBLE", "", 5)
+	arcpy.AddField_management(copyAOIDis, "LLER", "DOUBLE", "", 5)
 	
+	#The list of values that are added to the final shapefile
+	list = [("m0004", popm0004, nutm0004), ("f0509", popf0509, nutf0509), ("m0509", popm0509, nutm0509), ("f1014", popf1014, nutf1014),
+			("m1014", popm1014, nutm1014), ("f1519", popf1519, nutf1519), ("m1519", popm1519, nutm1519), ("f2024", popf2024, nutf2024), ("m2024", popm2024, nutm2024),
+			("f2529", popf2529, nutf2529), ("m2529", popm2529, nutm2529), ("f3034", popf3034, nutf3034), ("m3034", popm3034, nutm3034), ("f3539", popf3539, nutf3539),
+			("m3539", popm3539, nutm3539), ("f4044", popf4044, nutf4044), ("m4044", popm4044, nutm4044), ("f4549", popf4549, nutf4549), ("m4549", popm4549, nutm4549),
+			("f5054", popf5054, nutf5054), ("m5054", popm5054, nutm5054), ("f5559", popf5559, nutf5559), ("m5559", popm5559, nutm5559), ("f6064", popf6064, nutf6064),
+			("m6064", popm6064, nutm6064), ("f65pl", popf65pl, nutf65pl), ("m65pl", popm65pl, nutm65pl), ("total", totalPop, LLER)]
 	
+	#Add values to Shapefile Attribute Table
+	c = arcpy.da.InsertCursor(copyAOIDis, ("ageGroup", "Pop", "LLER"))
+	for row in list:
+		c.insertRow(row)
+	del c
+	
+	#Update the first row
+	field = "ageGroup"
+	ageGroup = "f0004"
+	Pop = popf0004
+	LLER = nutf0004
+	queryString = '"' + field + '" = ' + "'" "'"
+	with arcpy.da.UpdateCursor(copyAOIDis, ("ageGroup", "Pop", "LLER"), queryString) as cursor:
+		for row in cursor:
+			row[0] = ageGroup
+			row[1] = Pop
+			row[2] = LLER
+			cursor.updateRow(row)
 	
 	
 if __name__ == '__main__':
@@ -550,7 +596,10 @@ if __name__ == '__main__':
 	#End commented out section
 	###-----------------------------------------------------------------------------------###
 	
+	#global to increment over records
+	rec = 0
 	
+	#Run the nutrition function
 	try:
 		nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 		
