@@ -43,7 +43,8 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 	arcpy.AddMessage(rasterList)
 	
 	#Calculate nutrition metrics
-	LLER = 0    #This will keep the tally of 'Lower Limit of Energy Requirement' in kcal/day for the study area.
+	LLER = 0    #This will keep the tally of 'Lower Limit of Energy Requirement' in kcal/day for the study area (AOI).
+	totalPop = 0    #This will keep the tally of total population in the study area (AOI).
 	regex = re.compile(r'\d+')    #Recognizes numerical values in raster names.  This will be used to capture OID values.
 	maleStatureInt = int(maleStature)
 	femaleStatureInt = int(femaleStature)
@@ -59,11 +60,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg50 = 15.5 * ((height / 100)**2)
 			arcpy.AddMessage("kg50 for f0004 is " + str(kg50))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for f0004 is " + str(pop))
-			f0004 = ((263.4 + 65.3 * kg50 - 0.454 * (kg50)**2) + (6.3 * 2)) * pop
-			arcpy.AddMessage("LLER for f0004 age group(total kcal/day): " + str(f0004))
-			LLER += f0004
+			popf0004 = array.sum()
+			arcpy.AddMessage("population for f0004 is " + str(popf0004))
+			nutf0004 = ((263.4 + 65.3 * kg50 - 0.454 * (kg50)**2) + (6.3 * 2)) * popf0004
+			arcpy.AddMessage("LLER for f0004 age group(total kcal/day): " + str(nutf0004))
+			LLER += nutf0004
+			totalPop += popf0004
 			arcpy.AddMessage("Total LLER is " + str(LLER))
 		
 		#The male 00-04 age group
@@ -74,11 +76,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg50 = 15.8 * ((height / 100)**2)
 			arcpy.AddMessage("kg50 for m0004 is " + str(kg50))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m0004 is " + str(pop))
-			m0004 = ((310.2 + 63.3 * kg50 - 0.263 * (kg50)**2) + (6.3 * 2)) * pop
-			arcpy.AddMessage("LLER for m0004 age group (total kcal/day): " + str(m0004))
-			LLER += m0004
+			popm0004 = array.sum()
+			arcpy.AddMessage("population for m0004 is " + str(popm0004))
+			nutm0004 = ((310.2 + 63.3 * kg50 - 0.263 * (kg50)**2) + (6.3 * 2)) * popm0004
+			arcpy.AddMessage("LLER for m0004 age group (total kcal/day): " + str(nutm0004))
+			LLER += nutm0004
+			totalPop += popm0004
 			arcpy.AddMessage("Total LLER for m and f 0004 is: " + str(LLER))
 		
 		#The female 05-09 age group
@@ -89,11 +92,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg50 = 15.52 * ((height / 100)**2)
 			#arcpy.AddMessage("kg50 for f0509 is " + str(kg50))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			#arcpy.AddMessage("population for f0509 is " + str(pop))
-			f0509 = ((263.4 + 65.3 * kg50 - 0.454 * (kg50)**2) + (8.22 * 2)) * pop
-			arcpy.AddMessage("LLER for f0509 age group (total kcal/day): " + str(f0509))
-			LLER += f0509
+			popf0509 = array.sum()
+			#arcpy.AddMessage("population for f0509 is " + str(popf0509))
+			nutf0509 = ((263.4 + 65.3 * kg50 - 0.454 * (kg50)**2) + (8.22 * 2)) * popf0509
+			arcpy.AddMessage("LLER for f0509 age group (total kcal/day): " + str(nutf0509))
+			LLER += nutf0509
+			totalPop += popf0509
 			#arcpy.AddMessage("Total LLER up to f 0509 is: " + str(LLER))
 			
 		#The male 05-09 age group
@@ -104,11 +108,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg50 = 15.6 * ((height / 100)**2)
 			#arcpy.AddMessage("kg50 for m0509 is " + str(kg50))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			#arcpy.AddMessage("population for m0509 is " + str(pop))
-			m0509 = ((310.2 + 63.3 * kg50 - 0.263 * (kg50)**2) + (6.58 * 2)) * pop
-			arcpy.AddMessage("LLER for m0509 age group (total kcal/day): " + str(m0509))
-			LLER += m0509
+			popm0509 = array.sum()
+			#arcpy.AddMessage("population for m0509 is " + str(popm0509))
+			nutm0509 = ((310.2 + 63.3 * kg50 - 0.263 * (kg50)**2) + (6.58 * 2)) * popm0509
+			arcpy.AddMessage("LLER for m0509 age group (total kcal/day): " + str(nutm0509))
+			LLER += nutm0509
+			totalPop += popm0509
 			#arcpy.AddMessage ("Total LLER is: " + str(LLER))
 			
 		#The female 10-14 age group
@@ -119,11 +124,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 15.19 * ((height / 100)**2)
 			#arcpy.AddMessage("kg5 for f1014 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			#arcpy.AddMessage("population for f1014 is " + str(pop))
-			f1014 = (0.85 * (263.4 + 65.3 * kg5 - 0.454 * (kg5)**2) + (9.86 * 2)) * pop
-			arcpy.AddMessage("LLER for f1014 age group (total kcal/day): " + str(f1014))
-			LLER += f1014
+			popf1014 = array.sum()
+			#arcpy.AddMessage("population for f1014 is " + str(popf1014))
+			nutf1014 = (0.85 * (263.4 + 65.3 * kg5 - 0.454 * (kg5)**2) + (9.86 * 2)) * popf1014
+			arcpy.AddMessage("LLER for f1014 age group (total kcal/day): " + str(nutf1014))
+			LLER += nutf1014
+			totalPop += popf1014
 			#arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 10-14 age group
@@ -134,11 +140,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 15.14 * ((height / 100)**2)
 			#arcpy.AddMessage("kg5 for m1014 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			#arcpy.AddMessage("population for m1014 is " + str(pop))
-			m1014 = (0.85 * (310.2 + 63.3 * kg5 - 0.263 * (kg5)**2) + (10.41 * 2)) * pop
-			arcpy.AddMessage("LLER for m1014 age group (total kcal/day): " + str(m1014))
-			LLER += m1014
+			popm1014 = array.sum()
+			#arcpy.AddMessage("population for m1014 is " + str(popm1014))
+			nutm1014 = (0.85 * (310.2 + 63.3 * kg5 - 0.263 * (kg5)**2) + (10.41 * 2)) * popm1014
+			arcpy.AddMessage("LLER for m1014 age group (total kcal/day): " + str(nutm1014))
+			LLER += nutm1014
+			totalPop += popm1014
 			#arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The female 15-19 age group
@@ -149,11 +156,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.19 * ((height / 100)**2)
 			#arcpy.AddMessage("kg5 for f1519 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			#arcpy.AddMessage("population for f1519 is " + str(pop))
-			f1519 = (1.55 * (486.6 + 8.126 * kg5)) * pop
-			arcpy.AddMessage("LLER for f1519 age group (total kcal/day): " + str(f1519))
-			LLER += f1519
+			popf1519 = array.sum()
+			#arcpy.AddMessage("population for f1519 is " + str(popf1519))
+			nutf1519 = (1.55 * (486.6 + 8.126 * kg5)) * popf1519
+			arcpy.AddMessage("LLER for f1519 age group (total kcal/day): " + str(nutf1519))
+			LLER += nutf1519
+			totalPop += popf1519
 			#arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 15-19 age group
@@ -164,11 +172,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.10 * ((height / 100)**2)
 			#arcpy.AddMessage("kg5 for m1519 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			#arcpy.AddMessage("population for m1519 is " + str(pop))
-			m1519 = (1.55 * (692.2 + 15.057 * kg5)) * pop
-			arcpy.AddMessage("LLER for m1519 age group (total kcal/day): " + str(m1519))
-			LLER += m1519
+			popm1519 = array.sum()
+			#arcpy.AddMessage("population for m1519 is " + str(popm1519))
+			nutm1519 = (1.55 * (692.2 + 15.057 * kg5)) * popm1519
+			arcpy.AddMessage("LLER for m1519 age group (total kcal/day): " + str(nutm1519))
+			LLER += nutm1519
+			totalPop += popm1519
 			#arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The female 20-24 age group
@@ -179,11 +188,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.38 * ((height / 100)**2)
 			#arcpy.AddMessage("kg5 for f2024 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			#arcpy.AddMessage("population for f2024 is " + str(pop))
-			f2024 = (1.55 * (486.6 + 8.126 * kg5)) * pop
-			arcpy.AddMessage("LLER for f2024 age group (total kcal/day): " + str(f2024))
-			LLER += f2024
+			popf2024 = array.sum()
+			#arcpy.AddMessage("population for f2024 is " + str(popf2024))
+			nutf2024 = (1.55 * (486.6 + 8.126 * kg5)) * popf2024
+			arcpy.AddMessage("LLER for f2024 age group (total kcal/day): " + str(nutf2024))
+			LLER += nutf2024
+			totalPop += popf2024
 			#arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 20-24 age group
@@ -194,11 +204,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.66 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for m2024 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m2024 is " + str(pop))
-			m2024 = (1.55 * (692.2 + 15.057 * kg5)) * pop
-			arcpy.AddMessage("LLER for m2024 age group (total kcal/day): " + str(m2024))
-			LLER += m2024
+			popm2024 = array.sum()
+			arcpy.AddMessage("population for m2024 is " + str(popm2024))
+			nutm2024 = (1.55 * (692.2 + 15.057 * kg5)) * popm2024
+			arcpy.AddMessage("LLER for m2024 age group (total kcal/day): " + str(nutm2024))
+			LLER += nutm2024
+			totalPop += popm2024
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 		
 		#The female 25-29 age group
@@ -209,11 +220,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.38 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for f2529 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for f2529 is " + str(pop))
-			f2529 = (1.55 * (486.6 + 8.126 * kg5)) * pop
-			arcpy.AddMessage("LLER for f2529 age group (total kcal/day): " + str(f2529))
-			LLER += f2529
+			popf2529 = array.sum()
+			arcpy.AddMessage("population for f2529 is " + str(popf2529))
+			nutf2529 = (1.55 * (486.6 + 8.126 * kg5)) * popf2529
+			arcpy.AddMessage("LLER for f2529 age group (total kcal/day): " + str(nutf2529))
+			LLER += nutf2529
+			totalPop += popf2529
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 25-29 age group 
@@ -224,11 +236,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.66 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for m2529 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m2529 is " + str(pop))
-			m2529 = (1.55 * (692.2 + 15.057 * kg5)) * pop
-			arcpy.AddMessage("LLER for m2529 age group (total kcal/day): " + str(m2529))
-			LLER += m2529
+			popm2529 = array.sum()
+			arcpy.AddMessage("population for m2529 is " + str(popm2529))
+			nutm2529 = (1.55 * (692.2 + 15.057 * kg5)) * popm2529
+			arcpy.AddMessage("LLER for m2529 age group (total kcal/day): " + str(nutm2529))
+			LLER += nutm2529
+			totalPop += popm2529
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The female 30-34 age group
@@ -239,11 +252,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.38 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for f3034 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for f3034 is " + str(pop))
-			f3034 = (1.55 * (845.6 + 8.118 * kg5)) * pop
-			arcpy.AddMessage("LLER for f3034 age group (total kcal/day): " + str(f3034))
-			LLER += f3034
+			popf3034 = array.sum()
+			arcpy.AddMessage("population for f3034 is " + str(popf3034))
+			nutf3034 = (1.55 * (845.6 + 8.118 * kg5)) * popf3034
+			arcpy.AddMessage("LLER for f3034 age group (total kcal/day): " + str(nutf3034))
+			LLER += nutf3034
+			totalPop += popf3034
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 30-34 age group
@@ -254,11 +268,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.66 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for m3034 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m3034 is " + str(pop))
-			m3034 = (1.55 * (873.1 + 11.472 * kg5)) * pop
-			arcpy.AddMessage("LLER for m3034 age group (total kcal/day): " + str(m3034))
-			LLER += m3034
+			popm3034 = array.sum()
+			arcpy.AddMessage("population for m3034 is " + str(popm3034))
+			nutm3034 = (1.55 * (873.1 + 11.472 * kg5)) * popm3034
+			arcpy.AddMessage("LLER for m3034 age group (total kcal/day): " + str(nutm3034))
+			LLER += nutm3034
+			totalPop += popm3034
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The female 35-39 age group
@@ -269,11 +284,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.38 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for f3539 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for f3539 is " + str(pop))
-			f3539 = (1.55 * (845.6 + 8.118 * kg5)) * pop
-			arcpy.AddMessage("LLER for f3539 age group (total kcal/day): " + str(f3539))
-			LLER += f3539
+			popf3539 = array.sum()
+			arcpy.AddMessage("population for f3539 is " + str(popf3539))
+			nutf3539 = (1.55 * (845.6 + 8.118 * kg5)) * popf3539
+			arcpy.AddMessage("LLER for f3539 age group (total kcal/day): " + str(nutf3539))
+			LLER += nutf3539
+			totalPop += popf3539
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 		
 		#The male 35-39 age group
@@ -284,11 +300,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.66 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for m3539 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m3539 is " + str(pop))
-			m3539 = (1.55 * (873.1 + 11.472 * kg5)) * pop
-			arcpy.AddMessage("LLER for m3539 age group (total kcal/day): " + str(m3539))
-			LLER += m3539
+			popm3539 = array.sum()
+			arcpy.AddMessage("population for m3539 is " + str(popm3539))
+			nutm3539 = (1.55 * (873.1 + 11.472 * kg5)) * popm3539
+			arcpy.AddMessage("LLER for m3539 age group (total kcal/day): " + str(nutm3539))
+			LLER += nutm3539
+			totalPop += popm3539
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The female 40-44 age group
@@ -299,11 +316,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.38 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for f4044 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for f4044 is " + str(pop))
-			f4044 = (1.55 * (845.6 + 8.118 * kg5)) * pop
-			arcpy.AddMessage("LLER for f4044 age group (total kcal/day): " + str(f4044))
-			LLER += f4044
+			popf4044 = array.sum()
+			arcpy.AddMessage("population for f4044 is " + str(popf4044))
+			nutf4044 = (1.55 * (845.6 + 8.118 * kg5)) * popf4044
+			arcpy.AddMessage("LLER for f4044 age group (total kcal/day): " + str(nutf4044))
+			LLER += nutf4044
+			totalPop += popf4044
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 40-44 age group
@@ -314,11 +332,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.66 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for m4044 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m4044 is " + str(pop))
-			m4044 = (1.55 * (873.1 + 11.472 * kg5)) * pop
-			arcpy.AddMessage("LLER for m4044 age group (total kcal/day): " + str(m4044))
-			LLER += m4044
+			popm4044 = array.sum()
+			arcpy.AddMessage("population for m4044 is " + str(popm4044))
+			nutm4044 = (1.55 * (873.1 + 11.472 * kg5)) * popm4044
+			arcpy.AddMessage("LLER for m4044 age group (total kcal/day): " + str(nutm4044))
+			LLER += nutm4044
+			totalPop += popm4044
 			arcpy.AddMessage("Total LLER is " + str(LLER))
 			
 		#The female 45-49 age group
@@ -329,11 +348,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.38 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for f4549 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for f4549 is " + str(pop))
-			f4549 = (1.55 * (845.6 + 8.118 * kg5)) * pop
-			arcpy.AddMessage("LLER for f4549 age group (total kcal/day): " + str(f4549))
-			LLER += f4549
+			popf4549 = array.sum()
+			arcpy.AddMessage("population for f4549 is " + str(popf4549))
+			nutf4549 = (1.55 * (845.6 + 8.118 * kg5)) * popf4549
+			arcpy.AddMessage("LLER for f4549 age group (total kcal/day): " + str(nutf4549))
+			LLER += nutf4549
+			totalPop += popf4549
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 45-49 age group
@@ -344,11 +364,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.66 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for m4549 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m4549 is " + str(pop))
-			m4549 = (1.55 * (873.1 + 11.472 * kg5)) * pop
-			arcpy.AddMessage("LLER for m4549 age group (total kcal/day): " + str(m4549))
-			LLER += m4549
+			popm4549 = array.sum()
+			arcpy.AddMessage("population for m4549 is " + str(popm4549))
+			nutm4549 = (1.55 * (873.1 + 11.472 * kg5)) * popm4549
+			arcpy.AddMessage("LLER for m4549 age group (total kcal/day): " + str(nutm4549))
+			LLER += nutm4549
+			totalPop += popm4549
 			arcpy.AddMessage("Total LLER is " + str(LLER))
 			
 		#The female 50-54 age group
@@ -359,11 +380,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.38 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for f5054 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for f5054 is " + str(pop))
-			f5054 = (1.55 * (845.6 + 8.118 * kg5)) * pop
-			arcpy.AddMessage("LLER for f5054 age group (total kcal/day): " + str(f5054))
-			LLER += f5054
+			popf5054 = array.sum()
+			arcpy.AddMessage("population for f5054 is " + str(popf5054))
+			nutf5054 = (1.55 * (845.6 + 8.118 * kg5)) * popf5054
+			arcpy.AddMessage("LLER for f5054 age group (total kcal/day): " + str(nutf5054))
+			LLER += nutf5054
+			totalPop += popf5054
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 50-54 age group
@@ -374,11 +396,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.66 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for m5054 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m5054 is " + str(pop))
-			m5054 = (1.55 * (873.1 + 11.472 * kg5)) * pop
-			arcpy.AddMessage("LLER for m5054 age group (total kcal/day): " + str(m5054))
-			LLER += m5054
+			popm5054 = array.sum()
+			arcpy.AddMessage("population for m5054 is " + str(popm5054))
+			nutm5054 = (1.55 * (873.1 + 11.472 * kg5)) * popm5054
+			arcpy.AddMessage("LLER for m5054 age group (total kcal/day): " + str(nutm5054))
+			LLER += nutm5054
+			totalPop += popm5054
 			arcpy.AddMessage("Total LLER is " + str(LLER))
 			
 		#The female 55-59 age group
@@ -389,11 +412,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.38 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for f5559 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for f5559 is " + str(pop))
-			f5559 = (1.55 * (845.6 + 8.118 * kg5)) * pop
-			arcpy.AddMessage("LLER for f5559 age group (total kcal/day): " + str(f5559))
-			LLER += f5559
+			popf5559 = array.sum()
+			arcpy.AddMessage("population for f5559 is " + str(popf5559))
+			nutf5559 = (1.55 * (845.6 + 8.118 * kg5)) * popf5559
+			arcpy.AddMessage("LLER for f5559 age group (total kcal/day): " + str(nutf5559))
+			LLER += nutf5559
+			totalPop += popf5559
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 55-59 age group
@@ -404,11 +428,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.66 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for m5559 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m5559 is " + str(pop))
-			m5559 = (1.55 * (873.1 + 11.472 * kg5)) * pop
-			arcpy.AddMessage("LLER for m5559 age group (total kcal/day): " + str(m5559))
-			LLER += m5559
+			popm5559 = array.sum()
+			arcpy.AddMessage("population for m5559 is " + str(popm5559))
+			nutm5559 = (1.55 * (873.1 + 11.472 * kg5)) * popm5559
+			arcpy.AddMessage("LLER for m5559 age group (total kcal/day): " + str(nutm5559))
+			LLER += nutm5559
+			totalPop += popm5559
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The female 60-64 age group
@@ -419,11 +444,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.38 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for f6064 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for f6064 is " + str(pop))
-			f6064 = (1.55 * (658.5 + 9.082 * kg5)) * pop
-			arcpy.AddMessage("LLER for f6064 age group (total kcal/day): " + str(f6064))
-			LLER += f6064
+			popf6064 = array.sum()
+			arcpy.AddMessage("population for f6064 is " + str(popf6064))
+			nutf6064 = (1.55 * (658.5 + 9.082 * kg5)) * popf6064
+			arcpy.AddMessage("LLER for f6064 age group (total kcal/day): " + str(nutf6064))
+			LLER += nutf6064
+			totalPop += popf6064
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 60-64 age group
@@ -434,11 +460,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.66 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for m6064 is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m6064 is " + str(pop))
-			m6064 = (1.55 * (587.7 + 11.711 * kg5)) * pop
-			arcpy.AddMessage("LLER for m6064 age group (total kcal/day): " + str(m6064))
-			LLER += m6064
+			popm6064 = array.sum()
+			arcpy.AddMessage("population for m6064 is " + str(popm6064))
+			nutm6064 = (1.55 * (587.7 + 11.711 * kg5)) * popm6064
+			arcpy.AddMessage("LLER for m6064 age group (total kcal/day): " + str(nutm6064))
+			LLER += nutm6064
+			totalPop += popm6064
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The female 65+ age group
@@ -449,11 +476,12 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 17.38 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for f65+ is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for f65+ is " + str(pop))
-			f65pl = (1.55 * (658.5 + 9.082 * kg5)) * pop
-			arcpy.AddMessage("LLER for f65pl age group (total kcal/day): " + str(f65pl))
-			LLER += f65pl
+			popf65pl = array.sum()
+			arcpy.AddMessage("population for f65+ is " + str(popf65pl))
+			nutf65pl = (1.55 * (658.5 + 9.082 * kg5)) * popf65pl
+			arcpy.AddMessage("LLER for f65pl age group (total kcal/day): " + str(nutf65pl))
+			LLER += nutf65pl
+			totalPop += popf65pl
 			arcpy.AddMessage("Total LLER is: " + str(LLER))
 			
 		#The male 65+ age group
@@ -464,15 +492,37 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outRaster, mosaicDB)
 			kg5 = 18.66 * ((height / 100)**2)
 			arcpy.AddMessage("kg5 for m65+ is " + str(kg5))
 			array = arcpy.RasterToNumPyArray(r, "", "", "", 0)
-			pop = array.sum()
-			arcpy.AddMessage("population for m65+ is " + str(pop))
-			m65pl = (1.55 * (587.7 + 11.711 * kg5)) * pop
-			arcpy.AddMessage("LLER for m65pl age group (total kcal/day): " + str(m65pl))
-			LLER += m65pl
-			arcpy.AddMessage("Total LLER is: " + str(LLER))	
+			popm65pl = array.sum()
+			arcpy.AddMessage("population for m65+ is " + str(popm65pl))
+			nutm65pl = (1.55 * (587.7 + 11.711 * kg5)) * popm65pl
+			arcpy.AddMessage("LLER for m65pl age group (total kcal/day): " + str(nutm65pl))
+			LLER += nutm65pl
+			totalPop += popm65pl
+			arcpy.AddMessage("Total LLER is: " + str(LLER))
+			arcpy.AddMessage("Total population is " + str(totalPop))
 			
 		else:
 			arcpy.AddMessage("Age group and/or Year for " + str(OID) + " does not exist")
+			
+	#Append the Nutrition Information to a copy of the AOI
+	
+	#Create copy
+	copyAOI = arcpy.CopyFeatures_management(AOI, os.path.join(arcpy.env.scratchFolder, "intOutput", "copyAOI"))
+	
+	#Remove all fields and rows from the copy
+	fieldObjList = arcpy.ListFields(copyAOI)
+	fieldNameList = []
+	for field in fieldObjList:
+		if not field.required:
+			fieldNameList.append(field.name)
+	fieldNameList = fieldNameList[1:]    #Need to leave at least one of the fields
+	arcpy.DeleteField_management(copyAOI, fieldNameList)
+	dissolveField = ""
+	for field in fieldObjList:
+		if field.type == "OID":
+			dissolveField = field.name
+	
+	
 	
 	
 if __name__ == '__main__':
