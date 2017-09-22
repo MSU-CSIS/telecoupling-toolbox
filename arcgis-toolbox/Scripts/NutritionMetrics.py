@@ -431,6 +431,28 @@ if __name__ == '__main__':
 	#global to increment over records
 	rec = 0
 	
+	#This block of code is new. It's being added so that the source rasters of a 
+	#downloaded mosaic dataset will be identified regardless of where the folder is stored.
+	#This code won't be needed for the web version.
+	sourceRasters_stepOne = os.path.split(mosaicDB)[0]
+	sourceRasters_stepTwo = os.path.split(sourceRasters_stepTwo)[0]
+	paths = "* " + "'" + str(sourceRasters_stepTwo) + "'"
+	arcpy.RepairMosaicDatasetPaths_management(mosaicDB, paths)
+	
+	#Define no data values
+	bands = 1
+	nodataval = ""
+	nodatarange = "BAND_1 0 1000000"
+	query = "#"
+	mode = "#"
+	arcpy.DefineMosaicDatasetNodata_management(mosaicDB, bands, nodataval, nodatarange, query, mode)
+	
+	#This is the end of the block of code to identify the source rasters of a mosaic dataset.
+	#This code will only need to be implemented on the desktop version of the tool.
+	#It also should only be implemented if the mosaic dataset that's being used was downloaded
+	#as part of the tool's sample data.
+	
+	
 	#Run the nutrition function
 	try:
 		nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaicDB)
