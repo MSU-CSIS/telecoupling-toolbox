@@ -431,8 +431,8 @@ if __name__ == '__main__':
 	#global to increment over records
 	rec = 0
 	
-	#This block of code is new. It's being added so that the source rasters of a 
-	#downloaded mosaic dataset will be identified regardless of where the folder is stored.
+	#This block of code is used to ensure that a downloaded mosaic 
+	#dataset will be identified regardless of where the folder is stored.
 	#This code won't be needed for the web version.
 	sourceRasters_stepOne = os.path.split(mosaicDB)[0]
 	sourceRasters_stepTwo = os.path.split(sourceRasters_stepTwo)[0]
