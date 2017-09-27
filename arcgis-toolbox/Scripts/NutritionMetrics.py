@@ -435,7 +435,7 @@ if __name__ == '__main__':
 	#dataset will be identified regardless of where the folder is stored.
 	#This code won't be needed for the web version.
 	sourceRasters_stepOne = os.path.split(mosaicDB)[0]
-	sourceRasters_stepTwo = os.path.split(sourceRasters_stepTwo)[0]
+	sourceRasters_stepTwo = os.path.split(sourceRasters_stepOne)[0]
 	paths = "* " + "'" + str(sourceRasters_stepTwo) + "'"
 	arcpy.RepairMosaicDatasetPaths_management(mosaicDB, paths)
 	
@@ -445,7 +445,7 @@ if __name__ == '__main__':
 	nodatarange = "BAND_1 0 1000000"
 	query = "#"
 	mode = "#"
-	arcpy.DefineMosaicDatasetNodata_management(mosaicDB, bands, nodataval, nodatarange, query, mode)
+	arcpy.DefineMosaicDatasetNoData_management(mosaicDB, bands, nodataval, nodatarange, query, mode)
 	
 	#This is the end of the block of code to identify the source rasters of a mosaic dataset.
 	#This code will only need to be implemented on the desktop version of the tool.
