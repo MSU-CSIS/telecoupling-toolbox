@@ -1,11 +1,15 @@
-Telecoupling Toolbox: ArcGIS Toolbox v1.2b
+Telecoupling Toolbox: ArcGIS Toolbox v1.3b
 ========================
 
 ## Major Releases
 ------------------
+* Version 1.3 (_beta_)
+
+This release adds a new tool within the Socieconomic Analysis toolset, called _Nutrition Metrics_, a custom tool that estimates the population within an Area of Interest (AOI) by age groups and then calculates the Lower Limit of Energy Requirement (LLER; in kilocalories / day) for age groups within the AOI. _NOTE: This tool will only run with Areas of Interest in Africa, Asia, or South America / Central America / Caribbean._
+
 * Version 1.2 (_beta_)
 
-This release adds a new tool within the Socieconomic Analysis toolset, called Population Count and Density, a modified version of the Population Density Metrics tool from the Analytical Tools Interface for Landscape Assessments (ATtILA) by the United States Environmental Protection Agency (EPA).
+This release adds a new tool within the Socieconomic Analysis toolset, called _Population Count and Density_, a modified version of the Population Density Metrics tool from the Analytical Tools Interface for Landscape Assessments (ATtILA) by the United States Environmental Protection Agency (EPA).
 
 * Version 1.1 (_beta_)
 
@@ -118,7 +122,7 @@ Follow these steps to add the Toolbox to your ArcMap document:
 
 1. Open ArcMap
 2. Right-click on the ArcToolbox folder and select "Add Toolbox"
-3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v1.2b.tbx`
+3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v1.3b.tbx`
 
 Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__environmental analysis__*, *__socioeconomic analysis__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. 
 
