@@ -82,10 +82,10 @@
       "name": "Flow_Amount_Field",
       "dataType": "GPString",
       "description": "The numeric field containing values for the flow quantity to be transferred.\n",
-      "defaultValue": "",
+      "defaultValue": "Quantity",
       "category": "",
       "label": "Flow Amount Field",
-      "visible": true,
+      "visible": false,
       "required": true,
       "tooltip": "Flow Amount Field"
     },
@@ -95,10 +95,10 @@
       "description": "Integer number representing the maximum capacity of the transportation medium (e.g. airplane) used to transfer all flow quantities.\n\nNOTE: this tool assumes homogeneity of transporation medium (e.g. same type of airplane), hence the estimates do not account for variations in CO2 emissions caused by multiple carriers or weather conditions (e.g. wind) affecting the transfer.\n\n",
       "defaultValue": 1,
       "category": "",
-      "label": "Max Flow Capacity (per trip)",
+      "label": "Transportation Capacity (max per trip)",
       "visible": true,
       "required": true,
-      "tooltip": "Max Flow Capacity (per trip)"
+      "tooltip": "Transportation Capacity (max per trip)"
     },
     {
       "name": "Units_of_CO2_Emitted",
@@ -106,10 +106,10 @@
       "description": "Specify the approximate amount (in kilograms) of CO2 emitted per unit of length. Make sure the unit of length corresponds to the coordinate system used (e.g. meters in the case of Web Mercator). ",
       "defaultValue": null,
       "category": "",
-      "label": "Units of CO2 Emitted (kg/unit length)",
+      "label": "Units of CO2 Emitted (kg/m)",
       "visible": true,
       "required": true,
-      "tooltip": "Units of CO2 Emitted (kg/unit length)"
+      "tooltip": "Units of CO2 Emitted (kg/m)"
     }
   ],
   "outputParams": [

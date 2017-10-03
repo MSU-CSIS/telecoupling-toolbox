@@ -8,6 +8,7 @@
     "currentVersion": 10.41,
     "url": "https://lb.telecoupling.msu.edu/arcgis/rest/services/Geoprocessing/VisitationRate/GPServer/",
     "hasResultMapServer": true,
+    "resultMapServerName": "Geoprocessing/VisitationRate",
     "supportsUpload": true,
     "maxUploadFileSize": 2000
   },
@@ -21,10 +22,10 @@
       "description": "An OGR-supported vector file representing the area of interest where the model will run the analysis.",
       "defaultValue": "itemID:",
       "category": "",
-      "label": "Zipped Area of Interest",
+      "label": "Zipped Area of Interest (shapefile)",
       "visible": true,
       "required": true,
-      "tooltip": "Zipped Area of Interest"
+      "tooltip": "Zipped Area of Interest (shapefile)"
     },
     {
       "name": "Start_Year",
@@ -393,6 +394,18 @@
       "visible": true,
       "required": false,
       "tooltip": "Monthly Visitation Rate Table"
+    },
+    {
+      "name": "Geoprocessing/VisitationRate",
+      "label": "Geoprocessing/VisitationRate",
+      "tooltip": "Geoprocessing/VisitationRate",
+      "dataType": "MapServiceLayer",
+      "layerNames": [
+        "Visitation Rate",
+        "Output Visitation Shapefile"
+      ],
+      "visible": true,
+      "required": ""
     }
   ],
   "shareResults": true,

@@ -5,7 +5,6 @@ InVEST version: 3.3.0
 """
 
 import arcpy
-import SSUtilities as UTILS
 import natcap.invest.carbon.carbon_combined
 import os
 import shutil
@@ -20,23 +19,23 @@ def GetArgs():
     do_biophysical = arcpy.GetParameter(0)
     do_sequestration = arcpy.GetParameter(1)
     lulc_cur_uri = arcpy.GetParameterAsText(2)
-    lulc_cur_year = UTILS.getNumericParameter(3)
+    lulc_cur_year = arcpy.GetParameter(3)
     lulc_fut_uri = arcpy.GetParameterAsText(4)
-    lulc_fut_year = UTILS.getNumericParameter(5)
+    lulc_fut_year = arcpy.GetParameter(5)
     carbon_pools_uri = arcpy.GetParameterAsText(6)
     hwp_cur_shape_uri = arcpy.GetParameterAsText(7)
     hwp_fut_shape_uri = arcpy.GetParameterAsText(8)
     do_uncertainty = arcpy.GetParameter(9)
     carbon_pools_uncertain_uri = arcpy.GetParameterAsText(10)
-    confidence_threshold = UTILS.getNumericParameter(11)
+    confidence_threshold = arcpy.GetParameter(11)
     sequest_uri = arcpy.GetParameterAsText(12)
-    yr_cur = UTILS.getNumericParameter(13)
-    yr_fut = UTILS.getNumericParameter(14)
+    yr_cur = arcpy.GetParameter(13)
+    yr_fut = arcpy.GetParameter(14)
     do_valuation = arcpy.GetParameter(15)
     carbon_price_units = arcpy.GetParameterAsText(16)
-    V = UTILS.getNumericParameter(17)
-    c = UTILS.getNumericParameter(18)
-    r = UTILS.getNumericParameter(19)
+    V = arcpy.GetParameter(17)
+    c = arcpy.GetParameter(18)
+    r = arcpy.GetParameter(19)
 
     outList = []
 

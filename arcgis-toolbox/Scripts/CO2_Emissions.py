@@ -1,7 +1,6 @@
 import arcpy
 import sys
 import os
-import SSUtilities as UTILS
 import math
 
 arcpy.env.overwriteOutput = True
@@ -11,12 +10,12 @@ def calc_CO2_emissions():
     # Get the value of the input parameter
     inputFC = arcpy.GetParameterAsText(0)  # Polyline feature class
     wildlife_units = arcpy.GetParameterAsText(1) # Field from input FC representing number of wildlife units transferred
-    capacity_per_trip = UTILS.getNumericParameter(2) # Transportation capacity (wildlife units per trip)
-    CO2_emission = UTILS.getNumericParameter(3)  # Amount of CO2 emission (kg/unit)
+    capacity_per_trip = arcpy.GetParameter(2) # Transportation capacity (wildlife units per trip)
+    CO2_emission = arcpy.GetParameter(3)  # Amount of CO2 emission (kg/unit)
     scenarioFC = arcpy.GetParameterAsText(4)  # Scenario: Polyline feature class
     wildlife_units_scn = arcpy.GetParameterAsText(5) # Field from scenario FC representing number of wildlife units transferred
-    capacity_per_trip_scn = UTILS.getNumericParameter(6) # Scenario: Transportation capacity (wildlife units per trip)
-    CO2_emission_scn = UTILS.getNumericParameter(7)  # Scenario: Amount of CO2 emission (kg/unit)
+    capacity_per_trip_scn = arcpy.GetParameter(6) # Scenario: Transportation capacity (wildlife units per trip)
+    CO2_emission_scn = arcpy.GetParameter(7)  # Scenario: Amount of CO2 emission (kg/unit)
 
     try:
         # create empty list to append all output layers

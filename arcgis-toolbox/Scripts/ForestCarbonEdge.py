@@ -1,5 +1,4 @@
 import arcpy
-import SSUtilities as UTILS
 import natcap.invest.forest_carbon_edge_effect
 import os
 import shutil
@@ -15,8 +14,8 @@ def GetArgs():
     pools_to_calculate = arcpy.GetParameterAsText(2)
     compute_forest_edge_effects = arcpy.GetParameter(3)
     tropical_forest_edge_carbon_model_shape_uri = arcpy.GetParameterAsText(4)
-    n_nearest_model_points = UTILS.getNumericParameter(5)
-    biomass_to_carbon_conversion_factor = UTILS.getNumericParameter(6)
+    n_nearest_model_points = arcpy.GetParameter(5)
+    biomass_to_carbon_conversion_factor = arcpy.GetParameter(6)
     aoi_uri = arcpy.GetParameterAsText(7)
 
     try:

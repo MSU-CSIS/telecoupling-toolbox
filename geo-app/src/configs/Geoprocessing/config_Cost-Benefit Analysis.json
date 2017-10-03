@@ -82,7 +82,7 @@
       "defaultValue": "NAME",
       "category": "",
       "label": "Telecoupling Systems Join Field",
-      "visible": true,
+      "visible": false,
       "required": true,
       "tooltip": "Telecoupling Systems Join Field"
     },
@@ -101,7 +101,7 @@
       "name": "Economics_Table_Join_Field",
       "dataType": "GPString",
       "description": "A field in the economics CSV table that will be joined to the input feature layer representing all telecoupling systems.",
-      "defaultValue": "NAME",
+      "defaultValue": "",
       "category": "",
       "label": "Economics Table Join Field",
       "visible": true,
