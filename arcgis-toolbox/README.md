@@ -1,8 +1,12 @@
-Telecoupling Toolbox: ArcGIS Toolbox v1.1b
+Telecoupling Toolbox: ArcGIS Toolbox v1.2b
 ========================
 
 ## Major Releases
 ------------------
+* Version 1.2 (_beta_)
+
+This release adds a new tool within the Socieconomic Analysis toolset, called Population Count and Density, a modified version of the Population Density Metrics tool from the Analytical Tools Interface for Landscape Assessments (ATtILA) by the United States Environmental Protection Agency (EPA).
+
 * Version 1.1 (_beta_)
 
 This release adds two new tools, the _Habitat Risk Assessment Preprocessor_ and the _Habitat Risk Assessment_, both customized from InVEST (3.3.3). Sample data is now shipped separately from the main code repository to reduce its size. The main toolbox file (.tbx) has been updated to reflect the change in version and development stage as well as naming convention (Telecoupling _Toolbox_ instead of _Tools_). The old ‘Effect’ toolset has now been partitioned into two new toolsets: Environmental Analysis and Socioeconomic Analysis. 
@@ -53,11 +57,6 @@ To install the Telecoupling Toolbox for ArcGIS, make sure to follow all the step
 * Python 2.7.x **(ArcGIS comes with Python, so no need to install a standalone version of Python!)**
 
 **_NOTE: versions of ArcGIS prior to 10.3.1 may still work with some of our tools but have NOT been tested. ArcGIS Pro has also NOT been tested yet! Python 2.7.x ships together with ArcGIS and is automatically installed with it. If possible, avoid installing multiple versions of Python on your system as it may create conflicts and errors. If you are using Anaconda, you may need additional settings to make sure you can run the tools smoothly. For more info, check [this website](https://pymorton.wordpress.com/2014/06/17/using-arcpy-with-anaconda/)._**)
-
-## Download and unzip the Telecoupling Toolbox: ArcGIS Toolbox repository
---------------------- 
-1. Unzip the Telecoupling Toolbox project repository and take a look at the file content and sub folders structure.
-2. Go inside the **ArcGIS Toolbox** folder to find all the code, images, and documentation of the Telecoupling Toolbox for ArcGIS. 
 
 ## Install Python libraries for 3rd party external software
 ---------------------
@@ -119,7 +118,7 @@ Follow these steps to add the Toolbox to your ArcMap document:
 
 1. Open ArcMap
 2. Right-click on the ArcToolbox folder and select "Add Toolbox"
-3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v1.1b.tbx`
+3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v1.2b.tbx`
 
 Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__environmental analysis__*, *__socioeconomic analysis__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. 
 

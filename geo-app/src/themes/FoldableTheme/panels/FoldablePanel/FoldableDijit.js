@@ -57,6 +57,10 @@ define(['dojo/_base/declare',
         this.own(on(this.titleNode, 'click', lang.hitch(this, function(){
           this.onFoldableNodeClick();
         })));
+		//ADDED THIS CUSTOMIZATION!!! (Lines 60-63)
+		if(this.folded){
+          html.addClass(this.foldableNode, 'folded');
+        }//ADDED THIS CUSTOMIZATION!!!
       },
 
       setTitleLabel: function(label) {

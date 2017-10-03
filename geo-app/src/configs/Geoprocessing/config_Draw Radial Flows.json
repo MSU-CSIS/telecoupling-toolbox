@@ -86,10 +86,10 @@
       "name": "Flow_Amount_Field",
       "dataType": "GPString",
       "description": "Attribute representing flow amounts ",
-      "defaultValue": "",
+      "defaultValue": "Quantity",
       "category": "",
       "label": "Flow Amount Field",
-      "visible": true,
+      "visible": false,
       "required": true,
       "tooltip": "Flow Amount Field"
     },
