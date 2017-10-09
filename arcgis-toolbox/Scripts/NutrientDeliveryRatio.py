@@ -1,10 +1,29 @@
-""""
-This is a saved model run from natcap.invest.ndr.ndr.
-Generated: 10/09/17 13:37:20
-InVEST version: 3.3.3
-"""
-
+#Import all modules
+import arcpy
+from arcpy.sa import *
 import natcap.invest.ndr.ndr
+import os
+import sys
+
+arcpy.env.overwriteOutput = True
+workspace_dir = arcpy.env.scratchFolder
+
+
+
+
+
+
+if __name__ == '__main__':
+	args = GetArgs()
+
+
+
+
+
+
+
+
+
 
 
 args = {
