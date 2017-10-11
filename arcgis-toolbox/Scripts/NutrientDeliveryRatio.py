@@ -26,11 +26,12 @@ def GetArgs():
 	biophysical_table = arcpy.GetParameterAsText(4)
 	threshold_flow_accumulation = arcpy.GetParameterAsText(5)
 	k_param = arcpy.GetParameterAsText(6)
-	subsurfaceFlow = arcpy.GetParameterAsText(7)
-	subsurface_critical_length_p = arcpy.GetParameterAsText(8)
-	subsurface_critical_length_n = arcpy.GetParameterAsText(9)
-	subsurface_eff_p = arcpy.GetParameterAsText(10)
-	subsurface_eff_n = arcpy.GetParameterAsText(11)
+#	calc_p = arcpy.GetParameterAsText(7)
+#	calc_n = arcpy.GetParameterAsText(8)	
+	subsurface_critical_length_p = arcpy.GetParameterAsText(7)
+	subsurface_critical_length_n = arcpy.GetParameterAsText(8)
+	subsurface_eff_p = arcpy.GetParameterAsText(9)
+	subsurface_eff_n = arcpy.GetParameterAsText(10)
 	
 	outRast = []
 	
@@ -49,25 +50,26 @@ def GetArgs():
 			u'workspace_dir': workspace_dir
 			}
 		
-		if subsurfaceFlow == True:
+		if args[u'calc_p'] == True:
 			args[u'subsurface_critical_length_p'] = subsurface_critical_length_p
 			args[u'subsurface_eff_p'] = subsurface_eff_p
-			args[u'subsurface_critical_length_n'] = subsurface_critical_length_n
-			args[u'subsurface_eff_n'] = subsurface_eff_n
-		
-		if args[u'calc_p'] == True and args[u'calc_n'] == True:
 			output_phos = os.path.join(arcpy.env.scratchFolder, _OUTPUT['p_export'])
 			outRast.append(output_phos)
+			output_watershed = os.path.join(arcpy.env.scratchFolder, _OUTPUT['watershed_results_shp'])
+			
+		if args[u'calc_n'] == True:
+			args[u'subsurface_critical_length_n'] = subsurface_critical_length_n
+			args[u'subsurface_eff_n'] = subsurface_eff_n
 			output_nit = os.path.join(arcpy.env.scratchFolder, _OUTPUT['n_export'])
 			outRast.append(output_nit)
-			#output_watershed = os.path.join(arcpy.env.scratchFolder, _OUTPUT['watershed_results_shp'])
 
 	except Exception:
 		e = sys.exc_info()[1]
 		arcpy.AddError('An error occurred: {}'.format(e.args[0]))
-			
-	return args, outRast
 
+	return args, outRast, output_watershed
+
+	
 #Projection alignment issues exist between ArcGIS and InVEST output. This function corrects these issues.	
 def DefineProj(raster_ref, raster_out1, raster_out2, shp_ref, shp_out):
 
@@ -81,7 +83,7 @@ def DefineProj(raster_ref, raster_out1, raster_out2, shp_ref, shp_out):
 		rastList = [raster_out1, raster_out2]
 		for i in rastList:
 			arcpy.DefineProjection_management(i, coord_sys)
-			
+
 		#get the coordinate system of the shapefile watershed_results_ndr
 		dsc = arcpy.Describe(shp_ref)
 		coord_sys = dsc.spatialReference
@@ -94,7 +96,7 @@ def DefineProj(raster_ref, raster_out1, raster_out2, shp_ref, shp_out):
 		arcpy.AddError('An error occurred: {}'.format(e.args[0]))	
 	
 if __name__ == '__main__':
-	args, outRast = GetArgs()
+	args, outRast, output_watershed = GetArgs()
 	
 	#Run the InVEST script with the arguments from GetArgs
 	natcap.invest.ndr.ndr.execute(args)
@@ -111,6 +113,6 @@ if __name__ == '__main__':
 	shutil.rmtree(os.path.join(arcpy.env.scratchFolder, 'intermediate_outputs'))
 	
 	#Add outputs to map viewer
-	arcpy.SetParameter(12, output_watershed)
-	arcpy.SetParameter(13, out_p)
-	arcpy.SetParameter(14, out_n)
+	arcpy.SetParameter(11, output_watershed)
+	arcpy.SetParameter(12, out_p)
+	arcpy.SetParameter(13, out_n)
