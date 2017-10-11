@@ -4,17 +4,19 @@ from arcpy.sa import *
 import natcap.invest.ndr.ndr
 import os
 import sys
-arcpy.AddMessage("imported modules")
+import shutil
 
 arcpy.env.overwriteOutput = True
 workspace_dir = arcpy.env.scratchFolder
 
+#List of output files
 _OUTPUT = {
     'watershed_results_shp': r'watershed_results_ndr.shp',
     'p_export': r'p_export.tif',
     'n_export': r'n_export.tif',
 }
 
+#Set the arguments for the invest.ndr script
 def GetArgs():
 	arcpy.AddMessage("in GetArgs.")
 	dem = arcpy.GetParameterAsText(0)
@@ -31,7 +33,7 @@ def GetArgs():
 	subsurface_eff_p = arcpy.GetParameterAsText(9)
 	subsurface_eff_n = arcpy.GetParameterAsText(10)
 	
-	outList_tabs = []
+	outRast = []
 	
 	try:
 		
@@ -53,26 +55,64 @@ def GetArgs():
 			args[u'subsurface_critical_length_p'] = subsurface_critical_length_p
 			args[u'subsurface_eff_p'] = subsurface_eff_p
 			output_phos = os.path.join(arcpy.env.scratchFolder, _OUTPUT['p_export'])
-			outList_tabs.append(output_phos)
+			outRast.append(output_phos)
 			output_watershed = os.path.join(arcpy.env.scratchFolder, _OUTPUT['watershed_results_shp'])
-			outList_tabs.append(output_watershed)
 			
 		if args[u'calc_n'] == True:
 			args[u'subsurface_critical_length_n'] = subsurface_critical_length_n
 			args[u'subsurface_eff_n'] = subsurface_eff_n
 			output_nit = os.path.join(arcpy.env.scratchFolder, _OUTPUT['n_export'])
-			outList_tabs.append(output_nit)
+			outRast.append(output_nit)
 			
 	except Exception:
 		e = sys.exc_info()[1]
 		arcpy.AddError('An error occurred: {}'.format(e.args[0]))
 			
-	return args, outList_tabs
-	
-	
+	return args, outRast, output_watershed
 
+#Projection alignment issues exist between ArcGIS and InVEST output. This function corrects these issues.	
+def DefineProj(raster_ref, raster_out1, raster_out2, shp_ref, shp_out):
+
+	try: 
+	
+		#get the coordinate system of the raster dem
+		dsc = arcpy.Describe(raster_ref)
+		coord_sys = dsc.spatialReference
+		
+		#apply this coordinate system to the output n and p rasters
+		rastList = [raster_out1, raster_out2]
+		for i in rastList:
+			arcpy.DefineProjection_management(i, coord_sys)
+			
+		#get the coordinate system of the shapefile watershed_results_ndr
+		dsc = arcpy.Describe(shp_ref)
+		coord_sys = dsc.spatialReference
+		
+		#apply this coordinate system to the output watershed shp
+		arcpy.DefineProjection_management(shp_out, coord_sys)
+		
+	except Exception:
+		e = sys.exc_info()[1]
+		arcpy.AddError('An error occurred: {}'.format(e.args[0]))	
+	
 if __name__ == '__main__':
-	args, outList_tabs = GetArgs()
+	args, outRast, output_watershed = GetArgs()
+	
+	#Run the InVEST script with the arguments from GetArgs
 	natcap.invest.ndr.ndr.execute(args)
-#	watershed_shp = os.path.join(arcpy.env.scratchFolder, "watershed_results_ndr.shp")  I might not need this line, but I do need the line below it.
-#	arcpy.SetParameter(13, watershed_shp)
+	
+	#Output files from InVEST script
+	out_watershed = os.path.join(arcpy.env.scratchFolder, _OUTPUT['watershed_results_shp'])
+	out_p = os.path.join(arcpy.env.scratchFolder, outRast[0])
+	out_n = os.path.join(arcpy.env.scratchFolder, outRast[1])
+	
+	#Run the DefineProj function to correct projection alignment issues.
+	DefineProj(args['dem_path'], out_p, out_n, args['watersheds_path'], out_watershed)
+	
+	#Remove intermediate files created by InVEST script
+	shutil.rmtree(os.path.join(arcpy.env.scratchFolder, 'intermediate_outputs'))
+	
+	#Add outputs to map viewer
+	arcpy.SetParameter(11, output_watershed)
+	arcpy.SetParameter(12, out_p)
+	arcpy.SetParameter(13, out_n)
