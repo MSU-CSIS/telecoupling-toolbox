@@ -430,7 +430,17 @@ define([
 				style: {
 				  lineHeight: this.height + 'px'
 				}
-			  }, this.dynamicLinksNode);			  
+			  }, this.dynamicLinksNode);	
+		  }else if (link.label.toUpperCase() === 'START TUTORIAL'){
+			  html.create('a', {
+				href: link.url,
+				rel: 'noopener noreferrer',
+				innerHTML: utils.sanitizeHTML(link.label),
+				'class': "apc-btn jimu-link jimu-align-leading jimu-leading-margin1",
+				style: {
+				  lineHeight: this.height + 'px'
+				}
+			  }, this.dynamicLinksNode);				  
 		  }else{
 			  html.create('a', {
 				href: link.url,
