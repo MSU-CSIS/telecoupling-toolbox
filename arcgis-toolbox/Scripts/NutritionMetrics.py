@@ -338,7 +338,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			totalPop += popm65pl
 			
 		else:
-			arcpy.AddMessage("Age group and/or Year for " + str(OID) + " does not exist")
+			arcpy.AddMessage("Preparing nutrition metric statistics... ")
 			
 	#Append the Nutrition Information to a copy of the AOI
 	#Create copy
