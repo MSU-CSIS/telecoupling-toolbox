@@ -350,8 +350,9 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 	for field in fieldObjList:
 		if not field.required:
 			fieldNameList.append(field.name)
-	fieldNameList = fieldNameList[1:]    #Need to leave at least one of the fields
-	arcpy.DeleteField_management(copyAOI, fieldNameList)
+	fieldNameList2 = fieldNameList[1:]    #Need to leave at least one of the fields
+	if len(fieldNameList2) >= 1:
+		arcpy.DeleteField_management(copyAOI, fieldNameList2)
 	dissolveField = ""
 	for field in fieldObjList:
 		if field.type == "OID":
