@@ -338,7 +338,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			totalPop += popm65pl
 			
 		else:
-			arcpy.AddMessage("Preparing nutrition metric statistics... ")
+			arcpy.AddMessage("Calculating Nutrition Metrics for AOI... ")
 			
 	#Append the Nutrition Information to a copy of the AOI
 	#Create copy
