@@ -19,7 +19,7 @@ def autoIncrement(pInterval = 1):
 	rec = rec + pInterval
 	return rec
 
-def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaicDB):
+def nutritionMetrics(AOI, year, maleStature, femaleStature, mosaicDB):
 
 	#Create intermediate folder where output will be temporarily saved
 	arcpy.CreateFolder_management(arcpy.env.scratchFolder, "intOutput")
@@ -436,7 +436,8 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			cursor.updateRow(row)
 	
 	#Output the final shapefile to disk
-	result = arcpy.CopyFeatures_management(copyAOIDis, os.path.join(os.path.dirname(outShapefile), os.path.basename(outShapefile)))		
+	result = arcpy.CopyFeatures_management(copyAOIDis, os.path.join(arcpy.env.scratchFolder, "intOutput", "finalOutput"))
+
 	
 if __name__ == '__main__':
 	#Get the values of the input parameters
@@ -445,7 +446,6 @@ if __name__ == '__main__':
 	year = arcpy.GetParameterAsText(2)
 	maleStature = arcpy.GetParameterAsText(3)
 	femaleStature = arcpy.GetParameterAsText(4)
-	outShapefile = arcpy.GetParameterAsText(5)
 	
 	###-----------------------------------------------------------------------------------###
 	#The below content has been commented out, but will be used in the geo web app
@@ -490,11 +490,12 @@ if __name__ == '__main__':
 	
 	#Run the nutrition function
 	try:
-		nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaicDB)
+		nutritionMetrics(AOI, year, maleStature, femaleStature, mosaicDB)
 		
 	except Exception:
 		e = sys.exc_info()[1]
 		arcpy.AddError('An error occurred: {}'.format(e.args[0]))
-		
+	result = os.path.join(arcpy.env.scratchFolder, "intOutput", "finalOutput")
+	arcpy.SetParameter(5, result)
 	#Remove the scratch folder
 	#shutil.rmtree(os.path.join(arcpy.env.scratchFolder, 'intOutput'))
