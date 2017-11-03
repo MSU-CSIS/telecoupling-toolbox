@@ -14,6 +14,17 @@ import shutil
 arcpy.CheckOutExtension("Spatial")
 arcpy.env.overwriteOutput = True
 
+#Set whether tool is licensed
+def isLicensed():
+    try:
+        if arcpy.CheckExtension("Spatial") == "Available":
+            arcpy.CheckOutExtension("Spatial")
+        else:
+            raise Exception
+    except:
+        return False
+    return True
+
 def autoIncrement(pInterval = 1):
 	global rec
 	rec = rec + pInterval
@@ -440,6 +451,8 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, mosaicDB):
 
 	
 if __name__ == '__main__':
+	isLicensed()
+	
 	#Get the values of the input parameters
 	AOI = arcpy.GetParameterAsText(0)
 	mosaicDB = arcpy.GetParameterAsText(1)
@@ -495,7 +508,9 @@ if __name__ == '__main__':
 	except Exception:
 		e = sys.exc_info()[1]
 		arcpy.AddError('An error occurred: {}'.format(e.args[0]))
-	result = os.path.join(arcpy.env.scratchFolder, "intOutput", "finalOutput")
-	arcpy.SetParameter(5, result)
-	#Remove the scratch folder
-	#shutil.rmtree(os.path.join(arcpy.env.scratchFolder, 'intOutput'))
+	result = os.path.join(arcpy.env.scratchFolder, "intOutput", "finalOutput.shp")
+	copyresult = arcpy.CopyFeatures_management(result, os.path.join(arcpy.env.scratchFolder, "finalOutput"))
+	#Remove the scratch folder and add output to map.
+	os.chdir(arcpy.env.scratchFolder)
+	shutil.rmtree(os.path.join(arcpy.env.scratchFolder, 'intOutput'))
+	arcpy.SetParameter(5, copyresult)
