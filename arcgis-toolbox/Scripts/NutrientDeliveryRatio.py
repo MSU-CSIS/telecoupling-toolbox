@@ -18,7 +18,6 @@ _OUTPUT = {
 
 #Set the arguments for the invest.ndr script
 def GetArgs():
-	arcpy.AddMessage("in GetArgs.")
 	dem = arcpy.GetParameterAsText(0)
 	lulc = arcpy.GetParameterAsText(1)
 	nutrient_runoff = arcpy.GetParameterAsText(2)
