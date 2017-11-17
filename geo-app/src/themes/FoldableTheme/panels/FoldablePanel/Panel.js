@@ -209,19 +209,27 @@ define(['dojo/_base/declare',
         } else {
           frame = new FoldableWidgetFrame({
             label: widgetConfig.label,
+			folded: widgetConfig.folded, //ADDED CUSTOMIZATION!!
             widgetManager: this.widgetManager
           });
 
           aspect.after(frame, 'onFoldStateChanged', lang.hitch(this, function() {
             var openedPaneCount = 0;
-
+			var _frame = frame; //ADDED CUSTOMIZATION
             this._setFrameSize();
             array.forEach(this.getChildren(), function(frame) {
               if (!frame.folded) {
                 openedPaneCount++;
               }
+			  //ADDED CUSTOMIZATION
+              if(frame !== _frame){
+                frame.folded = true;
+				html.addClass(frame.foldableNode, 'folded'); 
+				openedPaneCount = 1;
+              } //END OF ADDED CUSTOMIZATION
             }, this);
-
+			this._setFrameSize(); //ADDED CUSTOMIZATION
+			
             array.forEach(this.getChildren(), function(frame) {
               if (!frame.folded && openedPaneCount === 1) {
                 frame.foldEnable = false;

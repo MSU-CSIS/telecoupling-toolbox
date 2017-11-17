@@ -56,10 +56,10 @@
     "title": "Imagery: Panchromatic Landsat"
   },
   "landsat2.arcgis.com/arcgis/rest/services/Landsat/MS/ImageServer": {
-    "veg": false,
-    "savi": false,
-    "water": false,
-    "burn": false,
-    "title": "Result__Change_1"
+    "veg": true,
+    "savi": true,
+    "water": true,
+    "burn": true,
+    "title": "Imagery: Multispectral Landsat"
   }
 }

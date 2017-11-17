@@ -410,16 +410,49 @@ define([
         }
         html.empty(this.dynamicLinksNode);
         array.forEach(links, function(link) {
-          html.create('a', {
-            href: link.url,
-            target: '_blank',
-            rel: 'noopener noreferrer',
-            innerHTML: utils.sanitizeHTML(link.label),
-            'class': "jimu-link jimu-align-leading jimu-leading-margin1",
-            style: {
-              lineHeight: this.height + 'px'
-            }
-          }, this.dynamicLinksNode);
+          /*ADDED FOR CUSTOMIZATION*/
+		  if (link.label.toUpperCase() === 'CONTACT US'){
+			  html.create('a', {
+				href: link.url,
+				rel: 'noopener noreferrer',
+				innerHTML: utils.sanitizeHTML(link.label),
+				'class': "jimu-link jimu-align-leading jimu-leading-margin1",
+				style: {
+				  lineHeight: this.height + 'px'
+				}
+			  }, this.dynamicLinksNode);			  	  
+		  }else if (link.label.toUpperCase() === 'SAMPLE DATA'){
+			  html.create('a', {
+				href: link.url,
+				rel: 'noopener noreferrer',
+				innerHTML: utils.sanitizeHTML(link.label),
+				'class': "jimu-link jimu-align-leading jimu-leading-margin1",
+				style: {
+				  lineHeight: this.height + 'px'
+				}
+			  }, this.dynamicLinksNode);	
+		  }else if (link.label.toUpperCase() === 'START TUTORIAL'){
+			  html.create('a', {
+				href: link.url,
+				rel: 'noopener noreferrer',
+				innerHTML: utils.sanitizeHTML(link.label),
+				'class': "apc-btn jimu-link jimu-align-leading jimu-leading-margin1",
+				style: {
+				  lineHeight: this.height + 'px'
+				}
+			  }, this.dynamicLinksNode);				  
+		  }else{
+			  html.create('a', {
+				href: link.url,
+				target: '_blank',
+				rel: 'noopener noreferrer',
+				innerHTML: utils.sanitizeHTML(link.label),
+				'class': "jimu-link jimu-align-leading jimu-leading-margin1",
+				style: {
+				  lineHeight: this.height + 'px'
+				}
+			  }, this.dynamicLinksNode);		    
+		  }
         }, this);
       },
 

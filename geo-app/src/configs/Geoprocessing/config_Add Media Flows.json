@@ -109,7 +109,7 @@
       "name": "Location_Field",
       "dataType": "GPString",
       "description": "A field in the input feature layer that will be used as a geographic location to search within the media report file.",
-      "defaultValue": "NAME",
+      "defaultValue": "",
       "category": "",
       "label": "Location Field",
       "visible": true,
