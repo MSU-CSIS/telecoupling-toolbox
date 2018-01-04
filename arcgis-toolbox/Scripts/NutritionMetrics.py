@@ -14,12 +14,23 @@ import shutil
 arcpy.CheckOutExtension("Spatial")
 arcpy.env.overwriteOutput = True
 
+#Set whether tool is licensed
+def isLicensed():
+    try:
+        if arcpy.CheckExtension("Spatial") == "Available":
+            arcpy.CheckOutExtension("Spatial")
+        else:
+            raise Exception
+    except:
+        return False
+    return True
+
 def autoIncrement(pInterval = 1):
 	global rec
 	rec = rec + pInterval
 	return rec
 
-def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaicDB):
+def nutritionMetrics(AOI, year, maleStature, femaleStature, mosaicDB):
 
 	#Create intermediate folder where output will be temporarily saved
 	arcpy.CreateFolder_management(arcpy.env.scratchFolder, "intOutput")
@@ -53,6 +64,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 	regex = re.compile(r'\d+')    #Recognizes numerical values in raster names.  This will be used to capture OID values.
 	maleStatureInt = float(maleStature)
 	femaleStatureInt = float(femaleStature)
+	OID_List = []
 	for r in rasterList:
 		OID = regex.findall(r)[0]
 		
@@ -66,6 +78,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf0004 = ((263.4 + 65.3 * kg50 - 0.454 * (kg50)**2) + (6.3 * 2)) * popf0004
 			LLER += nutf0004
 			totalPop += popf0004
+			OID_List.append(OID)
 		
 		#The male 00-04 age group
 		elif OID in ["6", "7", "8", "9", "10"]:
@@ -76,6 +89,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm0004 = ((310.2 + 63.3 * kg50 - 0.263 * (kg50)**2) + (6.3 * 2)) * popm0004
 			LLER += nutm0004
 			totalPop += popm0004
+			OID_List.append(OID)
 		
 		#The female 05-09 age group
 		elif OID in ["11", "12", "13", "14", "15"]:
@@ -86,6 +100,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf0509 = ((263.4 + 65.3 * kg50 - 0.454 * (kg50)**2) + (8.22 * 2)) * popf0509
 			LLER += nutf0509
 			totalPop += popf0509
+			OID_List.append(OID)
 			
 		#The male 05-09 age group
 		elif OID in ["16", "17", "18", "19", "20"]:
@@ -96,6 +111,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm0509 = ((310.2 + 63.3 * kg50 - 0.263 * (kg50)**2) + (6.58 * 2)) * popm0509
 			LLER += nutm0509
 			totalPop += popm0509
+			OID_List.append(OID)
 			
 		#The female 10-14 age group
 		elif OID in ["21", "22", "23", "24", "25"]:
@@ -106,6 +122,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf1014 = (0.85 * (263.4 + 65.3 * kg5 - 0.454 * (kg5)**2) + (9.86 * 2)) * popf1014
 			LLER += nutf1014
 			totalPop += popf1014
+			OID_List.append(OID)
 			
 		#The male 10-14 age group
 		elif OID in ["26", "27", "28", "29", "30"]:
@@ -116,6 +133,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm1014 = (0.85 * (310.2 + 63.3 * kg5 - 0.263 * (kg5)**2) + (10.41 * 2)) * popm1014
 			LLER += nutm1014
 			totalPop += popm1014
+			OID_List.append(OID)
 			
 		#The female 15-19 age group
 		elif OID in ["31", "32", "33", "34", "35"]:
@@ -126,6 +144,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf1519 = (1.55 * (486.6 + 8.126 * kg5)) * popf1519
 			LLER += nutf1519
 			totalPop += popf1519
+			OID_List.append(OID)
 			
 		#The male 15-19 age group
 		elif OID in ["36", "37", "38", "39", "40"]:
@@ -136,6 +155,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm1519 = (1.55 * (692.2 + 15.057 * kg5)) * popm1519
 			LLER += nutm1519
 			totalPop += popm1519
+			OID_List.append(OID)
 			
 		#The female 20-24 age group
 		elif OID in ["41", "42", "43", "44", "45"]:
@@ -146,6 +166,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf2024 = (1.55 * (486.6 + 8.126 * kg5)) * popf2024
 			LLER += nutf2024
 			totalPop += popf2024
+			OID_List.append(OID)
 			
 		#The male 20-24 age group
 		elif OID in ["46", "47", "48", "49", "50"]:
@@ -156,6 +177,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm2024 = (1.55 * (692.2 + 15.057 * kg5)) * popm2024
 			LLER += nutm2024
 			totalPop += popm2024
+			OID_List.append(OID)
 		
 		#The female 25-29 age group
 		elif OID in ["51", "52", "53", "54", "55"]:
@@ -166,6 +188,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf2529 = (1.55 * (486.6 + 8.126 * kg5)) * popf2529
 			LLER += nutf2529
 			totalPop += popf2529
+			OID_List.append(OID)
 			
 		#The male 25-29 age group 
 		elif OID in ["56", "57", "58", "59", "60"]:
@@ -176,6 +199,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm2529 = (1.55 * (692.2 + 15.057 * kg5)) * popm2529
 			LLER += nutm2529
 			totalPop += popm2529
+			OID_List.append(OID)
 			
 		#The female 30-34 age group
 		elif OID in ["61", "62", "63", "64", "65"]:
@@ -186,6 +210,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf3034 = (1.55 * (845.6 + 8.118 * kg5)) * popf3034
 			LLER += nutf3034
 			totalPop += popf3034
+			OID_List.append(OID)
 			
 		#The male 30-34 age group
 		elif OID in ["66", "67", "68", "69", "70"]:
@@ -196,6 +221,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm3034 = (1.55 * (873.1 + 11.472 * kg5)) * popm3034
 			LLER += nutm3034
 			totalPop += popm3034
+			OID_List.append(OID)
 			
 		#The female 35-39 age group
 		elif OID in ["71", "72", "73", "74", "75"]:
@@ -206,6 +232,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf3539 = (1.55 * (845.6 + 8.118 * kg5)) * popf3539
 			LLER += nutf3539
 			totalPop += popf3539
+			OID_List.append(OID)
 		
 		#The male 35-39 age group
 		elif OID in ["76", "77", "78", "79", "80"]:
@@ -216,6 +243,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm3539 = (1.55 * (873.1 + 11.472 * kg5)) * popm3539
 			LLER += nutm3539
 			totalPop += popm3539
+			OID_List.append(OID)
 			
 		#The female 40-44 age group
 		elif OID in ["81", "82", "83", "84", "85"]:
@@ -226,6 +254,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf4044 = (1.55 * (845.6 + 8.118 * kg5)) * popf4044
 			LLER += nutf4044
 			totalPop += popf4044
+			OID_List.append(OID)
 			
 		#The male 40-44 age group
 		elif OID in ["86", "87", "88", "89", "90"]:
@@ -236,6 +265,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm4044 = (1.55 * (873.1 + 11.472 * kg5)) * popm4044
 			LLER += nutm4044
 			totalPop += popm4044
+			OID_List.append(OID)
 			
 		#The female 45-49 age group
 		elif OID in ["91", "92", "93", "94", "95"]:
@@ -246,6 +276,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf4549 = (1.55 * (845.6 + 8.118 * kg5)) * popf4549
 			LLER += nutf4549
 			totalPop += popf4549
+			OID_List.append(OID)
 			
 		#The male 45-49 age group
 		elif OID in ["96", "97", "98", "99", "100"]:
@@ -256,6 +287,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm4549 = (1.55 * (873.1 + 11.472 * kg5)) * popm4549
 			LLER += nutm4549
 			totalPop += popm4549
+			OID_List.append(OID)
 			
 		#The female 50-54 age group
 		elif OID in ["101", "102", "103", "104", "105"]:
@@ -266,6 +298,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf5054 = (1.55 * (845.6 + 8.118 * kg5)) * popf5054
 			LLER += nutf5054
 			totalPop += popf5054
+			OID_List.append(OID)
 			
 		#The male 50-54 age group
 		elif OID in ["106", "107", "108", "109", "110"]:
@@ -276,6 +309,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm5054 = (1.55 * (873.1 + 11.472 * kg5)) * popm5054
 			LLER += nutm5054
 			totalPop += popm5054
+			OID_List.append(OID)
 			
 		#The female 55-59 age group
 		elif OID in ["111", "112", "113", "114", "115"]:
@@ -286,6 +320,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf5559 = (1.55 * (845.6 + 8.118 * kg5)) * popf5559
 			LLER += nutf5559
 			totalPop += popf5559
+			OID_List.append(OID)
 			
 		#The male 55-59 age group
 		elif OID in ["116", "117", "118", "119", "120"]:
@@ -296,6 +331,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm5559 = (1.55 * (873.1 + 11.472 * kg5)) * popm5559
 			LLER += nutm5559
 			totalPop += popm5559
+			OID_List.append(OID)
 			
 		#The female 60-64 age group
 		elif OID in ["121", "122", "123", "124", "125"]:
@@ -306,6 +342,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf6064 = (1.55 * (658.5 + 9.082 * kg5)) * popf6064
 			LLER += nutf6064
 			totalPop += popf6064
+			OID_List.append(OID)
 			
 		#The male 60-64 age group
 		elif OID in ["126", "127", "128", "129", "130"]:
@@ -316,6 +353,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm6064 = (1.55 * (587.7 + 11.711 * kg5)) * popm6064
 			LLER += nutm6064
 			totalPop += popm6064
+			OID_List.append(OID)
 			
 		#The female 65+ age group
 		elif OID in ["131", "132", "133", "134", "135"]:
@@ -326,6 +364,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutf65pl = (1.55 * (658.5 + 9.082 * kg5)) * popf65pl
 			LLER += nutf65pl
 			totalPop += popf65pl
+			OID_List.append(OID)
 			
 		#The male 65+ age group
 		elif OID in ["136", "137", "138", "139", "140"]:
@@ -336,10 +375,16 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			nutm65pl = (1.55 * (587.7 + 11.711 * kg5)) * popm65pl
 			LLER += nutm65pl
 			totalPop += popm65pl
+			OID_List.append(OID)
 			
 		else:
-			arcpy.AddMessage("Age group and/or Year for " + str(OID) + " does not exist")
+			arcpy.AddMessage("Calculating Nutrition Metrics for AOI... ")
 			
+	#The Africa continent mosaicDB does not include a WorldPop layer for m65pl 2020. Make this a missing value.
+	if "140" not in OID_List:
+		popm65pl = 999999999
+		nutm65pl = 999999999
+	
 	#Append the Nutrition Information to a copy of the AOI
 	#Create copy
 	copyAOI = arcpy.CopyFeatures_management(AOI, os.path.join(arcpy.env.scratchFolder, "intOutput", "copyAOI"))
@@ -350,8 +395,9 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 	for field in fieldObjList:
 		if not field.required:
 			fieldNameList.append(field.name)
-	fieldNameList = fieldNameList[1:]    #Need to leave at least one of the fields
-	arcpy.DeleteField_management(copyAOI, fieldNameList)
+	fieldNameList2 = fieldNameList[1:]    #Need to leave at least one of the fields
+	if len(fieldNameList2) >= 1:
+		arcpy.DeleteField_management(copyAOI, fieldNameList2)
 	dissolveField = ""
 	for field in fieldObjList:
 		if field.type == "OID":
@@ -401,16 +447,18 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaic
 			cursor.updateRow(row)
 	
 	#Output the final shapefile to disk
-	result = arcpy.CopyFeatures_management(copyAOIDis, os.path.join(os.path.dirname(outShapefile), os.path.basename(outShapefile)))		
+	result = arcpy.CopyFeatures_management(copyAOIDis, os.path.join(arcpy.env.scratchFolder, "intOutput", "finalOutput"))
+
 	
 if __name__ == '__main__':
+	isLicensed()
+	
 	#Get the values of the input parameters
 	AOI = arcpy.GetParameterAsText(0)
 	mosaicDB = arcpy.GetParameterAsText(1)
 	year = arcpy.GetParameterAsText(2)
 	maleStature = arcpy.GetParameterAsText(3)
 	femaleStature = arcpy.GetParameterAsText(4)
-	outShapefile = arcpy.GetParameterAsText(5)
 	
 	###-----------------------------------------------------------------------------------###
 	#The below content has been commented out, but will be used in the geo web app
@@ -455,8 +503,14 @@ if __name__ == '__main__':
 	
 	#Run the nutrition function
 	try:
-		nutritionMetrics(AOI, year, maleStature, femaleStature, outShapefile, mosaicDB)
+		nutritionMetrics(AOI, year, maleStature, femaleStature, mosaicDB)
 		
 	except Exception:
 		e = sys.exc_info()[1]
 		arcpy.AddError('An error occurred: {}'.format(e.args[0]))
+	result = os.path.join(arcpy.env.scratchFolder, "intOutput", "finalOutput.shp")
+	copyresult = arcpy.CopyFeatures_management(result, os.path.join(arcpy.env.scratchFolder, "finalOutput"))
+	#Remove the scratch folder and add output to map.
+	os.chdir(arcpy.env.scratchFolder)
+	shutil.rmtree(os.path.join(arcpy.env.scratchFolder, 'intOutput'))
+	arcpy.SetParameter(5, copyresult)

@@ -3,6 +3,11 @@ Telecoupling Toolbox: GeoApp v1.1 (beta)
 
 ## Major Releases
 ------------------
+
+* Version 1.2 (_beta_)
+
+This release added the *Start Tutorial* button to the GeoApp header and reformatted header text. 
+
 * Version 1.1 (_beta_)
 
 This release upgraded the web app template framework to ESRI's Web AppBuilder 2.5 (Dev Edition) and added the _Habitat Risk Assessment Preprocessor_ and the _Habitat Risk Assessment_ widgets, as well as upgraded the list

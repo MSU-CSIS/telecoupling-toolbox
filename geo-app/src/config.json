@@ -31,20 +31,24 @@
   "geometryService": "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer",
   "links": [
     {
-      "label": "home",
+      "label": "Home",
       "url": "https://msu-csis.github.io/telecoupling-toolbox/"
     },
     {
-      "label": "about",
+      "label": "About",
       "url": "http://csis.msu.edu/about-us"
     },
     {
-      "label": "contact us",
+      "label": "Contact Us",
       "url": "mailto:ftonini@msu.edu"
     },
     {
-      "label": "sample data",
-      "url": "https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData.zip"
+      "label": "Sample Data",
+      "url": "https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_GeoApp.zip"
+    },
+    {
+      "label": "Start Tutorial",
+      "url": "javascript:Appcues.show('-Kv3nDbFglJEc5-QfGAa')"
     }
   ],
   "widgetOnScreen": {
