@@ -22,7 +22,7 @@ The innovative, free and open-source (see [LICENSE](LICENSE) for details) toolbo
 
 <a href="https://github.com/MSU-CSIS/telecoupling-toolbox/tree/master/arcgis-toolbox" target="_blank"><img src="arcgis-toolbox/Figs/ArcGIS_Toolbox_icon.png" alt="ArcGIS Toolbox Icon" title="ArcGIS Toolbox Icon" height="200"></a>
 
-The ArcGIS Toolbox is a large collection of mapping and analysis tools for use within ESRI's ArcGIS Desktop (version 10.3.1 or later) to systematically study telecoupling. Test the current version of the ArcGIS Toolbox by using your own data or by downloading our [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.3b.zip). Look inside the [ArcGIS Toolbox](./arcgis-toolbox) project folder for code, images, documentation, and detailed instructions on installation and use.
+The ArcGIS Toolbox is a large collection of mapping and analysis tools for use within ESRI's ArcGIS Desktop (version 10.3.1 or later) to systematically study telecoupling. Test the current version of the ArcGIS Toolbox by using your own data or by downloading our [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.4b.zip). Look inside the [ArcGIS Toolbox](./arcgis-toolbox) project folder for code, images, documentation, and detailed instructions on installation and use.
 
 ## GeoApp
 
@@ -37,7 +37,7 @@ The GeoApp offers a dynamic, interactive, online geo-enabled platform along with
 
 <img src="img/beige-folder-downloads_arcgis.png" alt="Sample Data ArcGIS Icon" title="Sample Data ArcGIS Icon" height="200" >
 
-[Download](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.3b.zip) and unzip our sample data folder for use with both our ArcGIS Toolbox and GeoApp. This data repository contains all the tables and spatial data necessary to run the set of telecoupling mapping and analysis tools we developed. For further information on any of the dataset provided, please feel free to contact us.
+[Download](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.4b.zip) and unzip our sample data folder for use with both our ArcGIS Toolbox and GeoApp. This data repository contains all the tables and spatial data necessary to run the set of telecoupling mapping and analysis tools we developed. For further information on any of the dataset provided, please feel free to contact us.
 
 ## GeoApp Data
 
@@ -49,7 +49,7 @@ The GeoApp offers a dynamic, interactive, online geo-enabled platform along with
 ## Credits and Contacts
 ---------------------
 
-© 2017 Michigan State University 
+© 2018 Michigan State University 
 
 Francesco Tonini: <ftonini@msu.edu>
 
@@ -65,12 +65,12 @@ Telecoupling Toolbox (“Software”) is the property of Michigan State Universi
 
 * This toolbox depends on the R Statistical Computing Software:
 
-© 2017 The [R Foundation for Statistical Computing](https://www.r-project.org/). R is free software and comes with ABSOLUTELY NO WARRANTY. See the [COPYRIGHTS](https://github.com/wch/r-source/blob/trunk/doc/COPYRIGHTS) file for details.
+© 2018 The [R Foundation for Statistical Computing](https://www.r-project.org/). R is free software and comes with ABSOLUTELY NO WARRANTY. See the [COPYRIGHTS](https://github.com/wch/r-source/blob/trunk/doc/COPYRIGHTS) file for details.
 
 * This toolbox depends on [ESRI software](www.esri.com):
 
-© 2017 ESRI. See the [Software License and Agreement](http://www.esri.com/legal/software-license) for details.
+© 2018 ESRI. See the [Software License and Agreement](http://www.esri.com/legal/software-license) for details.
 
 * This toolbox depends on [InVEST - Natural Capital Project software](http://www.naturalcapitalproject.org/invest/):
 
-© 2017 NatCap Project. See the [Software License and Agreement](https://pypi.python.org/pypi/natcap.invest/3.3.1) for details. 
+© 2018 NatCap Project. See the [Software License and Agreement](https://pypi.python.org/pypi/natcap.invest/3.3.1) for details. 

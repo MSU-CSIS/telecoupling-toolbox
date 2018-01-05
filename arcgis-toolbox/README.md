@@ -1,8 +1,12 @@
-Telecoupling Toolbox: ArcGIS Toolbox v1.3b
+Telecoupling Toolbox: ArcGIS Toolbox v1.4b
 ========================
 
 ## Major Releases
 ------------------
+* Version 1.4 (_beta_)
+
+This release adds a new tool within the Environmental Analysis toolset, called _NDR (Nutrient Delivery Ratio)_, customized from InVEST (3.3.3). This tools can be used to map nutrient sources from watersheds and their transport to the stream.
+
 * Version 1.3 (_beta_)
 
 This release adds a new tool within the Socieconomic Analysis toolset, called _Nutrition Metrics_, a custom tool that estimates the population within an Area of Interest (AOI) by age groups and then calculates the Lower Limit of Energy Requirement (LLER; in kilocalories / day) for age groups within the AOI. _NOTE: This tool will only run with Areas of Interest in Africa, Asia, or South America / Central America / Caribbean._
@@ -139,7 +143,7 @@ After unzipping the sample data folder, you will see a mix of GIS (vector, raste
 ## Credits and Contacts
 ---------------------
 
-© 2017 Michigan State University 
+© 2018 Michigan State University 
 
 Francesco Tonini: <ftonini84@gmail.com>
 
@@ -155,12 +159,12 @@ Telecoupling Toolbox (“Software”) is the property of Michigan State Universi
 
 * This toolbox depends on the R Statistical Computing Software:
 
-© 2017 The [R Foundation for Statistical Computing](https://www.r-project.org/). R is free software and comes with ABSOLUTELY NO WARRANTY. See the [COPYRIGHTS](https://github.com/wch/r-source/blob/trunk/doc/COPYRIGHTS) file for details.
+© 2018 The [R Foundation for Statistical Computing](https://www.r-project.org/). R is free software and comes with ABSOLUTELY NO WARRANTY. See the [COPYRIGHTS](https://github.com/wch/r-source/blob/trunk/doc/COPYRIGHTS) file for details.
 
 * This toolbox depends on [ESRI software](www.esri.com):
 
-© 2017 ESRI. See the [Software License and Agreement](http://www.esri.com/legal/software-license) for details.
+© 2018 ESRI. See the [Software License and Agreement](http://www.esri.com/legal/software-license) for details.
 
 * This toolbox depends on [InVEST - Natural Capital Project software](http://www.naturalcapitalproject.org/invest/):
 
-© 2017 NatCap Project. See the [Software License and Agreement](https://pypi.python.org/pypi/natcap.invest/3.3.1) for details.
+© 2018 NatCap Project. See the [Software License and Agreement](https://pypi.python.org/pypi/natcap.invest/3.3.1) for details.
