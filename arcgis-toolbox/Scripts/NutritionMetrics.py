@@ -381,7 +381,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, mosaicDB):
 			arcpy.AddMessage("Calculating Nutrition Metrics for AOI... ")
 			
 	#The Africa continent mosaicDB does not include a WorldPop layer for m65pl 2020. Make this a missing value.
-	if "140" not in OID_List:
+	if "140" not in OID_List and year == "2020":
 		popm65pl = 999999999
 		nutm65pl = 999999999
 	
