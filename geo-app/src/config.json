@@ -26,7 +26,7 @@
   "authorizedCrossOriginDomains": ["https://lb.telecoupling.msu.edu"],
   "title": "<div class=\"attribute-custom-style\"><b>Telecoupling GeoApp</b> <i>(beta)</i></div>",
   "subtitle": "<div class=\"attribute-custom-style\"></div>",
-  "keepAppState": true,
+  "keepAppState": false,
   "logo": "images/logo.png",
   "geometryService": "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer",
   "links": [
@@ -46,10 +46,10 @@
       "label": "Sample Data",
       "url": "https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_GeoApp.zip"
     },
-    {
-      "label": "Start Tutorial",
-      "url": "javascript:Appcues.show('-Kv3nDbFglJEc5-QfGAa')"
-    }
+	{
+	  "label": "Start Tutorial",
+	  "url": "javascript:Appcues.show('-Kv3nDbFglJEc5-QfGAa')"
+	}
   ],
   "widgetOnScreen": {
     "widgets": [
@@ -555,6 +555,16 @@
           },
           {
             "name": "Geoprocessing",
+            "label": "Nutrient Delivery Ratio",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Nutrient Delivery Ratio.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Nutrient Delivery Ratio.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_107"
+          },
+          {
+            "name": "Geoprocessing",
             "label": "Habitat Risk Assessment Preprocessor",
             "version": "2.5",
             "icon": "configs\\Geoprocessing\\icon_Habitat Risk Assessment Preprocessor.png",
@@ -613,6 +623,26 @@
             "config": "configs/Geoprocessing/config_Cost-Benefit Analysis.json",
             "index": 17,
             "id": "widgets_Geoprocessing_Widget_57"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Nutrition Metrics",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Nutrition Metrics.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Nutrition Metrics.json",
+            "index": 19,
+            "id": "widgets_Geoprocessing_Widget_103"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Population Count and Density",
+            "version": "2.5",
+            "icon": "configs\\Geoprocessing\\icon_Population Count and Density.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Population Count and Density.json",
+            "index": 20,
+            "id": "widgets_Geoprocessing_Widget_106"
           }
         ],
         "index": 9,

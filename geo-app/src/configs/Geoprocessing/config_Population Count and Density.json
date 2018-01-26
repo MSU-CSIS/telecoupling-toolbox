@@ -1,0 +1,143 @@
+{
+  "name": "PopulationMetrics",
+  "displayName": "Population Count and Density",
+  "description": "Human population density varies significantly by location. Areas with high population densities may have more available services, but might also exhibit greater inequalities. On the other hand, low population density may signal availability of resources such as land for agriculture and livestock, but may also suggest limited opportunities for wage employment. The Population Count and Density tool produces estimates of the number of individuals and density within a specified geographic area. Population density is reported as the number of people per km2. Population change can also be computed if population estimates for two time points are provided. This tool is quite versatile and can be used beyond its stated purpose. For example, instead of selecting population counts from different time periods, a user could select fields containing counts of male and female members of a population at a given time. The tool could then be used to show the percentage difference between the number of males and females for the given reporting unit. This tool is a modified version of the Population Density Metrics tool from the Analytical Tools Interface for Landscape Assessments (ATtILA). The ATtILA toolbox is produced by the United States Environmental Protection Agency. NOTE: This tool assumes that population is distributed evenly throughout each census feature polygon.",
+  "category": "",
+  "helpUrl": "https://lb.telecoupling.msu.edu/arcgis/rest/directories/arcgisoutput/Geoprocessing/PopulationMetrics_GPServer/Geoprocessing_PopulationMetrics/PopulationMetrics.htm",
+  "serverInfo": {
+    "currentVersion": 10.41,
+    "url": "https://lb.telecoupling.msu.edu/arcgis/rest/services/Geoprocessing/PopulationMetrics/GPServer/",
+    "hasResultMapServer": true,
+    "resultMapServerName": "Geoprocessing/PopulationMetrics",
+    "supportsUpload": true,
+    "maxUploadFileSize": 2000
+  },
+  "useResultMapServer": true,
+  "taskUrl": "https://lb.telecoupling.msu.edu/arcgis/rest/services/Geoprocessing/PopulationMetrics/GPServer/Population Count and Density",
+  "isSynchronous": false,
+  "inputParams": [
+    {
+      "name": "Reporting_unit_feature",
+      "dataType": "GPDataFile",
+      "description": "A zipped shapefile of the vector polygon dataset that defines the reporting units. Note: The polygon must be in a projection where the units are in meters.",
+      "defaultValue": "itemID:",
+      "category": "",
+      "label": "Reporting unit feature (zipped)",
+      "visible": true,
+      "required": true,
+      "tooltip": "Reporting unit feature (zipped)"
+    },
+    {
+      "name": "Reporting_unit_ID_field",
+      "dataType": "GPString",
+      "description": "The field in the Reporting Unit Feature layer that contains the unique ID for each reporting unit.It may be an integer or a string data type.",
+      "defaultValue": "",
+      "category": "",
+      "label": "Reporting unit ID field",
+      "visible": true,
+      "required": true,
+      "tooltip": "Reporting unit ID field"
+    },
+    {
+      "name": "Census_feature",
+      "dataType": "GPDataFile",
+      "description": "A zipped shapefile of the vector polygon dataset that contains population data. Note: The polygon must be in a projection where the units are in meters.",
+      "defaultValue": "itemID:",
+      "category": "",
+      "label": "Census feature (zipped)",
+      "visible": true,
+      "required": true,
+      "tooltip": "Census feature (zipped)"
+    },
+    {
+      "name": "Population_field",
+      "dataType": "GPString",
+      "description": "The field in the Census Feature layer that contains population data.",
+      "defaultValue": "",
+      "category": "",
+      "label": "Population field",
+      "visible": true,
+      "required": true,
+      "tooltip": "Population field"
+    }
+  ],
+  "outputParams": [
+    {
+      "name": "Population_Density",
+      "dataType": "GPFeatureRecordSetLayer",
+      "description": "",
+      "defaultValue": {
+        "displayFieldName": "",
+        "geometryType": "esriGeometryPolygon",
+        "spatialReference": {
+          "wkid": 102100,
+          "latestWkid": 3857
+        },
+        "fields": [
+          {
+            "name": "OBJECTID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          },
+          {
+            "name": "COUNTY",
+            "type": "esriFieldTypeString",
+            "alias": "COUNTY",
+            "length": 2
+          },
+          {
+            "name": "popCount",
+            "type": "esriFieldTypeDouble",
+            "alias": "popCount"
+          },
+          {
+            "name": "AREAKM2",
+            "type": "esriFieldTypeDouble",
+            "alias": "AREAKM2"
+          },
+          {
+            "name": "popDens",
+            "type": "esriFieldTypeDouble",
+            "alias": "popDens"
+          },
+          {
+            "name": "Shape_Length",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Length"
+          },
+          {
+            "name": "Shape_Area",
+            "type": "esriFieldTypeDouble",
+            "alias": "Shape_Area"
+          }
+        ],
+        "features": [],
+        "exceededTransferLimit": false
+      },
+      "category": "",
+      "label": "Population Density",
+      "visible": true,
+      "required": false,
+      "featureSetMode": "layers"
+    },
+    {
+      "name": "Geoprocessing/PopulationMetrics",
+      "label": "Population Metrics",
+      "tooltip": "Population Metrics",
+      "dataType": "MapServiceLayer",
+      "layerNames": [
+        "Population Count and Density",
+        "Population Density"
+      ],
+      "visible": true,
+      "required": "",
+      "defaultValue": null
+    }
+  ],
+  "shareResults": true,
+  "layerOrder": [
+    "Population_Density"
+  ],
+  "showExportButton": true,
+  "useDynamicSchema": false
+}
