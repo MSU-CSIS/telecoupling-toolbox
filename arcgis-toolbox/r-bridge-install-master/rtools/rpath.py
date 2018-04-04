@@ -1,26 +1,35 @@
+# coding=utf-8
 from __future__ import print_function
 from __future__ import division
 from __future__ import unicode_literals
 
 from contextlib import contextmanager
 from collections import OrderedDict
+from sys import version_info
 import ctypes.wintypes
 import datetime
 import errno
 import getpass
+import locale
 import logging
 import os
 from .utils import platform
 
-try:
+if version_info[0] < 3:
+    PYVER = 2
+else:
+    PYVER = 3
+
+if PYVER > 2:
     import winreg
-except ImportError:
-    # py 2
+else:
     import _winreg as winreg
+    str = unicode
 
 log = logging.getLogger(__name__)
 
 # cyptes constants
+CSIDL_PERSONAL = 5
 CSIDL_PROFILE = 40
 SHGFP_TYPE_CURRENT = 0
 
@@ -38,6 +47,7 @@ def ignored(*exceptions):
         yield
     except exceptions:
         pass
+
 
 fnf_exception = getattr(__builtins__,
                         'FileNotFoundError', WindowsError)
@@ -57,9 +67,14 @@ def log_exception(err):
        crash in the exception despite our intent to
        only log the results."""
 
-    # enc = locale.getpreferredencoding() or 'ascii'
-    log.debug("Exception generated: {}".format(err))
-    # log.debug(error.encode(enc, 'ignore').decode('utf-8')))
+    if PYVER == 2:
+        enc = locale.getpreferredencoding() or 'ascii'
+        try:
+            log.debug("Exception generated: {}".format(str(err).decode(enc, 'ignore')))
+        except UnicodeDecodeError as e:
+            log.debug("Exception generated, but can't decode it.")
+    else:
+        log.debug("Exception generated: {}".format(err))
 
 
 def _documents_folder():
@@ -71,18 +86,24 @@ def _documents_folder():
     # first, check if the user has an R_USER variable initialized.
     documents_folder = _environ_path("R_USER")
 
-    if not documents_folder:
+    if not documents_folder or not os.path.exists(documents_folder):
         # next, check if the user has the HOME variable set
         documents_folder = _environ_path("HOME")
 
-    if not documents_folder:
+    if not documents_folder or not os.path.exists(documents_folder):
         # Call SHGetFolderPath using ctypes.
         ctypes_buffer = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
         ctypes.windll.shell32.SHGetFolderPathW(
+            0, CSIDL_PERSONAL, 0, SHGFP_TYPE_CURRENT, ctypes_buffer)
+        documents_folder = ctypes_buffer.value
+
+    # if we can't get the CSIDL_PERSONAL directory, fall back on manual
+    # construction of the path.
+    if not documents_folder or not os.path.exists(documents_folder):
+        ctypes_buffer = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
+        ctypes.windll.shell32.SHGetFolderPathW(
             0, CSIDL_PROFILE, 0, SHGFP_TYPE_CURRENT, ctypes_buffer)
-        # This isn't a language-independent way, but CSIDL_PERSONAL gets
-        # the wrong path.
-        # TODO: Test in non-English locales.
+
         documents_folder = os.path.join(ctypes_buffer.value, "Documents")
 
     return documents_folder
@@ -251,7 +272,7 @@ def r_reg_value(lookup_key='path'):
                                 r_version_info = winreg.QueryInfoKey(
                                     r_version_reg)
                                 r_install_time = epoch + datetime.timedelta(
-                                    microseconds=r_version_info[2]/10)
+                                    microseconds=r_version_info[2] / 10)
                                 if max_time < r_install_time:
                                     max_time = r_install_time
     return r_reg_value
@@ -277,27 +298,33 @@ def r_reg_write_value(r_key=None, r_value=None):
                    "SOFTWARE\\Wow6432Node\\R-Core\\R64"]
 
     for (key_name, root_key) in list(root_keys.items()):
+        wrote = False
         for r_path in r_reg_paths:
             r_reg = None
 
             try:
                 log.info("CreateKeyEx on {}\\{}, with write".format(
                     key_name, r_path))
-                # HKU hive should be prepended to search
-                if key_name is 'HKU':
-                    r_path = "{}\\{}".format(
-                        _user_hive(getpass.getuser()), r_path)
                 r_reg = winreg.CreateKeyEx(root_key, r_path, 0, FULL_ACCESS)
-            except fnf_exception as error:
-                handle_fnf(error)
+            except WindowsError as error:
+                if error.errno == errno.ENOENT:
+                    pass
+                # permission denied, skip
+                if error.errno == errno.EACCES:
+                    log.debug("permission denied.")
+                    continue
 
             if r_reg:
                 try:
                     log.info('setting "{}" to "{}"'.format(r_key, r_value))
                     winreg.SetValueEx(r_reg, r_key, 0,
                                       winreg.REG_SZ, r_value)
+                    wrote = True
                 except fnf_exception as error:
                     handle_fnf(error)
+        # only enter the keys into one hive
+        if wrote:
+            break
 
 
 def r_set_install(install_path=None, current_version=None):
@@ -346,6 +373,18 @@ def r_version_dict():
     return r_versions
 
 
+def r_user_lib_path():
+    r_user_library_path = None
+    if r_version():
+        # user's R library in Documents/R/win-library/R-x.x/
+        (r_major, r_minor, r_patch) = r_version().split(".")[0:3]
+
+        r_user_library_path = os.path.join(
+            _documents_folder(), "R", "win-library",
+            "{}.{}".format(r_major, r_minor))
+    return r_user_library_path
+
+
 def r_all_lib_paths():
     """ Package library, locates all known library
         paths used for R packages."""
@@ -355,15 +394,9 @@ def r_all_lib_paths():
     if _environ_path("R_LIBS_USER"):
         libs_path.append(_environ_path("R_LIBS_USER"))
 
-    if r_version():
-        # user's R library in Documents/R/win-library/R-x.x/
-        (r_major, r_minor, r_patch) = r_version().split(".")[0:3]
-
-        r_user_library_path = os.path.join(
-            _documents_folder(), "R", "win-library",
-            "{}.{}".format(r_major, r_minor))
-        if os.path.exists(r_user_library_path):
-            libs_path.append(r_user_library_path)
+    r_user_library_path = r_user_lib_path()
+    if r_user_library_path is not None and os.path.exists(r_user_library_path):
+        libs_path.append(r_user_library_path)
 
     # Next, check the value of R_LIBS -- users may set this
     # instead of the (more specific) R_LIBS_USER

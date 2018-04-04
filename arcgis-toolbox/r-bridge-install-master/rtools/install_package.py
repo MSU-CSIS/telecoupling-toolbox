@@ -14,13 +14,10 @@ import sys
 try:
     import ctypes
     from ctypes import wintypes
-    kdll = ctypes.windll.LoadLibrary("kernel32.dll")
-except ImportError:
-    msg = "Unable to connect to your Windows configuration, " + \
-          "this is likely due to an incorrect Python installation. " + \
-          "Try repairing your ArcGIS installation."
-    arcpy.AddError(msg)
-    sys.exit()
+    # pass str() to avoid bpo29082 in Python 2.7.13
+    kdll = ctypes.windll.LoadLibrary(str("kernel32.dll"))
+except (ImportError, TypeError):
+    kdll = None
 
 from .bootstrap_r import execute_r
 from .github_release import save_url, release_info
@@ -29,6 +26,7 @@ from .rpath import (
     r_path,
     r_pkg_path,
     r_pkg_version,
+    r_user_lib_path,
     r_version,
     arcmap_exists,
     arcmap_path,
@@ -86,28 +84,39 @@ def validate_environment(overwrite=None):
     # earlier versions excluded by virtue of not having Python toolbox support
     no_hook_versions = ('10.1', '10.2', '10.2.1', '10.2.2', '10.3')
     valid_env = True
-    msg = None
+    msg = []
     if arc_version in no_hook_versions and product is not 'Pro':
-        msg = "The ArcGIS R bridge requires ArcGIS 10.3.1 or later."
+        msg.append("The ArcGIS R bridge requires ArcGIS 10.3.1 or later.")
         valid_env = False
 
     if arc_version in ('1.0', '1.0.2') and product == 'Pro':
-        msg = "The ArcGIS R bridge requires ArcGIS Pro 1.1 or later."
+        msg.append("The ArcGIS R bridge requires ArcGIS Pro 1.1 or later.")
         valid_env = False
 
     if not overwrite and PACKAGE_VERSION:
-        msg = "The ArcGIS R bridge is already installed, and " + \
-             "overwrite is disabled."
+        msg.append("The ArcGIS R bridge is already installed, and " 
+             "overwrite is disabled.")
+        valid_env = False
+
+    if kdll is None:
+        msg.append("Unable to connect to your Windows configuration, "
+              "this is likely due to an incorrect Python installation. "
+              "Try repairing your ArcGIS installation.")
         valid_env = False
 
     # check the library isn't loaded
-    if bridge_running(product):
-        msg = "The ArcGIS R bridge is currently in-use, restart the " + \
-              "application and try again."
+    if kdll is not None and bridge_running(product):
+        msg.append("The ArcGIS R bridge is currently in-use, restart the "
+              "application and try again.")
+        valid_env = False
+
+    if r_version() is None:
+        msg.append("It doesn't look like R is installed. Install R prior "
+                   "to running this tool.")
         valid_env = False
 
     if not valid_env:
-        arcpy.AddError(msg)
+        arcpy.AddError("\n\n".join(msg))
         sys.exit()
 
 
@@ -236,6 +245,14 @@ def install_package(overwrite=False, r_library_path=r_lib_path()):
             if r_local_install:
                 rcmd_return = execute_r('Rcmd', 'INSTALL', package_path)
             if not r_local_install or rcmd_return != 0:
+                # if we don't have a per-user library, create one
+                r_user_lib = r_user_lib_path()
+                if not os.path.exists(r_user_lib):
+                    try:
+                        arcpy.AddMessage("Creating per-user library directory")
+                        os.makedirs(r_user_lib)
+                    except OSError:
+                        arcpy.AddWarning("Failed to create per-user library.")
                 # Can't execute Rcmd in this context, write out a temporary
                 # script and run install.packages() from within an R session.
                 install_script = os.path.join(temp_dir, 'install.R')

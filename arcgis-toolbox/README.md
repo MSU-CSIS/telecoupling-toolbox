@@ -1,8 +1,12 @@
-Telecoupling Toolbox: ArcGIS Toolbox v1.4b
+Telecoupling Toolbox: ArcGIS Toolbox v1.5b
 ========================
 
 ## Major Releases
 ------------------
+* Version 1.5 (_beta_)
+
+This release adds a new tool within the Systems toolset, called Network Analysis Grouping, written in R and connected to ArcGIS using the R-Bridge from ESRI. This tool uses network information (i.e. nodes, links, and directions) of units (e.g. countries, areas, administrative units) within a telecoupling system and aggregates them into groups (clusters) based on their network connectivity.
+
 * Version 1.4 (_beta_)
 
 This release adds a new tool within the Environmental Analysis toolset, called _NDR (Nutrient Delivery Ratio)_, customized from InVEST (3.3.3). This tools can be used to map nutrient sources from watersheds and their transport to the stream.
