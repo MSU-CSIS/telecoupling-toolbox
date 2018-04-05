@@ -8,8 +8,8 @@
 #baseurl: ""
 
 # If you are building a GitHub project page then use these settings:
-url: "https://msu-csis.github.io/telecoupling-toolbox-test"
-baseurl: "/telecoupling-toolbox-test"
+url: "https://msu-csis.github.io/telecoupling-toolbox"
+baseurl: "/telecoupling-toolbox"
 
 # Of course don't forget to change the username and projectname to YOUR username and project
 
@@ -28,7 +28,7 @@ navbar-links:
   Example Applications:
     - Brazil-China Soybean Trade: "https://msugis.maps.arcgis.com/apps/MapJournal/index.html?appid=dec6a70920734576959e1d6b073379cf"
     - Tourism at the Wolong Nature Reserve: "https://msugis.maps.arcgis.com/apps/MapJournal/index.html?appid=a00a0e1f6546410eaac5306f85c01f9e"
-  View on Github: "https://github.com/MSU-CSIS/telecoupling-toolbox-test"
+  View on Github: "https://github.com/MSU-CSIS/telecoupling-toolbox"
   
 # Image to show in the navigation bar - image must be a square (width = height)
 # Remove this parameter if you don't want an image in the navbar
