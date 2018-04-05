@@ -1,8 +1,0 @@
-{
-  "serviceURL": "https://lb.telecoupling.msu.edu/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
-  "defaultTitle": "ArcGIS Web Map",
-  "defaultAuthor": "Web AppBuilder for ArcGIS",
-  "defaultCopyright": "",
-  "defaultFormat": "PDF",
-  "defaultLayout": "MAP_ONLY"
-}

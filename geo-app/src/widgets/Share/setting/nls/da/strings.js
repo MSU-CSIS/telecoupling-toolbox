@@ -1,3 +1,0 @@
-define({
-  "selectSocialNetwork": "Vælg delingsindstillinger"
-});

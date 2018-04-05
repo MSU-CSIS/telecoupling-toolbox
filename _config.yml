@@ -1,4 +1,146 @@
-theme: jekyll-theme-cayman
+# --- General options --- #
+
+# url is the full website URL
+# baseurl is the website's URL without the hostname
+
+# If you are building a simple GitHub user page (http://username.github.io) then use these settings:
+#url: "http://username.github.io"
+#baseurl: ""
+
+# If you are building a GitHub project page then use these settings:
+url: "https://msu-csis.github.io/telecoupling-toolbox-test"
+baseurl: "/telecoupling-toolbox-test"
+
+# Of course don't forget to change the username and projectname to YOUR username and project
+
+# Name of website
 title: Telecoupling Toolbox
-google_analytics: UA-105699884-1
-show_downloads: "true"
+
+# Short description of your site
+description:
+
+# --- Navigation bar options --- #
+
+# List of links in the navigation bar
+navbar-links:
+  Home: ""
+  About Us: "http://csis.msu.edu/"
+  Example Applications:
+    - Brazil-China Soybean Trade: "https://msugis.maps.arcgis.com/apps/MapJournal/index.html?appid=dec6a70920734576959e1d6b073379cf"
+    - Tourism at the Wolong Nature Reserve: "https://msugis.maps.arcgis.com/apps/MapJournal/index.html?appid=a00a0e1f6546410eaac5306f85c01f9e"
+  View on Github: "https://github.com/MSU-CSIS/telecoupling-toolbox-test"
+  
+# Image to show in the navigation bar - image must be a square (width = height)
+# Remove this parameter if you don't want an image in the navbar
+avatar: "/img/Hands_globe_square.png"
+
+# If you want to have an image logo in the top-left corner instead of the title text,
+# then specify the following parameter
+# title-img: /path/to/image
+
+# --- Background colour/image options --- #
+
+# Personalize the colors in your website. Colour values can be any valid CSS colour
+
+navbar-col: "#18453B"
+navbar-text-col: "#FFFFFF"
+navbar-children-col: "#18453B"
+page-col: "#FFFFFF"
+link-col: "#008AFF"
+hover-col: "#FFE4B5"
+footer-col: "#F5F5F5"
+footer-text-col: "#777777"
+footer-link-col: "#404040"
+
+# Alternatively, the navbar, footer, and page background can be set to use background images
+# instead of colour
+
+# navbar-img: "/img/bgimage.png"
+# footer-img: "/img/bgimage.png"
+# page-img: "/img/bgimage.png"
+
+# --- Footer options --- #
+
+# Change all these values or delete the ones you don't want.
+# Important: you must keep the "name" parameter, everything else you can remove
+author:
+  name: Michigan State University
+  facebook: MichStateCSIS
+  github: f-tonini
+  email: ftonini@msu.edu
+
+# Select which links to show in the footer
+footer-links-active:
+  rss: false
+  facebook: true
+  email: true
+  twitter: false
+  github: true
+  linkedin: false
+  stackoverflow: false
+  
+# Select which share links to show in posts
+share-links-active:
+  twitter: true
+  facebook: true
+  google: false
+  linkedin: true
+
+# How to display the link to the website in the footer
+# Remove this if you don't want a link in the footer
+url-pretty: "TelecouplingToolbox.org"  # eg. "deanattali.com/beautiful-jekyll"
+
+# --- Misc --- #
+
+# Fill in your Disqus shortname (NOT the userid) if you want to support Disqus comments
+#disqus: ""
+
+# Fill in your Google Analytics ID to track your website using GA
+#google_analytics: ""
+
+# Character used to separate site title and description in HTML document title
+# and RSS feed title
+title-separator: "-"
+
+# --- Don't need to touch anything below here (but you can if you want) --- #
+
+# Output options (more information on Jekyll's site)
+timezone: "America/New_York"
+markdown: kramdown
+highlighter: rouge
+permalink: /:year-:month-:day-:title/
+paginate: 5
+
+kramdown:
+  input: GFM
+
+# Default YAML values (more information on Jekyll's site)
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: true  # add comments to all blog posts
+      social-share: true # add social media sharing buttons to all blog posts
+  -
+    scope:
+      path: "" # all files
+    values:
+      layout: "page"
+      show-avatar: true
+
+# Use tags index page and make tags on each post clickable
+link-tags: true
+
+# Exclude these files from production site
+exclude:
+  - CHANGELOG.md
+  - CNAME
+  - Dockerfile
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - Vagrantfile

@@ -1,1 +1,0 @@
-cat(.libPaths()[1])

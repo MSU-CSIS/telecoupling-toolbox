@@ -1,3 +1,0 @@
-define({
-  "selectSocialNetwork": "Freigabeoptionen auswählen"
-});
