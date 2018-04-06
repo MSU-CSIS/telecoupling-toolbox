@@ -9,7 +9,7 @@
 
 # If you are building a GitHub project page then use these settings:
 url: "https://msu-csis.github.io/telecoupling-toolbox"
-baseurl: "/telecoupling-toolbox"
+baseurl: "/"
 
 # Of course don't forget to change the username and projectname to YOUR username and project
 
