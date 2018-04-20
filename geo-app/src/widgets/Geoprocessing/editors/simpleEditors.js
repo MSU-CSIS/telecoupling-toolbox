@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,11 +31,14 @@ define(['dojo/_base/declare',
   'jimu/dijit/URLInput',
   'jimu/utils',
   'esri/tasks/LinearUnit',
+  'esri/tasks/FeatureSet',
+  'esri/geometry/Polygon',
+  'esri/graphic',
   '../BaseEditor'
 ],
 function(declare, lang, array, html, on, Deferred, all, json, NumberTextBox, Select,
   Textarea, DateTextBox, TimeTextBox, CheckBox, URLInput, utils,
-  LinearUnit, BaseEditor) {
+  LinearUnit, FeatureSet, Polygon, Graphic, BaseEditor) {
   var mo = {};
 
   mo.UnsupportEditor = declare(BaseEditor, {
@@ -475,6 +478,24 @@ function(declare, lang, array, html, on, Deferred, all, json, NumberTextBox, Sel
       }
       value = this.wrapGPValue(value);
       return this.wrapValueToDeferred(value);
+    }
+  });
+
+  mo.currentExtentEditor = declare(BaseEditor, {
+    editorName: 'SelectFeatureSetFromMap',
+
+    postCreate: function(){
+      this.inherited(arguments);
+      html.setAttr(this.domNode, 'innerHTML', this.message);
+    },
+
+    getValue: function(){
+      var featureset = new FeatureSet();
+      var graphic = new Graphic(Polygon.fromExtent(this.map.extent));
+      var features = [graphic];
+
+      featureset.features = features;
+      return featureset;
     }
   });
 

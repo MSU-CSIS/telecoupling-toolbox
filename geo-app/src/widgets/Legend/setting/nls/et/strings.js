@@ -3,5 +3,6 @@ define({
   "right": "Nihuta paremale",
   "arrangement": "Asetus",
   "autoUpdate": "Uuenda automaatselt",
-  "respectCurrentMapScale": "Säilita kaardi praegune mõõtkava"
+  "respectCurrentMapScale": "Säilita kaardi praegune mõõtkava",
+  "layerSelectorTitle": "Valige legendis kuvatavad kihid: "
 });

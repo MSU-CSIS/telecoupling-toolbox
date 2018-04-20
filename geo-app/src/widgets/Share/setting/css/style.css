@@ -1,5 +1,9 @@
 .jimu-widget-share-setting {
+  font-size: 14px;
+}
 
+.jimu-widget-share-setting .title{
+  font-size: 16px;
 }
 
 .jimu-widget-share-setting .row {

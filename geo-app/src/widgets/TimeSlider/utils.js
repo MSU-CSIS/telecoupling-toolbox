@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,7 +31,19 @@ define(['dojo/_base/html', 'dojo/dom-geometry'],
     mo.isRunInMobile = function () {
       return window.appInfo.isRunInMobile;
     };
+    mo.isOutOfScreen = function (map, position) {
+      var containerBox = domGeometry.getMarginBox(map.root);
+      var mapWidth = containerBox.w;
+      var mapHeight = containerBox.h;
 
+      if (position &&
+        (position.top >= mapHeight || position.left >= mapWidth)) {
+
+        return true;
+      } else {
+        return false;
+      }
+    };
     mo.initPosition = function(map,domNode,position){
       var appConfig = window.getAppConfig();
       var theme;
@@ -39,18 +51,19 @@ define(['dojo/_base/html', 'dojo/dom-geometry'],
         theme = appConfig.theme.name;
       }
 
-      var top = mo.getInitTop(map, domNode, theme);
-      var left = mo.getInitLeft(map, domNode, theme);
+      var top = mo.getInitTop(map, theme);
+      var left = mo.getInitLeft(map, domNode);
       position.top = top;
       position.left = left;
       html.setStyle(domNode, 'top', position.top + 'px');
       html.setStyle(domNode, 'left', position.left + 'px');
     };
-    mo.getInitTop = function (map, domNode, theme) {
+    mo.getInitTop = function (map,/*domNode,*/theme) {
       var top = 0;
       var containerBox = domGeometry.getMarginBox(map.root);
-      var sliderContentBox = html.getContentBox(domNode);
-      var popupHeight = sliderContentBox.h;
+      // var sliderContentBox = html.getContentBox(domNode);
+      // var popupHeight = sliderContentBox.h;
+      var popupHeight = 35;//height of mini mode
 
       var marginBottom = mo.initPositionForTheme[theme] ? mo.initPositionForTheme[theme].bottom : 60;
       top = containerBox.h - marginBottom - popupHeight;

@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "URL adresa seta geoobjekata",
   "useShapefile": "Koristite datoteku „shapefile“ u lokalnom sistemu datoteka",
   "allowToExport": "Dozvoli izvoz rezultata",
-  "useDynamicSchema": "Izvoz može da ima različitu šemu, koristite dinamičnu šemu umesto predefinisane."
+  "useDynamicSchema": "Izvoz može da ima različitu šemu, koristite dinamičnu šemu umesto predefinisane.",
+  "useCurrentMapExtent": "Koristi trenutni obuhvat mape",
+  "ignoreOutput": "Zanemari ovaj izlazni rezultat",
+  "turnOffOutput": "Podrazumevano isključi ovaj sloj"
 });

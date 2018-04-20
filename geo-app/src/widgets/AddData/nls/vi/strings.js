@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "Shapefile (.zip, tệp lưu trữ ZIP có chứa tất cả các tệp shapefile)",
       "CSV": "Tệp CSV (.csv, có địa chỉ hoặc kinh độ, vĩ độ, được ngăn cách bằng dấu phẩy, dấu chấm phẩy hoặc tab)",
+      "KML": "Tệp KML (.kml)",
       "GPX": "Tệp GPX (.gpx, Định dạng Trao đổi GPS)",
       "GeoJSON": "Tệp GeoJSON (.geo.json hoặc .geojson)"
     },

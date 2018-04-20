@@ -374,31 +374,13 @@ define(["dojo/_base/declare",
 
       _waitThenAdd: function(dfd, map, type, loader, layer) {
         //console.warn("_waitThenAdd",type,layer);
-        var na;
         loader._waitForLayer(layer).then(function(lyr) {
           //console.warn("_waitThenAdd.ok",lyr);
-          //var templates = null;
           if (type === "WMS") {
             loader._setWMSVisibleLayers(lyr);
-          } else if (lyr &&
-            (lyr.declaredClass === "esri.layers.ArcGISDynamicMapServiceLayer" ||
-            lyr.declaredClass === "esri.layers.ArcGISTiledMapServiceLayer")) {
-            na = true;
-            /*
-            if (lyr.infoTemplates === null) {
-              array.forEach(lyr.layerInfos, function(lInfo) {
-                if (templates === null) {
-                  templates = {};
-                }
-                templates[lInfo.id] = {
-                  infoTemplate: new InfoTemplate()
-                };
-              });
-              if (templates) {
-                lyr.infoTemplates = templates;
-              }
-            }
-            */
+          } else if (lyr && lyr.declaredClass === "esri.layers.ArcGISDynamicMapServiceLayer") {
+            loader._setDynamicLayerInfoTemplates(lyr);
+          //} else if (lyr && lyr.declaredClass === "esri.layers.ArcGISTiledMapServiceLayer") {
           } else if (lyr && lyr.declaredClass === "esri.layers.FeatureLayer") {
             loader._setFeatureLayerInfoTemplate(lyr);
           } else if (lyr && lyr.declaredClass === "esri.layers.CSVLayer") {

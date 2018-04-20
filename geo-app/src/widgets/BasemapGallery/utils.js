@@ -1,5 +1,5 @@
 /*
-Copyright ©2014 Esri. All rights reserved.
+// Copyright © 2014 - 2017 Esri. All rights reserved.
 
 TRADE SECRETS: ESRI PROPRIETARY AND CONFIDENTIAL
 Unpublished material - all rights reserved under the
@@ -92,10 +92,11 @@ define([
 
     // 2. check whether tiling schemes are compatible
     if (map.getNumLevels() === 0) { // current map is dynamic
-      if(basemapLayers[0].type === "OpenStreetMap" ||
-        (basemapLayers[0].type && basemapLayers[0].type.indexOf("BingMaps") > -1) ||
-        basemapLayers[0].type === "WebTiledLayer" ||
-        basemapLayers[0].type === "VectorTileLayer" ||
+      if(basemapLayers[0].layerType === "OpenStreetMap" ||
+        (basemapLayers[0].layerType && basemapLayers[0].layerType.indexOf("BingMaps") > -1) ||
+        basemapLayers[0].layerType === "WebTiledLayer" ||
+        basemapLayers[0].layerType === "VectorTileLayer" ||
+        basemapLayers[0].layerType === "ArcGISImageServiceVectorLayer" ||
         basemapLayers[0].layerType === 'ArcGISTiledImageServiceLayer') {
         def.resolve(false);
       } else {
@@ -110,7 +111,7 @@ define([
           if (res && res.tileInfo) { // tiled
             def.resolve(mo.tilingSchemeCompatible(map.__tileInfo, res.tileInfo, wider));
           } else if (res && res.capabilities &&
-            (res.capabilities.indexOf('Map') >= 0 || res.capabilities.indexOf('Image'))) {
+            (res.capabilities.indexOf('Map') >= 0 || res.capabilities.indexOf('Image') >= 0)) {
             // dynamic map/image service
             def.resolve(true);
           } else {
@@ -137,52 +138,87 @@ define([
     return true;
   };
 
-  mo.compareSameBasemap = function(basemap1, basemap2) {
-    var basemap1Layers = basemap1.layers,
-      basemap2Layers = basemap2.layers;
-    var basemap1UrlStr = '',
-      basemap2UrlStr = '';
-    basemap1UrlStr = _allLayersUrlStr(basemap1Layers);
-    basemap2UrlStr = _allLayersUrlStr(basemap2Layers);
-    return (basemap1UrlStr === basemap2UrlStr);
+  /**
+   * check whether two basemap layers are the same.
+   * custom basemap may have no layerType.
+   *
+   * possible basemapLayers：
+   * ArcGIS:
+   * Image Service Vector Layer (ArcGISImageServiceVectorLayer)
+   * Tiled Image Service Layer (ArcGISTiledImageServiceLayer)
+   * Tiled Map Service Layer (ArcGISTiledMapServiceLayer)
+   * Map Service Layer (ArcGISMapServiceLayer)
+   * Image Service Layer (ArcGISImageServiceLayer)
+   *
+   * Third party:
+   * Bing layer (bingLayer)
+   * OpenStreetMap Layer (OpenStreetMap)
+   * WebTiledLayer (WebTiledLayer)
+   * Vector Tile Layer (VectorTileLayer)
+   * WMS Layer (WMS)
+   */
+  mo.isSameBasemapLayer = function(layer1, layer2) {
+    var url1, url2;
+    if (layer1.layerType && layer2.layerType) {
+      if (layer1.layerType !== layer2.layerType) {
+        return false;
+      }
+      // ArcGIS web service
+      if (layer1.layerType === 'ArcGISImageServiceVectorLayer' ||
+        layer1.layerType === 'ArcGISTiledImageServiceLayer' ||
+        layer1.layerType === 'ArcGISTiledMapServiceLayer' ||
+        layer1.layerType === 'ArcGISMapServiceLayer' ||
+        layer1.layerType === 'ArcGISImageServiceLayer') {
+        url1 = _getStanderdUrl(layer1.url || "");
+        url2 = _getStanderdUrl(layer2.url || "");
+        return url1.toLowerCase() === url2.toLowerCase();
+      }
+      if (layer1.layerType === 'BingMapsAerial' ||
+        layer1.layerType === 'BingMapsRoad' ||
+        layer1.layerType === 'BingMapsHybrid' ||
+        layer1.layerType === 'OpenStreetMap') {
+        return true; // layerType must be same
+      }
+      if (layer1.layerType === 'VectorTileLayer') {
+        url1 = _getStanderdUrl(layer1.styleUrl || "");
+        url2 = _getStanderdUrl(layer2.styleUrl || "");
+        return url1.toLowerCase() === url2.toLowerCase();
+      }
+      if (layer1.layerType === 'WMS') {
+        url1 = _getStanderdUrl(layer1.mapUrl || "");
+        url2 = _getStanderdUrl(layer2.mapUrl || "");
+        return url1.toLowerCase() === url2.toLowerCase();
+      }
+      if (layer1.layerType === 'WebTiledLayer') {
+        if(layer1.templateUrl && layer2.templateUrl) {
+          url1 = _getStanderdUrl(layer1.templateUrl || "");
+          url2 = _getStanderdUrl(layer2.templateUrl || "");
+          return url1.toLowerCase() === url2.toLowerCase();
+        } else if (layer1.wmtsInfo && layer2.wmtsInfo) {
+          url1 = _getStanderdUrl(layer1.wmtsInfo.url || "");
+          url2 = _getStanderdUrl(layer2.wmtsInfo.url || "");
+          return url1.toLowerCase() === url2.toLowerCase();
+        }
+      }
+    } else {
+      // At least one of the layer's layerType parameter is missing,
+      // compare the url directly.
+      url1 = _getStanderdUrl(layer1.url || "");
+      url2 = _getStanderdUrl(layer2.url || "");
+      return url1.toLowerCase() === url2.toLowerCase();
+    }
+
+    return false;
   };
 
   mo.compareSameBasemapByOrder = function(basemap, webmapBasemap) {
     var basemapLayers = basemap.layers,
-      webmapLayers = webmapBasemap.layers,
-      basemapUrl, webmapUrl, basemapLayerType, webmapLayerType;
+      webmapLayers = webmapBasemap.layers;
     if (basemapLayers.length !== webmapLayers.length) {
       return false;
     }
     for (var i = 0; i < basemapLayers.length; i++) {
-      basemapUrl = '';
-      webmapUrl = '';
-      // Custom basemap has no layerType
-      basemapLayerType = basemapLayers[i].layerType || basemapLayers[i].type;
-      webmapLayerType = webmapLayers[i].layerType || webmapLayers[i].type;
-      if (basemapLayerType !== webmapLayerType) {
-        return false;
-      }
-
-      if (basemapLayerType === 'WebTiledLayer' || basemapLayerType === 'WMTSLayer') {
-        if (basemapLayers[i].wmtsInfo && webmapLayers[i].wmtsInfo) {
-          basemapUrl = basemapLayers[i].wmtsInfo.url;
-          webmapUrl = webmapLayers[i].wmtsInfo.url;
-        } else if(basemapLayers[i].templateUrl && webmapLayers[i].templateUrl) {
-          basemapUrl = basemapLayers[i].templateUrl;
-          webmapUrl = webmapLayers[i].templateUrl;
-        }
-      } else if (basemapLayerType === 'VectorTileLayer'){
-        basemapUrl = _getStanderdUrl(basemapLayers[i].styleUrl);
-        webmapUrl = _getStanderdUrl(webmapLayers[i].styleUrl);
-      } else if (!mo.isNoUrlLayerMap([basemapLayers[i]]) &&
-        !mo.isNoUrlLayerMap([webmapLayers[i]])){
-        basemapUrl = _getStanderdUrl(basemapLayers[i].url);
-        webmapUrl = _getStanderdUrl(webmapLayers[i].url);
-      }
-      if (typeof basemapUrl !== typeof webmapUrl ||
-        (basemapUrl && webmapUrl &&
-        basemapUrl.toLowerCase() !== webmapUrl.toLowerCase())) {
+      if (!mo.isSameBasemapLayer(basemapLayers[i], webmapLayers[i])) {
         return false;
       }
     }
@@ -365,31 +401,10 @@ define([
   //   * no query
   function _getStanderdUrl(url) {
     if (!url) {
-      return null;
+      return "";
     } else {
       return basePortalUrlUtils.removeProtocol(_removeUrlQurey(url));
     }
-  }
-
-  function _allLayersUrlStr(layers) {
-    var urlArray = [];
-    array.forEach(layers, function(layer) {
-      urlArray.push(layer.url);
-    });
-    urlArray.sort();
-    var allLayersUrlStr = '';
-    var i = 0;
-    for (i = 0; i < urlArray.length; i++) {
-      var queryIndex = urlArray[i].indexOf('?');
-      var url = '';
-      if (queryIndex !== -1) {
-        url = urlArray[i].slice(0, queryIndex);
-      } else {
-        url = urlArray[i];
-      }
-      allLayersUrlStr += url;
-    }
-    return allLayersUrlStr.replace(/\ /, '');
   }
 
   function getWebMapsFromBasemapGalleryGroup(portalUrl) {

@@ -3,5 +3,6 @@ define({
   "right": "Aligner à droite",
   "arrangement": "Disposition",
   "autoUpdate": "Mise à jour automatique",
-  "respectCurrentMapScale": "Respecter l'échelle actuelle de la carte"
+  "respectCurrentMapScale": "Respecter l'échelle actuelle de la carte",
+  "layerSelectorTitle": "Choisir quelles couches affichent des légendes : "
 });

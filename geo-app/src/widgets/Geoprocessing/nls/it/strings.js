@@ -20,5 +20,6 @@ define({
   "exportOutput": "Esporta",
   "emptyResult": "Il risultato è vuoto.",
   "useSelectedFeatureset": "Utilizzare la feature o le feature risultanti.",
-  "closeSelectedFeatureset": "Pulire e utilizzare l'opzione di input configurata."
+  "closeSelectedFeatureset": "Pulire e utilizzare l'opzione di input configurata.",
+  "currentMapExtent": "Estensione mappa corrente"
 });

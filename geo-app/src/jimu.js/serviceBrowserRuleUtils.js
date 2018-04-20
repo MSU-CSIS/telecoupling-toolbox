@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -127,8 +127,10 @@ function(lang, array, Deferred, jimuUtils, ServiceBrowserRule) {
       getItem: function(url){
         var  def = new Deferred();
         if(this.isUrlEndWithServiceType(url, this.serviceTypes)){
+          //http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer
           def = this.defaultGetItem(url);
         }else{
+          //http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0
           this.getRestInfo(url).then(lang.hitch(this, function(layerDefinition){
             var item = this._getItemByLayerDefinition(url, layerDefinition);
             def.resolve(item);

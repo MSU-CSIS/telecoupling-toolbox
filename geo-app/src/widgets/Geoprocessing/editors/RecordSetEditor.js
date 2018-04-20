@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ define(['dojo/_base/declare',
   'dojo/_base/lang',
   'dojo/_base/array',
   '../BaseEditor',
-  'jimu/dijit/PopupConfig'
+  '../PopupConfig'
 ],
 function(declare, lang, array, BaseEditor, PopupConfig) {
   var clazz = declare([BaseEditor], {
@@ -41,16 +41,21 @@ function(declare, lang, array, BaseEditor, PopupConfig) {
         this.value = lang.clone(this.args.param.defaultValue);
         var fields = this.value.fields;
         if(this.value.output && this.value.output.fields){
-          var selectedNameArray = array.map(this.value.output.fields, function(f){
-            return f.name;
-          });
-          array.forEach(fields, function(f){
-            if(selectedNameArray.indexOf(f.name) >= 0){
-              f.visible = true;
-            }else{
-              f.visible = false;
-            }
-          });
+          // back compatible, popup of old version only contain the selected fields
+          if (this.value.output.fields.length !== fields.length) {
+            var selectedNameArray = array.map(this.value.output.fields, function(f){
+              return f.name;
+            });
+            array.forEach(fields, function(f){
+              if(selectedNameArray.indexOf(f.name) >= 0){
+                f.visible = true;
+              }else{
+                f.visible = false;
+              }
+            });
+          } else { // new version of popup contains all fields
+            fields = this.value.output.fields;
+          }
         }
         popupArgs.fields = fields;
         this.popupConfig = new PopupConfig(popupArgs);

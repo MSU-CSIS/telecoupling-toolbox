@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,8 +24,10 @@ define([
   'dojo/dom-construct',
   'dojo/topic',
   'dojo/aspect',
+  'dojo/Evented',
   'jimu/portalUrlUtils',
   'jimu/portalUtils',
+  'jimu/LayerNode',
   './RequestBuffer',
   'esri/request',
   'esri/config',
@@ -33,9 +35,10 @@ define([
   'esri/SpatialReference',
   'esri/geometry/webMercatorUtils'
 ], function(declare, array, lang, Deferred, all, /*NlsStrings,*/ domConstruct, topic, aspect,
-portalUrlUtils, portalUtils, RequestBuffer, esriRequest, esriConfig, ProjectParameters,
+Evented, portalUrlUtils, portalUtils, LayerNode, RequestBuffer, esriRequest, esriConfig, ProjectParameters,
 SpatialReference, webMercatorUtils) {
-  var clazz = declare(null, {
+  var clazz = declare([Evented], {
+    declaredClass:            "jimu.LayerInfo",
     originOperLayer:          null,
     layerObject:              null,
     map:                      null,
@@ -44,13 +47,19 @@ SpatialReference, webMercatorUtils) {
     subId:                    null,
     newSubLayers:             null,
     parentLayerInfo:          null,
+    isTable:                  null,
+    isTiled:                  null,
     _oldIsShowInMap:          null,
     _oldFilter:               null,
     _eventHandles:            null,
     _subLayerInfoIndex:       null,
     _serviceDefinitionBuffer: null,
+    _flag:                    null,
+    _objectId:                null,
+    _itemInfo:                null,
+    _adaptor:                 null,
 
-    constructor: function(operLayer, map, layerInfoFactory, layerInfosInstanceWrap) {
+    constructor: function(operLayer, map, layerInfoFactory, layerInfos) {
       this.originOperLayer = operLayer;
       this.layerObject = operLayer.layerObject;
       this.map = map;
@@ -58,9 +67,14 @@ SpatialReference, webMercatorUtils) {
       this.id = this.originOperLayer.id;
       this.subId = this.originOperLayer.subId !== undefined ? this.originOperLayer.subId : this.id;
       this.parentLayerInfo = operLayer.parentLayerInfo ? operLayer.parentLayerInfo : null;
+      this.isTable = false;
+      this.isTiled = false;
       this._eventHandles = [];
       this._layerInfoFactory = layerInfoFactory;
-      this._layerInfosInstanceWrap = layerInfosInstanceWrap;
+      this._layerInfos = layerInfos;
+      this._flag = {};
+      this._objectId = Math.random();
+      this._adaptor = new LayerNode(this);
     },
 
     init: function() {
@@ -101,6 +115,10 @@ SpatialReference, webMercatorUtils) {
 
     obtainLayerIndexesInMap: function() {
       return this._obtainLayerIndexesInMap();
+    },
+
+    getObjectId: function() {
+      return this._objectId;
     },
 
     getExtent: function() {
@@ -154,7 +172,7 @@ SpatialReference, webMercatorUtils) {
 
     findLayerInfoById: function(id) {
       // summary:
-      //    recursion find LayerInof in subLayerInfos.
+      //    recursively find LayerInof from all subLayerInfos.
       // description:
       //    return null if does not find.
       var layerInfo = null;
@@ -206,7 +224,7 @@ SpatialReference, webMercatorUtils) {
     resetLayerObjectVisibility: function(layerOptions) {
       //dos not have the capability to reset visiblility for sublayers.
       var layerOption  = layerOptions ? layerOptions[this.id]: null;
-      if(this.isRootLayer && layerOption) {
+      if(this.isRootLayer() && layerOption) {
         this._resetLayerObjectVisiblity(layerOptions);
       }
     },
@@ -386,7 +404,7 @@ SpatialReference, webMercatorUtils) {
     },
 
     _getLayerInfosObj: function() {
-      return this._layerInfosInstanceWrap.layerInfos;
+      return this._layerInfos;
     },
 
     // new section--------------------------------------------------------------------
@@ -423,6 +441,10 @@ SpatialReference, webMercatorUtils) {
       //   return true if 'showLegend' has not been cnfigured in webmp
       return this.originOperLayer.showLegend !== undefined ?
              this.originOperLayer.showLegend : true;
+    },
+
+    _needToRenew: function() {
+      return false;
     },
 
     /***************************************************
@@ -468,6 +490,10 @@ SpatialReference, webMercatorUtils) {
       return def;
     },
 
+    getLayerObjectTryUsingFeatureService: function() {
+      return this.getLayerObject();
+    },
+
     getSubLayers: function() {
       return this.newSubLayers;
     },
@@ -486,6 +512,17 @@ SpatialReference, webMercatorUtils) {
       } else {
         return false;
       }
+    },
+
+    // root layerInfo's level is 0;
+    getLayerLevel: function() {
+      var level = 0;
+      var currentLayerInfo = this;
+      while(currentLayerInfo.parentLayerInfo) {
+        level++;
+        currentLayerInfo = currentLayerInfo.parentLayerInfo;
+      }
+      return level;
     },
 
     getRootLayerInfo: function() {
@@ -516,13 +553,34 @@ SpatialReference, webMercatorUtils) {
       return def;
     },
 
-    // now it is used for Attribute.
+    // getPopupInfoFromWebmap
     getPopupInfo: function() {
       // summary:
       //   get popupInfo from webmap defination.
       // description:
       //   return null directly if the has not configured popupInfo in webmap.
       return this.originOperLayer.popupInfo;
+    },
+
+    getPopupInfoFromLayerObject: function() {
+      var infoTemplate = this.getInfoTemplate();
+      var popupInfo = null;
+      if(infoTemplate) {
+        popupInfo = infoTemplate.info;
+      }
+      return popupInfo;
+    },
+
+    loadPopupInfo: function() {
+      var def = new Deferred();
+      this.loadInfoTemplate().then(lang.hitch(this, function(infoTemplate) {
+        var popupInfo = null;
+        if(infoTemplate) {
+          popupInfo = infoTemplate.info;
+        }
+        def.resolve(popupInfo);
+      }));
+      return def;
     },
 
     loadInfoTemplate: function() {
@@ -559,7 +617,7 @@ SpatialReference, webMercatorUtils) {
       // summary:
       //   get filter from layerObject.
       // description:
-      //   return null if does not have or cannot get it.
+      //   return null if it does not have or cannot get it.
       // implemented by sub class.
       return null;
     },
@@ -571,7 +629,7 @@ SpatialReference, webMercatorUtils) {
       //   layerDefinitionExpression: layer definition expression
       //   set 'null' to delete layer definition expression
       // description:
-      //   operation will skip if layer not support filter.
+      //   operation will skip layer if it does not support filter.
       // implemented by sub class.
       // Todo... consider tableInfo, should return a def.
     },
@@ -664,27 +722,42 @@ SpatialReference, webMercatorUtils) {
         if(subLayerInfo.id !== id) {
           tempSubLayerInfos.push(subLayerInfo);
         } else {
-          subLayerInfo.destroyLayerInfo();
+          subLayerInfo.destroy();
         }
       });
       this.newSubLayers = tempSubLayerInfos;
     },
 
-    destroy: function() {
+    releaseResource: function() {
       array.forEach(this._eventHandles, function(eventHandle) {
         eventHandle.remove();
       });
       // destroy labelLayer and relatedLabelLayer
       this.destroyLabelLayer();
+      // destroy layerInfo adaptor
+      if(this._adaptor) {
+        this._adaptor.destroy();
+      }
+    },
+
+    destroy: function() {
+      // After root traversal for destroy.
+      array.forEach(this.newSubLayers, function(subLayerInfo) {
+        subLayerInfo.destroy();
+      });
+      this.releaseResource();
       this.inherited(arguments);
     },
 
-    destroyLayerInfo: function() {
-      // After root traversal for destroy.
+    update: function() {
+      // destory all subLayerInfos
       array.forEach(this.newSubLayers, function(subLayerInfo) {
-        subLayerInfo.destroyLayerInfo();
+        subLayerInfo.destroy();
       });
-      this.destroy();
+      // release releaseResource
+      this.releaseResource();
+      // init
+      this.init();
     },
 
     isMapNotesLayerInfo: function() {
@@ -773,12 +846,34 @@ SpatialReference, webMercatorUtils) {
       return this.originOperLayer.capabilities;
     },
 
-    // return itemId if the layer is added from an item of Portal.
-    // there is _itemId attribute of LayerObject which is added by widget's
-    // result(such as Analysis)
+    // returns basicItemInfo if the layer is added from an item of Portal.
+    // there is _wabProperties.itemInfo attribute of LayerObject which is added by widget's
+    // result (such as Analysis)
     isItemLayer: function() {
-      return this.originOperLayer.itemId ||
-        lang.getObject("_wabProperties.itemLayerInfo.itemId", false, this.layerObject);
+      return this._getBasicItemInfo();
+    },
+
+    // basicItemInfo = {
+    //   portalUrl:
+    //   itemId:
+    // }
+    _getBasicItemInfo: function() {
+      var basicItemInfo = null;
+      var rootLayerInfo = this.getRootLayerInfo();
+      var appConfig = window.appConfig || window.getAppConfig();
+      var itemLayerInfoInLayerObject = lang.getObject("_wabProperties.itemLayerInfo", false, rootLayerInfo.layerObject);
+      if(rootLayerInfo.originOperLayer.itemId) {
+        basicItemInfo = {};
+        basicItemInfo.itemId = rootLayerInfo.originOperLayer.itemId;
+        basicItemInfo.portalUrl = portalUrlUtils.getStandardPortalUrl(appConfig.map.portalUrl || appConfig.portalUrl);
+      } else if(itemLayerInfoInLayerObject &&
+                itemLayerInfoInLayerObject.portalUrl &&
+                itemLayerInfoInLayerObject.itemId){
+        basicItemInfo = {};
+        basicItemInfo.itemId = itemLayerInfoInLayerObject.itemId;
+        basicItemInfo.portalUrl = portalUrlUtils.getStandardPortalUrl(itemLayerInfoInLayerObject.portalUrl);
+      }
+      return basicItemInfo;
     },
 
     getItemInfo: function() {
@@ -790,9 +885,13 @@ SpatialReference, webMercatorUtils) {
       var itemInfoDef = new Deferred();
       var rootLayerInfo = this.getRootLayerInfo();
       if(rootLayerInfo.isItemLayer()) {
-        var itemInfo = new clazz.ItemInfo(rootLayerInfo);
-        itemInfo.onLoad().then(lang.hitch(this, function() {
-          itemInfoDef.resolve(itemInfo);
+        if(!rootLayerInfo._itemInfo) {
+          rootLayerInfo._itemInfo = new clazz.ItemInfo(this, rootLayerInfo);
+        }
+        rootLayerInfo._itemInfo.onLoad().then(lang.hitch(this, function() {
+          itemInfoDef.resolve(rootLayerInfo._itemInfo);
+        }), lang.hitch(this, function() {
+          itemInfoDef.resolve(null);
         }));
       } else {
         itemInfoDef.resolve(null);
@@ -800,36 +899,29 @@ SpatialReference, webMercatorUtils) {
       return itemInfoDef;
     },
 
-    /* todo...
-    getItemInfoSync: function() {
-    },
-    */
-
-    // todo ...
-    isHostedLayer: function() {
+    isHostedService: function() {
       var def = new Deferred();
-      var url = this.getUrl();
-      if(url) {
-        esriRequest({
-          url: url,
-          content: {
-            f: 'json'
-          },
-          handleAs: 'json',
-          callbackParamName: 'callback'
-        }).then(lang.hitch(this, function(layerDefinition) {
-          var isHostedLayer;
-          if(layerDefinition && layerDefinition.serviceItemId) {
-            isHostedLayer = true;
-          } else {
-            isHostedLayer = false;
-          }
-          def.resolve(isHostedLayer);
-        }));
+      this._getServiceDefinition().then(lang.hitch(this, function(serviceDefinition) {
+        var isHostedService;
+        if(serviceDefinition && serviceDefinition.serviceItemId) {
+          isHostedService = true;
+        } else {
+          isHostedService = false;
+        }
+        def.resolve(isHostedService);
+      }));
+
+      return def;
+    },
+
+    isHostedLayer: function() {
+      var def;
+      if(this.isItemLayer()) {
+        def = this.isHostedService();
       } else {
+        def = new Deferred();
         def.resolve(false);
       }
-
 
       return def;
     },
@@ -870,6 +962,17 @@ SpatialReference, webMercatorUtils) {
     /****************
      * Event
      ***************/
+    emitEvent: function() {
+      try {
+        this.emit.apply(this, arguments);
+        if(this._adaptor) {
+          this._adaptor.emitEvent.apply(this._adaptor, arguments);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
     _bindEvent: function() {
       var handle;
       if(this.layerObject && !this.layerObject.empty) {
@@ -936,75 +1039,81 @@ SpatialReference, webMercatorUtils) {
   });
 
   clazz.ItemInfo = declare(null, {
-    originItemInfo: null,
+    _currentLayerInfo:  null,
+    _rootLayerInfo:     null,
+    _portalUrl:         null,
+    _itemId:            null,
+    _item:              null,
+    _itemData:          null,
+    _serviceDefinition: null,
     _itemInfoLoadedDef: null,
-    _layerDefinition: null,
 
-    constructor: function(layerInfo) {
+    constructor: function(currentLayerInfo, rootLayerInfo) {
+      this._currentLayerInfo = currentLayerInfo;
+      this._rootLayerInfo    = rootLayerInfo;
+      this._loadResource();
+    },
+
+    _loadResource: function() {
       this._itemInfoLoadedDef = new Deferred();
-      var itemId = layerInfo.isItemLayer();
-      if(itemId) {
-        var appConfig = window.appConfig || window.getAppConfig();
-        var portalUrl =
-          portalUrlUtils.getStandardPortalUrl((appConfig && appConfig.map.portalUrl) || window.portalUrl);
-        var portal = portalUtils.getPortal(portalUrl);
-        var itemInfoDef = portal.getItemById(itemId);
-        /*
-        var layerDefinitionDef = this._getLayerDefinition();
+      var basicItemInfo = this._rootLayerInfo.isItemLayer();
+      if(basicItemInfo) {
+        this._portalUrl = basicItemInfo.portalUrl;
+        this._itemId = basicItemInfo.itemId;
+        var portal = portalUtils.getPortal(this._portalUrl);
+        var itemDef = portal.getItemById(this._itemId);
+        var itemDataDef = portal.getItemData(this._itemId);
+        var serviceDefinitionDef = this._currentLayerInfo._getServiceDefinition();
         all({
-          itemInfo: itemInfoDef,
-          layerDefinition: layerDefinitionDef
-        })
-        */
-
-        itemInfoDef.then(lang.hitch(this, function(itemInfo) {
-          this.originItemInfo = itemInfo;
+          item: itemDef,
+          itemData: itemDataDef,
+          serviceDefinition: serviceDefinitionDef
+        }).then(lang.hitch(this, function(result) {
+          this._item = result.item;
+          this._itemData = result.itemData;
+          this._serviceDefinition = result.serviceDefinition;
           this._itemInfoLoadedDef.resolve(this);
         }), lang.hitch(this, function(error) {
           if(error && error.message) {
             console.log(error.message);
           }
-          this._itemInfoLoadedDef.resolve(this);
+          this._itemInfoLoadedDef.reject();
         }));
       } else {
-        this._itemInfoLoadedDef.resolve(this);
+        this._itemInfoLoadedDef.reject();
       }
     },
 
     onLoad: function() {
       return this._itemInfoLoadedDef;
-    }
+    },
 
-    /*
-    isHostedLayerSync: function() {
+    getPortalUrl: function() {
+      return this._portalUrl;
+    },
+
+    getItemId: function() {
+      return this._itemId;
+    },
+
+    getItem: function() {
+      return this._item;
+    },
+
+    getItemData: function() {
+      return this._itemData;
+    },
+
+    isHostedLayer: function() {
       var isHostedLayer;
-      if(this._layerDefinition && this._layerDefinition.serviceItemId) {
+      if(this._serviceDefinition && this._serviceDefinition.serviceItemId) {
         isHostedLayer = true;
       } else {
         isHostedLayer = false;
       }
       return isHostedLayer;
-    },
-
-    _getLayerDefinition: function(layerInfo) {
-      var request;
-      var url = layerInfo.getUrl();
-      if(url) {
-       request = esriRequest({
-          url: url,
-          content: {
-            f: 'json'
-          },
-          handleAs: 'json',
-          callbackParamName: 'callback'
-        });
-      } else {
-        request = new Deferred();
-        request.resolve(null);
-      }
-      return request;
     }
-    */
+
   });
 
   return clazz;

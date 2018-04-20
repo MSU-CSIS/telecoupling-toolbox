@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 ///////////////////////////////////////////////////////////////////////////
 
 define([
+  'dojo/Evented',
   'dojo/_base/declare',
   'dijit/_WidgetBase',
   'dijit/_TemplatedMixin',
@@ -24,18 +25,21 @@ define([
   'dojo/_base/html',
   'dojo/_base/array',
   'dojo/on',
+  'dojo/query',
   'dojo/store/Memory',
   'jimu/utils',
   'jimu/dijit/_filter/ValueProviderFactory',
   'jimu/dijit/CheckBox',
   'dijit/form/Select',
   'dijit/form/FilteringSelect',
-  'dijit/form/ValidationTextBox'
+  'dijit/form/ValidationTextBox',
+  'dijit/popup',
+  'dijit/TooltipDialog'
 ],
-function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template, lang,
-  html, array, on, Memory, jimuUtils, ValueProviderFactory) {
+function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template, lang,
+  html, array, on, query, Memory, jimuUtils, ValueProviderFactory, dojoPopup, TooltipDialog) {
 
-  return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+  return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Evented], {
     templateString:template,
     baseClass: 'jimu-single-filter',
     declaredClass: 'jimu.dijit._SingleFilter',
@@ -53,6 +57,13 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
     valueProviderFactory: null,
     valueProvider: null,
 
+    //public methods:
+    //toJson: UI->partsObj
+    //
+
+    //events:
+    //change
+
     postMixInProperties:function(){
       this.supportFieldTypes = [];
       this.supportFieldTypes.push(this.stringFieldType);
@@ -64,6 +75,9 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
     postCreate:function(){
       this.inherited(arguments);
       this._initSelf();
+      this.own(on(document, 'click', lang.hitch(this, function(){
+        html.setStyle(this.valueTypePopupNode, 'display', 'none');
+      })));
     },
 
     toJson:function(){
@@ -105,7 +119,8 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
           hint: this.hintTB.get('value'),
           cascade: "none"
         };
-        if(this.uniqueRadio && this.uniqueRadio.checked){
+        // if(this.uniqueRadio && this.uniqueRadio.checked){
+        if(this._getValueTypeByUI() === "unique"){
           part.interactiveObj.cascade = this.cascadeSelect.get("value");
         }
       }
@@ -120,13 +135,7 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
       if(!valueObj){
         return null;
       }
-      if(this.valueRadio.checked){
-        valueObj.type = 'value';
-      }else if(this.fieldRadio.checked){
-        valueObj.type = 'field';
-      }else if(this.uniqueRadio.checked){
-        valueObj.type = 'unique';
-      }
+      valueObj.type = this._getValueTypeByUI();
       part.valueObj = valueObj;
 
       return part;
@@ -196,9 +205,6 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
         html.setStyle(this.promptSection, 'display', 'none');
       }
 
-      //value type raidos
-      this._initValueTypeRadios();
-
       //field select
       var fields = this.layerInfo.fields;
       if (fields && fields.length > 0) {
@@ -207,7 +213,7 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
         }));
 
         if(fields.length > 0){
-          this._enableRadios();
+          this._enableAllValueTypeOptions();
 
           this._initFieldsSelect(fields);
 
@@ -355,6 +361,7 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
       this._updateOperatorsByFieldsSelect();
     },
 
+    //part -> UI
     _showPart: function(_part){
       this.part = _part;
       var validPart = this.part && this.part.fieldObj && this.part.operator && this.part.valueObj;
@@ -425,47 +432,18 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
       this._resetByFieldAndOperator();
     },
 
-    _initValueTypeRadios: function(){
-      var group = "radio_" + jimuUtils.getRandomString();
-      this.valueRadio.name = group;
-      this.fieldRadio.name = group;
-      this.uniqueRadio.name = group;
-
-      this.valueRadio.valueType = "value";
-      this.fieldRadio.valueType = "field";
-      this.uniqueRadio.valueType = "unique";
-
-      jimuUtils.combineRadioCheckBoxWithLabel(this.valueRadio, this.valueLabel);
-      jimuUtils.combineRadioCheckBoxWithLabel(this.fieldRadio, this.fieldLabel);
-      jimuUtils.combineRadioCheckBoxWithLabel(this.uniqueRadio, this.uniqueLabel);
-
-      this.own(on(this.valueRadio, 'click', lang.hitch(this, function(){
-        this._resetByFieldAndOperator(null, 'value');
-      })));
-
-      this.own(on(this.fieldRadio, 'click', lang.hitch(this, function(){
-        this._resetByFieldAndOperator(null, 'field');
-      })));
-
-      this.own(on(this.uniqueRadio, 'click', lang.hitch(this, function() {
-        this._resetByFieldAndOperator(null, 'unique');
-      })));
-
-      if(!this._isServiceSupportDistinctValues(this.url, this.layerInfo)){
-        this.uniqueTd.style.display = "none";
-      }
-    },
-
     _updateValueTypeClass: function(){
       html.removeClass(this.domNode, 'value-type');
       html.removeClass(this.domNode, 'field-type');
       html.removeClass(this.domNode, 'unique-type');
       html.removeClass(this.domNode, 'support-cascade');
 
-      if(this.valueRadio.checked){
+      var valueType = this._getValueTypeByUI();
+
+      if(valueType === 'value'){
         html.addClass(this.domNode, 'value-type');
         this.cascadeSelect.set("value", "none");
-      }else if(this.fieldRadio.checked){
+      }else if(valueType === 'field'){
         html.addClass(this.domNode, 'field-type');
         this.cascadeSelect.set("value", "none");
       }else{
@@ -505,22 +483,99 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
       return 0;
     },
 
-    _enableRadios:function(){
-      this.valueRadio.disabled = false;
-      this.fieldRadio.disabled = false;
-      this.uniqueRadio.disabled = false;
+    _enableValueTypeSelectOption: function(valueType, enabled){
+      var node = query('li[data-type=' + valueType + ']', this.valueTypePopupNode)[0];
+      if(enabled){
+        html.removeClass(node, 'disabled');
+      }else{
+        html.addClass(node, 'disabled');
+      }
     },
 
-    _disableAndUncheckRadios:function(){
-      this._enableRadios();
+    _onValueTypeSetClick: function(evt){
+      var position = html.position(evt.target);
+      var rNode;
+      if(this.isInFilterSet){
+        rNode = this.domNode.parentNode.parentNode.parentNode;
+      }else{
+        rNode = this.domNode.parentNode;
+      }
+      var rPosition = html.position(rNode);
 
-      this.valueRadio.checked = false;
-      this.fieldRadio.checked = false;
-      this.uniqueRadio.checked = false;
+      if(html.getStyle(this.valueTypePopupNode, 'display') !== 'none'){
+        html.setStyle(this.valueTypePopupNode, 'display', 'none');
+        return;
+      }
+      array.forEach(query('.value-type-popup', rNode), function(node){
+        html.setStyle(node, 'display', 'none');
+      }, this);
+      html.place(this.valueTypePopupNode, rNode);
 
-      this.valueRadio.disabled = true;
-      this.fieldRadio.disabled = true;
-      this.uniqueRadio.disabled = true;
+      var topMargin;
+      if(html.hasClass(query('.desktop-add-section', rNode.parentNode)[0], 'hidden')){
+        topMargin = 55;
+      }else{
+        topMargin = 90;
+      }
+      var top = position.y - rPosition.y - rNode.parentNode.scrollTop + topMargin;
+      if(top + 170 > rNode.parentNode.scrollHeight){
+        top = rNode.parentNode.scrollHeight - 170;
+      }
+
+      var left;
+      if(window.isRTL){
+        left = position.x - rPosition.x + 20;
+      }else{
+        left = position.x - rPosition.x - 100;
+        if(left + 150 > rNode.clientWidth){
+          left = rNode.clientWidth - 150;
+        }
+      }
+      html.setStyle(this.valueTypePopupNode, {
+        display: 'block',
+        left: left + 'px',
+        top: top + 'px'
+      });
+      evt.stopPropagation();
+    },
+
+    _onValueTypeClick: function(evt){
+      var type = html.getAttr(evt.currentTarget, 'data-type');
+      if(html.hasClass(evt.currentTarget, 'disabled')){
+        evt.stopPropagation();
+        return;
+      }
+      query('li', this.valueTypePopupNode).forEach(function(node){
+        html.removeClass(node, 'selected');
+      });
+
+      html.addClass(evt.currentTarget, 'selected');
+
+      this._resetByFieldAndOperator(null, type);
+    },
+
+    _enableValueTypeOption: function(enabled){
+      this._enableValueTypeSelectOption("value", enabled);
+    },
+
+    _enableFieldTypeOption: function(enabled){
+      this._enableValueTypeSelectOption("field", enabled);
+    },
+
+    _enableUniqueTypeOption: function(enabled){
+      this._enableValueTypeSelectOption("unique", enabled);
+    },
+
+    _enableAllValueTypeOptions:function(){
+      this._enableValueTypeOption(true);
+      this._enableFieldTypeOption(true);
+      this._enableUniqueTypeOption(true);
+    },
+
+    _disableAllValueTypeOptions:function(){
+      this._enableValueTypeOption(false);
+      this._enableFieldTypeOption(false);
+      this._enableUniqueTypeOption(false);
     },
 
     _resetByFieldAndOperator: function(/*optional*/ partObj, /*optional*/ _valueType){
@@ -530,7 +585,7 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
         this.valueProvider.destroy();
       }
       this._hideAndDisableCaseSensitive();
-      this._disableAndUncheckRadios();
+      this._disableAllValueTypeOptions();
 
       if(!partObj){
         //if partObj is not undefined, it means this function is invoked in postCreate
@@ -555,8 +610,6 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
       if (partObj.fieldObj && partObj.operator) {
         valueTypes = this.valueProviderFactory.getSupportedValueTypes(partObj.fieldObj.name, partObj.operator);
 
-        var valueTypeRadio = null;
-
         if(partObj.valueObj){
           valueType = partObj.valueObj.type;
         } else{
@@ -571,33 +624,34 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
         }
 
         if (valueTypes.indexOf('value') >= 0) {
-          this.valueRadio.disabled = false;
+          this._enableValueTypeOption(true);
         }
         if (valueTypes.indexOf('field') >= 0) {
-          this.fieldRadio.disabled = false;
+          this._enableFieldTypeOption(true);
         }
         if (valueTypes.indexOf('unique') >= 0) {
-          this.uniqueRadio.disabled = false;
+          this._enableUniqueTypeOption(true);
         }
 
         if(valueType === 'value'){
-          valueTypeRadio = this.valueRadio;
+          this._enableValueTypeOption(true);
         }else if(valueType === 'field'){
-          valueTypeRadio = this.fieldRadio;
+          this._enableFieldTypeOption(true);
         }else if(valueType === 'unique'){
-          valueTypeRadio = this.uniqueRadio;
+          this._enableUniqueTypeOption(true);
         }
 
-        if(valueTypeRadio){
-          valueTypeRadio.disabled = false;
-          valueTypeRadio.checked = true;
-        }
+        this._updateValueTypeUI(valueType);
       }
 
       if (valueTypes.length > 0) {
         this.valueProvider = this.valueProviderFactory.getValueProvider(partObj, false);
-        this.valueProvider.placeAt(this.attributeValueContainer, "first");
+        this.valueProvider.placeAt(this.valueProviderContainer);
         this.valueProvider.setValueObject(partObj.valueObj);
+        this.own(on(this.valueProvider, 'change', lang.hitch(this, function(){
+          this.emit('change');
+        })));
+        this.valueProvider.bindChangeEvents();
 
         if(this.valueProvider.isBlankValueProvider()){
           html.addClass(this.valueProvider.domNode, 'hidden');
@@ -620,22 +674,13 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
       }
 
       this._updateWhenValueRadioChanged();
+
+      this.emit('change');
     },
 
     _updateWhenValueRadioChanged: function(){
       this._updatePrompt();
       this._updateValueTypeClass();
-    },
-
-    _getRadioByValueType: function(valueType){
-      if(valueType === 'value'){
-        return this.valueRadio;
-      }else if(valueType === 'field'){
-        return this.fieldRadio;
-      }else if(valueType === 'unique'){
-        return this.uniqueRadio;
-      }
-      return null;
     },
 
     _onCbxAskValuesClicked:function(){
@@ -663,16 +708,23 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
     },
 
     _getValueTypeByUI: function(){
-      if(!this.valueRadio.disabled && this.valueRadio.checked){
-        return "value";
+      var node = query('li.selected', this.valueTypePopupNode)[0];
+      if(node){
+        return html.getAttr(node, 'data-type');
+      }else{
+        return null;
       }
-      if(!this.fieldRadio.disabled && this.fieldRadio.checked){
-        return "field";
+    },
+
+    _updateValueTypeUI: function(type){
+      query('li', this.valueTypePopupNode).forEach(function(node){
+        html.removeClass(node, 'selected');
+      });
+
+      var node = query('li[data-type=' + type + ']', this.valueTypePopupNode)[0];
+      if(node){
+        return html.addClass(node, 'selected');
       }
-      if(!this.uniqueRadio.disabled && this.uniqueRadio.checked){
-        return "unique";
-      }
-      return null;
     },
 
     _updatePrompt: function(){
@@ -693,6 +745,7 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, templat
         }
       }
       if(!supportAskForValue){
+        this.cbxAskValues.uncheck(true);
         this.cbxAskValues.setStatus(false);
       }
 

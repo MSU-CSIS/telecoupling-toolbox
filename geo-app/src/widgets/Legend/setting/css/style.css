@@ -31,3 +31,18 @@
 .jimu-widget-legend-setting .input-table > tbody > tr > .third{
   width:35px;
 }
+
+.jimu-widget-legend-setting .layer-chooser-section{
+  margin-top: 20px; 
+}
+
+.jimu-widget-legend-setting .layer-chooser-div{
+  border: 1px solid #d9dde0;
+  min-height: 130px;
+  max-height: 410px; 
+  overflow-y: auto;
+}
+
+.jimu-widget-legend-setting .layer-chooser-section .tree-root-ul{
+  border: 0px solid #d9dde0;
+}

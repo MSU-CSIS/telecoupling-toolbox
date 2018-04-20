@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "adresa URL sady prvků",
   "useShapefile": "Použít shapefile v místním souborovém systému",
   "allowToExport": "Povolit export výsledků",
-  "useDynamicSchema": "Výstup může používat odlišné schéma, použijte dynamické schéma namísto předdefinovaného schématu."
+  "useDynamicSchema": "Výstup může používat odlišné schéma, použijte dynamické schéma namísto předdefinovaného schématu.",
+  "useCurrentMapExtent": "Použít aktuální rozsah mapy",
+  "ignoreOutput": "Ignorovat tento výstup",
+  "turnOffOutput": "Ve výchozím nastavení vypnout tuto vrstvu"
 });

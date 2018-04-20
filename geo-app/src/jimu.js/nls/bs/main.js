@@ -76,7 +76,18 @@ define({
     "field": "Polje",
     "operation": "Radnja",
     "disableUpdateGeometry": "Onemogući ažuriranje geometrije",
-    "preview": "Pretpregled"
+    "preview": "Pretpregled",
+    "date": "Datum",
+    "time": "Vrijeme",
+    "show": "Prikaži",
+    "hide": "Sakrij",
+    "format": "Format",
+    "defaults": "Zadano",
+    "add": "Dodaj",
+    "done": "Gotovo",
+    "remove": "Ukloni",
+    "leave": "Napusti",
+    "stay": "Ostani"
   },
   "errorCode": "Kod",
   "errorMessage": "Poruka",
@@ -99,10 +110,18 @@ define({
     "arrows": "Strelice",
     "business": "Poduzeće",
     "cartographic": "Kartografsko",
+    "damage": "Šteta",
+    "disasters": "Katastrofe",
+    "emergencyManagement": "Upravljanje hitnim situacijama",
+    "generalInfrastructure": "Opća infrastruktura",
+    "localGovernment": "Lokalna vlada",
     "nationalParkService": "Nacionalni park",
+    "numbers": "Brojevi",
     "outdoorRecreation": "Vanjska rekreacija",
     "peoplePlaces": "Ljudi i mjesta",
+    "pointsOfInterest": "Zanimljive lokacije",
     "safetyHealth": "Sigurnost i zdravlje",
+    "stateGovernment": "Državna vlada",
     "shapes": "Oblici",
     "transportation": "Prijevoz",
     "symbolSize": "Veličina simbola",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "prazno je",
     "stringOperatorIsNotBlank": "nije prazno",
     "dateOperatorIsOn": "je na",
+    "dateOperatorIsIn": "je u",
+    "dateOperatorIsNotIn": "nije u",
     "dateOperatorIsNotOn": "nije na",
     "dateOperatorIsBefore": "je prije",
     "dateOperatorIsAfter": "je poslije",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Prikaži samo vrijednosti filtrirane prethodnim izrazima.",
     "noneCascadeFilterTip": "Sve jedinstvene vrijednosti ovog polja",
     "previousCascadeFilterTip": "Vrijednosti filtrirane prethodnim izrazima",
-    "allCascadeFilterTip": "Vrijednosti filtrirane svim ostalim izrazima"
+    "allCascadeFilterTip": "Vrijednosti filtrirane svim ostalim izrazima",
+    "custom": "datum...",
+    "today": "danas",
+    "yesterday": "jučer",
+    "tomorrow": "sutra",
+    "thisWeek": "ovaj tjedan",
+    "thisMonth": "ovaj mjesec",
+    "thisQuarter": "ovo tromjesečje",
+    "thisYear": "ove godine",
+    "inputType": "Vrsta ulaznih podataka",
+    "setInputType": "Postavi vrstu ulaznih podataka"
   },
   "featureLayerSource": {
     "layer": "Sloj",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "Američke stope",
     "uSSurveyFeetAbbr": "ftUS",
+    "centimeters": "Centimetri",
+    "centimetersAbbr": "cm",
+    "inches": "Inči",
+    "inchesAbbr": "in",
     "decimalDegree": "Decimalni stupnjevi",
     "decimalDegreeAbbr": "dd",
     "degreeMinuteSeconds": "Stupnjevi minuta sekunde",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "kvadr. yd",
     "squareUSSurveyFeet": "Američke Kvadratne stope",
     "squareUSSurveyFeetAbbr": "sq ftUS"
+  },
+  "timeUnit": {
+    "year": "Godina",
+    "month": "Mjesec",
+    "day": "Dan",
+    "hour": "Sat",
+    "minute": "Minuta",
+    "second": "Sekunda"
   },
   "featureSetChooser": {
     "select": "Odaberi",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Povezani zapisi:",
     "noRelatedRecotds": "Nema povezanih zapisa.",
     "chooseFieldTip": "Odaberite atribut za prikaz popisa",
-    "saveAsPopupTitle": "Isto kao naziv skočnog prozora"
+    "saveAsPopupTitle": "Isto kao naziv skočnog prozora",
+    "leaveConfirm": "Želite li napustiti bez spremanja uređivanja?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "U vašem je odabiru previše geoobjekata. Njihovo dohvaćanje i prikaz na karti mogu potrajati dugo.",
@@ -545,7 +589,7 @@ define({
   },
   "colorPalette": {
     "transparent": "Transparentno",
-    "custom": "Prilagođeno"
+    "custom": "Prilagodi"
   },
   "temperature": {
     "celsius": "Celzijus",

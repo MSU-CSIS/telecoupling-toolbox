@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "기능 모음 URL",
   "useShapefile": "로컬 파일 시스템에서 쉐이프파일 사용",
   "allowToExport": "결과 내보내기 허용",
-  "useDynamicSchema": "결과에 다른 스키마가 있을 수 있습니다. 미리 정의된 스키마 대신 동적 스키마를 사용합니다."
+  "useDynamicSchema": "결과에 다른 스키마가 있을 수 있습니다. 미리 정의된 스키마 대신 동적 스키마를 사용합니다.",
+  "useCurrentMapExtent": "현재 맵 범위 사용",
+  "ignoreOutput": "이 결과 무시",
+  "turnOffOutput": "기본 설정에 따라 이 레이어 끄기"
 });

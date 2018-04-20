@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "URL du jeu d'entités",
   "useShapefile": "Utiliser le format shapefile dans le système de fichiers local",
   "allowToExport": "Autoriser l'exportation des résultats",
-  "useDynamicSchema": "La sortie peut avoir une structure différente. Utilisez une structure dynamique au lieu d’une structure prédéfinie."
+  "useDynamicSchema": "La sortie peut avoir une structure différente. Utilisez une structure dynamique au lieu d’une structure prédéfinie.",
+  "useCurrentMapExtent": "Utiliser l’étendue courante de la carte",
+  "ignoreOutput": "Ignorer cette sortie",
+  "turnOffOutput": "Désactiver cette couche par défaut"
 });

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -155,6 +155,7 @@ function (declare, lang, array, html, baseFx, Deferred, all, on, topic, when,
       }
 
       if(panel.state === 'opened'){
+        this._activePanel(panel);
         def.resolve(panel);
         return def;
       }
@@ -437,12 +438,25 @@ function (declare, lang, array, html, baseFx, Deferred, all, on, topic, when,
           }
         };
       }else if(panel.windowState === 'minimized'){
+        var minimizedPanels = this.panels.filter(function(p){
+          return p.windowState === 'minimized' && p.state !== 'closed' && p.id !== panel.id;
+        });
+
+        var bottom = 0;
+        if(minimizedPanels.some(function(p){
+          return p._mobileBottom === 0;
+        })){
+          bottom = panel.titleHeight;
+        }
+
+        panel._mobileBottom = bottom;
+
         if(box.h > box.w){ //portrait, stay at bottom
           return {
             left: 0,
             right: 0,
             top: 'auto',
-            bottom: 0,
+            bottom: bottom,
             width: 'auto',
             height: panel.titleHeight,
             contentHeight: 0,
@@ -458,7 +472,7 @@ function (declare, lang, array, html, baseFx, Deferred, all, on, topic, when,
             left: box.w - box.w / 2,
             right: 0,
             top: 'auto',
-            bottom: 0,
+            bottom: bottom,
             width: box.w / 2,
             height: panel.titleHeight,
             contentHeight: box.h,

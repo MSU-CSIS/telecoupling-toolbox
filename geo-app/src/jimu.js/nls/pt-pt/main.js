@@ -76,7 +76,18 @@ define({
     "field": "Campo",
     "operation": "Operação",
     "disableUpdateGeometry": "Desativar Atualizar Geometria",
-    "preview": "Pré-Visualizar"
+    "preview": "Pré-Visualizar",
+    "date": "Data",
+    "time": "Tempo",
+    "show": "Mostrar",
+    "hide": "Esconder",
+    "format": "Formato",
+    "defaults": "Padrão",
+    "add": "Adicionar",
+    "done": "Terminado",
+    "remove": "Remover",
+    "leave": "Sair",
+    "stay": "Permanecer"
   },
   "errorCode": "Código",
   "errorMessage": "Mensagem",
@@ -99,10 +110,18 @@ define({
     "arrows": "Setas",
     "business": "Negócio",
     "cartographic": "Cartográfico",
+    "damage": "Danos",
+    "disasters": "Desastres Naturais",
+    "emergencyManagement": "Gestão de Emergências",
+    "generalInfrastructure": "Infraestrutura Geral",
+    "localGovernment": "Governo Local",
     "nationalParkService": "Serviço nacional de parques",
+    "numbers": "Números",
     "outdoorRecreation": "Lazer no exterior",
     "peoplePlaces": "Locais de pessoas",
+    "pointsOfInterest": "Pontos de Interesse",
     "safetyHealth": "Segurança saúde",
+    "stateGovernment": "Governo Central",
     "shapes": "Formas",
     "transportation": "Transportes",
     "symbolSize": "Tamanho de símbolos",
@@ -203,8 +222,8 @@ define({
     "invalidUrl": "Url inválido."
   },
   "filterBuilder": {
-    "addAnotherExpression": "Adicionar uma expressão",
-    "addSet": "Adicionar um conjunto",
+    "addAnotherExpression": "Adicionar expressão",
+    "addSet": "Adicionar conjunto",
     "matchMsg": "Obter elementos na camada que correspondam a ${any_or_all} das expressões seguintes",
     "matchMsgSet": "${any_or_all} (d)as expressões seguintes neste conjunto são verdadeiras",
     "all": "Todos",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "está vazio",
     "stringOperatorIsNotBlank": "não está vazio",
     "dateOperatorIsOn": "é em",
+    "dateOperatorIsIn": "está em",
+    "dateOperatorIsNotIn": "não está em",
     "dateOperatorIsNotOn": "não é em",
     "dateOperatorIsBefore": "é anterior a",
     "dateOperatorIsAfter": "é posterior a",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Apenas valores filtrados por expressões anteriores.",
     "noneCascadeFilterTip": "Todos os valores únicos deste campo",
     "previousCascadeFilterTip": "Valores filtrados por expressões anteriores",
-    "allCascadeFilterTip": "Valores filtrados por todas as restantes expressões"
+    "allCascadeFilterTip": "Valores filtrados por todas as restantes expressões",
+    "custom": "A data...",
+    "today": "hoje",
+    "yesterday": "ontem",
+    "tomorrow": "amanhã",
+    "thisWeek": "esta semana",
+    "thisMonth": "este Mês",
+    "thisQuarter": "este trimestre",
+    "thisYear": "este ano",
+    "inputType": "Tipo de entrada",
+    "setInputType": "Definir tipo de entrada"
   },
   "featureLayerSource": {
     "layer": "Camada",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "Pés US survey",
     "uSSurveyFeetAbbr": "ftUS",
+    "centimeters": "Centímetros",
+    "centimetersAbbr": "cm",
+    "inches": "Polegadas",
+    "inchesAbbr": "pol",
     "decimalDegree": "Graus decimais",
     "decimalDegreeAbbr": "dd",
     "degreeMinuteSeconds": "Grau minuto segundos",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "jardas2",
     "squareUSSurveyFeet": "Pés quadrados US survey",
     "squareUSSurveyFeetAbbr": "sq ftUS"
+  },
+  "timeUnit": {
+    "year": "Ano",
+    "month": "Mês",
+    "day": "Dia",
+    "hour": "Hora",
+    "minute": "Minutos",
+    "second": "Segundos"
   },
   "featureSetChooser": {
     "select": "Seleccionar",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Registos relacionados:",
     "noRelatedRecotds": "Não foram encontrados quaisquer registos relacionados.",
     "chooseFieldTip": "Escolha um atributo para exibir a lista.",
-    "saveAsPopupTitle": "Igual ao título da janela pop-up"
+    "saveAsPopupTitle": "Igual ao título da janela pop-up",
+    "leaveConfirm": "Pretende sair sem guardar as edições?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "Existem demasiados elementos na sua seleção. Poderá demorar bastante a obtê-los e a exibi-los no mapa.",

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -50,14 +50,17 @@ function(declare, lang, array, stringUtil, aspect, on, domClass, domStyle, dom, 
       });
       this.dndObj.insertNodes(false, this.params);
 
+      array.some(this.params, lang.hitch(this, function(param) {
+        if (param.dataType === 'MapServiceLayer') {
+          this.resultLayers = param.layerNames;
+          return true;
+        }
+      }));
+
       if(this.useResultMapServer === true){
-        array.some(this.params, lang.hitch(this, function(param) {
-          if (param.dataType === 'MapServiceLayer') {
-            this.resultLayers = param.layerNames;
-            return true;
-          }
-        }));
         this.hideOutputInResultMap();
+      } else {
+        this.showOutputInResultMap();
       }
 
       this.own(on(this.domNode, 'click', lang.hitch(this, this.select)));

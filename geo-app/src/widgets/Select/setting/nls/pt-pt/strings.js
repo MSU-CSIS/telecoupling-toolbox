@@ -3,5 +3,6 @@ define({
   "selectionMode": "Modo de seleção interativo",
   "partiallyWithin": "Parcialmente incluído",
   "whollyWithin": "Totalmente incluído",
-  "allowExport": "Permitir exportar elementos selecionados"
+  "allowExport": "Permitir exportar elementos selecionados",
+  "layerToSelect": "Selecionar que camadas escolher"
 });

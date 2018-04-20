@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "Shape fails (.zip paplašinājums; ZIP arhīvs, kurā ietilpst visi Shape faila faili)",
       "CSV": "CSV fails (.csv paplašinājums; ar adresi vai ģeogrāfisko platumu un ģeogrāfisko garumu; vērtības atdalītas ar komatu, semikolu vai tabulatoru)",
+      "KML": "KML fails (.kml)",
       "GPX": "GPX fails (.gpx paplašinājums, GPS Exchange formāts)",
       "GeoJSON": "GeoJSON fails (.geo.json vai .geojson paplašinājums)"
     },

@@ -20,5 +20,6 @@ define({
   "exportOutput": "Izvezi",
   "emptyResult": "Rezultat je prazan.",
   "useSelectedFeatureset": "Upotrijebite dobiveni/e geoobjekt(e).",
-  "closeSelectedFeatureset": "Izbrišite o upotrijebite konfiguriranu opciju unosa."
+  "closeSelectedFeatureset": "Izbrišite o upotrijebite konfiguriranu opciju unosa.",
+  "currentMapExtent": "Trenutačni obuhvat karte"
 });

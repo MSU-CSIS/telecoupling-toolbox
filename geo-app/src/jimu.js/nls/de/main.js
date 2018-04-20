@@ -76,7 +76,18 @@ define({
     "field": "Feld",
     "operation": "Operation",
     "disableUpdateGeometry": "\"Geometrie aktualisieren\" deaktivieren",
-    "preview": "Vorschau"
+    "preview": "Vorschau",
+    "date": "Datum",
+    "time": "Zeit",
+    "show": "Anzeigen",
+    "hide": "Hide",
+    "format": "Format",
+    "defaults": "Standardeinstellung",
+    "add": "Hinzufügen",
+    "done": "Fertig",
+    "remove": "Entfernen",
+    "leave": "Verlassen",
+    "stay": "Bleiben"
   },
   "errorCode": "Code",
   "errorMessage": "Meldung",
@@ -99,11 +110,19 @@ define({
     "arrows": "Pfeile",
     "business": "Gewerbe",
     "cartographic": "Kartografisch",
+    "damage": "Schäden",
+    "disasters": "Katastrophen",
+    "emergencyManagement": "Katastrophenschutz",
+    "generalInfrastructure": "Allgemeine Infrastruktur",
+    "localGovernment": "Kommunalverwaltung",
     "nationalParkService": "National Park Service",
+    "numbers": "Nummern",
     "outdoorRecreation": "Freizeitaktivitäten im Freien",
     "peoplePlaces": "Öffentliche Plätze",
+    "pointsOfInterest": "Points of Interest",
     "safetyHealth": "Sicherheit und Gesundheit",
-    "shapes": "Shapes",
+    "stateGovernment": "Landesbehörde",
+    "shapes": "Form",
     "transportation": "Verkehr",
     "symbolSize": "Symbolgröße",
     "color": "Farbe",
@@ -204,7 +223,7 @@ define({
   },
   "filterBuilder": {
     "addAnotherExpression": "Ausdruck hinzufügen",
-    "addSet": "Eine Reihe hinzufügen",
+    "addSet": "Abfrage hinzufügen",
     "matchMsg": "Features im Layer abrufen, bei denen ${any_or_all} der folgenden Ausdrücke zutreffen",
     "matchMsgSet": "${any_or_all} der folgenden Ausdrücke dieser Abfrage erfüllen die Bedingung",
     "all": "Alle",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "ist leer",
     "stringOperatorIsNotBlank": "ist nicht leer",
     "dateOperatorIsOn": "ist am",
+    "dateOperatorIsIn": "ist in",
+    "dateOperatorIsNotIn": "ist nicht in",
     "dateOperatorIsNotOn": "ist nicht am",
     "dateOperatorIsBefore": "ist vor",
     "dateOperatorIsAfter": "ist nach",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Nur Werte anzeigen, die nach vorherigen Ausdrücken gefiltert wurden",
     "noneCascadeFilterTip": "Alle eindeutigen Werte dieses Feldes",
     "previousCascadeFilterTip": "Nach vorherigen Ausdrücken gefilterte Werte",
-    "allCascadeFilterTip": "Nach allen anderen Ausdrücken gefilterte Werte"
+    "allCascadeFilterTip": "Nach allen anderen Ausdrücken gefilterte Werte",
+    "custom": "am Datum...",
+    "today": "heute",
+    "yesterday": "gestern",
+    "tomorrow": "morgen",
+    "thisWeek": "diese Woche",
+    "thisMonth": "diesen Monat",
+    "thisQuarter": "dieses Quartal",
+    "thisYear": "dieses Jahr",
+    "inputType": "Eingabetyp",
+    "setInputType": "Eingabetyp festlegen"
   },
   "featureLayerSource": {
     "layer": "Layer",
@@ -408,10 +439,10 @@ define({
   "spatialFilterByFeatures": {
     "relatedLayer": "Zugehöriger Layer",
     "selectedFeatures": "Ausgewählte Features verwenden",
-    "drawShapesTip": "Shapes zum Auswählen von Features zeichnen",
-    "pleaseDrawShapesTip": "Zeichnen Sie Shapes, um Features auszuwählen.",
+    "drawShapesTip": "Formen zum Auswählen von Features zeichnen",
+    "pleaseDrawShapesTip": "Zeichnen Sie Formen, um Features auszuwählen.",
     "allFeaturesTip": "Alle Features des Layers",
-    "selectFeaturesOrDrawShapesTip": "Verwenden Sie ausgewählte Features in diesem Layer, oder stellen Sie Shapes auf der Karte dar, um die Anzahl der Features zu begrenzen."
+    "selectFeaturesOrDrawShapesTip": "Verwenden Sie ausgewählte Features in diesem Layer, oder zeichnen Sie Formen auf der Karte, um die Anzahl der Features zu begrenzen."
   },
   "searchDistance": {
     "applySearchDistance": "Eine Suchentfernung anwenden",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "US Survey-Fuß",
     "uSSurveyFeetAbbr": "ftUS",
+    "centimeters": "Zentimeter",
+    "centimetersAbbr": "cm",
+    "inches": "Zoll",
+    "inchesAbbr": "in",
     "decimalDegree": "Dezimalgrad",
     "decimalDegreeAbbr": "dd",
     "degreeMinuteSeconds": "Grad Minute Sekunde",
@@ -451,6 +486,14 @@ define({
     "squareUSSurveyFeet": "US Survey-Quadratfuß",
     "squareUSSurveyFeetAbbr": "ft²US"
   },
+  "timeUnit": {
+    "year": "Jahr",
+    "month": "Monat",
+    "day": "Tag",
+    "hour": "Stunde",
+    "minute": "Minute",
+    "second": "Sekunde"
+  },
   "featureSetChooser": {
     "select": "Auswählen",
     "dragBox": "Ziehen",
@@ -467,7 +510,7 @@ define({
     "selectByLine": "Mit Linie auswählen",
     "chooseSelectingTools": "Auswahlwerkzeuge auswählen",
     "darw": "Zeichnen",
-    "drawShap": "Ein Shape zeichnen"
+    "drawShap": "Eine Form zeichnen"
   },
   "widgetManager": {
     "createWidgetError": "Fehler beim Erstellen des Widgets",
@@ -483,11 +526,11 @@ define({
   "shareLink": {
     "email": "E-Mail",
     "shareEmail": "E-Mail",
-    "facebook": "facebook",
+    "facebook": "Facebook",
     "shareFacebook": "Facebook",
-    "twitter": "twitter",
+    "twitter": "Twitter",
     "shareTwitter": "Twitter",
-    "googlePlus": "google+",
+    "googlePlus": "Google+",
     "shareGooglePlus": "Google+",
     "EmbedTips": "Diese App in eine Website einbetten",
     "shareEmailSubject": "Freigeben der Web-App:",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Zugehörige Datensätze:",
     "noRelatedRecotds": "Es wurden keine zugehörigen Datensätze gefunden.",
     "chooseFieldTip": "Ein Attribut auswählen, um die Liste anzuzeigen",
-    "saveAsPopupTitle": "Mit Pop-up-Titel identisch"
+    "saveAsPopupTitle": "Mit Pop-up-Titel identisch",
+    "leaveConfirm": "Möchten Sie die Seite verlassen, ohne die Änderungen zu speichern?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "Die Auswahl enthält zu viele Features. Das Abrufen aller Features und deren Anzeige auf der Karte kann einige Zeit in Anspruch nehmen.",

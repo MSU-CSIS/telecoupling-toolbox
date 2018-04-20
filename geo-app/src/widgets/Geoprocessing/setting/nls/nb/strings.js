@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "geoobjektsett-URL",
   "useShapefile": "Bruk shapefil i lokalt filsystem",
   "allowToExport": "Tillat eksport av resultater",
-  "useDynamicSchema": "Utdataene kan ha annet skjema. Bruk dynamisk skjema i stedet for forhåndsdefinert."
+  "useDynamicSchema": "Utdataene kan ha annet skjema. Bruk dynamisk skjema i stedet for forhåndsdefinert.",
+  "useCurrentMapExtent": "Bruk gjeldende kartutstrekning",
+  "ignoreOutput": "Ignorer disse utdataene",
+  "turnOffOutput": "Deaktiver dette laget som standard"
 });

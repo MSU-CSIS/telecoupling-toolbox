@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,14 +31,14 @@ function(declare, lang, array, html, on, Evented, query,
   _WidgetBase, _TemplatedMixin, template, ViewStack){
   return declare([_WidgetBase, _TemplatedMixin, Evented], {
     templateString: template,
-    selected: '',
-    tabs: null,
-    average: true,
-
     'baseClass':'jimu-tab3',
     declaredClass: 'jimu.dijit.TabContainer3',
-
     _currentIndex: -1,
+
+    //options:
+    selected: '',
+    tabs: null,//[{title,content}]
+    average: true,
 
     //public methods:
     //selectTab

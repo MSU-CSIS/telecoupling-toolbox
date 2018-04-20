@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -229,20 +229,23 @@ function(declare, lang, html, _WidgetBase, topic, on, query,
       }else if(theme.name === 'BillboardTheme'){
         cssText += '.jimu-widget-homebutton .HomeButton .home, .jimu-widget-mylocation,' +
           ' .jimu-widget-mylocation .place-holder, .jimu-widget-zoomslider.vertical .zoom-in,' +
-          ' .jimu-widget-zoomslider.vertical .zoom-out, .jimu-widget-extent-navigate .operation' +
+          ' .jimu-widget-zoomslider.vertical .zoom-out, .jimu-widget-extent-navigate .operation,' +
+          ' .jimu-widget-fullScreen .fullScreen' +
           '{background-color: ${mainBackgroundColor} !important;}';
         cssText += '.jimu-widget-onscreen-icon' +
           '{background-color: ${mainBackgroundColor} !important;}';
       }else if(theme.name === 'BoxTheme'){
         cssText += '.jimu-widget-homebutton .HomeButton .home, .jimu-widget-mylocation,' +
           ' .jimu-widget-mylocation .place-holder, .jimu-widget-zoomslider.vertical .zoom-in,' +
-          ' .jimu-widget-zoomslider.vertical .zoom-out, .jimu-widget-extent-navigate' +
+          ' .jimu-widget-zoomslider.vertical .zoom-out, .jimu-widget-extent-navigate,' +
+          ' .jimu-widget-fullScreen .fullScreen' +
           '{background-color: ${mainBackgroundColor} !important;}';
       }else if(theme.name === 'TabTheme'){
         cssText += '.tab-widget-frame .title-label{color: ${mainBackgroundColor} !important;}';
-      }
-      else if(theme.name === 'DashboardTheme'){
+      }else if(theme.name === 'DashboardTheme'){
         cssText += '.jimu-widget-dnd-header{background-color: ${mainBackgroundColor} !important;}';
+      }else if(theme.name === 'DartTheme'){
+        cssText += '.jimu-widget-fullScreen .fullScreen{background-color: ${mainBackgroundColor} !important;}';
       }
       return cssText;
     },
@@ -252,36 +255,36 @@ function(declare, lang, html, _WidgetBase, topic, on, query,
       appConfig = lang.clone(appConfig);
       //deal with these reasons only
       switch(reason){
-      case 'themeChange':
-        this._onThemeChange(appConfig);
-        break;
-      case 'styleChange':
-        this._onStyleChange(appConfig);
-        break;
-      case 'layoutChange':
-        this._onLayoutChange(appConfig);
-        break;
-      case 'widgetChange':
-        this._onWidgetChange(appConfig, changeData);
-        break;
-      case 'groupChange':
-        this._onGroupChange(appConfig, changeData);
-        break;
-      case 'widgetPoolChange':
-        this._onWidgetPoolChange(appConfig, changeData);
-        break;
-      case 'resetConfig':
-        this._onResetConfig(appConfig);
-        break;
-      case 'loadingPageChange':
-        this._onLoadingPageChange(appConfig, changeData);
-        break;
-      case 'layoutDefinitionChange':
-        this._onLayoutDefinitionChange(appConfig, changeData);
-        break;
-      case 'onScreenGroupsChange':
-        this._onOnScreenGroupsChange(appConfig, changeData);
-        break;
+        case 'themeChange':
+          this._onThemeChange(appConfig);
+          break;
+        case 'styleChange':
+          this._onStyleChange(appConfig);
+          break;
+        case 'layoutChange':
+          this._onLayoutChange(appConfig);
+          break;
+        case 'widgetChange':
+          this._onWidgetChange(appConfig, changeData);
+          break;
+        case 'groupChange':
+          this._onGroupChange(appConfig, changeData);
+          break;
+        case 'widgetPoolChange':
+          this._onWidgetPoolChange(appConfig, changeData);
+          break;
+        case 'resetConfig':
+          this._onResetConfig(appConfig);
+          break;
+        case 'loadingPageChange':
+          this._onLoadingPageChange(appConfig, changeData);
+          break;
+        case 'layoutDefinitionChange':
+          this._onLayoutDefinitionChange(appConfig, changeData);
+          break;
+        case 'onScreenGroupsChange':
+          this._onOnScreenGroupsChange(appConfig, changeData);
+          break;
       }
       this.appConfig = appConfig;
     },

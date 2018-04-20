@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -316,13 +316,14 @@ LabelClass, PopupTemplate, Legend) {
       };
       // backup infoTemplate to layer.
       this.layerObject._infoTemplate = this.layerObject.infoTemplate;
-      aspect.after(this.layerObject, "setInfoTemplate", lang.hitch(this, function(){
+      var handle = aspect.after(this.layerObject, "setInfoTemplate", lang.hitch(this, function(){
         this.layerObject._infoTemplate = this.layerObject.infoTemplate;
         this.controlPopupInfo.infoTemplate = this.layerObject.infoTemplate;
         if(!this.controlPopupInfo.enablePopup) {
           this.layerObject.infoTemplate = null;
         }
       }));
+      this._eventHandles.push(handle);
     },
 
     /***************************************************
@@ -703,7 +704,7 @@ LabelClass, PopupTemplate, Legend) {
       // summary:
       //   get filter from layerObject.
       // description:
-      //   return null if does not have or cannot get it.
+      //   return null if it does not have or cannot get it.
       var filter;
       if(this.layerObject &&
          !this.layerObject.empty &&
@@ -722,7 +723,7 @@ LabelClass, PopupTemplate, Legend) {
       //   layerDefinitionExpression: layer definition expression
       //   set 'null' to delete layer definition express
       // description:
-      //   operation will skip if layer not support filter.
+      //   operation will skip layer if it does not support filter.
       if(this.layerObject &&
          !this.layerObject.empty &&
          this.layerObject.setDefinitionExpression) {

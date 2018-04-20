@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "URL insieme di feature",
   "useShapefile": "Usa shapefile nel file system locale",
   "allowToExport": "Consente di esportare i risultati",
-  "useDynamicSchema": "Lo schema dell'output può essere diverso; utilizzare lo schema dinamico anziché quello predefinito."
+  "useDynamicSchema": "Lo schema dell'output può essere diverso; utilizzare lo schema dinamico anziché quello predefinito.",
+  "useCurrentMapExtent": "Usa estensione mappa corrente",
+  "ignoreOutput": "Ignora questo output",
+  "turnOffOutput": "Disattiva questo layer per impostazione predefinita"
 });

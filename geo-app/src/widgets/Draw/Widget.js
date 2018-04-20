@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -332,7 +332,13 @@ define([
           }else{
             this._pushAddOperation([graphic]);
           }
-        }else{
+        }
+        else if (commontype === "text") {
+          if (graphic.symbol && graphic.symbol.font && graphic.symbol.font.setFamily) {
+            graphic.symbol.font.setFamily("Arial Unicode MS");//set font-family for print unicode,#11085
+          }
+          this._pushAddOperation([graphic]);
+        } else {
           this._pushAddOperation([graphic]);
         }
       },
@@ -615,7 +621,7 @@ define([
           var areas = geodesicUtils.geodesicAreas([geometry], esriAreaUnit);
           var polyline = this._getPolylineOfPolygon(geometry);
           lengths = geodesicUtils.geodesicLengths([polyline], esriLengthUnit);
-          result.area = areas[0];
+          result.area = Math.abs(areas[0]); //Convert area's result to Absolute value for the reason of ellipse's negative value.
           result.length = lengths[0];
         }else{
           lengths = geodesicUtils.geodesicLengths([geometry], esriLengthUnit);
@@ -686,43 +692,43 @@ define([
 
       _getGeometryServiceUnitByEsriUnit: function(unit){
         var gsUnit = -1;
-        switch(unit){
-        case esriUnits.KILOMETERS:
-          gsUnit = GeometryService.UNIT_KILOMETER;
-          break;
-        case esriUnits.MILES:
-          gsUnit = GeometryService.UNIT_STATUTE_MILE;
-          break;
-        case esriUnits.METERS:
-          gsUnit = GeometryService.UNIT_METER;
-          break;
-        case esriUnits.FEET:
-          gsUnit = GeometryService.UNIT_FOOT;
-          break;
-        case esriUnits.YARDS:
-          gsUnit = GeometryService.UNIT_INTERNATIONAL_YARD;
-          break;
-        case esriUnits.SQUARE_KILOMETERS:
-          gsUnit = GeometryService.UNIT_SQUARE_KILOMETERS;
-          break;
-        case esriUnits.SQUARE_MILES:
-          gsUnit = GeometryService.UNIT_SQUARE_MILES;
-          break;
-        case esriUnits.ACRES:
-          gsUnit = GeometryService.UNIT_ACRES;
-          break;
-        case esriUnits.HECTARES:
-          gsUnit = GeometryService.UNIT_HECTARES;
-          break;
-        case esriUnits.SQUARE_METERS:
-          gsUnit = GeometryService.UNIT_SQUARE_METERS;
-          break;
-        case esriUnits.SQUARE_FEET:
-          gsUnit = GeometryService.UNIT_SQUARE_FEET;
-          break;
-        case esriUnits.SQUARE_YARDS:
-          gsUnit = GeometryService.UNIT_SQUARE_YARDS;
-          break;
+        switch (unit) {
+          case esriUnits.KILOMETERS:
+            gsUnit = GeometryService.UNIT_KILOMETER;
+            break;
+          case esriUnits.MILES:
+            gsUnit = GeometryService.UNIT_STATUTE_MILE;
+            break;
+          case esriUnits.METERS:
+            gsUnit = GeometryService.UNIT_METER;
+            break;
+          case esriUnits.FEET:
+            gsUnit = GeometryService.UNIT_FOOT;
+            break;
+          case esriUnits.YARDS:
+            gsUnit = GeometryService.UNIT_INTERNATIONAL_YARD;
+            break;
+          case esriUnits.SQUARE_KILOMETERS:
+            gsUnit = GeometryService.UNIT_SQUARE_KILOMETERS;
+            break;
+          case esriUnits.SQUARE_MILES:
+            gsUnit = GeometryService.UNIT_SQUARE_MILES;
+            break;
+          case esriUnits.ACRES:
+            gsUnit = GeometryService.UNIT_ACRES;
+            break;
+          case esriUnits.HECTARES:
+            gsUnit = GeometryService.UNIT_HECTARES;
+            break;
+          case esriUnits.SQUARE_METERS:
+            gsUnit = GeometryService.UNIT_SQUARE_METERS;
+            break;
+          case esriUnits.SQUARE_FEET:
+            gsUnit = GeometryService.UNIT_SQUARE_FEET;
+            break;
+          case esriUnits.SQUARE_YARDS:
+            gsUnit = GeometryService.UNIT_SQUARE_YARDS;
+            break;
         }
         return gsUnit;
       },

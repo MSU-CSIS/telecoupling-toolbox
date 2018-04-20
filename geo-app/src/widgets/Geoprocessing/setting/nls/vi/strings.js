@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "URL tập hợp đối tượng",
   "useShapefile": "Sử dụng shapefile trong hệ thống tệp cục bộ",
   "allowToExport": "Cho phép xuất kết quả",
-  "useDynamicSchema": "Đầu ra có thể có giản đồ khác, hãy sử dụng giản đồ động thay cho giản đồ được định nghĩa trước."
+  "useDynamicSchema": "Đầu ra có thể có giản đồ khác, hãy sử dụng giản đồ động thay cho giản đồ được định nghĩa trước.",
+  "useCurrentMapExtent": "Sử dụng phạm vi bản đồ hiện tại",
+  "ignoreOutput": "Bỏ qua kết quả đầu ra này",
+  "turnOffOutput": "Tắt lớp này theo mặc định"
 });

@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "shapefile (.zip, archiv ZIP obsahující všechny soubory shapefile),",
       "CSV": "soubor CSV (.csv, s adresou nebo zeměpisnou šířkou a délkou oddělenými čárkami, středníky nebo tabulátory),",
+      "KML": "Soubor KML (.kml)",
       "GPX": "soubor GPX (.gpx, formát GPX Exchange),",
       "GeoJSON": "soubor GeoJSON (.geo.json nebo .geojson)."
     },

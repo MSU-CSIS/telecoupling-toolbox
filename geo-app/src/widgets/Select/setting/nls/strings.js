@@ -4,7 +4,8 @@ define({
     selectionMode: "Interactive selection mode",
     partiallyWithin: "Partially within",
     whollyWithin: "Wholly within",
-    allowExport: "Allow to export selected features"
+    allowExport: "Allow to export selected features",
+    layerToSelect: "Choose which layers to select"
   }),
   "ar": 1,
   "bs": 1,
@@ -32,6 +33,7 @@ define({
   "pt-pt": 1,
   "ro": 1,
   "ru": 1,
+  "sl": 1,
   "sr": 1,
   "sv": 1,
   "th": 1,

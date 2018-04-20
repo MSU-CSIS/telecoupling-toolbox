@@ -10,11 +10,41 @@
 .jimu-widget-select .jimu-viewstack .view {
   position: relative;
 }
+.jimu-widget-select .tool-section {
+  height: 36px;
+  position: relative;
+}
+.jimu-widget-select .tool-section .label {
+  font-size: 14px;
+  line-height: 36px;
+  margin: 0 10px;
+}
+.jimu-widget-select .tool-section .setting {
+  width: 16px;
+  height: 16px;
+  margin: 10px;
+  cursor: pointer;
+}
+.jimu-widget-select .selectable-check {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  background: url(images/unchecked.svg) no-repeat center;
+}
+.jimu-widget-select .selectable-check:hover {
+  background: url(images/unchecked_hover.svg) no-repeat center;
+}
+.jimu-widget-select .selectable-check.checked {
+  background: url(images/checked.svg) no-repeat center;
+}
+.jimu-widget-select .selectable-check.checked:hover {
+  background: url(images/checked_hover.svg) no-repeat center;
+}
 .jimu-widget-select .seperator {
   width: 100%;
   height: 1px;
   background: #D7D7D7;
-  margin: 20px 0;
+  margin-top: 20px;
 }
 .jimu-widget-select .title {
   font-family: "Avenir Light";
@@ -37,23 +67,21 @@
 }
 .jimu-widget-select .layer-nodes {
   position: absolute;
-  top: 65px;
+  top: 100px;
   bottom: 0;
   width: 100%;
   overflow: auto;
 }
-/*.jimu-widget-select .jimu-multiple-layers-featureset-chooser .draw-item {
+.jimu-widget-select .jimu-multiple-layers-featureset-chooser .draw-item {
   padding: 0;
-  width: 60%;
 }
 .jimu-widget-select .jimu-multiple-layers-featureset-chooser .btn-clear {
   padding: 0;
   width: 30%;
-  float: right;
 }
 .jimu-rtl .jimu-widget-select .jimu-multiple-layers-featureset-chooser .btn-clear {
   float: left;
-}*/
+}
 .jimu-widget-select .selectable-layer-item {
   width: 100%;
   height: 36px;
@@ -66,21 +94,6 @@
 }
 .jimu-widget-select .selectable-layer-item .layer-row > div {
   display: inline-block;
-}
-.jimu-widget-select .selectable-layer-item .layer-row .selectable-check {
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  background: url(images/unchecked.svg) no-repeat center;
-}
-.jimu-widget-select .selectable-layer-item .layer-row .selectable-check:hover {
-  background: url(images/unchecked_hover.svg) no-repeat center;
-}
-.jimu-widget-select .selectable-layer-item .layer-row .selectable-check.checked {
-  background: url(images/checked.svg) no-repeat center;
-}
-.jimu-widget-select .selectable-layer-item .layer-row .selectable-check.checked:hover {
-  background: url(images/checked_hover.svg) no-repeat center;
 }
 .jimu-widget-select .selectable-layer-item .layer-row .layer-name {
   margin: 0 5px;
@@ -103,11 +116,14 @@
   right: auto;
   left: 36px;
 }
-.jimu-widget-select .selectable-layer-item .layer-row .popup-menu-button {
+.jimu-widget-select .selectable-layer-item .layer-row .feature-action {
   position: absolute;
   right: 0;
+  width: 36px;
+  height: 36px;
+  padding: 10px;
 }
-.jimu-rtl .jimu-widget-select .selectable-layer-item .layer-row .popup-menu-button {
+.jimu-rtl .jimu-widget-select .selectable-layer-item .layer-row .feature-action {
   right: auto;
   left: 0;
 }
@@ -126,16 +142,17 @@
 .jimu-widget-select .selectable-layer-item.no-action .layer-row {
   cursor: default;
 }
+.jimu-widget-select .selectable-layer-item.no-action .layer-row .feature-action {
+  cursor: default;
+}
+.jimu-widget-select .selectable-layer-item.no-action .layer-row .feature-action:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
 .jimu-widget-select .selectable-layer-item.no-action .selected-num {
   color: #B7B7B7;
 }
 .jimu-widget-select .selectable-layer-item.no-action .selected-num:hover {
   font-weight: normal;
-}
-.jimu-widget-select .selectable-layer-item.no-action .popup-menu-button {
-  background: url(images/more_disabled.svg) no-repeat center;
-  cursor: default;
-  background-color: #FFFFFF;
 }
 .jimu-widget-select .selectable-layer-item.invisible .selectable-check {
   background: url(images/unchecked_invisible.svg) no-repeat center;
@@ -207,6 +224,7 @@
 .jimu-widget-select .details-node .content .graphic-item .feature-item-row .action-btn {
   position: absolute;
   right: 0;
+  padding: 10px;
 }
 .jimu-rtl .jimu-widget-select .details-node .content .graphic-item .feature-item-row .action-btn {
   right: auto;

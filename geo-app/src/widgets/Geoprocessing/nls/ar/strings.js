@@ -20,5 +20,6 @@ define({
   "exportOutput": "تصدير",
   "emptyResult": "النتيجة فارغة.",
   "useSelectedFeatureset": "استخدم المعالم الناتجة.",
-  "closeSelectedFeatureset": "امسح واستخدم خيار المُدخَل المكون."
+  "closeSelectedFeatureset": "امسح واستخدم خيار المُدخَل المكون.",
+  "currentMapExtent": "مدى الخريطة الحالي"
 });

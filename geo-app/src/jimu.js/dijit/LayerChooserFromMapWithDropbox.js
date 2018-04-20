@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -184,6 +184,7 @@ define([
         this.hideLayerChooser();
         var title = lang.getObject("layerInfo.title", false, this._selectedItem) || "";
         this.layerNameNode.innerHTML = title;
+        html.setAttr(this.layerNameNode, 'title', title);
         var layer = lang.getObject("layerInfo.layerObject", false, this._selectedItem);
 
         if(isChanged){

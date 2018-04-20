@@ -76,7 +76,18 @@ define({
     "field": "Campo",
     "operation": "Operação",
     "disableUpdateGeometry": "DisableUpdateGeometry",
-    "preview": "Visualizar"
+    "preview": "Visualizar",
+    "date": "Data",
+    "time": "Tempo",
+    "show": "Mostrar",
+    "hide": "Ocultar",
+    "format": "Formato",
+    "defaults": "Padrão",
+    "add": "Adicionar",
+    "done": "Concluído",
+    "remove": "Remover",
+    "leave": "Sair",
+    "stay": "Permanecer"
   },
   "errorCode": "Código",
   "errorMessage": "Mensagem",
@@ -99,10 +110,18 @@ define({
     "arrows": "Setas",
     "business": "Negócio",
     "cartographic": "Cartográfico",
+    "damage": "Danos",
+    "disasters": "Desastres",
+    "emergencyManagement": "Gerenciamento de Emergência",
+    "generalInfrastructure": "Infraestrutura Geral",
+    "localGovernment": "Governo Local",
     "nationalParkService": "Serviço do parque nacional",
+    "numbers": "Números",
     "outdoorRecreation": "Recreação ao ar livre",
     "peoplePlaces": "Lugares de pessoas",
+    "pointsOfInterest": "Pontos de Interesse",
     "safetyHealth": "Saúde e segurança",
+    "stateGovernment": "Governo Estadual",
     "shapes": "Formas",
     "transportation": "Transporte",
     "symbolSize": "Tamanho do símbolo",
@@ -203,8 +222,8 @@ define({
     "invalidUrl": "URL inválido."
   },
   "filterBuilder": {
-    "addAnotherExpression": "Adicionar uma expressão",
-    "addSet": "Adicionar um parâmetro",
+    "addAnotherExpression": "Adicionar expressão",
+    "addSet": "Adicionar configuração",
     "matchMsg": "Obtenha feições na camada que correspondam ao ${any_or_all} das seguintes expressões",
     "matchMsgSet": "${any_or_all} das seguintes expressões neste parâmetro são verdadeiros",
     "all": "Todos",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "está em branco",
     "stringOperatorIsNotBlank": "não está em branco",
     "dateOperatorIsOn": "está em",
+    "dateOperatorIsIn": "está em",
+    "dateOperatorIsNotIn": "não está em",
     "dateOperatorIsNotOn": "não está em",
     "dateOperatorIsBefore": "está antes",
     "dateOperatorIsAfter": "está após",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Somente mostrar os valores filtrados por expressões anteriores.",
     "noneCascadeFilterTip": "Todos os valores únicos deste campo",
     "previousCascadeFilterTip": "Valores filtrados por expressões anteriores",
-    "allCascadeFilterTip": "Valores filtrados por todas as outras expressões"
+    "allCascadeFilterTip": "Valores filtrados por todas as outras expressões",
+    "custom": "a data...",
+    "today": "hoje",
+    "yesterday": "ontem",
+    "tomorrow": "amanhã",
+    "thisWeek": "esta semana",
+    "thisMonth": "este mês",
+    "thisQuarter": "este trimestre",
+    "thisYear": "este ano",
+    "inputType": "Tipo de entrada",
+    "setInputType": "Definir tipo entrada"
   },
   "featureLayerSource": {
     "layer": "Camada",
@@ -285,7 +316,7 @@ define({
     "selectLayer": "Seleciona uma camada de feição do mapa atual.",
     "chooseItem": "Escolhe um item da camada de feição.",
     "setServiceUrl": "Insira a URL de um serviço da feição ou serviço de mapa.",
-    "selectFromOnline": "ArcGIS Online",
+    "selectFromOnline": "ArcGIS Online ArcGIS Online",
     "chooseLayer": "Escolher uma camada de feição."
   },
   "queryableLayerSource": {
@@ -298,13 +329,13 @@ define({
     "selectLayer": "Selecione uma camada do mapa atual.",
     "chooseItem": "Escolha um item.",
     "setServiceUrl": "Insira a URL do serviço.",
-    "selectFromOnline": "ArcGIS Online",
+    "selectFromOnline": "ArcGIS Online ArcGIS Online",
     "chooseLayer": "Escolha uma camada."
   },
   "gpSource": {
     "selectFromPortal": "Portal for ArcGIS",
     "addServiceUrl": "URL de Serviço",
-    "selectFromOnline": "ArcGIS Online",
+    "selectFromOnline": "ArcGIS Online ArcGIS Online",
     "setServiceUrl": "Insira a URL do serviço de geoprocessamento.",
     "chooseItem": "Escolha um item do serviço de geoprocessamento.",
     "chooseTask": "Escolha uma tarefa de geoprocessamento."
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "US survey feet",
     "uSSurveyFeetAbbr": "ftUS",
+    "centimeters": "Centímetros",
+    "centimetersAbbr": "cm",
+    "inches": "Polegadas",
+    "inchesAbbr": "pol",
     "decimalDegree": "Graus Decimais",
     "decimalDegreeAbbr": "gd",
     "degreeMinuteSeconds": "Graus minutos segundos",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "sq yd",
     "squareUSSurveyFeet": "Square US survey feet",
     "squareUSSurveyFeetAbbr": "sq ftUS"
+  },
+  "timeUnit": {
+    "year": "Ano",
+    "month": "Mês",
+    "day": "Dia",
+    "hour": "Hora",
+    "minute": "Minuto",
+    "second": "Segundo"
   },
   "featureSetChooser": {
     "select": "Selecionar",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Registros relacionados:",
     "noRelatedRecotds": "Nenhum registro relacionado foi encontrado.",
     "chooseFieldTip": "Escolha um atributo para mostrar a lista",
-    "saveAsPopupTitle": "Mesmo do título de pop-up"
+    "saveAsPopupTitle": "Mesmo do título de pop-up",
+    "leaveConfirm": "Deseja sair sem salvar as edições?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "Há muitas feições em sua seleção. Isto pode levar muito tempo para recuperar e exibi-los no mapa.",

@@ -423,3 +423,7 @@ background-color:#E1F0FB;
   background: white;
   width: 100%;
 }
+.widget-at-filter-popup .content-absolute{
+  left: 0;
+  right: 0;
+}

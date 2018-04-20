@@ -20,5 +20,6 @@ define({
   "exportOutput": "내보내기",
   "emptyResult": "결과가 비어 있습니다.",
   "useSelectedFeatureset": "결과 피처를 사용합니다.",
-  "closeSelectedFeatureset": "구성된 입력 옵션을 선택 해제하고 사용합니다."
+  "closeSelectedFeatureset": "구성된 입력 옵션을 선택 해제하고 사용합니다.",
+  "currentMapExtent": "현재 맵 범위"
 });

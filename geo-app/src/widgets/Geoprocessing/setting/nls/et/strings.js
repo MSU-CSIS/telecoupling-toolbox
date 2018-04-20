@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "objektikomplekti URL",
   "useShapefile": "Kasuta Shape-faili kohalikus failisüsteemis",
   "allowToExport": "Luba tulemused eksportida",
-  "useDynamicSchema": "Väljundil võib olla erinev skeem, kasutage eelmääratletud skeemi asemel dünaamilist skeemi."
+  "useDynamicSchema": "Väljundil võib olla erinev skeem, kasutage eelmääratletud skeemi asemel dünaamilist skeemi.",
+  "useCurrentMapExtent": "Kasuta praeguse kaardi ulatust",
+  "ignoreOutput": "Eira seda väljundit",
+  "turnOffOutput": "Lülita see kiht vaikimisi välja"
 });

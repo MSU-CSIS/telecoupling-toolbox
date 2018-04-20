@@ -18,7 +18,7 @@ define({
   "nauticalMiles": "Jūras jūdzes",
   "showArea": "Laukums",
   "showDistance": "Distance",
-  "showLocation": "Izvietojums",
+  "showLocation": "Novietojums",
   "showtools": "Rādīt mērīšanas rīkus:",
   "allHidedTips": "Ir jāatlasa vismaz viens rīks."
 });

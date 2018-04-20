@@ -20,5 +20,6 @@ define({
   "exportOutput": "Dışa Aktar",
   "emptyResult": "Sonuç boş.",
   "useSelectedFeatureset": "Sonuçta ortaya çıkan detayları kullan.",
-  "closeSelectedFeatureset": "Temizle ve yapılandırılmış girdi seçeneğini kullan."
+  "closeSelectedFeatureset": "Temizle ve yapılandırılmış girdi seçeneğini kullan.",
+  "currentMapExtent": "Mevcut harita yayılımı"
 });

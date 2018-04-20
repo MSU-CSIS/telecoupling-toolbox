@@ -20,5 +20,6 @@ define({
   "exportOutput": "निर्यात करें",
   "emptyResult": "परिणाम खाली है।",
   "useSelectedFeatureset": "परिणामी फीचर का प्रयोग करें।",
-  "closeSelectedFeatureset": "कॉन्फ़िगर इनपुट ओपियन को साफ और उपयोग करें।"
+  "closeSelectedFeatureset": "कॉन्फ़िगर इनपुट ओपियन को साफ और उपयोग करें।",
+  "currentMapExtent": "वर्तमान मानचित्र सीमा"
 });

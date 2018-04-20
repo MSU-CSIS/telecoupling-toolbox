@@ -76,7 +76,18 @@ define({
     "field": "שדה",
     "operation": "תפעולי",
     "disableUpdateGeometry": "חסום עדכון גיאומטריה",
-    "preview": "תצוגה מקדימה"
+    "preview": "תצוגה מקדימה",
+    "date": "תאריך",
+    "time": "זמן",
+    "show": "הצג",
+    "hide": "הסתר",
+    "format": "פורמט",
+    "defaults": "ברירת מחדל",
+    "add": "הוסף",
+    "done": "סיום",
+    "remove": "הסרה",
+    "leave": "צא",
+    "stay": "הישאר"
   },
   "errorCode": "קוד",
   "errorMessage": "הודעה",
@@ -99,10 +110,18 @@ define({
     "arrows": "חיצים",
     "business": "עסקים",
     "cartographic": "קרטוגרפיה",
+    "damage": "נזקים",
+    "disasters": "אסונות",
+    "emergencyManagement": "ניהול מצבי חירום",
+    "generalInfrastructure": "תשתיות כלליות",
+    "localGovernment": "ממשל מקומי",
     "nationalParkService": "שירות הפארקים הלאומי",
+    "numbers": "מספרים",
     "outdoorRecreation": "נופש בטבע",
     "peoplePlaces": "מקומות ואנשים",
+    "pointsOfInterest": "נקודות עניין",
     "safetyHealth": "בטיחות ובריאות",
+    "stateGovernment": "גופי ממשל",
     "shapes": "צורות",
     "transportation": "תחבורה",
     "symbolSize": "גודל סמל",
@@ -151,7 +170,7 @@ define({
   "drawBox": {
     "point": "נקודה",
     "line": "קו",
-    "polyline": "קו",
+    "polyline": "פולי קו",
     "freehandPolyline": "קו בשרטוט חופשי",
     "triangle": "משולש",
     "extent": "תיחום",
@@ -164,7 +183,7 @@ define({
   },
   "popupConfig": {
     "title": "כותרת",
-    "add": "הוסף",
+    "add": "הוספה",
     "fields": "שדות",
     "noField": "אין שדה",
     "visibility": "ניראה",
@@ -204,7 +223,7 @@ define({
   },
   "filterBuilder": {
     "addAnotherExpression": "הוסף ביטוי",
-    "addSet": "הוסף סידרה",
+    "addSet": "הוסף סדרה",
     "matchMsg": "קבל ישויות בשכבה שתואמת ${any_or_all} מהביטויים הבאים",
     "matchMsgSet": "${any_or_all} מהביטויים הבאים בסט זה הם נכונים",
     "all": "הכל",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "ריק",
     "stringOperatorIsNotBlank": "אינו ריק",
     "dateOperatorIsOn": "הוא ב-",
+    "dateOperatorIsIn": "נמצא ב-",
+    "dateOperatorIsNotIn": "לא נמצא ב-",
     "dateOperatorIsNotOn": "אינו ב-",
     "dateOperatorIsBefore": "הוא לפני",
     "dateOperatorIsAfter": "הוא אחרי",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "הצג רק ערכים שסוננו לפי ביטויים קודמים.",
     "noneCascadeFilterTip": "כל הערכים היחודיים של שדה זה",
     "previousCascadeFilterTip": "ערכים שסוננו לפי ביטויים קודמים",
-    "allCascadeFilterTip": "ערכים שסוננו לפי כל הביטויים האחרים"
+    "allCascadeFilterTip": "ערכים שסוננו לפי כל הביטויים האחרים",
+    "custom": "התאריך...",
+    "today": "היום",
+    "yesterday": "אתמול",
+    "tomorrow": "מחר",
+    "thisWeek": "שבוע זה",
+    "thisMonth": "חודש זה",
+    "thisQuarter": "רבעון זה",
+    "thisYear": "שנה זו",
+    "inputType": "סוג קלט",
+    "setInputType": "הגדר סוג קלט"
   },
   "featureLayerSource": {
     "layer": "שכבה",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "US survey feet",
     "uSSurveyFeetAbbr": "ftUS",
+    "centimeters": "סנטימטרים",
+    "centimetersAbbr": "סמ",
+    "inches": "אינצ׳ים",
+    "inchesAbbr": "אינצ'",
     "decimalDegree": "מעלות עשרוניות",
     "decimalDegreeAbbr": "מעלות עשרוניות",
     "degreeMinuteSeconds": "מעלה דקה שניות",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "יארד רבוע",
     "squareUSSurveyFeet": "Square US survey feet",
     "squareUSSurveyFeetAbbr": "sq ftUS"
+  },
+  "timeUnit": {
+    "year": "שנה",
+    "month": "חודש",
+    "day": "יום",
+    "hour": "שעה",
+    "minute": "דקה",
+    "second": "שניה"
   },
   "featureSetChooser": {
     "select": "בחר",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "רשומות מקושרות:",
     "noRelatedRecotds": "לא נמצאו רשומות קשורות.",
     "chooseFieldTip": "בחר מאפיין להצגת הרשימה",
-    "saveAsPopupTitle": "זהה לכותרת החלון הקופץ"
+    "saveAsPopupTitle": "זהה לכותרת החלון הקופץ",
+    "leaveConfirm": "האם ברצונך לצאת בלי לשמור את פעולות העריכה?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "יש יותר מדי ישויות בבחירה. ייתכן שאחזורם והצגתם על המפה יימשך זמן רב.",
@@ -545,7 +589,7 @@ define({
   },
   "colorPalette": {
     "transparent": "שקוף",
-    "custom": "מותאם"
+    "custom": "מותאם אישית"
   },
   "temperature": {
     "celsius": "צלזיוס",

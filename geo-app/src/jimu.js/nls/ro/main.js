@@ -76,7 +76,18 @@ define({
     "field": "Câmp",
     "operation": "Operaţie",
     "disableUpdateGeometry": "Dezactivare actualizare geometrie",
-    "preview": "Previzualizare"
+    "preview": "Previzualizare",
+    "date": "Dată",
+    "time": "Oră",
+    "show": "Afişare",
+    "hide": "Ascundere",
+    "format": "Formatare",
+    "defaults": "Implicit",
+    "add": "Adăugare",
+    "done": "Gata",
+    "remove": "Eliminare",
+    "leave": "Părăsiţi",
+    "stay": "Rămâneți"
   },
   "errorCode": "Cod",
   "errorMessage": "Mesaj",
@@ -99,10 +110,18 @@ define({
     "arrows": "Săgeţi",
     "business": "Afacere",
     "cartographic": "Cartografie",
+    "damage": "Daune",
+    "disasters": "Dezastre",
+    "emergencyManagement": "Gestionarea situaţiilor de urgenţă",
+    "generalInfrastructure": "Infrastructură generală",
+    "localGovernment": "Administraţie locală",
     "nationalParkService": "Serviciul pentru parcuri naţionale",
+    "numbers": "Numere",
     "outdoorRecreation": "Recreere în aer liber",
     "peoplePlaces": "Locaţii personale",
+    "pointsOfInterest": "Puncte de interes",
     "safetyHealth": "Siguranţă şi sănătate",
+    "stateGovernment": "Guvern statal",
     "shapes": "Forme",
     "transportation": "Transport",
     "symbolSize": "Dimensiune simbol",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "este necompletat",
     "stringOperatorIsNotBlank": "nu este necompletat",
     "dateOperatorIsOn": "este pe",
+    "dateOperatorIsIn": "este în",
+    "dateOperatorIsNotIn": "nu este în",
     "dateOperatorIsNotOn": "nu este pe",
     "dateOperatorIsBefore": "este înainte de",
     "dateOperatorIsAfter": "este după",
@@ -255,7 +276,7 @@ define({
     "numberOperatorIsNotBlank": "nu este necompletat",
     "string": "Şir",
     "number": "Număr",
-    "date": "Dată",
+    "date": "Data",
     "askForValues": "Solicitare valori",
     "prompt": "Prompt",
     "hint": "Sugestie",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Afişaţi doar valorile filtrate de expresiile anterioare.",
     "noneCascadeFilterTip": "Toate valorile unice ale acestui câmp",
     "previousCascadeFilterTip": "Valori filtrate de expresiile anterioare",
-    "allCascadeFilterTip": "Valori filtrate de toate celelalte expresii"
+    "allCascadeFilterTip": "Valori filtrate de toate celelalte expresii",
+    "custom": "data...",
+    "today": "astăzi",
+    "yesterday": "ieri",
+    "tomorrow": "mâine",
+    "thisWeek": "săptămâna aceasta",
+    "thisMonth": "luna aceasta",
+    "thisQuarter": "trimestrul acesta",
+    "thisYear": "anul acesta",
+    "inputType": "Tip intrare",
+    "setInputType": "Setare tip intrare"
   },
   "featureLayerSource": {
     "layer": "Strat tematic",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "Picior topografic SUA",
     "uSSurveyFeetAbbr": "ftUS",
+    "centimeters": "Centimetri",
+    "centimetersAbbr": "cm",
+    "inches": "Inci",
+    "inchesAbbr": "în",
     "decimalDegree": "Grade zecimale",
     "decimalDegreeAbbr": "grd zecimale",
     "degreeMinuteSeconds": "Grad minut secunde",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "Yd pătraţi",
     "squareUSSurveyFeet": "Picior topografic SUA pătrat",
     "squareUSSurveyFeetAbbr": "ftUS pătrat"
+  },
+  "timeUnit": {
+    "year": "An",
+    "month": "Lună",
+    "day": "Zi",
+    "hour": "Oră",
+    "minute": "Minut",
+    "second": "Secundă"
   },
   "featureSetChooser": {
     "select": "Selectare",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Înregistrări corelate:",
     "noRelatedRecotds": "Nu s-au găsit înregistrări corelate.",
     "chooseFieldTip": "Alegeţi un atribut pentru a afişa lista",
-    "saveAsPopupTitle": "La fel ca titlul pop-up"
+    "saveAsPopupTitle": "La fel ca titlul pop-up",
+    "leaveConfirm": "Doriţi să părăsiţi pagina fără a salva editările?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "În selecţia dvs. se află prea multe obiecte spaţiale. Preluarea şi afişarea acestora pe hartă poate dura un timp mai îndelungat.",
@@ -545,7 +589,7 @@ define({
   },
   "colorPalette": {
     "transparent": "Transparent",
-    "custom": "Personalizat"
+    "custom": "Particularizat"
   },
   "temperature": {
     "celsius": "Celsius",

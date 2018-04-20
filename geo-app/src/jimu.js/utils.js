@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -197,6 +197,13 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
       }
     }, 50);
     return def;
+  }
+
+  function isTrueOrZero(e) {
+    if (e === 0) {
+      return true;
+    }
+    return !!e;
   }
 
   function addRelativePathInCss(css, rpath){
@@ -494,25 +501,25 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
             return false;
           }
           switch (typeof(x[p])) {
-          case 'object':
-          case 'function':
-            leftChain.push(x);
-            rightChain.push(y);
-            if (!compare2Objects(x[p], y[p])) {
-              return false;
-            }
-            leftChain.pop();
-            rightChain.pop();
-            break;
-          default:
-            // remember that NaN === NaN returns false
-            if (isNaN(x[p]) && isNaN(y[p]) && typeof x[p] === 'number' && typeof y[p] === 'number') {
-              return true;
-            }
-            if (x[p] !== y[p]) {
-              return false;
-            }
-            break;
+            case 'object':
+            case 'function':
+              leftChain.push(x);
+              rightChain.push(y);
+              if (!compare2Objects(x[p], y[p])) {
+                return false;
+              }
+              leftChain.pop();
+              rightChain.pop();
+              break;
+            default:
+              // remember that NaN === NaN returns false
+              if (isNaN(x[p]) && isNaN(y[p]) && typeof x[p] === 'number' && typeof y[p] === 'number') {
+                return true;
+              }
+              if (x[p] !== y[p]) {
+                return false;
+              }
+              break;
           }
         }
       }
@@ -820,6 +827,35 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
       widgetJson.featureActions = undefined;
       widgetJson.manifest = undefined;
     };
+
+    ret.getUriFromItem = function(item){
+      if(!item.url){
+        return null;
+      }
+
+      return ret.getFolderUrlFromItem(item) + 'Widget';
+    };
+
+    ret.getFolderUrlFromItem = function(item){
+      if(!item.url){
+        return null;
+      }
+
+      var url;
+      if(/manifest\.json$/.test(item.url)){
+        url = item.url.substring(0, item.url.length - 'manifest.json'.length);
+      }else if(/\/$/.test(item.url)){
+        url = item.url;
+      }else{
+        url = item.url + '/';
+      }
+
+      if(window.location.protocol === "https:"){
+        url = url.replace(/^http:\/\//, 'https://');
+      }
+      return url;
+    };
+
     return ret;
   })();
 
@@ -1405,7 +1441,13 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
   })();
 
   //return [{value,label}]
-  mo.getUniqueValues = function(featureOrImageLayerUrl, fieldName, where, _layerDefinition){
+  mo.getUniqueValues = function(
+    featureOrImageLayerUrl,
+    fieldName,
+    where,
+    /*optional*/ _layerDefinition,
+    /*optional*/ fieldPopupInfo){
+
     function getLayerDefinition(){
       var def = new Deferred();
       if(_layerDefinition){
@@ -1466,7 +1508,11 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
               label = codedValueObj[value];
             }else{
               if(isNumberField){
-                label = mo.localizeNumber(value);
+                if(fieldPopupInfo){
+                  label = mo.localizeNumberByFieldInfo(value, fieldPopupInfo);
+                }else{
+                  label = mo.localizeNumber(value);
+                }
               }else{
                 label = value;
               }
@@ -1494,7 +1540,8 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
     //ImageServer only supports QueryTask.
     var reg = /\/ImageServer$/gi;
     var isImageService = reg.test(url);
-    if(isImageService){
+    var isDynamicLayer = url.indexOf('MapServer/dynamicLayer') > -1;
+    if(isImageService || isDynamicLayer){
       def = mo._getUniqueValuesByQueryTask(url, fieldName, where);
     }else{
       var fieldInfo = mo.getFieldInfoByFieldName(layerDefinition.fields, fieldName);
@@ -1543,7 +1590,14 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
 
   mo._getUniqueValuesByGenerateRenderer = function(featureLayerUrl, fieldName, where){
     var def = new Deferred();
-    var reqUrl = featureLayerUrl.replace(/\/*$/g, '') + "/generateRenderer";
+    var segs = featureLayerUrl.split('?');
+    var reqUrl;
+    if(segs.length > 1){
+      reqUrl = segs[0].replace(/\/*$/g, '') + "/generateRenderer?" + segs[1];
+    }else{
+      reqUrl = featureLayerUrl.replace(/\/*$/g, '') + "/generateRenderer";
+    }
+
     var classificationDef = {"type":"uniqueValueDef", "uniqueValueFields":[fieldName]};
     var str = json.stringify(classificationDef);
     esriRequest({
@@ -1888,6 +1942,10 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
       fullYear: true
     };
     lang.mixin(_options, options || {});
+
+    if(config.locale === 'ar' && _options.formatLength !== 'long' && _options.formatLength !== 'full') {
+      _options.formatLength = 'long';
+    }
 
     try {
       var ld = dateLocale.format(d, _options);
@@ -2836,6 +2894,120 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
     return displayValue;
   };
 
+  //return [{value,label}]
+  //return null means not coded value field
+  mo._getCodedValues = function(fieldInfo) {
+    var codedValues = null;
+    var domain = fieldInfo.domain;
+    if (domain && domain.type === 'codedValue') {
+      if (domain.codedValues && domain.codedValues.length > 0) {
+        codedValues = domain.codedValues;
+        //{code,name}=>{value,label}
+        //code is value and name is description
+        codedValues = array.map(codedValues, lang.hitch(this, function(item) {
+          return {
+            value: item.code,
+            label: item.name
+          };
+        }));
+      }
+    }
+    return codedValues;
+  };
+
+  //return [{value,label}]
+  //return null means no subtypes
+  mo._getSubTypes = function(layerDefinition) {
+    var subTypes = null;
+    if (layerDefinition.typeIdField && layerDefinition.types && layerDefinition.types.length > 0) {
+      //{id,name}=>{value,label}
+      subTypes = array.map(layerDefinition.types, lang.hitch(this, function(item) {
+        return {
+          value: item.id,
+          label: item.name
+        };
+      }));
+    }
+    return subTypes;
+  };
+
+  //return [{value,label}]
+  //maybe return null
+  mo._getCodedValueOrSubtypes = function(layerDefinition, fieldName, /*optional*/ typeIdFieldValue){
+    //http://servicesdev1.arcgis.com/5uh3wwYLNzBuU0Eu/arcgis/rest/services/CarsandLivingThings/FeatureServer/0?f=pjson
+    var fieldInfo = mo.getFieldInfoByFieldName(fieldName);
+    //check normal coded values
+    var codedValues = mo._getCodedValues(fieldInfo);//[{value,label}]
+
+
+    if(!codedValues || codedValues.length === 0){
+      if (layerDefinition.typeIdField) {
+        var subTypes = mo._getSubTypes(layerDefinition);//[{value,label}]
+
+        //typeIdField maybe doesn't match the real subtype field exactly
+        if (layerDefinition.typeIdField.toUpperCase() === fieldName.toUpperCase()) {
+          //check subtypes
+          codedValues = subTypes;
+        }else{
+          //check codedvalues related to subtype
+          if(typeIdFieldValue !== undefined && typeIdFieldValue !== null){
+            if(layerDefinition.types && layerDefinition.types.length > 0){
+              array.some(layerDefinition.types, lang.hitch(this, function(item){
+                if(item.name === typeIdFieldValue){
+                  if(item.type === 'codedValue'){
+                    codedValues = item.codedValues;
+                  }
+                  return true;
+                }else{
+                  return false;
+                }
+              }));
+            }
+          }
+        }
+      }
+    }
+    return codedValues;
+  };
+
+  //return {isCodedValueOrSubtype,displayValue}
+  mo._getDisplayValueForCodedValueOrSubtype = function(layerDefinition, fieldName, fieldValue,
+    /*optional*/ typeIdFieldValue){
+    var result = {
+      isCodedValueOrSubtype: false,
+      displayValue: fieldValue
+    };
+
+    //[{value,label}]
+    var codedValues = mo._getCodedValueOrSubtypes(layerDefinition, fieldName, typeIdFieldValue);
+
+    if(codedValues && codedValues.length > 0){
+      array.some(codedValues, lang.hitch(this, function(item){
+        if(item.value === fieldValue){
+          result = {
+            isCodedValueOrSubtype: true,
+            displayValue: item.label
+          };
+          return true;
+        }else{
+          return false;
+        }
+      }));
+    }
+    return result;
+  };
+
+  //return {isCodedValueOrSubtype,displayValue}
+  mo.getDisplayValueForCodedValueOrSubtype = function(layerDefinition, fieldName, attributes){
+    var fieldValue = attributes[fieldName];
+    var typeIdFieldValue;
+    var typeIdField = layerDefinition.typeIdField;
+    if(attributes.hasOwnProperty(typeIdField)){
+      typeIdFieldValue = attributes[typeIdField];
+    }
+    return mo._getDisplayValueForCodedValueOrSubtype(layerDefinition, fieldName, fieldValue, typeIdFieldValue);
+  };
+
   //return {fieldName,label,tooltip,visible,format,stringFieldOption}
   mo.getDefaultPortalFieldInfo = function(serviceFieldInfo){
     //serviceFieldInfo: {name,alias,type,...}
@@ -3249,6 +3421,16 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
             });
           }
 
+          //filter invalid features
+          arr = arr.filter(function(f){
+            var g = f.geometry;
+            if(g.type === 'point'){
+              return typeof g.x !== 'undefined' && typeof g.y !== 'undefined';
+            }else{
+              return g.getExtent();
+            }
+          });
+
           if (arr.length === 1 && arr[0].type === 'point') {
             var levelOrFactor = 15;
             levelOrFactor = map.getMaxZoom() > -1 ? map.getMaxZoom() : 0.1;
@@ -3606,6 +3788,22 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
     var defs = [];
     var callbackReturn;
 
+    function _formatPendingObj(pendingObj){
+      var obj = pendingObj.obj;
+      var key = pendingObj.key;
+      var formatObj = {
+        obj:obj,
+        key:key
+      };
+      if(typeof pendingObj.i === 'number'){
+        formatObj.i = pendingObj.i;
+        formatObj.value = obj[key][pendingObj.i];
+      }else{
+        formatObj.value = obj[key];
+      }
+      return formatObj;
+    }
+
     function processObject(obj) {
       for (var key in obj) {
         if (typeof obj[key] === 'object') {
@@ -3623,11 +3821,11 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
     function processString(obj, key, i){
       if(typeof i === 'number'){
         if (cb.test(obj[key][i])) {
-          callbackReturn = cb.func({
+          callbackReturn = cb.func(_formatPendingObj({
             obj: obj,
             key: key,
             i:i
-          });
+          }));
           if(typeof callbackReturn.then === 'function'){
             defs.push(callbackReturn);
           }else{
@@ -3636,10 +3834,10 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
         }
       }else{
         if (cb.test(obj[key])) {
-          callbackReturn = cb.func({
+          callbackReturn = cb.func(_formatPendingObj({
             obj: obj,
             key: key
-          });
+          }));
           if(typeof callbackReturn.then === 'function'){
             defs.push(callbackReturn);
           }else{
@@ -3690,6 +3888,7 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
     }
     return n;
   };
+
   mo.isNotEmptyObject = function(obj, includeArray) {
     if(!!includeArray){
       return mo.isObject(obj) && Object.keys(obj).length > 0 && Array.isArray(obj);
@@ -3718,6 +3917,16 @@ function(lang, array, html, has, config, ioQuery, query, nlt, Deferred, all, on,
       typeIdField: layerDefinition.typeIdField
     };
   };
+  mo.isVaildPointGeometry = function(geometry) {
+    return geometry && geometry.type === 'point' && isTrueOrZero(geometry.x) &&
+      isTrueOrZero(geometry.y);
+  };
 
+  mo.isVaildExtent = function(extent){
+    return extent && isTrueOrZero(extent.xmin) &&
+      isTrueOrZero(extent.ymin) &&
+      isTrueOrZero(extent.xmax) &&
+      isTrueOrZero(extent.ymax);
+  };
   return mo;
 });

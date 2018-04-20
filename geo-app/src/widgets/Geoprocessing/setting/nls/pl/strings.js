@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "adres URL zestawów obiektów",
   "useShapefile": "Użyj pliku shape w lokalnym systemie plików",
   "allowToExport": "Udostępnij wyniki do eksportowania",
-  "useDynamicSchema": "Dane wynikowe mogą mieć inny schemat, użyj schematu dynamicznego zamiast predefiniowanego."
+  "useDynamicSchema": "Dane wynikowe mogą mieć inny schemat, użyj schematu dynamicznego zamiast predefiniowanego.",
+  "useCurrentMapExtent": "Użyj zasięgu bieżącej mapy",
+  "ignoreOutput": "Ignoruj te dane wynikowe",
+  "turnOffOutput": "Domyślnie wyłącz tę warstwę"
 });

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,12 +26,13 @@ define(['dojo/_base/declare',
   'jimu/utils',
   '../editorManager',
   '../EditorChooser',
+  '../utils',
   'dijit/form/TextBox',
   'jimu/dijit/CheckBox'
 ],
 function(declare, lang, html, on, template, _WidgetBase, _TemplatedMixin,
   _WidgetsInTemplateMixin,
-  Popup, utils, editorManager, EditorChooser) {
+  Popup, utils, editorManager, EditorChooser, gputils) {
   var clazz = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
     baseClass: 'jimu-widget-setting-gp-param',
     templateString: template,
@@ -40,12 +41,41 @@ function(declare, lang, html, on, template, _WidgetBase, _TemplatedMixin,
       this.inherited(arguments);
       editorManager.setMap(this.map);
       editorManager.setNls(this.nls);
+
+      this.own(on(this.useDynamicSchema, 'change', lang.hitch(this, function(checked) {
+        if (this.spart && this.spart.domNode) {
+          if(checked) {
+            html.setStyle(this.spart.domNode, 'display', 'none');
+          } else {
+            html.setStyle(this.spart.domNode, 'display', 'block');
+          }
+        }
+      })));
+
+      this.own(on(this.ignore, 'change', lang.hitch(this, this._updateStatus)));
+    },
+
+    _updateStatus: function(ignored) {
+      if (ignored) {
+        this.layerInvisible.setStatus(false);
+        this.useDynamicSchema.setStatus(false);
+        if (this.spart && this.spart.domNode) {
+          html.setStyle(this.spart.domNode, 'display', 'none');
+        }
+      } else {
+        this.layerInvisible.setStatus(true);
+        this.useDynamicSchema.setStatus(true);
+        if (this.spart && this.spart.domNode) {
+          html.setStyle(this.spart.domNode, 'display', 'block');
+        }
+      }
     },
 
     setParam: function(param, direction){
       this.param = param;
       this.direction = direction;
 
+      this._updateStatus(false);
       if(param.label === undefined){
         param.label = '';
       }
@@ -61,6 +91,9 @@ function(declare, lang, html, on, template, _WidgetBase, _TemplatedMixin,
       this.tooltip.setValue(param.tooltip);
 
       this.visible.setValue(param.visible);
+      this.layerInvisible.setValue(param.layerInvisible);
+      this.ignore.setValue(param.ignore);
+
       //spart, means special part, it's an editor(for input param) or a renderer(for output param)
       if(this.spart){
         this.spart.destroy();
@@ -68,6 +101,31 @@ function(declare, lang, html, on, template, _WidgetBase, _TemplatedMixin,
         html.destroy(this.changeEditorNode);
       }
       this._createSpecialPart();
+
+      if (direction === 'output') {
+        html.setStyle(this.visibleDiv, 'display', 'none');
+        html.setStyle(this.ignoreDiv, 'display', 'block');
+
+        if (this.param.dataType === 'GPFeatureRecordSetLayer' ||
+            this.param.dataType === 'MapServiceLayer') {
+          html.setStyle(this.layerVisibleDiv, 'display', 'block');
+        } else {
+          html.setStyle(this.layerVisibleDiv, 'display', 'none');
+        }
+        if (this.param.dataType === 'GPFeatureRecordSetLayer' ||
+            this.param.dataType === 'GPRecordSet') {
+          this.useDynamicSchema.setValue(gputils.useDynamicSchema(this.param, this.config));
+          html.setStyle(this.dynamicSchemaDiv, 'display', 'block');
+        } else {
+          html.setStyle(this.dynamicSchemaDiv, 'display', 'none');
+        }
+        this._updateStatus(param.ignore === true);
+      } else {
+        html.setStyle(this.visibleDiv, 'display', 'block');
+        html.setStyle(this.ignoreDiv, 'display', 'none');
+        html.setStyle(this.layerVisibleDiv, 'display', 'none');
+        html.setStyle(this.dynamicSchemaDiv, 'display', 'none');
+      }
     },
 
     acceptValue: function(){
@@ -76,7 +134,6 @@ function(declare, lang, html, on, template, _WidgetBase, _TemplatedMixin,
       }
       this.param.label = this.label.getValue();
       this.param.tooltip = this.tooltip.getValue();
-      this.param.visible = this.visible.getValue();
 
       var value;
       if(this.spart.getValue){
@@ -86,6 +143,17 @@ function(declare, lang, html, on, template, _WidgetBase, _TemplatedMixin,
         }else{
           this.param.defaultValue = value;
         }
+      }
+
+      if (this.direction === 'output') {
+        if (this.param.dataType === 'GPFeatureRecordSetLayer' ||
+            this.param.dataType === 'GPRecordSet') {
+          this.param.useDynamicSchema = this.useDynamicSchema.getValue();
+        }
+        this.param.ignore = this.ignore.getValue();
+        this.param.layerInvisible = this.layerInvisible.getValue();
+      } else {
+        this.param.visible = this.visible.getValue();
       }
     },
 

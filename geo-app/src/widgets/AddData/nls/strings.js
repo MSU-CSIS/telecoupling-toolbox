@@ -117,6 +117,7 @@ define({
       types: {
         "Shapefile": "A Shapefile (.zip, ZIP archive containing all shapefile files)",
         "CSV": "A CSV File (.csv, with address or latitude, longitude and comma, semi-colon or tab delimited)",
+        "KML": "A KML File (.kml)",
         "GPX": "A GPX File (.gpx, GPS Exchange Format)",
         "GeoJSON": "A GeoJSON File (.geo.json or .geojson)"
       },
@@ -166,6 +167,7 @@ define({
   "pt-pt": 1,
   "ro": 1,
   "ru": 1,
+  "sl": 1,
   "sr": 1,
   "sv": 1,
   "th": 1,

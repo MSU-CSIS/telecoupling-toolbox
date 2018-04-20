@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,10 +27,10 @@ define([
 
       postMixInProperties: function() {
         this.inherited(arguments);
-        this.nls.email = window.jimuNls.shareLink.email;
-        this.nls.facebook = window.jimuNls.shareLink.facebook;
-        this.nls.googlePlus = window.jimuNls.shareLink.googlePlus;
-        this.nls.twitter = window.jimuNls.shareLink.twitter;
+        this.nls.email = window.jimuNls.shareLink.shareEmail;
+        this.nls.facebook = window.jimuNls.shareLink.shareFacebook;
+        this.nls.googlePlus = window.jimuNls.shareLink.shareGooglePlus;
+        this.nls.twitter = window.jimuNls.shareLink.shareTwitter;
       },
 
       startup: function() {

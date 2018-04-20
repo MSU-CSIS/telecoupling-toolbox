@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -38,8 +38,14 @@ esriRequest, esriLang) {
     _subLayerVisible: null,
     //_serviceDefinitionBuffer: null,
 
-    constructor: function(operLayer, map) {
+    constructor: function(/*operLayer, map*/) {
+    },
 
+    /***************************************************
+     * methods about init
+     * **************************************************/
+
+    init: function() {
       //other initial methods depend on '_jsapiLayerInfos', so must init first.
       this._initJsapiLayerInfos();
       /*jshint unused: false*/
@@ -48,23 +54,38 @@ esriRequest, esriLang) {
       this._initSubLayerIdent();
       // init control popup
       this._initControlPopup();
-      /*
-      // init _serviceDefinitionBuffer
-      this._initServiceDefinitionBuffer();
-      */
-    },
 
-
-    /***************************************************
-     * methods about init
-     * **************************************************/
-    /*
-    init: function() {
       this.inherited(arguments);
-      // init subLayerInfoIndex
-      this._initSubLayerInfoIndex();
+
+      this._needToRefresh().then(lang.hitch(this, function(result) {
+        if(result) {
+          this.update();
+          this._getLayerInfosObj()._onLayersUpdated(this, this);
+        }
+      }));
     },
-    */
+
+    _needToRefresh: function() {
+      var retDef = new Deferred();
+      if(this.layerObject.dynamicLayerInfos &&
+         this.isRootLayer() &&
+         this.isItemLayer() &&
+        !this.originOperLayer.thematicGroup) {
+        this.getItemInfo().then(lang.hitch(this, function(itemInfo) {
+          var itemData = itemInfo.getItemData();
+          var thematicGroup = itemData && itemData.thematicGroup;
+          if(thematicGroup) {
+            this.originOperLayer.thematicGroup = thematicGroup;
+            retDef.resolve(true);
+          } else {
+            retDef.resolve(false);
+          }
+        }));
+      } else {
+        retDef.resolve(false);
+      }
+      return retDef;
+    },
 
     _initOldFilter: function() {
       if(this.layerObject &&
@@ -86,11 +107,27 @@ esriRequest, esriLang) {
                 //esriLang.isDefined(subLayersSetting.subLayerIds) &&
                 esriLang.isDefined(subLayersSetting.defaultVisibility));
       });
-      if(webmapLayerInfos.length > 0) {
+      if(this.layerObject.dynamicLayerInfos) {
+        if(this.originOperLayer.thematicGroup &&
+           this.originOperLayer.thematicGroup.layerIds &&
+           this.originOperLayer.thematicGroup.layerIds.length >= 0) {
+          this._jsapiLayerInfos = array.filter(this.layerObject.dynamicLayerInfos, function(dynamicLayerInfo) {
+            var index = this.originOperLayer.thematicGroup.layerIds.indexOf(dynamicLayerInfo.id);
+            if(index > -1) {
+              return true;
+            } else {
+              return false;
+            }
+          }, this);
+        } else {
+          this._jsapiLayerInfos = this.layerObject.dynamicLayerInfos;
+        }
+      } else if (webmapLayerInfos.length > 0) {
         this._jsapiLayerInfos = webmapLayerInfos;
       } else {
         this._jsapiLayerInfos = this.layerObject.layerInfos;
       }
+      // this._jsapiLayerInfos = this.layerObject.dynamicLayerInfos;
     },
 
     _initControlPopup: function() {
@@ -118,25 +155,6 @@ esriRequest, esriLang) {
         defLoad: new Deferred()
       };
     },
-
-    /*
-    _initServiceDefinitionBuffer: function() {
-      this._serviceDefinitionBuffer = new RequestBuffer(lang.hitch(this, this._request));
-    },
-    */
-
-
-    /*
-    _initSubLayerInfoIndex: function() {
-      var subLayerInfoIndex = {};
-      this.traversal(function(subLayerInfo) {
-        //if(subLayerInfo.originOperLayer.mapService) {
-          subLayerInfoIndex[subLayerInfo.subId] = subLayerInfo;
-        //}
-      });
-      this._subLayerInfoIndex = subLayerInfoIndex;
-    },
-    */
 
 
     /***************************************************
@@ -440,6 +458,10 @@ esriRequest, esriLang) {
                               featureLayerId,
                               layerInfo,
                               serviceLayerType) {
+      var mapServiceSubId = layerInfo.source && layerInfo.source.mapLayerId;
+      if(mapServiceSubId === undefined || mapServiceSubId === null) {
+        mapServiceSubId = layerInfo.id;
+      }
       newSubLayers.push({
         layerObject: featureLayer,
         title: layerInfo.name || layerInfo.id || " ",
@@ -448,7 +470,8 @@ esriRequest, esriLang) {
         subLayers: [],
         mapService: {
           "layerInfo": this,
-          "subId": layerInfo.id
+          "subId": layerInfo.id,
+          "mapServiceSubId": mapServiceSubId
         },
         selfType: 'mapservice_' + serviceLayerType,
         parentLayerInfo: this
@@ -593,15 +616,15 @@ esriRequest, esriLang) {
       return requestProxy.request(url);
     },
 
-    _getSubserviceDefinition: function(subId) {
+    _getSubserviceDefinition: function(mapServiceSubId) {
       if (this.layerObject.version >= 10.11) {
-        return this._getAllLayerAndTable(subId);
+        return this._getAllLayerAndTable(mapServiceSubId);
       } else {
-        return this._getLayerAndTable(subId);
+        return this._getLayerAndTable(mapServiceSubId);
       }
     },
 
-    _getAllLayerAndTable: function(subId) {
+    _getAllLayerAndTable: function(mapServiceSubId) {
       var url = this.layerObject.url + '/layers';
       var allLayerAndTableRequestProxy = this._serviceDefinitionBuffer.getRequest("_all_layer_and_table_request");
       if(!allLayerAndTableRequestProxy.isResolved()) {
@@ -609,7 +632,7 @@ esriRequest, esriLang) {
           if(result === null) {
             this.traversal(lang.hitch(this, function(layerInfo) {
               if(!layerInfo.isRootLayer()) {
-                var singleRequestProxy = this._serviceDefinitionBuffer.getRequest(layerInfo.subId);
+                var singleRequestProxy = this._serviceDefinitionBuffer.getRequest(layerInfo.mapServiceSubId);
                 singleRequestProxy.setResponse(null);
               }
             }));
@@ -621,13 +644,13 @@ esriRequest, esriLang) {
           }
         }));
       }
-      var singleRequestProxy = this._serviceDefinitionBuffer.getRequest(subId);
+      var singleRequestProxy = this._serviceDefinitionBuffer.getRequest(mapServiceSubId);
       return singleRequestProxy.fakeRequest();
     },
 
-    _getLayerAndTable: function(subId) {
-      var url = this.layerObject.url + '/' + subId;
-      var requestProxy = this._serviceDefinitionBuffer.getRequest(subId);
+    _getLayerAndTable: function(mapServiceSubId) {
+      var url = this.layerObject.url + '/' + mapServiceSubId;
+      var requestProxy = this._serviceDefinitionBuffer.getRequest(mapServiceSubId);
       return requestProxy.request(url);
     },
 

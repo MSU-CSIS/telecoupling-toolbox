@@ -26,7 +26,10 @@ define({
     urlPlaceholder: "feature set URL",
     useShapefile: "Use shapefile in local file system",
     allowToExport: "Allow to export results",
-    useDynamicSchema: "Output may have different schema, use dynamic schema instead of predefined."
+    useDynamicSchema: "Output may have different schema, use dynamic schema instead of predefined.",
+    useCurrentMapExtent: "Use current map extent",
+    ignoreOutput: "Ignore this output",
+    turnOffOutput: "Turn off this layer by default"
   }),
   "ar": 1,
   "bs": 1,
@@ -54,6 +57,7 @@ define({
   "pt-pt": 1,
   "ro": 1,
   "ru": 1,
+  "sl": 1,
   "sr": 1,
   "sv": 1,
   "th": 1,

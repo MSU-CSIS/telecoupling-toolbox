@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ define(['dojo/_base/declare',
   'jimu/dijit/FeatureSetChooserForMultipleLayers',
   'jimu/LayerInfos/LayerInfos',
   'jimu/SelectionManager',
+  'jimu/dijit/FeatureActionPopupMenu',
   './layerUtil',
   './SelectableLayerItem',
   './FeatureItem',
@@ -39,7 +40,7 @@ define(['dojo/_base/declare',
 ],
 function(declare, lang, html, array, on, all, _WidgetsInTemplateMixin, SimpleMarkerSymbol,
 SimpleLineSymbol, SimpleFillSymbol, SymbolJsonUtils, Color, BaseWidget, WidgetManager, ViewStack,
-FeatureSetChooserForMultipleLayers, LayerInfos, SelectionManager, layerUtil,
+FeatureSetChooserForMultipleLayers, LayerInfos, SelectionManager, PopupMenu, layerUtil,
 SelectableLayerItem, FeatureItem) {
   return declare([BaseWidget, _WidgetsInTemplateMixin], {
     baseClass: 'jimu-widget-select',
@@ -59,6 +60,7 @@ SelectableLayerItem, FeatureItem) {
       this.defaultFillSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
           this.defaultLineSymbol,
           new Color([selectionColor.r, selectionColor.g, selectionColor.b, 0.3]));
+      this.popupMenu = PopupMenu.getInstance();
       /**
        * Helper object to keep which layer is selectable.
        */
@@ -104,7 +106,7 @@ SelectableLayerItem, FeatureItem) {
 
       layerUtil.getLayerInfoArray(layerInfosObject).then(lang.hitch(this, function(layerInfoArray) {
         //First loaded, reset selectableLayerIds
-        this._initLayers(layerInfoArray);
+        this._initLayers(this._filterLayerInfo(layerInfoArray));
       }));
 
       this.own(on(layerInfosObject, 'layerInfosChanged', lang.hitch(this, function() {
@@ -112,7 +114,7 @@ SelectableLayerItem, FeatureItem) {
 
         layerUtil.getLayerInfoArray(layerInfosObject)
           .then(lang.hitch(this, function(layerInfoArray) {
-            this._initLayers(layerInfoArray);
+            this._initLayers(this._filterLayerInfo(layerInfoArray));
           }));
       })));
 
@@ -120,6 +122,34 @@ SelectableLayerItem, FeatureItem) {
         lang.hitch(this, this._layerVisibilityChanged)));
 
       this.own(on(this.map, 'zoom-end', lang.hitch(this, this._layerVisibilityChanged)));
+      this.own(on(this.settingNode, 'click', lang.hitch(this, function(event) {
+        event.stopPropagation();
+        var position = html.position(event.target);
+        this.showPopup(position);
+      })));
+    },
+
+    showPopup: function(position) {
+      var actions = [{
+        iconClass: 'no-icon',
+        label: this.nls.turnonAll,
+        data: {},
+        onExecute: lang.hitch(this, this._turnOnAllLayers)
+      },
+      {
+        iconClass: 'no-icon',
+        label: this.nls.turnoffAll,
+        data: {},
+        onExecute: lang.hitch(this, this._turnOffAllLayers)
+      },
+      {
+        iconClass: 'no-icon',
+        label: this.nls.toggleSelect,
+        data: {},
+        onExecute: lang.hitch(this, this._toggleAllLayers)
+      }];
+      this.popupMenu.setActions(actions);
+      this.popupMenu.show(position);
     },
 
     onDeActive: function(){
@@ -147,6 +177,15 @@ SelectableLayerItem, FeatureItem) {
       this._clearAllSelections();
     },
 
+    _filterLayerInfo: function(layerInfoArray) {
+      if (!this.config.layerState) {
+        return layerInfoArray;
+      }
+      return array.filter(layerInfoArray, lang.hitch(this, function(layerInfo) {
+        return this.config.layerState[layerInfo.id] && this.config.layerState[layerInfo.id].selected;
+      }));
+    },
+
     _initLayers: function(layerInfoArray) {
       this.layerObjectArray = [];
       this.layerItems = [];
@@ -172,7 +211,7 @@ SelectableLayerItem, FeatureItem) {
               nls: this.nls
             });
             this.own(on(item, 'switchToDetails', lang.hitch(this, this._switchToDetails)));
-            this.own(on(item, 'stateChange', lang.hitch(this, function() {
+            this.own(on(item, 'stateChange', lang.hitch(this, function(itemStatus) {
               this.shelter.show();
               this.selectDijit.setFeatureLayers(this._getSelectableLayers());
               this.shelter.hide();
@@ -196,6 +235,33 @@ SelectableLayerItem, FeatureItem) {
         this._setSelectionSymbol();
         this.shelter.hide();
       }));
+    },
+
+    _turnOffAllLayers: function() {
+      this.shelter.show();
+      array.forEach(this.layerItems, lang.hitch(this, function(layerItem) {
+        layerItem.turnOff();
+      }));
+      this.selectDijit.setFeatureLayers([]);
+      this.shelter.hide();
+    },
+
+    _turnOnAllLayers: function() {
+      this.shelter.show();
+      array.forEach(this.layerItems, lang.hitch(this, function(layerItem) {
+        layerItem.turnOn();
+      }));
+      this.selectDijit.setFeatureLayers(this._getSelectableLayers());
+      this.shelter.hide();
+    },
+
+    _toggleAllLayers: function() {
+      this.shelter.show();
+      array.forEach(this.layerItems, lang.hitch(this, function(layerItem) {
+        layerItem.toggleChecked();
+      }));
+      this.selectDijit.setFeatureLayers(this._getSelectableLayers());
+      this.shelter.hide();
     },
 
     _setSelectionSymbol: function(){

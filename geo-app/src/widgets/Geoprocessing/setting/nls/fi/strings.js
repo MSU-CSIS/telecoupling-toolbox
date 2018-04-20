@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "kohderyhmän URL-osoite",
   "useShapefile": "Käytä shapefile-tiedostoa paikallisessa tiedostojärjestelmässä",
   "allowToExport": "Salli tulosten vienti",
-  "useDynamicSchema": "Tulosaineistossa voi olla toinen skeema. Käytä dynaamista skeemaa ennalta määritetyn skeeman sijasta."
+  "useDynamicSchema": "Tulosaineistossa voi olla toinen skeema. Käytä dynaamista skeemaa ennalta määritetyn skeeman sijasta.",
+  "useCurrentMapExtent": "Käytä nykyisen kartan laajuutta.",
+  "ignoreOutput": "Ohita tämä tuloste",
+  "turnOffOutput": "Poista tämä karttataso käytöstä oletusarvoisesti"
 });

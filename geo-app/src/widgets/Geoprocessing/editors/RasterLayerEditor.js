@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ define(['dojo/_base/declare',
   'jimu/dijit/Message',
   '../BaseEditor',
   'dijit/form/TextBox',
-  'dijit/form/ValidationTextBox'
+  'jimu/dijit/URLInput'
   ], function(declare, lang, array, domStyle, domAttr, on,
   Deferred, template, _TemplatedMixin, _WidgetsInTemplateMixin,
   RasterData, esriRequest, ViewStack, Message, BaseEditor){
@@ -39,7 +39,6 @@ define(['dojo/_base/declare',
   var ITEM_ID_DELIMITER = 'itemID:';
   var MODE_URL = 'url';
   var MODE_ITEM = 'item';
-  var URL_REG = /^(ht|f)tps?:\/\/[^\s\.]+(\.[^\s\.]+)*((\/|\.)[^\s\.]+)+\/?$/;
 
   return declare([BaseEditor, _TemplatedMixin, _WidgetsInTemplateMixin], {
     baseClass: 'jimu-gp-editor-base jimu-gp-editor-wrapper',
@@ -66,7 +65,6 @@ define(['dojo/_base/declare',
       }
 
       //set url text input properties
-      domAttr.set(this.urlEditor, 'regExp', URL_REG.toString());
       domAttr.set(this.urlEditor, 'tooltip', this.param.tooltip);
 
       if(this.context === 'setting'){

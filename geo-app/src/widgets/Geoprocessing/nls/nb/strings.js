@@ -20,5 +20,6 @@ define({
   "exportOutput": "Eksporter",
   "emptyResult": "Resultatet er tomt.",
   "useSelectedFeatureset": "Bruk resulterende geoobjekt(er).",
-  "closeSelectedFeatureset": "Fjern og bruk det konfigurerte inndataalternativet."
+  "closeSelectedFeatureset": "Fjern og bruk det konfigurerte inndataalternativet.",
+  "currentMapExtent": "Gjeldende kartutstrekning"
 });

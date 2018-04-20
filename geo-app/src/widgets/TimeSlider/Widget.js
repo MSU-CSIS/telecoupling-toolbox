@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -163,7 +163,7 @@ define(['dojo/_base/declare',
           }
 
           this.timeProcesser.setTimeSlider(this.timeSlider);
-          this._updateTimeSliderUI(); 
+          this._updateTimeSliderUI();
 
           //restore playBtn state
           if (this.playBtn && html.hasClass(this.playBtn, "pause")) {
@@ -185,7 +185,7 @@ define(['dojo/_base/declare',
             onEnd: lang.hitch(this, function() {
               this._showed = true;
               //auto play when open
-              if (true === html.hasClass(this.playBtn, "pause")) {  // changed from false to true
+              if (false === html.hasClass(this.playBtn, "pause")) {
                 on.emit(this.playBtn, 'click', { cancelable: false, bubbles: true });
               }
               this._adaptResponsive();
@@ -367,6 +367,11 @@ define(['dojo/_base/declare',
             on.emit(this._rawNextBtn, 'click', { cancelable: false, bubbles: true });
           })));
         }
+        //replace play btns, under RTL
+        if (window.isRTL) {
+          html.place(this.previousBtn, this.playBtn, "after");
+          html.place(this.nextBtn, this.playBtn, "before");
+        }
       },
 
       removeTimeSlider: function() {
@@ -398,7 +403,7 @@ define(['dojo/_base/declare',
         }
       },
 
-      updateTimeExtentLabel: function(timeExtent) {
+      updateTimeExtentLabel: function (timeExtent) {
         var label = this.timeProcesser._getTimeFormatLabel(timeExtent);
         //console.log("===>"+label);
         this.timeExtentLabelNode.innerHTML = label;
@@ -409,8 +414,6 @@ define(['dojo/_base/declare',
         if (!this._showed) {
           return;
         }
-
-        //this._updateTimeSliderUI();   //commented out to stop the time stamp label from resetting to the first timestamp
 
         setTimeout(lang.hitch(this, function () {
           if (utils.isRunInMobile()) {
@@ -444,12 +447,10 @@ define(['dojo/_base/declare',
           } else {
             html.setStyle(this.domNode, 'height','72px');
           }
-          //left
-          //do not center it, if moveed by drag
+
+          //do not initPosition it, if moveed by drag
           if (!this._draged) {
-            var left = utils.getInitLeft(this.map, this.domNode);
-            this.position.left = left;
-            html.setStyle(this.domNode, 'left', this.position.left + 'px');
+            utils.initPosition(this.map, this.domNode, this.position);
           }
 
           if (!this._moving && this.position &&
@@ -509,6 +510,12 @@ define(['dojo/_base/declare',
         if (this.state === 'closed') {
           return;
         }
+
+        //initPosition when widget OutofScreen
+        if (utils.isOutOfScreen(this.map, this.position) && !utils.isRunInMobile()) {
+          utils.initPosition(this.map, this.domNode, this.position);
+        }
+
         this._adaptResponsive();
       },
 

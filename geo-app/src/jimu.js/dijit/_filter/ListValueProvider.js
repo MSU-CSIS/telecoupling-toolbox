@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -162,7 +162,7 @@ define([
       _tryUpdatingUniqueValues: function(selectedValue, showDropDownAfterValueUpdate){
         var def = new Deferred();
         if(!this.valuesSelect._opened){
-          var newExpr = this.getFilterExpr();
+          var newExpr = this.getDropdownFilterExpr();
           if(newExpr !== this._uniqueValueLoadingExpr){
             //expr changed
             this.valuesSelect.readOnly = true;
@@ -267,7 +267,7 @@ define([
           def.resolve(this._uniqueValueCache[where]);
         }else{
           this._showLoadingIcon();
-          jimuUtils.getUniqueValues(this.url, this.fieldName, where, this.layerDefinition)
+          jimuUtils.getUniqueValues(this.url, this.fieldName, where, this.layerDefinition, this.fieldPopupInfo)
           .then(lang.hitch(this, function(valueLabels){
             if(!this.domNode){
               return;

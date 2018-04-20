@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -253,12 +253,17 @@ function(declare, lang, array, html, Deferred, topic, Evented, on, aspect,
         top: -9999,
         relativeTo: widget.position.relativeTo
       };
+      widget._isTestSizeFlag = true;//set flag for getSize
       widget.setPosition(position);
       this.openWidget(widget);
 
       widget._marginBox = widget.getMarginBox();
 
       this.closeWidget(widget);
+
+      if ("undefined" !== typeof widget._isTestSizeFlag) {
+        delete widget._isTestSizeFlag;//delete flag
+      }
       return widget._marginBox;
     },
 

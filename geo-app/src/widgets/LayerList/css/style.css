@@ -52,6 +52,10 @@
   height: 40px;
 }
 
+.jimu-widget-layerList .layer-row:hover{
+  background-color: #e3ecf2;
+}
+
 .jimu-widget-layerList .layer-row-mouseover{
   background-color: #e3ecf2;
 }
@@ -501,7 +505,7 @@
 .jimu-widget-layerList .jimu-dropmenu .menu-item:hover{
   text-decoration: initial;
   background-color: #f3f3f3;
-  font-family: "Avenir Medium";
+  /*font-family: "Avenir Medium";*/
 
 }
 

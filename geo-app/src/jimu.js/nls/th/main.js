@@ -76,7 +76,18 @@ define({
     "field": "คอลัมน์",
     "operation": "ปฏิบัติการ",
     "disableUpdateGeometry": "ไม่สามารถอัพเดทเชิงเรขาคณิตได้",
-    "preview": "ตัวอย่าง"
+    "preview": "ตัวอย่าง",
+    "date": "วันที่",
+    "time": "เวลา",
+    "show": "แสดง",
+    "hide": "ซ่อน",
+    "format": "รูปแบบ",
+    "defaults": "ค่าตั้งต้น",
+    "add": "เพิ่ม",
+    "done": "เสร็จ",
+    "remove": "ลบออก",
+    "leave": "ออก",
+    "stay": "คงไว้"
   },
   "errorCode": "รหัส",
   "errorMessage": "ข้อความ",
@@ -99,10 +110,18 @@ define({
     "arrows": "ลูกศร",
     "business": "ธุรกิจ",
     "cartographic": "การทำแผนที่",
+    "damage": "ความเสียหาย",
+    "disasters": "ภัยพิบัติ",
+    "emergencyManagement": "การจัดการเกี่ยวกับภัยพิบัติ",
+    "generalInfrastructure": "โครงสร้างพื้นฐานทั่วไป",
+    "localGovernment": "รัฐบาลท้องถิ่น",
     "nationalParkService": "บริการอุทยานแห่งชาติ",
+    "numbers": "ตัวเลข",
     "outdoorRecreation": "นันทนาการกลางแจ้ง",
     "peoplePlaces": "สถานที่ชุมชน",
+    "pointsOfInterest": "จุดที่สนใจ",
     "safetyHealth": "สุขภาพความปลอดภัย",
+    "stateGovernment": "หน่วยงานภาครัฐ",
     "shapes": "รูปร่าง",
     "transportation": "การคมนาคม",
     "symbolSize": "ขนาดสัญลักษณ์",
@@ -151,7 +170,7 @@ define({
   "drawBox": {
     "point": "จุด",
     "line": "เส้น",
-    "polyline": "เส้น",
+    "polyline": "เส้นหลายรูปแบบ",
     "freehandPolyline": "วาดเส้นแบบฟรีแฮนด์",
     "triangle": "สามเหลี่ยม",
     "extent": "ส่วนขยาย",
@@ -203,7 +222,7 @@ define({
     "invalidUrl": "Url ไม่ถูกต้อง"
   },
   "filterBuilder": {
-    "addAnotherExpression": "เพิ่มเงื่อนไข",
+    "addAnotherExpression": "เพิ่มสูตรคำนวณ",
     "addSet": "เพิ่มเซ็ต",
     "matchMsg": "แสดงฟีเจอร์ที่ในชั้นข้อมูลที่ตรงกัน ${any_or_all}ตามสูตรคำนวณต่อไปนี้",
     "matchMsgSet": "${any_or_all} ตามสูตรคำนวณนี้จะทำให้การตั้งค่าเป็นจริง",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "ว่าง",
     "stringOperatorIsNotBlank": "ไม่ว่าง",
     "dateOperatorIsOn": "ที่อยู่บน",
+    "dateOperatorIsIn": "อยู่ใน",
+    "dateOperatorIsNotIn": "ไม่ได้อยู่ใน",
     "dateOperatorIsNotOn": "ที่ไม่อยู่บน",
     "dateOperatorIsBefore": "แต่ก่อน",
     "dateOperatorIsAfter": "ที่หลัง",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "แสดงเฉพาะค่าที่กรอง ด้วยสมการก่อนหน้านี้",
     "noneCascadeFilterTip": "ค่าที่ไม่ซ้ำทั้งหมดของข้อมูลนี้",
     "previousCascadeFilterTip": "ค่ากรองโดยสมการก่อนหน้านี้",
-    "allCascadeFilterTip": "ค่ากรองโดยสมการอื่น ๆ ทั้งหมด"
+    "allCascadeFilterTip": "ค่ากรองโดยสมการอื่น ๆ ทั้งหมด",
+    "custom": "วันที่...",
+    "today": "วันนี้",
+    "yesterday": "เมื่อวาน",
+    "tomorrow": "พรุ่งนี้",
+    "thisWeek": "สัปดาห์นี้",
+    "thisMonth": "เดือนนี้",
+    "thisQuarter": "ไตรมาสนี้",
+    "thisYear": "ปีนี้",
+    "inputType": "ประเภทอินพุต",
+    "setInputType": "ตั้งค่าประเภทอินพุต"
   },
   "featureLayerSource": {
     "layer": "ชั้นข้อมูล",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "หน่วยฟุตในระยะสำรวจของ US",
     "uSSurveyFeetAbbr": "ftUS",
+    "centimeters": "เซ็นติเมตร",
+    "centimetersAbbr": "ซม.",
+    "inches": "นิ้ว",
+    "inchesAbbr": "ใน",
     "decimalDegree": "องศาทศนิยม",
     "decimalDegreeAbbr": "วัน",
     "degreeMinuteSeconds": "องศา ลิปดา ฟิลิปดา",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "ตร หลา",
     "squareUSSurveyFeet": "ตารางฟุตในระยะสำรวจของ US",
     "squareUSSurveyFeetAbbr": "ตัวย่อตารางฟุตของ US"
+  },
+  "timeUnit": {
+    "year": "ปี",
+    "month": "เดือน",
+    "day": "วัน",
+    "hour": "ชั่วโมง",
+    "minute": "นาที",
+    "second": "วินาที"
   },
   "featureSetChooser": {
     "select": "เลือก",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "เรคคอร์ดเชื่อมโยง",
     "noRelatedRecotds": "ไม่พบแถวข้อมูลที่เกี่ยวข้อง",
     "chooseFieldTip": "เลือกตารางเพื่อแสดงรายการ",
-    "saveAsPopupTitle": "เหมือนกับชื่อป๊อปอัพ"
+    "saveAsPopupTitle": "เหมือนกับชื่อป๊อปอัพ",
+    "leaveConfirm": "คุณต้องการออกโดยไม่บันทึกการแก้ไขหรือไม่"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "มีฟีเจอร์มากเกินไปในการเลือกของคุณ อาจจะใช้เวลานานในการดึงข้อมูลและแสดงผลบนแผนที่",

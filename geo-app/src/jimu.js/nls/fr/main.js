@@ -76,7 +76,18 @@ define({
     "field": "Champ",
     "operation": "Opération",
     "disableUpdateGeometry": "Désactiver la mise à jour de la géométrie",
-    "preview": "Aperçu"
+    "preview": "Aperçu",
+    "date": "Date",
+    "time": "Durée",
+    "show": "Afficher",
+    "hide": "Masquer",
+    "format": "Format",
+    "defaults": "Par défaut",
+    "add": "Ajouter",
+    "done": "Terminé",
+    "remove": "Supprimer",
+    "leave": "Quitter",
+    "stay": "Rester"
   },
   "errorCode": "Code",
   "errorMessage": "Message",
@@ -99,10 +110,18 @@ define({
     "arrows": "Flèches",
     "business": "Entreprises",
     "cartographic": "Cartographie",
+    "damage": "Dommage",
+    "disasters": "Catastrophes",
+    "emergencyManagement": "Gestion de l'urgence",
+    "generalInfrastructure": "Infrastructure générale",
+    "localGovernment": "Autorités locales",
     "nationalParkService": "Service des parcs nationaux",
+    "numbers": "Nombres",
     "outdoorRecreation": "Activités en plein air",
     "peoplePlaces": "Personnes lieux",
+    "pointsOfInterest": "Lieux touristiques",
     "safetyHealth": "Sécurité santé",
+    "stateGovernment": "Administrations provinciales",
     "shapes": "Formes",
     "transportation": "Transports",
     "symbolSize": "Taille du symbole",
@@ -203,7 +222,7 @@ define({
     "invalidUrl": "URL non valide."
   },
   "filterBuilder": {
-    "addAnotherExpression": "Ajouter une expression",
+    "addAnotherExpression": "Add Expression (Ajouter une expression)",
     "addSet": "Ajouter un jeu",
     "matchMsg": "Obtenir les entités de la couche qui correspondent à ${any_or_all} des expressions suivantes",
     "matchMsgSet": "${any_or_all} des expressions suivantes dans ce jeu sont vraies",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "est vide",
     "stringOperatorIsNotBlank": "n'est pas vide",
     "dateOperatorIsOn": "est le",
+    "dateOperatorIsIn": "est dans",
+    "dateOperatorIsNotIn": "n’est pas dans",
     "dateOperatorIsNotOn": "n'est pas le",
     "dateOperatorIsBefore": "est avant",
     "dateOperatorIsAfter": "est après",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Afficher uniquement les valeurs filtrées par les expressions précédentes.",
     "noneCascadeFilterTip": "Toutes les valeurs uniques de ce champ",
     "previousCascadeFilterTip": "Valeurs filtrées selon des expressions précédentes",
-    "allCascadeFilterTip": "Valeurs filtrées selon toutes les autres expressions"
+    "allCascadeFilterTip": "Valeurs filtrées selon toutes les autres expressions",
+    "custom": "la date...",
+    "today": "aujourd'hui",
+    "yesterday": "hier",
+    "tomorrow": "demain",
+    "thisWeek": "cette semaine",
+    "thisMonth": "ce mois",
+    "thisQuarter": "ce trimestre",
+    "thisYear": "cette année",
+    "inputType": "Type d'entrée",
+    "setInputType": "Définir le type d’entrée"
   },
   "featureLayerSource": {
     "layer": "Couche",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "miln",
     "uSSurveyFeet": "Pieds d'arpentage US",
     "uSSurveyFeetAbbr": "ftUS",
+    "centimeters": "Centimètres",
+    "centimetersAbbr": "cm",
+    "inches": "Pouces",
+    "inchesAbbr": "in",
     "decimalDegree": "Degrés décimaux",
     "decimalDegreeAbbr": "jj",
     "degreeMinuteSeconds": "Degré minute secondes",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "yd²",
     "squareUSSurveyFeet": "Pieds d'arpentage américains carrés",
     "squareUSSurveyFeetAbbr": "pi² US"
+  },
+  "timeUnit": {
+    "year": "Année",
+    "month": "Mois",
+    "day": "Jour",
+    "hour": "Heure",
+    "minute": "Minute",
+    "second": "Deuxième"
   },
   "featureSetChooser": {
     "select": "Sélectionner",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Enregistrements associés :",
     "noRelatedRecotds": "Enregistrements associés introuvables.",
     "chooseFieldTip": "Choisir un attribut pour afficher la liste",
-    "saveAsPopupTitle": "Identique au titre de la fenêtre contextuelle"
+    "saveAsPopupTitle": "Identique au titre de la fenêtre contextuelle",
+    "leaveConfirm": "Voulez-vous quitter sans enregistrer les modifications ?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "Votre sélection comporte trop d'entités. La récupération et l'affichage des données sur la carte risque de prendre beaucoup de temps.",
@@ -545,7 +589,7 @@ define({
   },
   "colorPalette": {
     "transparent": "Transparent",
-    "custom": "Personnalisé"
+    "custom": "Personnalisée"
   },
   "temperature": {
     "celsius": "Celsius",

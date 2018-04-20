@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "フィーチャ セット URL",
   "useShapefile": "ローカル ファイル システムのシェープファイルの使用",
   "allowToExport": "結果のエクスポートを許可",
-  "useDynamicSchema": "出力に、異なるスキーマが含まれている可能性があります。定義済みスキーマではなく、動的スキーマを使用してください。"
+  "useDynamicSchema": "出力に、異なるスキーマが含まれている可能性があります。定義済みスキーマではなく、動的スキーマを使用してください。",
+  "useCurrentMapExtent": "現在のマップ範囲を使用",
+  "ignoreOutput": "この出力を無視",
+  "turnOffOutput": "デフォルトでこのレイヤーを非表示"
 });

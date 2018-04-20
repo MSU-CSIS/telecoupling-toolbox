@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -120,6 +120,25 @@ _WidgetsInTemplateMixin, template, ClearSelectionAction) {
           visible: this.layerVisible,
           layerInfo: this.layerInfo
         });
+      }
+    },
+
+    turnOn: function() {
+      html.addClass(this.selectableCheckBox, 'checked');
+      this.checked = true;
+    },
+
+    turnOff: function() {
+      html.removeClass(this.selectableCheckBox, 'checked');
+      this.checked = false;
+    },
+
+    toggleChecked: function() {
+      this.checked = !this.checked;
+      if(this.checked) {
+        html.addClass(this.selectableCheckBox, 'checked');
+      } else {
+        html.removeClass(this.selectableCheckBox, 'checked');
       }
     },
 

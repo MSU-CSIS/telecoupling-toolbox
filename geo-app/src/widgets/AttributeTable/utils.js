@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -171,7 +171,7 @@ define(['dojo/_base/lang',
             if (typeIdField && types && types.length > 0) {
               var typeChecks = array.filter(types, lang.hitch(exports, function(item) {
                 // value of typeIdFild has been changed above
-                return item.name === obj[typeIdField];
+                return item.id === obj[typeIdField];
               }));
               var typeCheck = (typeChecks && typeChecks[0]) || null;
 

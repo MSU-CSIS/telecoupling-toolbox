@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "URL של סט ישויות",
   "useShapefile": "השתמש ב-Shapefile במערכת הקבצים המקומית",
   "allowToExport": "אפשר לייצא תוצאות",
-  "useDynamicSchema": "ייתכן שהפלט יכלול סכימה שונה, השתמש בסכימה דינמית במקום בסכימה מוגדרת מראש."
+  "useDynamicSchema": "ייתכן שהפלט יכלול סכימה שונה, השתמש בסכימה דינמית במקום בסכימה מוגדרת מראש.",
+  "useCurrentMapExtent": "השתמש בתיחום המפה הנוכחי",
+  "ignoreOutput": "התעלם מפלט זה",
+  "turnOffOutput": "כבה שכבה זו כברירת מחדל"
 });

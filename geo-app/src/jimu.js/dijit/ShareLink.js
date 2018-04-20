@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -922,9 +922,16 @@ define(['dojo/_base/declare',
       getMapExtent: function(map) {
         var accuracy = 1E4;
         var extent = map.extent;
+        var sr = "";
+        if (extent.spatialReference.wkid) {
+          sr = extent.spatialReference.wkid;
+        } else if (!extent.spatialReference.wkid && extent.spatialReference.wkt) {
+          sr = "wkt=" + extent.spatialReference.wkt;
+        }
+
         return null !== extent ? this._roundValue(extent.xmin, accuracy) + "," +
         this._roundValue(extent.ymin, accuracy) + "," + this._roundValue(extent.xmax, accuracy) + "," +
-        this._roundValue(extent.ymax, accuracy) + "," + extent.spatialReference.wkid : "";
+        this._roundValue(extent.ymax, accuracy) + "," + sr : "";
       },
 
       _roundValue: function(a, b) {

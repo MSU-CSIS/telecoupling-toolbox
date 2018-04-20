@@ -1,9 +1,10 @@
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'jimu/utils'
+    'jimu/utils',
+    './_chartUtils'
   ],
-  function(declare, lang, jimuUtils) {
+  function(declare, lang, jimuUtils, chartUtils) {
     return declare([], {
       curvedGaugeSeries: [{
         type: 'gauge',
@@ -38,9 +39,10 @@ define([
           normal: {}
         },
         detail: {
+          show: true,
           offsetCenter: [0, '60%'],
           textStyle: {
-            color: '24B5CC'
+            color: '#24B5CC'
           }
         },
         title: {
@@ -51,7 +53,6 @@ define([
         }],
         animationEasingUpdate: 'bounceOut',
         animationDurationUpdate: 500
-        // animationDelayUpdate: 100
       }],
       horizontalGauge: {
         grid: {
@@ -227,13 +228,11 @@ define([
           z: 10
         }]
       },
-      // cacheValue: 0;
-      setChart: function(chart) {
-        this.chart = chart;
+
+      constructor: function(option) {
+        this.chart = option.chart;
       },
-      setRTL: function(isRTL) {
-        this._isRTL = isRTL;
-      },
+
       _settingValueStyle: function(option, config) {
 
         if (config.gaugeOption && jimuUtils.isNotEmptyObject(config.gaugeOption.valueStyle)) {
@@ -293,7 +292,7 @@ define([
         return option;
       },
       _handleHorizontalGaugeValueRTL: function(option, config) {
-        if (!this._isRTL || config.shape !== 'horizontal') {
+        if (!window.isRTL || config.shape !== 'horizontal') {
           return option;
         }
         option.series[1].label.normal.offset = [-20, 0];
@@ -324,7 +323,7 @@ define([
         return option;
       },
       _handleVerticalGaugeValueRTL: function(option, config) {
-        if (!this._isRTL || config.shape !== 'vertical') {
+        if (!window.isRTL || config.shape !== 'vertical') {
           return option;
         }
         var offsetRight = -17;
@@ -344,17 +343,12 @@ define([
           handleValue = config.series[0].data[0];
         } else {
           handleValue = config.max;
-          var formatter = function() {
-            return config.series[0].data[0];
-          };
-          option.series[1].data[0].label.normal.formatter = formatter;
-          option.tooltip.formatter = function(toolInfo) {
-            var colorEl = '<span class="colorEl marginRight5" style="background-color:' +
-              jimuUtils.encodeHTML(toolInfo.color) + '"></span>';
-            return colorEl + config.series[0].data[0];
-          };
         }
+        option.tooltip.formatter = function(toolInfo) {
+          return chartUtils.handleToolTip(toolInfo, config.series[0].data[0], false);
+        };
         option.series[1].data[0].value = handleValue;
+
         return option;
       },
       _settingCurvedGauge: function(option, config) {
@@ -363,7 +357,10 @@ define([
         config.max = typeof config.max !== 'undefined' && config.max ? config.max : 100;
         option.series[0].min = config.min;
         option.series[0].max = config.max;
-
+        //handle curved gauge for auto reverse
+        option.tooltip.formatter = function(toolInfo) {
+          return chartUtils.handleToolTip(toolInfo, null, false);
+        };
         option.series[0].axisLine.lineStyle.color[0][0] = parseFloat(config.series[0].data[0] / config.max).toFixed(2);
 
         option.series[0].data[0].value = config.series[0].data[0];
@@ -489,7 +486,7 @@ define([
 
         top = Number(top) + 16;
         this.cacheCriticalValues = lang.clone(this.criticalValues);
-        this.criticalValues.forEach(lang.hitch(this, function(val) {
+        this.cacheCriticalValues.forEach(lang.hitch(this, function(val) {
           var type, value;
           if (typeof val === 'object') {
             if (val.type) {
@@ -510,7 +507,9 @@ define([
           if (offset > 0) {
             textLeft = left - offset;
           }
+          /* jscs:disable */
           var imgUrl = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgd2lkdGg9IjdweCIgaGVpZ2h0PSI1cHgiIHZpZXdCb3g9IjAgMCA3IDUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+DQogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0NC4xICg0MTQ1NSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+DQogICAgPHRpdGxlPlRyaWFuZ2xlPC90aXRsZT4NCiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4NCiAgICA8ZGVmcz48L2RlZnM+DQogICAgPGcgaWQ9IkxheW91dC0yTmV3IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4NCiAgICAgICAgPGcgaWQ9IkNhcmRXaWRnZXRfTGF5b3V0NCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTg3NS4wMDAwMDAsIC0yOTcuMDAwMDAwKSIgZmlsbD0iIzkzOTM5MyI+DQogICAgICAgICAgICA8ZyBpZD0iQ2FyZDJfSG9yaXpvbnRhbEdhdWdlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3OTIuMDAwMDAwLCAxODEuMDAwMDAwKSI+DQogICAgICAgICAgICAgICAgPGcgaWQ9Ikhvcml6b250YWxHYXVnZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC4wMDAwMDAsIDY2LjAwMDAwMCkiPg0KICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjguNTAwMDAwLCA0Mi41MDAwMDApIHJvdGF0ZSgtMjcwLjAwMDAwMCkgdHJhbnNsYXRlKC0xMjguNTAwMDAwLCAtNDIuNTAwMDAwKSB0cmFuc2xhdGUoODYuMDAwMDAwLCAtODYuMDAwMDAwKSIgaWQ9Ik51bWJlcnMrVHJpYW5nbGVzIj4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUwLjAwMDAwMCwgMC4wMDAwMDApIj4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iVHJpYW5nbGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIuNTAwMDAwLCAxNzAuNTQzODAzKSByb3RhdGUoLTE4MC4wMDAwMDApIHRyYW5zbGF0ZSgtMi41MDAwMDAsIC0xNzAuNTQzODAzKSAiIHBvaW50cz0iNSAxNzAuNTQzODAzIC0xLjcwNTMwMjU3ZS0xMyAxNzQuMDQzODAzIC0xLjY5NjQyMDc4ZS0xMyAxNjcuMDQzODAzIj48L3BvbHlnb24+DQogICAgICAgICAgICAgICAgICAgICAgICA8L2c+DQogICAgICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgICAgICA8L2c+DQogICAgICAgICAgICA8L2c+DQogICAgICAgIDwvZz4NCiAgICA8L2c+DQo8L3N2Zz4=';
+          /* jscs:enable */
           if (!type) {
             graphic.push({
               z: 10,
@@ -571,14 +570,18 @@ define([
         }, 0);
         left = parseFloat(left, 10).toFixed(2);
         left = Number(left);
+        /* jscs:disable */
         var imgUrl = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgd2lkdGg9IjVweCIgaGVpZ2h0PSI4cHgiIHZpZXdCb3g9IjAgMCA1IDgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+DQogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0NC4xICg0MTQ1NSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+DQogICAgPHRpdGxlPlRyaWFuZ2xlPC90aXRsZT4NCiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4NCiAgICA8ZGVmcz48L2RlZnM+DQogICAgPGcgaWQ9IkxheW91dC0yTmV3IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4NCiAgICAgICAgPGcgaWQ9IkNhcmRXaWRnZXRfTGF5b3V0NCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTg3Ni4wMDAwMDAsIC0zMjQuMDAwMDAwKSIgZmlsbD0iIzkzOTM5MyI+DQogICAgICAgICAgICA8ZyBpZD0iQ2FyZDJfSG9yaXpvbnRhbEdhdWdlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3OTIuMDAwMDAwLCAxODEuMDAwMDAwKSI+DQogICAgICAgICAgICAgICAgPGcgaWQ9Ikhvcml6b250YWxHYXVnZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC4wMDAwMDAsIDY2LjAwMDAwMCkiPg0KICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjguNTAwMDAwLCA0Mi41MDAwMDApIHJvdGF0ZSgtMjcwLjAwMDAwMCkgdHJhbnNsYXRlKC0xMjguNTAwMDAwLCAtNDIuNTAwMDAwKSB0cmFuc2xhdGUoODYuMDAwMDAwLCAtODYuMDAwMDAwKSIgaWQ9Ik51bWJlcnMrVHJpYW5nbGVzIj4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUwLjAwMDAwMCwgMC4wMDAwMDApIj4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iVHJpYW5nbGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwLjYyODk1MiwgMTcwLjQ1ODY1NCkgcm90YXRlKC05MC4wMDAwMDApIHRyYW5zbGF0ZSgtMzAuNjI4OTUyLCAtMTcwLjQ1ODY1NCkgIiBwb2ludHM9IjMzLjEyODk1MjMgMTcwLjQ1ODY1NCAyOC4xMjg5NTIzIDE3My45NTg2NTQgMjguMTI4OTUyMyAxNjYuOTU4NjU0Ij48L3BvbHlnb24+DQogICAgICAgICAgICAgICAgICAgICAgICA8L2c+DQogICAgICAgICAgICAgICAgICAgIDwvZz4NCiAgICAgICAgICAgICAgICA8L2c+DQogICAgICAgICAgICA8L2c+DQogICAgICAgIDwvZz4NCiAgICA8L2c+DQo8L3N2Zz4=';
-        if (this._isRTL) {
+        /* jscs:enable */
+        if (window.isRTL) {
           left += 40;
+          /* jscs:disable */
           imgUrl = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgd2lkdGg9IjVweCIgaGVpZ2h0PSI3cHgiIHZpZXdCb3g9IjAgMCA1IDciIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+DQogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0NC4xICg0MTQ1NSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+DQogICAgPHRpdGxlPlRyaWFuZ2xlPC90aXRsZT4NCiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4NCiAgICA8ZGVmcz48L2RlZnM+DQogICAgPGcgaWQ9IkxheW91dC0yTmV3IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4NCiAgICAgICAgPGcgaWQ9IkFydGJvYXJkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTIxLjAwMDAwMCwgLTQ0Ny4wMDAwMDApIiBmaWxsPSIjOTM5MzkzIj4NCiAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJUcmlhbmdsZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTIzLjUwMDAwMCwgNDUwLjUwMDAwMCkgcm90YXRlKC0xODAuMDAwMDAwKSB0cmFuc2xhdGUoLTEyMy41MDAwMDAsIC00NTAuNTAwMDAwKSAiIHBvaW50cz0iMTI2IDQ1MC41IDEyMSA0NTQgMTIxIDQ0NyI+PC9wb2x5Z29uPg0KICAgICAgICA8L2c+DQogICAgPC9nPg0KPC9zdmc+';
+          /* jscs:enable */
         }
         var graphicLeft = left - 26;
         this.cacheCriticalValues = lang.clone(this.criticalValues);
-        this.criticalValues.forEach(lang.hitch(this, function(val) {
+        this.cacheCriticalValues.forEach(lang.hitch(this, function(val) {
           var type, value;
           if (typeof val === 'object') {
             if (val.type) {
@@ -590,7 +593,7 @@ define([
           }
 
           var textLeft = graphicLeft;
-          if (!this._isRTL) {
+          if (!window.isRTL) {
             textLeft = graphicLeft - 11 - (value.toString().length - 1) * 6;
           } else {
             textLeft = graphicLeft + 11;
@@ -668,18 +671,25 @@ define([
         return parseFloat(top, 10);
       },
       _showSpecialLabel: function(option, config, specialLabels) {
-        var func = function(val) {
-          var value;
+        var min = config.min || 0;
+        var max = config.max || 100;
+        var step = (max - min) / 1000;
+
+        specialLabels.sort(function(a, b) {
+          return a - b;
+        });
+        var func = function(callbackVal) {
+          var val;
           specialLabels.forEach(function(criticalValue) {
-            if (typeof criticalValue === 'number' && criticalValue % 1 === 0) {
-              value = criticalValue === val ? criticalValue : value;
-            } else {
-              if (criticalValue - val < 1 && criticalValue - val >= 0) {
-                value = criticalValue;
-              }
+            if (typeof val !== 'undefined') {
+              return;
+            }
+            if (criticalValue >= callbackVal && criticalValue < callbackVal + step) {
+              val = criticalValue;
+              return;
             }
           });
-          return value;
+          return val;
         };
         if (config.shape === 'curved') {
           option.series[0].axisLabel.formatter = func;
@@ -697,7 +707,7 @@ define([
         var criticalValues = [];
         if (config.gaugeOption && config.gaugeOption.showTargetValueLabel) {
           if (config.shape === 'curved') {
-            option.series[0].splitNumber = option.series[0].max;
+            option.series[0].splitNumber = 1000;
             option.series[0].axisTick.splitNumber = 1;
             option.series[0].axisTick.show = false;
           }

@@ -1,3 +1,18 @@
+///////////////////////////////////////////////////////////////////////////
+// Copyright © 2016 Esri. All Rights Reserved.
+//
+// Licensed under the Apache License Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+///////////////////////////////////////////////////////////////////////////
 define(["dojo/_base/declare",
     "dojo/_base/lang",
     "dojo/_base/array",
@@ -687,6 +702,8 @@ define(["dojo/_base/declare",
                 if (layer.infoTemplates === null) {
                   if (templates) {
                     layer.infoTemplates = templates;
+                  } else {
+                    self._setDynamicLayerInfoTemplates(layer);
                   }
                 }
                 /*
@@ -935,6 +952,49 @@ define(["dojo/_base/declare",
           handleAs: "json",
           callbackParamName: "callback"
         }, {});
+      },
+
+      _setDynamicLayerInfoTemplates: function(layer) {
+        var self = this, templates = null, dfds = [];
+
+        var readLayer = function(lInfo) {
+          var dfd = self._readRestInfo(layer.url + "/" + lInfo.id);
+          dfd.then(function(result){
+            try {
+              var popupInfo = self._newPopupInfo(result);
+              if (popupInfo) {
+                templates[lInfo.id] = {
+                  infoTemplate: self._newInfoTemplate(popupInfo)
+                };
+              }
+            } catch(exp) {
+              console.warn("Error setting popup.");
+              console.error(exp);
+            }
+          });
+          return dfd;
+        };
+
+        if (layer.infoTemplates === null) {
+          array.forEach(layer.layerInfos, function(lInfo) {
+            if (templates === null) {
+              templates = {};
+            }
+            if (!lInfo.subLayerIds) {
+              dfds.push(readLayer(lInfo));
+            }
+          });
+        }
+        if (dfds.length > 0) {
+          all(dfds).then(function(){
+            if (templates) {
+              layer.infoTemplates = templates;
+            }
+          }).otherwise(function(ex){
+            console.warn("Error reading sublayers.");
+            console.error(ex);
+          });
+        }
       },
 
       _setFeatureLayerInfoTemplate: function(featureLayer, popupInfo, title) {

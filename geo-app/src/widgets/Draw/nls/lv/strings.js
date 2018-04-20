@@ -1,5 +1,5 @@
 define({
-  "_widgetLabel": "Zīmēt",
+  "_widgetLabel": "Zīmēšana",
   "selectDrawMode": "Atlasiet zīmēšanas režīmu",
   "clear": "Notīrīt",
   "point": "Virsotne",

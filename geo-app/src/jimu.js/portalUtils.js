@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,10 +27,11 @@ define([
     './Role',
     './utils',
     './portalUrlUtils',
-    './tokenUtils'
+    './tokenUtils',
+    './ServiceDefinitionManager'
   ],
   function(declare, lang, array, dojoConfig, Deferred, topic, dojoJson, xhr, esriRequest, Role, jimuUtils,
-    portalUrlUtils, tokenUtils) {
+    portalUrlUtils, tokenUtils, ServiceDefinitionManager) {
 
     //important attributes of portal relevant classes
     //attributes: portalUrl,credential,portal
@@ -50,32 +51,26 @@ define([
       },
 
       loadSelfInfo: function() {
-        var def = new Deferred();
-        var args = {
-          url: this.selfUrl,
-          content: {
-            f: 'json'
-          },
-          handleAs: 'json',
-          callbackParamName: 'callback',
-          preventCache: true
-        };
+        var url = this.selfUrl;
+
         if(this.isValidCredential()){
-          args.content.token = this.credential.token;
+          if(url.indexOf('?') > -1){
+            url += '&token=' + this.credential.token;
+          }else{
+            url += '?token=' + this.credential.token;
+          }
         }
-        esriRequest(args).then(lang.hitch(this, function(response) {
+
+        return ServiceDefinitionManager.getInstance().getServiceDefinition(url)
+        .then(lang.hitch(this, function(response) {
           var user = response.user;
           //This is important. Otherwise response.user will override this.user(PortalUser).
           delete response.user;
           lang.mixin(this, response);
           response.user = user;
           //this.selfInfo = lang.mixin({}, response);
-          def.resolve(response);
-        }), lang.hitch(this, function(err) {
-          console.error(err);
-          def.reject(err);
+          return response;
         }));
-        return def;
       },
 
       _checkCredential: function() {
@@ -1096,7 +1091,7 @@ define([
         var portal = this.getPortal(portalUrl);
         //must use double quotation marks around typeKeywords
         //such as typekeywords:"Web AppBuilder" or typekeywords:"Web AppBuilder,Web Map"
-        var q = 'typekeywords:"WABDefaultWebScene" access:public ' + this.webSceneQueryStr;
+        var q = 'typekeywords:"WABDefaultWebScene" orgid:' + portal.user.orgId + ' access:public ' + this.webSceneQueryStr;
         var args = {
           q: q
         };
@@ -1381,13 +1376,13 @@ define([
 
         return result;
       },
-      getItemResources: function(num) {
+      getItemResources: function(portalUrl, appId, num) {
         //num: Maximum number of resources
         if (!num) {
           num = 100;
         }
-        var portalUrl = portalUrlUtils.getStandardPortalUrl(window.portalUrl);
-        var resourcesUrl = portalUrlUtils.getItemResourceUrl(portalUrl, window.appInfo.id);
+        portalUrl = portalUrlUtils.getStandardPortalUrl(portalUrl);
+        var resourcesUrl = portalUrlUtils.getItemResourceUrl(portalUrl, appId);
         return esriRequest({
           url: resourcesUrl,
           content: {
@@ -1398,14 +1393,11 @@ define([
           if (result && result.resources) {
             return result.resources;
           }
-        }, function(err) {
-          console.error(err.message || err);
-          return err;
         });
       },
-      addResource: function(itemId, blobFile, _resourceName, _prefixName) {
+      addResource: function(portalUrl, itemId, blobFile, _resourceName, _prefixName) {
         // _resourceName example: abc.jpg,must have a file name suffix
-        var portalUrl = portalUrlUtils.getStandardPortalUrl(window.portalUrl);
+        portalUrl = portalUrlUtils.getStandardPortalUrl(portalUrl);
         var portal = this.getPortal(portalUrl);
 
         var formData = new FormData();
@@ -1438,7 +1430,7 @@ define([
           });
         });
       },
-      removeResources: function(_resourceName, _prefixName) {
+      removeResources: function(portalUrl, appId, _resourceName, _prefixName) {
         var customResUrl = '';
         if (_prefixName) {
           customResUrl = _prefixName + '/' + _resourceName;
@@ -1449,10 +1441,10 @@ define([
           resource: customResUrl,
           f: 'json'
         };
-        var portalUrl = portalUrlUtils.getStandardPortalUrl(window.portalUrl);
+        portalUrl = portalUrlUtils.getStandardPortalUrl(portalUrl);
         var portal = this.getPortal(portalUrl);
-        return portal.getItemById(window.appInfo.id, true).then(function(item) {
-          var UserContentItemUrl = portalUrlUtils.getUserContentItemUrl(portalUrl, item.owner, window.appInfo.id);
+        return portal.getItemById(appId, true).then(function(item) {
+          var UserContentItemUrl = portalUrlUtils.getUserContentItemUrl(portalUrl, item.owner, appId);
           var removeResourcesUrl = UserContentItemUrl + '/removeResources';
           return esriRequest({
             url: removeResourcesUrl,

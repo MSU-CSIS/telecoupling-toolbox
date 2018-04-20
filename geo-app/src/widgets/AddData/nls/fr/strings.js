@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "Un fichier de formes (.zip, archive ZIP contenant tous les fichiers de formes)",
       "CSV": "Un fichier CSV (.csv, avec adresse ou latitude, longitude et valeurs séparées par des virgules, des points-virgules ou des tabulations)",
+      "KML": "Un fichier KML (.kml)",
       "GPX": "Un fichier GPX (.gpx, GPS Exchange Format)",
       "GeoJSON": "Un fichier GeoJSON (.geo.json ou .geojson)"
     },

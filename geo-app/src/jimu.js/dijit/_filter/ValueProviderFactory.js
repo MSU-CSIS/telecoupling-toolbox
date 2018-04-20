@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,10 +24,11 @@ define([
   './TwoDatesValueProvider',
   './ListValueProvider',
   './NumberListValueProvider',
+  './DateIsInValueProvider',
   'jimu/LayerInfos/LayerInfos'
 ],
   function(lang, array, declare, BlankValueProvider, SimpleValueProvider, TwoNumbersValueProvider,
-    TwoDatesValueProvider, ListValueProvider, NumberListValueProvider, LayerInfos) {
+    TwoDatesValueProvider, ListValueProvider, NumberListValueProvider, DateIsInValueProvider, LayerInfos) {
 
     var BLANK_VALUE_PROVIDER = "BLANK_VALUE_PROVIDER";
     var SIMPLE_VALUE_PROVIDER = "SIMPLE_VALUE_PROVIDER";
@@ -35,6 +36,7 @@ define([
     var TWO_DATES_VALUE_PROVIDER = "TWO_DATES_VALUE_PROVIDER";
     var LIST_VALUE_PROVIDER = "LIST_VALUE_PROVIDER";
     var NUMBER_LIST_VALUE_PROVIDER = "NUMBER_LIST_VALUE_PROVIDER";
+    var DATE_IS_IN_VALUE_PROVIDER = "DATE_IS_IN_VALUE_PROVIDER";
 
     //operator + type => value provider
     var relationship = {
@@ -235,6 +237,18 @@ define([
           normalProviderType: LIST_VALUE_PROVIDER
         }
       },
+      dateOperatorIsIn: {
+        value: {
+          normalProviderType: DATE_IS_IN_VALUE_PROVIDER,
+          supportAskForValue: true
+        }
+      },
+      dateOperatorIsNotIn: {
+        value: {
+          normalProviderType: DATE_IS_IN_VALUE_PROVIDER,
+          supportAskForValue: true
+        }
+      },
       dateOperatorIsBefore: {
         value: {
           normalProviderType: SIMPLE_VALUE_PROVIDER,
@@ -309,9 +323,12 @@ define([
 
     var clazz = declare([], {
       nls: null,
-      url: null,
-      layerDefinition: null,
-      layerInfo: null,//jimu/LayerInfos/LayerInfo
+      layerInfo: null,//jimu/LayerInfos/LayerInfo, maybe null
+      popupInfo: null,//webmap popupInfo, maybe null
+
+      //options:
+      url: null,//required
+      layerDefinition: null,//required
       featureLayerId: null,//optional
 
       constructor: function(options){
@@ -321,6 +338,9 @@ define([
         var layerInfosObj = LayerInfos.getInstanceSync();
         if(this.featureLayerId){
           this.layerInfo = layerInfosObj.getLayerOrTableInfoById(this.featureLayerId);
+          if(this.layerInfo){
+            this.popupInfo = this.layerInfo.getPopupInfo();
+          }
         }
       },
 
@@ -443,6 +463,7 @@ define([
             codedValues: codedValues,
             staticValues: staticValues,
             layerInfo: this.layerInfo,
+            popupInfo: this.popupInfo,
             operatorInfo: operatorInfo,
             filterCodedValueIfPossible: filterCodedValueIfPossible,
             runtime: runtime
@@ -468,6 +489,8 @@ define([
             valueProvider = new ListValueProvider(args);
           }else if(valueProviderType === NUMBER_LIST_VALUE_PROVIDER){
             valueProvider = new NumberListValueProvider(args);
+          }else if(valueProviderType === DATE_IS_IN_VALUE_PROVIDER){
+            valueProvider = new DateIsInValueProvider(args);
           }
         }
 
@@ -556,6 +579,8 @@ define([
         operators = [
           "dateOperatorIsOn",
           "dateOperatorIsNotOn",
+          "dateOperatorIsIn",
+          "dateOperatorIsNotIn",
           "dateOperatorIsBefore",
           "dateOperatorIsAfter",
           "dateOperatorIsOnOrBefore",

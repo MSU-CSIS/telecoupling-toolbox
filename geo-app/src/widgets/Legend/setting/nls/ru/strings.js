@@ -3,5 +3,6 @@ define({
   "right": "Выровнять по правому краю",
   "arrangement": "Расположение",
   "autoUpdate": "Автообновление",
-  "respectCurrentMapScale": "Учитывать текущий масштаб карты"
+  "respectCurrentMapScale": "Учитывать текущий масштаб карты",
+  "layerSelectorTitle": "Выбрать слои для отображения в легенде: "
 });

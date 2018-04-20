@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "Shapefile failą (.zip, ZIP archyvą, kuriame yra visi Shapefile failai)",
       "CSV": "CSV failą (.csv, su adresu arba platuma, ilguma, atskirtą kableliu, kabliataškiu arba tabuliavimo žyme)",
+      "KML": "A KML failas (.kml)",
       "GPX": "GPX failą (.gpx, GPS Exchange formato)",
       "GeoJSON": "GeoJSON failą (.geo.json arba .geojson)"
     },

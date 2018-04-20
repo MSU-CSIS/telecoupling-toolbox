@@ -225,6 +225,7 @@ define([
     exports._getExportData = function(layer, options) {
       var def = new Deferred();
       var _outFields = null;
+      var _queryOutFields = [];
       var data = options.datas;
       var withGeometry = options.withGeometry;
 
@@ -235,6 +236,10 @@ define([
       _outFields = lang.clone(_outFields);
 
       if (withGeometry && !(data && data.length > 0)) {// only for fromClient or server
+        // data is null, we should retrieve data from server.
+        // for query params, here we clone _outFields to _queryOutFields before x and y appended to _outFields.
+        //  because the fields of service might not contain field x or field y.
+        _queryOutFields = lang.clone(_outFields);
         var name = "";
         if (_outFields.indexOf('x') !== -1) {
           name = '_x';
@@ -284,7 +289,7 @@ define([
             'outFields': _outFields
           });
         } else {
-          exports._getExportDataFromServer(layer, _outFields, options)
+          exports._getExportDataFromServer(layer, _queryOutFields, options)
             .then(function(data) {
               def.resolve({
                 'data': data || [],

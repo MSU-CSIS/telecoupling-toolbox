@@ -20,5 +20,6 @@ define({
   "exportOutput": "Εξαγωγή",
   "emptyResult": "Το αποτέλεσμα είναι κενό.",
   "useSelectedFeatureset": "Χρήση των στοιχείων που προέκυψαν.",
-  "closeSelectedFeatureset": "Απαλοιφή και χρήση της επιλογής διαμόρφωσης εισόδου."
+  "closeSelectedFeatureset": "Απαλοιφή και χρήση της επιλογής διαμόρφωσης εισόδου.",
+  "currentMapExtent": "Έκταση τρέχοντος χάρτη"
 });

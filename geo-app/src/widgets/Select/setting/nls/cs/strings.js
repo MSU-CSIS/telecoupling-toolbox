@@ -3,5 +3,6 @@ define({
   "selectionMode": "Režim interaktivního výběru",
   "partiallyWithin": "Částečně uvnitř",
   "whollyWithin": "Zcela uvnitř",
-  "allowExport": "Povolit exportování vybraných prvků"
+  "allowExport": "Povolit exportování vybraných prvků",
+  "layerToSelect": "Vyberte, které vrstvy si přejete přidat"
 });

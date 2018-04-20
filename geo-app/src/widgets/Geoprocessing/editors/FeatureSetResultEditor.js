@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ define(['dojo/_base/declare',
   'dijit/_TemplatedMixin',
   '../BaseEditor',
   './FeatureSetRendererEditor',
-  'jimu/dijit/PopupConfig',
+  '../PopupConfig',
   'jimu/dijit/TabContainer',
   'jimu/dijit/CheckBox'
 ],
@@ -55,29 +55,31 @@ function(declare, lang, array, on, template, _TemplatedMixin, BaseEditor,
       var popupArgs = {};
       if(this.args && this.args.param){
         if(this.args.param.defaultValue){
-          popupArgs.fields = lang.clone(this.args.param.defaultValue.fields);
+          popupArgs.fields = lang.clone(this.args.param.defaultValue.fields || []);
         }
         var popup = this.args.param.popup;
         if(popup){
-          var fieldNames = array.map(popup.fields, function(item){
-            return item.name;
-          });
-          popupArgs.fields = array.map(popupArgs.fields, function(fieldInfo){
-            var visible = array.indexOf(fieldNames, fieldInfo.name) >= 0;
-            fieldInfo.visible = visible;
-            // update alias if necessary
-            var alias;
-            array.some(popup.fields, function(item) {
-              if(item.name === fieldInfo.name) {
-                alias = item.alias;
-                return true;
-              }
+          // back compatible, popup of old version only contain the selected fields
+          if (popup.fields.length !== popupArgs.fields.length) {
+            var fieldNames = array.map(popup.fields, function(item){
+              return item.name;
             });
-            if(alias) {
-              fieldInfo.alias = alias;
-            }
-            return fieldInfo;
-          });
+            popupArgs.fields = array.map(popupArgs.fields, function(fieldInfo){
+              var visible = array.indexOf(fieldNames, fieldInfo.name) >= 0;
+              fieldInfo.visible = visible;
+              // update alias if necessary
+              array.some(popup.fields, function(item) {
+                if(item.name === fieldInfo.name) {
+                  fieldInfo.alias = item.alias || fieldInfo.alias;
+                  return true;
+                }
+              });
+              return fieldInfo;
+            });
+          } else { // new version of popup contains all fields
+            popupArgs.fields = popup.fields;
+          }
+
           popupArgs.title = popup.title;
         }
       }

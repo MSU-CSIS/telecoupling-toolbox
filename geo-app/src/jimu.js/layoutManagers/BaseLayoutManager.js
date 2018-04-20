@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -248,7 +248,11 @@ function(declare, lang, array, html, _WidgetBase, Deferred, all, jimuUtils, Widg
 
     destroyOnScreenOffPanelWidgets: function(){
       array.forEach(this.widgetManager.getOnScreenOffPanelWidgets(), function(widget){
-        this.widgetManager.destroyWidget(widget);
+        if(widget.isController){
+          this._destroyControllerWidget(widget);
+        }else{
+          this.widgetManager.destroyWidget(widget);
+        }
       }, this);
     },
 

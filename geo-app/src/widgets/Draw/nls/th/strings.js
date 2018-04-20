@@ -4,7 +4,7 @@ define({
   "clear": "ลบ",
   "point": "จุด",
   "line": "เส้น",
-  "polyline": "เส้น",
+  "polyline": "เส้นหลายรูปแบบ",
   "freehandPolyline": "วาดเส้นแบบฟรีแฮนด์",
   "triangle": "สามเหลี่ยม",
   "extent": "ส่วนขยาย",

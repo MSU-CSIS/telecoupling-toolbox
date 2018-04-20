@@ -81,5 +81,8 @@
 .jimu-widget-select-setting .draw-item.polygon {
   background-image: url(../../../../jimu.js/css/images/draw_polygon.png);
 }
+.jimu-widget-select-setting .jimu-basic-layer-chooser-from-map-lite .check-box-div.jimu-state-disabled {
+  display: none;
+}
 
 /*# sourceMappingURL=style.css.map */

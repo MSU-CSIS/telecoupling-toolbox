@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "Shapefile (.zip，包含所有 shapefile 檔案的 ZIP 封存檔)",
       "CSV": "CSV 檔案 (.csv，包含地址或經度、緯度和逗號、分號或索引標籤分隔)",
+      "KML": "KML 檔案 (.kml)",
       "GPX": "GPX 檔案 (.gpx，GPS Exchange 格式)",
       "GeoJSON": "GeoJSON 檔案 (.geo.json 或 .geojson)"
     },

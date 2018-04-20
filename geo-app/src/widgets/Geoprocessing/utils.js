@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -154,6 +154,14 @@ function(array, Deferred, esriRequest) {
       });
       return layers;
     });
+  };
+
+  mo.useDynamicSchema = function(param, config) {
+    if ('useDynamicSchema' in param) {
+      return param.useDynamicSchema === true;
+    }
+    // For back compatibility, as this option is global before online 5.2
+    return config.useDynamicSchema === true;
   };
 
   return mo;

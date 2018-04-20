@@ -266,15 +266,16 @@
 
 /* ADDED CUSTOMIZATION */
 .apc-btn{
-  /*display: inline-block;
-  margin-top: 8px;
-  margin-left: 10px;
-  padding: 4px 10px;
-  display: inline-block;*/
-  padding: 5px 5px;
-  color: #FFFFFF !important;
-  font-weight: bold; 
-  background-color: #008183;
-  border-radius: 3px;
-  text-decoration: none;
+	/*display: inline-block;
+	margin-top: 8px;
+	margin-left: 10px;
+	padding: 4px 10px;
+	display: inline-block;*/
+	padding: 5px 5px;
+	color: #FFFFFF !important;
+	font-weight: bold;
+	background-color: #008183;
+	border-radius: 3px;
+	text-decoration: none;
+	opacity: 1;
 }

@@ -76,7 +76,18 @@ define({
     "field": "Πεδίο",
     "operation": "Λειτουργία",
     "disableUpdateGeometry": "Απενεργοποίηση ενημέρωσης γεωμετρίας",
-    "preview": "Προεπισκόπηση"
+    "preview": "Προεπισκόπηση",
+    "date": "Ημερομηνία",
+    "time": "Ώρα",
+    "show": "Εμφάνιση",
+    "hide": "Απόκρυψη",
+    "format": "Μορφότυπο",
+    "defaults": "Προεπιλεγμένη ρύθμιση",
+    "add": "Προσθήκη",
+    "done": "Τέλος",
+    "remove": "Κατάργηση",
+    "leave": "Αποχώρηση",
+    "stay": "Παραμονή"
   },
   "errorCode": "Κωδικός",
   "errorMessage": "Μήνυμα",
@@ -99,10 +110,18 @@ define({
     "arrows": "Βέλη",
     "business": "Επιχείρηση",
     "cartographic": "Χαρτογραφικά",
+    "damage": "Ζημιές",
+    "disasters": "Καταστροφές",
+    "emergencyManagement": "Διαχείριση καταστάσεων έκτακτης ανάγκης",
+    "generalInfrastructure": "Γενικές υποδομές",
+    "localGovernment": "Τοπική Κυβέρνηση",
     "nationalParkService": "Εθνική Υπηρεσία Πάρκων",
+    "numbers": "Αριθμοί",
     "outdoorRecreation": "Υπαίθριες δραστηριότητες αναψυχής",
     "peoplePlaces": "Άνθρωποι και μέρη",
+    "pointsOfInterest": "Σημεία ενδιαφέροντος",
     "safetyHealth": "Ασφάλεια - Υγεία",
+    "stateGovernment": "Πολιτειακή Κυβέρνηση",
     "shapes": "Σχήματα",
     "transportation": "Μεταφορές",
     "symbolSize": "Μέγεθος συμβόλου",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "είναι κενό",
     "stringOperatorIsNotBlank": "δεν είναι κενό",
     "dateOperatorIsOn": "είναι στις",
+    "dateOperatorIsIn": "είναι",
+    "dateOperatorIsNotIn": "δεν είναι",
     "dateOperatorIsNotOn": "δεν είναι στις",
     "dateOperatorIsBefore": "είναι πριν από",
     "dateOperatorIsAfter": "είναι μετά από",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Εμφανίστε μόνο τις τιμές που φιλτράρονται από προηγούμενες εκφράσεις.",
     "noneCascadeFilterTip": "Όλες οι μοναδικές τιμές αυτού του πεδίου",
     "previousCascadeFilterTip": "Οι τιμές φιλτράρονται από προηγούμενες εκφράσεις",
-    "allCascadeFilterTip": "Οι τιμές φιλτράρονται από όλες τις εκφράσεις"
+    "allCascadeFilterTip": "Οι τιμές φιλτράρονται από όλες τις εκφράσεις",
+    "custom": "στην ημερομηνία...",
+    "today": "σήμερα",
+    "yesterday": "χθες",
+    "tomorrow": "αύριο",
+    "thisWeek": "αυτή την εβδομάδα",
+    "thisMonth": "αυτό το μήνα",
+    "thisQuarter": "αυτό το τρίμηνο",
+    "thisYear": "αυτό το έτος",
+    "inputType": "Τύπος εισαγωγής",
+    "setInputType": "Ορισμός τύπου εισαγωγής"
   },
   "featureLayerSource": {
     "layer": "Θεματικό Επίπεδο",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "ν.μ.",
     "uSSurveyFeet": "Τοπογραφικά πόδια US",
     "uSSurveyFeetAbbr": "τοπ. πόδια US",
+    "centimeters": "Εκατοστά",
+    "centimetersAbbr": "εκ.",
+    "inches": "Ίντσες",
+    "inchesAbbr": "ίν.",
     "decimalDegree": "Δεκαδικές μοίρες",
     "decimalDegreeAbbr": "δεκ. μοίρες",
     "degreeMinuteSeconds": "Μοίρες λεπτά δευτερόλεπτα",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "τετρ. γρδ.",
     "squareUSSurveyFeet": "Τετραγωνικά τοπογραφικά πόδια US",
     "squareUSSurveyFeetAbbr": "τετρ. τοπ. πόδια US"
+  },
+  "timeUnit": {
+    "year": "Έτος",
+    "month": "Μηνών",
+    "day": "Ημέρα",
+    "hour": "Ώρα",
+    "minute": "Λεπτό",
+    "second": "Δευτερολέπτων"
   },
   "featureSetChooser": {
     "select": "Επιλογή",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Σχετικές εγγραφές:",
     "noRelatedRecotds": "Δεν βρέθηκαν σχετικές εγγραφές.",
     "chooseFieldTip": "Επιλέξτε ένα γνώρισμα για εμφάνιση της λίστας",
-    "saveAsPopupTitle": "Ίδιο με τον αναδυόμενο τίτλο"
+    "saveAsPopupTitle": "Ίδιο με τον αναδυόμενο τίτλο",
+    "leaveConfirm": "Επιθυμείτε να αποχωρήσετε χωρίς να αποθηκεύσετε τις επεξεργασίες;"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "Υπάρχουν υπερβολικά πολλά στοιχεία στην επιλογή σας. Ίσως χρειαστεί αρκετό διάστημα για την ανάκτηση και την εμφάνισή τους στο χάρτη.",
@@ -545,7 +589,7 @@ define({
   },
   "colorPalette": {
     "transparent": "Διαφανές",
-    "custom": "Προσαρμοσμένο"
+    "custom": "Παραμετροποίηση"
   },
   "temperature": {
     "celsius": "Κελσίου",

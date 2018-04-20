@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -168,6 +168,12 @@ define([
       }
     };
 
+    // Polyfill isNaN for IE11
+    // Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
+    Number.isNaN = Number.isNaN || function (value) {
+      return value !== value;
+    };
+
     /*jshint unused: false*/
     if (typeof jimuConfig === 'undefined') {
       jimuConfig = {};
@@ -183,9 +189,9 @@ define([
       breakPoints: [600, 1280]
     }, jimuConfig);
 
-    window.wabVersion = '2.5';
-    // window.productVersion = 'Online 5.2';
-    window.productVersion = 'Web AppBuilder for ArcGIS (Developer Edition) 2.5';
+    window.wabVersion = '2.7';
+    // window.productVersion = 'Online 5.4';
+    window.productVersion = 'Web AppBuilder for ArcGIS (Developer Edition) 2.7';
     // window.productVersion = 'Portal for ArcGIS 10.5.1';
 
     function initApp() {
@@ -248,13 +254,21 @@ define([
       topic.subscribe("appConfigChanged", onAppConfigChanged);
     }
 
-    function onAppConfigChanged(_appConfig){
+    function onAppConfigChanged(_appConfig, reason){
       appConfig = _appConfig;
+
+      if(reason === 'loadingPageChange'){
+        return;
+      }
 
       html.setStyle(jimuConfig.loadingId, 'display', 'none');
       html.setStyle(jimuConfig.mainPageId, 'display', 'block');
     }
-
+    //ie css
+    var ieVersion = jimuUtils.has('ie');
+    if(ieVersion > 10){
+      html.addClass(document.body, 'ie-gte-10');
+    }
     mo.initApp = initApp;
     return mo;
   });

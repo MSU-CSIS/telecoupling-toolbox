@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "Shapefile (.zip, ไฟล์ ZIP ที่มีไฟล์ shapefile ทั้งหมดอยู่ภายใน)",
       "CSV": "ไฟล์ CSV (.csv ที่มีที่อยู่ หรือค่าลองจิจูด ละติจูด และจุลภาค เซมิคอลอน หรือ คั่นด้วยแท็บ)",
+      "KML": "ไฟล์ KML (.kml)",
       "GPX": "ไฟล์ GPX (.gpx ไฟล์สำหรับการแลกเปลี่ยนรูปแบบจากอุปกรณ์ GPS)",
       "GeoJSON": "ไฟล์ GeoJSON (.geo.json หรือ .geojson)"
     },

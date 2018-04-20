@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -68,9 +68,10 @@ define(['dojo/_base/declare',
           }
           this.confirmCheck = new CheckBox({
             label: utils.stripHTML(hint),
-            checked: false
+            checked: false,
+            tabindex: 0
           }, this.confirmCheck);
-          this.own(on(this.confirmCheck.domNode, 'click', lang.hitch(this, this.onCheckBoxClick)));
+          this.own(on(this.confirmCheck, 'change', lang.hitch(this, this.onCheckBoxClick)));
           html.setAttr(this.confirmCheck.domNode, 'title', utils.stripHTML(hint));
           this.confirmCheck.startup();
         }
@@ -83,6 +84,18 @@ define(['dojo/_base/declare',
           if (esriLang.isDefined(isfirst) && isfirst.toString() === 'false') {
             this.close();
           }
+        }
+        // if (true === this._requireConfirm) {
+        //   //checkbox
+        //   this.confirmCheck.focus();
+        // } else if ((false === this._requireConfirm && false === this._showOption) ||
+        //   (false === this._requireConfirm && true === this._showOption)) {
+        //   this.okNode.focus();
+        // }
+        if (!this._requireConfirm && !this._showOption) {
+          this.okNode.focus();
+        } else {
+          this.confirmCheck.focus();
         }
       },
 

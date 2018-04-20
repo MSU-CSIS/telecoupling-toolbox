@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,10 +27,11 @@ define([
   'jimu/dijit/Popup',
   'jimu/utils',
   './SettingDetail',
+  '../utils',
   'dijit/form/ValidationTextBox'
 ],
 function(declare, lang, array, html, on, _WidgetsInTemplateMixin, BaseWidgetSetting,
-  GpSource, ViewStack, Popup, jimuUtils, SettingDetail) {
+  GpSource, ViewStack, Popup, jimuUtils, SettingDetail, gputils) {
   return declare([BaseWidgetSetting, _WidgetsInTemplateMixin], {
     baseClass: 'jimu-widget-setting-gp',
 
@@ -117,7 +118,7 @@ function(declare, lang, array, html, on, _WidgetsInTemplateMixin, BaseWidgetSett
 
     getDataSources: function(){
       var config = this.getConfig();//.outputParams;
-      if (config.useDynamicSchema || config.useResultMapServer) {
+      if (config.useResultMapServer) {
         return [];
       }
       var res = [];
@@ -125,12 +126,14 @@ function(declare, lang, array, html, on, _WidgetsInTemplateMixin, BaseWidgetSett
         if(param.visible &&
           (param.dataType === 'GPFeatureRecordSetLayer' || param.dataType === 'GPRecordSet') &&
           param.defaultValue && param.defaultValue.fields) {
-          res.push({
-            id: 'filter-' + param.name,
-            type: 'Features',
-            label: param.name,
-            dataSchema: jimuUtils.getDataSchemaFromLayerDefinition(param.defaultValue)
-          });
+          if (!gputils.useDynamicSchema(param, config)) {
+            res.push({
+              id: 'filter-' + param.name,
+              type: 'Features',
+              label: param.name,
+              dataSchema: jimuUtils.getDataSchemaFromLayerDefinition(param.defaultValue)
+            });
+          }
         }
       });
       return res;

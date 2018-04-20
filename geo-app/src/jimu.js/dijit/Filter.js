@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 ///////////////////////////////////////////////////////////////////////////
 
 define([
+  'dojo/on',
   'dojo/Evented',
   'dojo/_base/declare',
   'dijit/_WidgetBase',
@@ -23,6 +24,7 @@ define([
   'dojo/text!./templates/Filter.html',
   'jimu/filterUtils',
   'jimu/utils',
+  'jimu/LayerInfos/LayerInfos',
   'jimu/dijit/_filter/ValueProviderFactory',
   'dijit/registry',
   'dojo/_base/lang',
@@ -35,15 +37,17 @@ define([
   './_FilterSet',
   './LoadingIndicator'
 ],
-function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
-  template, filterUtils, jimuUtils, ValueProviderFactory, registry, lang, html, array, aspect,
-  Deferred, esriRequest, SingleFilter, FilterSet) {
+function(on, Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template, filterUtils,
+  jimuUtils, LayerInfos, ValueProviderFactory, registry, lang, html, array, aspect, Deferred, esriRequest,
+  SingleFilter, FilterSet) {
 
   return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, filterUtils, Evented], {
     templateString: template,
     baseClass: 'jimu-filter',
     declaredClass: 'jimu.dijit.Filter',
     nls: null,
+
+    autoSwitchMode: true,
 
     //test urls:
     //http://discomap.eea.europa.eu/arcgis/rest/services/
@@ -65,17 +69,24 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
     _layerDefinition: null,
     _def: null,
     valueProviderFactory: null,
+    featureLayerId: null,
+    layerInfosObj: null,
+    mode: 'desktop',//desktop,mobile
 
     //options:
-    noFilterTip: '',
-    enableAskForValues: false,
+    noFilterTip: '',//optional
+    enableAskForValues: false,//optional
+    mobileBreakWidth: 600,
 
     //public methods:
+    //build: partsObj or expr -> UI
     //buildByExpr: expr->UI
     //buildByFilterObj: partsObj->UI
     //toJson: UI->partsObj
     //getFilterObjByExpr(inherited): expr->partsObj
     //getExprByFilterObj(inherited): partsObj->expr
+    //autoUpdateMode: update UI mode automatically
+    //setMode: set fixed UI mode
 
     //attributes:
     //url: null, //required
@@ -85,9 +96,10 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
     //css classes:
     //jimu-single-filter
     //jimu-filter-set
-    //odd-filter
-    //even-filter
     //no-filter-tip
+
+    //events:
+    //change
 
     postMixInProperties:function(){
       this.nls = window.jimuNls.filterBuilder;
@@ -95,14 +107,78 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
       var splits = this.nls.matchMsg.split(a);
       this.nls.strMatchMsgPart1 = splits[0] || '';
       this.nls.strMatchMsgPart2 = splits[1] || '';
+      this.nls.add = window.jimuNls.common.add;
+      this.nls.apply = window.jimuNls.common.apply;
+      this.layerInfosObj = LayerInfos.getInstanceSync();
       this.inherited(arguments);
     },
 
     postCreate: function(){
       this.inherited(arguments);
+      this._setDesktopMode();
       if(this.noFilterTip && typeof this.noFilterTip === 'string'){
         this.noFilterTipSection.innerHTML = this.noFilterTip;
       }
+    },
+
+    startup: function(){
+      this.inherited(arguments);
+      this.autoUpdateMode();
+    },
+
+    resize: function(){
+      this.autoUpdateMode();
+    },
+
+    //Update mode automatically. Should call this method when widget resize if Filter hosted in widget
+    autoUpdateMode: function(){
+      if(!this.autoSwitchMode){
+        return;
+      }
+      this._clearMode();
+      var w = this.domNode.clientWidth;
+      if(w >= this.mobileBreakWidth){
+        this._setDesktopMode();
+      }else{
+        this._setMobileMode();
+      }
+    },
+
+    setMode: function(mode){
+      if(mode === 'desktop'){
+        this._setDesktopMode();
+      }else if(mode === 'mobile'){
+        this._setMobileMode();
+      }
+    },
+
+    _setMode: function(mode){
+      this.mode = mode;
+      this._setModeClass(this.mode);
+    },
+
+    _setModeClass: function(mode){
+      html.removeClass(this.domNode, 'desktop-mode');
+      html.removeClass(this.domNode, 'mobile-mode');
+      html.addClass(this.desktopAddSection, 'hidden');
+      html.addClass(this.mobileAddSection, 'hidden');
+      if(mode){
+        html.addClass(this.domNode, mode + '-mode');
+      }
+    },
+
+    _clearMode: function(){
+      this._setModeClass("");
+    },
+
+    _setDesktopMode: function(){
+      this._setMode('desktop');
+      html.removeClass(this.desktopAddSection, 'hidden');
+    },
+
+    _setMobileMode: function(){
+      this._setMode('mobile');
+      html.removeClass(this.mobileAddSection, 'hidden');
     },
 
     reset: function(){
@@ -111,6 +187,7 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
         this.url = null;
         this.isHosted = false;
         this._layerDefinition = null;
+        this.featureLayerId = null;
         this.expr = null;
         this.partsObj = null;
         this.valueProviderFactory = null;
@@ -121,7 +198,15 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
       return this._def && !this._def.isFulfilled();
     },
 
-    buildByExpr: function(url, expr, /*optional*/ layerDefinition){
+    /*
+    options.url: required,
+    options.partsObj: {logicalOperator,parts,expr}
+    options.expr: sql expression
+    options.partsObj or options.expr is required. options.partsObj has priority.
+    options.layerDefinition: optional
+    options.featureLayerId: optional
+    */
+    build: function(options){
       var def = new Deferred();
 
       if(this.isBuilding()){
@@ -129,35 +214,46 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
       } else{
         this._def = null;
         this.reset();
-        this.url = url;
+        this.url = options.url;
         this.isHosted = jimuUtils.isHostedService(this.url);
-        this.expr = expr || '1=1';
-        this._layerDefinition = layerDefinition;
-        this._def = this._init("expr");
+        this._layerDefinition = options.layerDefinition;
+        this.featureLayerId = options.featureLayerId;
+        if(options.partsObj){
+          this.partsObj = this._updatePartsObj(options.partsObj);
+          this._def = this._init("partsObj");
+        }else{
+          this.expr = options.expr || '1=1';
+          this._def = this._init("expr");
+        }
         def = this._def;
       }
 
       return def;
     },
 
+    buildByExpr: function(url, expr, /*optional*/ layerDefinition){
+      console.warn('Filter#buildByExpr() method is deprecated, please use Filter#build() instead.');
+      var options = {
+        url: url,
+        expr: expr,
+        layerDefinition: layerDefinition,
+        featureLayerId: this.featureLayerId
+      };
+
+      return this.build(options);
+    },
+
     //partsObj:{logicalOperator,parts,expr}
     buildByFilterObj: function(url, partsObj, /*optional*/ layerDefinition){
-      var def = new Deferred();
+      console.warn('Filter#buildByFilterObj() method is deprecated, please use Filter#build() instead.');
+      var options = {
+        url: url,
+        partsObj: partsObj,
+        layerDefinition: layerDefinition,
+        featureLayerId: this.featureLayerId
+      };
 
-      if(this.isBuilding()){
-        def.reject('Filter is already building.');
-      } else{
-        this._def = null;
-        this.reset();
-        this.url = url;
-        this.isHosted = jimuUtils.isHostedService(this.url);
-        this.partsObj = this._updatePartsObj(partsObj);
-        this._layerDefinition = layerDefinition;
-        this._def = this._init("partsObj");
-        def = this._def;
-      }
-
-      return def;
+      return this.build(options);
     },
 
     _updatePartsObj: function(partsObj) {
@@ -232,14 +328,17 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
 
       var resolveDef = lang.hitch(this, function(){
         setTimeout(lang.hitch(this, function() {
+          this.emit('change');
           def.resolve();
         }), 1500);
       });
 
       var callback = lang.hitch(this, function() {
-        html.setStyle(this.contentSection, 'display', 'block');
-        html.setStyle(this.errorSection, 'display', 'none');
+        html.addClass(this.errorSection, 'hidden');
         this.removeAllFilters();
+        if(this.featureLayerId){
+          this._tryOverrideFieldAliases(this.featureLayerId, this._layerDefinition);
+        }
         var fields = this._layerDefinition.fields;
         if (!(fields && fields.length > 0)) {
           def.reject();
@@ -256,14 +355,17 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
           return;
         }
         this._validOptions = true;
-        html.removeClass(this.btnAddSet, 'jimu-state-disabled');
-        html.removeClass(this.btnAddExp, 'jimu-state-disabled');
-        html.removeClass(this.iconAddExp, 'jimu-state-disabled');
-        html.removeClass(this.iconAddSet, 'jimu-state-disabled');
+
+        html.removeClass(this.btnAddSetDesktop, 'jimu-state-disabled');
+        html.removeClass(this.btnAddExpDesktop, 'jimu-state-disabled');
+        html.removeClass(this.btnAddSetMobile, 'jimu-state-disabled');
+        html.removeClass(this.btnAddExpMobile, 'jimu-state-disabled');
+
         this.createFieldsStore();
         this.valueProviderFactory = new ValueProviderFactory({
           url: this.url,
-          layerDefinition: this._layerDefinition
+          layerDefinition: this._layerDefinition,
+          featureLayerId: this.featureLayerId
         });
 
         if (mode === 'expr') {
@@ -334,6 +436,33 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
 
       return def;
     },
+
+    _tryOverrideFieldAliases: function(layerId, layerDefinition){
+      var layerInfo = this.layerInfosObj.getLayerOrTableInfoById(layerId);
+      if(layerInfo){
+        var popupInfo = layerInfo.getPopupInfo();
+        if(popupInfo){
+          var popupFieldInfos = popupInfo.fieldInfos;//[{fieldName,label,tooltip,visible,format,stringFieldOption}]
+          var serviceFieldInfos = layerDefinition.fields;//[{name,alias}]
+          //replace serviceFieldInfo's alias with popupFieldInfo's label
+          if(popupFieldInfos && popupFieldInfos.length > 0 && serviceFieldInfos && serviceFieldInfos.length > 0){
+            var popupFieldInfosObj = {};
+            array.forEach(popupFieldInfos, lang.hitch(this, function(popupFieldInfo){
+              if(popupFieldInfo.fieldName){
+                popupFieldInfosObj[popupFieldInfo.fieldName] = popupFieldInfo;
+              }
+            }));
+            array.forEach(serviceFieldInfos, lang.hitch(this, function(serviceFieldInfo){
+              var popupFieldInfo = popupFieldInfosObj[serviceFieldInfo.name];
+              if(popupFieldInfo && popupFieldInfo.label){
+                serviceFieldInfo.alias = popupFieldInfo.label;
+              }
+            }));
+          }
+        }
+      }
+    },
+
 
     /**************************************************/
     /****  stringify                               ****/
@@ -475,8 +604,15 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
       var singleFilter = new SingleFilter(args);
       singleFilter.placeAt(this.allExpsBox);
       singleFilter.startup();
-      this.own(aspect.after(singleFilter, '_destroySelf', lang.hitch(this, this._checkFilterNumbers)));
+      this.own(aspect.after(singleFilter, '_destroySelf', lang.hitch(this, function(){
+        this._checkFilterNumbers();
+        this.emit('change');
+      })));
+      this.own(on(singleFilter, 'change', lang.hitch(this, function(){
+        this.emit('change');
+      })));
       this._checkFilterNumbers();
+      return singleFilter;
     },
 
     _addFilterSet:function(/*optional*/ partsObj){
@@ -495,8 +631,15 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
       var filterSet = new FilterSet(args);
       filterSet.placeAt(this.allExpsBox);
       filterSet.startup();
-      this.own(aspect.after(filterSet, '_destroySelf', lang.hitch(this, this._checkFilterNumbers)));
+      this.own(aspect.after(filterSet, '_destroySelf', lang.hitch(this, function(){
+        this._checkFilterNumbers();
+        this.emit('change');
+      })));
+      this.own(on(filterSet, 'change', lang.hitch(this, function(){
+        this.emit('change');
+      })));
       this._checkFilterNumbers();
+      return filterSet;
     },
 
     _destroyAllFilters:function(){
@@ -531,34 +674,25 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
 
     _checkFilterNumbers:function(){
       var filterDoms = this._getAllSingleFiltersAndFilterSetsDoms();
-      if(filterDoms.length > 1){
-        html.setStyle(this.matchMsg, 'display', 'block');
-      } else{
-        html.setStyle(this.matchMsg, 'display', 'none');
-      }
 
       if(filterDoms.length > 0){
-        html.setStyle(this.noFilterTipSection, 'display', 'none');
+        html.addClass(this.noFilterTipSection, 'hidden');
       } else{
-        html.setStyle(this.noFilterTipSection, 'display', 'block');
+        html.removeClass(this.noFilterTipSection, 'hidden');
       }
-
-      array.forEach(filterDoms, lang.hitch(this, function(filterDom, index){
-        html.removeClass(filterDom, 'even-filter');
-        html.removeClass(filterDom, 'odd-filter');
-        var cName = (index + 1) % 2 === 0 ? "even-filter" : "odd-filter";
-        html.addClass(filterDom, cName);
-      }));
 
       this.emit("filter-number-change");
     },
 
     _showErrorOptions:function(strError){
       console.error(strError);
-      // html.setStyle(this.contentSection, 'display', 'none');
-      html.setStyle(this.errorSection, 'display', 'none');//block
+      html.addClass(this.errorSection, 'hidden');
       this.errorTip.innerHTML = strError;
       this.loading.hide();
+    },
+
+    _onBtnApplyClicked: function(){
+      this.emit('apply');
     },
 
     _onBtnAddSetClick:function(){
@@ -566,6 +700,7 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
         return;
       }
       this._addFilterSet();
+      this.emit('change');
     },
 
     _onBtnAddExpClick:function(){
@@ -573,6 +708,7 @@ function(Evented, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
         return;
       }
       this._addSingleFilter();
+      this.emit('change');
     }
   });
 });

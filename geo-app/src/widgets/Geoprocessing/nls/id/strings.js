@@ -20,5 +20,6 @@ define({
   "exportOutput": "Ekspor",
   "emptyResult": "Hasil tersebut kosong.",
   "useSelectedFeatureset": "Gunakan fitur yang dihasilkan.",
-  "closeSelectedFeatureset": "Bersihkan dan gunakan opsi input yang dikonfigurasikan."
+  "closeSelectedFeatureset": "Bersihkan dan gunakan opsi input yang dikonfigurasikan.",
+  "currentMapExtent": "Jangkauan peta saat ini"
 });

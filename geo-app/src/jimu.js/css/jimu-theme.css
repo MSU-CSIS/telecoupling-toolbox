@@ -45,7 +45,8 @@
   font-size: 12px;
   font-weight: normal;
   color: #ffffff;
-  color: rgba(255, 255, 255, 0.8);
+  opacity: 0.5;
+  font-family: Avenir Medium;
 }
 
 /* css for jimu-footer */
@@ -59,23 +60,24 @@
 .jimu-link{
   font-size: 14px;
   font-weight: normal;
+  color: #ffffff;
+  /*font-family: Avenir Medium;*/
+  opacity: 0.8;
 }
 
 .jimu-link:link, .jimu-link:visited{
   text-decoration: none;
-  color: #95a2a9;
-  color: rgba(255, 255, 255, 0.7);
 }
 
 .jimu-link:hover{
   text-decoration: none;
   color: #ffffff;
+  opacity: 1;
 }
 
 .jimu-link:active{
   text-decoration: none;
   color: #ececec;
-  color: rgba(255, 255, 255, 0.9);
 }
 
 /* css for jimu-widget- */
@@ -283,18 +285,6 @@
   /*background-color: #e3ecf2;*/
   background-color: #ddd;
   color: #596679;
-}
-
-/* css for Filter dijit */
-.jimu-filter .odd-filter{
-  background: #eef2f5;
-  border-left: 1px solid #eef2f5;
-  border-right: 1px solid #eef2f5;
-}
-
-.jimu-filter .even-filter{
-  background: #ffffff;
-  border: 1px solid #eef2f5;
 }
 
 /* css for ItemSelector dijit */

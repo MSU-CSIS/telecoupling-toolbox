@@ -25,8 +25,11 @@ define([
   "dijit/_WidgetsInTemplateMixin",
   "jimu/BaseWidgetSetting",
   "jimu/dijit/CheckBox",
+  "jimu/dijit/LayerChooserFromMap",
+  "jimu/dijit/LayerChooserFromMapLite",
   "jimu/dijit/ColorPickerButton"
-], function(declare, lang, Color, on, array, query, html, _WidgetsInTemplateMixin, BaseWidgetSetting, CheckBox) {
+], function(declare, lang, Color, on, array, query, html, _WidgetsInTemplateMixin, BaseWidgetSetting,
+  CheckBox, LayerChooserFromMap, LayerChooserFromMapLite) {
   var PARTIAL_WITHIN = 'partial', WHOLLY_WITHIN = 'wholly';
   return declare([BaseWidgetSetting, _WidgetsInTemplateMixin], {
     baseClass: 'jimu-widget-select-setting',
@@ -92,6 +95,19 @@ define([
       this.allowExportCheckBox.setValue(this.allowExport);
 
       this._selectDrawingTools(this.config.geometryTypes || ['EXTENT']);
+
+      if (!this.layerChooser) {
+        var customFilter = LayerChooserFromMap.createFeaturelayerFilter(null, true, false, false);
+        this.layerChooser = new LayerChooserFromMapLite({
+          customFilter: customFilter,
+          onlySelectLeafLayer:true,
+          layerState: this.config.layerState
+        });
+        this.layerChooser.placeAt(this.layerChooserDiv);
+        this.layerChooser.startup();
+      } else if (this.config.layerState) {
+        this.layerChooser.restoreState(this.config.layerState);
+      }
     },
 
     setConfig: function(config) {
@@ -104,7 +120,8 @@ define([
         selectionColor: this.selectionColor,
         selectionMode: this.selectionMode,
         allowExport: this.allowExport,
-        geometryTypes: this._getSelectedDrawingTools()
+        geometryTypes: this._getSelectedDrawingTools(),
+        layerState: this.layerChooser.getState()
       };
     },
 

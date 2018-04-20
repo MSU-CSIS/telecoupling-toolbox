@@ -20,5 +20,6 @@ define({
   "exportOutput": "匯出",
   "emptyResult": "結果為空。",
   "useSelectedFeatureset": "使用結果圖徵。",
-  "closeSelectedFeatureset": "清除和使用配置的輸入選項。"
+  "closeSelectedFeatureset": "清除和使用配置的輸入選項。",
+  "currentMapExtent": "目前地圖範圍"
 });

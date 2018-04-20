@@ -15,10 +15,11 @@ define([
   'jimu/LayerInfos/LayerInfos',
   'jimu/dijit/Popup',
   'dojo/text!./RecordSetRenderer.html',
-  '../BaseResultRenderer'
+  '../BaseResultRenderer',
+  '../utils'
 ], function(declare, lang, array, domConstruct, domStyle, domAttr, on, domGeom, _TemplatedMixin,
   Memory, OnDemandGrid, ColumnResizer,
-  PopupMenu, LayerInfos, Popup, template, BaseResultRenderer){
+  PopupMenu, LayerInfos, Popup, template, BaseResultRenderer, gputils){
   return declare([BaseResultRenderer, _TemplatedMixin], {
     baseClass: 'jimu-gp-resultrenderer-base jimu-gp-renderer-table',
     templateString: template,
@@ -37,12 +38,14 @@ define([
       }
       domStyle.set(this.magnifyNode, 'display', '');
 
-      if(!this.config.useDynamicSchema &&
+      if(!gputils.useDynamicSchema(this.param, this.config) &&
           this.param.defaultValue &&
           this.param.defaultValue.output &&
           this.param.defaultValue.output.fields &&
           this.param.defaultValue.output.fields.length > 0){
-        fields = this.param.defaultValue.output.fields;
+        fields = array.filter(this.param.defaultValue.output.fields, lang.hitch(this, function(field) {
+          return field.visible !== false;
+        }));
       }else if(this.value.fields){
         fields = this.value.fields;
       }else if(this.value.features && this.value.features.length > 0){

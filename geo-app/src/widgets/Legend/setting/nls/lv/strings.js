@@ -3,5 +3,6 @@ define({
   "right": "Līdzināt pa labi",
   "arrangement": "Vienošanās",
   "autoUpdate": "Automātiska atjaunināšana",
-  "respectCurrentMapScale": "Saglabāt pašreizējo kartes mērogu"
+  "respectCurrentMapScale": "Saglabāt pašreizējo kartes mērogu",
+  "layerSelectorTitle": "Izvēlieties, kuros slāņos rādīt apzīmējumus: "
 });

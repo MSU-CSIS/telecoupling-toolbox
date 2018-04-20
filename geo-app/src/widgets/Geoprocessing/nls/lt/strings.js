@@ -20,5 +20,6 @@ define({
   "exportOutput": "Eksportuoti",
   "emptyResult": "Rezultato nėra.",
   "useSelectedFeatureset": "Naudoti rezultato elementą (-us).",
-  "closeSelectedFeatureset": "Valyti ir naudoti sukonfigūruotą įvesties parinktį."
+  "closeSelectedFeatureset": "Valyti ir naudoti sukonfigūruotą įvesties parinktį.",
+  "currentMapExtent": "Esama žemėlapio aprėptis"
 });

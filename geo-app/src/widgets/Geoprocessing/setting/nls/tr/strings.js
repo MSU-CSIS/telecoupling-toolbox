@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "detay kümesi URL'si",
   "useShapefile": "Yerel dosya sistemindeki shapefile öğesini kullan",
   "allowToExport": "Sonuçları aktarmaya izin ver",
-  "useDynamicSchema": "Çıktıda farklı şema bulunabileceğinden ön tanımlı yerine dinamik şema kullanın."
+  "useDynamicSchema": "Çıktıda farklı şema bulunabileceğinden ön tanımlı yerine dinamik şema kullanın.",
+  "useCurrentMapExtent": "Geçerli harita yayılımını kullan",
+  "ignoreOutput": "Bu çıktıyı dikkate alma",
+  "turnOffOutput": "Bu katmanı varsayılan olarak kapat"
 });

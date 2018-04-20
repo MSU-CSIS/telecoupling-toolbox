@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -220,7 +220,7 @@ function(declare, lang, html, array, on, query, Deferred, template, _WidgetBase,
       var def = new Deferred();
       var params = direction === 'input'? this.config.inputParams: this.config.outputParams;
 
-      if (direction === 'output' && this.config.useResultMapServer) {
+      if (direction === 'output' && this.config.serverInfo.resultMapServerName) {
         var exists = array.some(params, function(param) {
           return param.dataType === 'MapServiceLayer';
         });

@@ -1,5 +1,5 @@
 define({
-  "sourceSetting": "Quelleinstellungen durchsuchen",
+  "sourceSetting": "Einstellungen der Suchquellen",
   "instruction": "Fügen Sie Geokodierungsservices oder Feature-Layer als Suchquellen hinzu, und konfigurieren Sie sie. Anhand dieser angegebenen Quellen wird bestimmt, welche Elemente im Suchfeld durchsucht werden können.",
   "add": "Suchquelle hinzufügen",
   "addGeocoder": "Geocoder hinzufügen",

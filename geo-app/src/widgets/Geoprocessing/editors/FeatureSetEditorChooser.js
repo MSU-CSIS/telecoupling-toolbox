@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -48,6 +48,12 @@ function(declare, lang, html, on, template, _TemplatedMixin, _WidgetsInTemplateM
       });
       this.visibleCheckbox.placeAt(this.visibleCheckboxDiv);
 
+      if (this.param.defaultValue && this.param.defaultValue.geometryType === 'esriGeometryPolygon') {
+        html.setStyle(this.mapModeWrapper, 'display', 'block');
+      } else {
+        html.setStyle(this.mapModeWrapper, 'display', 'none');
+      }
+
       if(this.param.featureSetMode === 'url' && this.param.featureSetUrl){
         this.featureSetUrl.setValue(this.param.featureSetUrl);
       }
@@ -72,6 +78,12 @@ function(declare, lang, html, on, template, _TemplatedMixin, _WidgetsInTemplateM
         this.value.showUrlContent = this.visibleCheckbox.getValue();
       }
       return this.value;
+    },
+
+    _onMapModeSelect: function(){
+      html.setStyle(this.symbolChooserSection, 'display', 'none');
+      html.setStyle(this.urlOptionsDiv, 'display', 'none');
+      this.value.featureSetMode = 'map';
     },
 
     _onDrawModeSelect: function(){

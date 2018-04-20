@@ -1,6 +1,7 @@
 define({
   root: ({
     showLayerLabels: "Display time-aware layer names on the widget.",
+    autoPlay: "Start to play when the widget is opened.",
     dateAndTimeFormat: "Date and time format",
     mapDefault: "Map default",
     custom: "Custom",
@@ -32,6 +33,7 @@ define({
   "pt-pt": 1,
   "ro": 1,
   "ru": 1,
+  "sl": 1,
   "sr": 1,
   "sv": 1,
   "th": 1,

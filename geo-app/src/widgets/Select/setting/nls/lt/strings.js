@@ -3,5 +3,6 @@ define({
   "selectionMode": "Interaktyvus žymėjimo režimas",
   "partiallyWithin": "Iš dalies patenka į",
   "whollyWithin": "Visiškai patenka į",
-  "allowExport": "Leisti eksportuoti pasirinktus elementus"
+  "allowExport": "Leisti eksportuoti pasirinktus elementus",
+  "layerToSelect": "Pasirinkite, kuriuos sluoksnius pažymėti"
 });

@@ -3,5 +3,6 @@ define({
   "selectionMode": "Interaktīvās izvēles režīms",
   "partiallyWithin": "Daļēji ietverts",
   "whollyWithin": "Pilnībā ietverts",
-  "allowExport": "Atļaut izvēlēto elementu eksportēšanu"
+  "allowExport": "Atļaut izvēlēto elementu eksportēšanu",
+  "layerToSelect": "Izvēlēties atlasāmos slāņus"
 });

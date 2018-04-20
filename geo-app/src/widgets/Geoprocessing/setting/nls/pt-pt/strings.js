@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "URL definido para elemento",
   "useShapefile": "Use shapefile no sistema de ficheiro local",
   "allowToExport": "Permitir exportar resultados",
-  "useDynamicSchema": "A saída pode ter esquema diferente, usar esquema dinâmico em vez de pré-definido."
+  "useDynamicSchema": "A saída pode ter esquema diferente, usar esquema dinâmico em vez de pré-definido.",
+  "useCurrentMapExtent": "Utilizar extensão de mapa atual",
+  "ignoreOutput": "Ignorar esta saída",
+  "turnOffOutput": "Desativar esta camada por predefinição"
 });

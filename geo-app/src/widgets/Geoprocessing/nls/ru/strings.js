@@ -20,5 +20,6 @@ define({
   "exportOutput": "Экспорт",
   "emptyResult": "Результат пуст.",
   "useSelectedFeatureset": "Использовать полученные объекты.",
-  "closeSelectedFeatureset": "Очистить и использовать настроенную опцию входных данных."
+  "closeSelectedFeatureset": "Очистить и использовать настроенную опцию входных данных.",
+  "currentMapExtent": "Текущий экстент карты"
 });

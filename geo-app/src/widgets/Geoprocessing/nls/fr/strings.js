@@ -20,5 +20,6 @@ define({
   "exportOutput": "Exporter",
   "emptyResult": "Le résultat est vide.",
   "useSelectedFeatureset": "Utilisez les entités obtenues.",
-  "closeSelectedFeatureset": "Effacez et utilisez l'option en entrée configurée."
+  "closeSelectedFeatureset": "Effacez et utilisez l'option en entrée configurée.",
+  "currentMapExtent": "Etendue actuelle de la carte"
 });

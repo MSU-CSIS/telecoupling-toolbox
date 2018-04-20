@@ -20,5 +20,6 @@ define({
   "exportOutput": "Exportar",
   "emptyResult": "O resultado está vazio.",
   "useSelectedFeatureset": "Utilize as feições resultantes.",
-  "closeSelectedFeatureset": "Apague e utilize a opção de entrada configurada."
+  "closeSelectedFeatureset": "Apague e utilize a opção de entrada configurada.",
+  "currentMapExtent": "Extensão do mapa atual"
 });

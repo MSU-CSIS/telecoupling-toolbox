@@ -9,6 +9,7 @@ define([
   "esri/request",
   'esri/lang',
   'esri/arcgis/utils',
+  'dojo/_base/config',
   'dojo/_base/lang',
   'dojo/_base/array',
   'dojo/_base/html',
@@ -52,6 +53,7 @@ define([
   esriRequest,
   esriLang,
   arcgisUtils,
+  dojoConfig,
   lang,
   array,
   html,
@@ -559,11 +561,19 @@ define([
         lang.mixin(mapOnlyForm, mapQualityForm);
 
         var elementsObj = this.customTextElementsDijit.get('value');
-        var cteArray = [];
+        var cteArray = [], hasDate = false, locale = dojoConfig.locale || 'en';
         for (var p in elementsObj) {
           var cte = {};
-          cte[p] = elementsObj[p];
+          if (p === 'Date') {
+            cte[p] = new Date().toLocaleString(locale);
+            hasDate = true;
+          } else {
+            cte[p] = elementsObj[p];
+          }
           cteArray.push(cte);
+        }
+        if(!hasDate) {
+          cteArray.push({ Date: new Date().toLocaleString(locale) });
         }
 
         var templateInfo = this._currentTemplateInfo;

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -69,7 +69,8 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
     //reset
     //showBySymbol
     //showByType
-    //getSymbol
+    //getValidSymbol: Return a valid symbol. Return null if UI parameter is invalid.
+    //getSymbol: This method is deprecated. Pleause use getValidSymbol instead.
 
     //events:
     //change
@@ -77,6 +78,7 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
 
     postMixInProperties:function(){
       this.nls = window.jimuNls.symbolChooser;
+      this._setTemplateNls();
     },
 
     postCreate:function(){
@@ -155,20 +157,28 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
       }
     },
 
-    getSymbol:function(){
+    getSymbol: function(){
+      return this._getSymbol(false);
+    },
+
+    getValidSymbol: function(){
+      return this._getSymbol(true);
+    },
+
+    _getSymbol:function(/*optional*/ checkValidity){
       var symbol = null;
 
       if(this.type === 'marker'){
-        symbol = this._getPointSymbolBySetting();
+        symbol = this._getPointSymbolBySetting(checkValidity);
       }
       else if(this.type === 'line'){
-        symbol = this._getLineSymbolBySetting();
+        symbol = this._getLineSymbolBySetting(checkValidity);
       }
       else if(this.type === 'fill'){
-        symbol = this._getFillSymbolBySetting();
+        symbol = this._getFillSymbolBySetting(checkValidity);
       }
       else if(this.type === 'text'){
-        symbol = this._getTextSymbolBySetting();
+        symbol = this._getTextSymbolBySetting(checkValidity);
       }
 
       var result = null;
@@ -538,12 +548,24 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
       html.addClass(this.pointOulineWidthTr, 'hidden');
     },
 
-    _getPointSymbolBySetting:function(){
+    _getPointSymbolBySetting:function(checkValidity){
       if(!this.symbol){
         return null;
       }
+
+      if(checkValidity){
+        if(!this.pointSize.validate()){
+          return null;
+        }
+      }
+
       var size = parseFloat(this.pointSize.get('value'));
       if(this.isSimpleMarkerSymbol(this.symbol)){
+        if(checkValidity){
+          if(!this.pointOutlineWidth.validate()){
+            return null;
+          }
+        }
         this.symbol.setSize(size);
         var color = this.pointColor.getColor();
         var opacity = this.pointAlpha.getAlpha(); //parseFloat(this.pointAlpha.get('value'));
@@ -695,7 +717,12 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
       this._onLineSymbolChange();
     },
 
-    _getLineSymbolBySetting:function(){
+    _getLineSymbolBySetting:function(checkValidity){
+      if(checkValidity){
+        if(!this.lineWidth.validate()){
+          return null;
+        }
+      }
       this.symbol = new SimpleLineSymbol();
       var color = this.lineColor.getColor();
       var style = this.lineStylesSelect.get('value');
@@ -803,7 +830,12 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
       this._onFillSymbolChange();
     },
 
-    _getFillSymbolBySetting:function(){
+    _getFillSymbolBySetting:function(checkValidity){
+      if(checkValidity){
+        if(!this.fillOutlineWidth.validate()){
+          return null;
+        }
+      }
       this.symbol = new SimpleFillSymbol();
       var color = this.fillColor.getColor();
       color.a = this.fillAlpha.getAlpha();//parseFloat(this.fillAlpha.get('value').toFixed(2));
@@ -862,29 +894,62 @@ function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
       return symbol && symbol.declaredClass === 'esri.symbol.TextSymbol';
     },
 
-    _updateTextPreview:function(){
+    _updateTextPreview:function(fontFamily){
       var colorHex = this.textColor.getColor().toHex();
       var size = parseInt(this.textFontSize.get('value'), 10) + 'px';
       html.setStyle(this.textPreview, {
         color: colorHex,
-        fontSize: size
+        fontSize: size,
+        fontFamily: fontFamily
       });
       this.textPreview.innerHTML = this.inputText.value;
     },
 
-    _getTextSymbolBySetting:function(){
+    _getTextSymbolBySetting:function(checkValidity){
+      if(checkValidity){
+        if(!this.textFontSize.validate()){
+          return null;
+        }
+      }
       this.symbol = new TextSymbol();
       var text = this.inputText.value;
       var color = this.textColor.getColor();
       var size = parseInt(this.textFontSize.get('value'), 10);
-      var font = new Font();
+      var font = new Font();// Default font family : Serif
       font.setSize(size);
       this.symbol.setText(text);
       this.symbol.setColor(color);
       this.symbol.setFont(font);
-      this._updateTextPreview();
+      this._updateTextPreview(font.family);
       return this.symbol;
-    }
+    },
 
+    _setTemplateNls: function () {
+      //TODO should be delete when nls added
+      if ("undefined" === typeof this.nls.damage) {
+        this.nls.damage = "Damage";
+      }
+      if ("undefined" === typeof this.nls.disasters) {
+        this.nls.disasters = "Disasters";
+      }
+      if ("undefined" === typeof this.nls.emergencyManagement) {
+        this.nls.emergencyManagement = "Emergency Management";
+      }
+      if ("undefined" === typeof this.nls.generalInfrastructure) {
+        this.nls.generalInfrastructure = "General Infrastructure";
+      }
+      if ("undefined" === typeof this.nls.localGovernment) {
+        this.nls.localGovernment = "Local Government";
+      }
+      if ("undefined" === typeof this.nls.numbers) {
+        this.nls.numbers = "Numbers";
+      }
+      if ("undefined" === typeof this.nls.pointsOfInterest) {
+        this.nls.pointsOfInterest = "Points of Interest";
+      }
+      if ("undefined" === typeof this.nls.stateGovernment) {
+        this.nls.stateGovernment = "State Government";
+      }
+    }
   });
 });

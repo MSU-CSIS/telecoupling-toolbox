@@ -76,7 +76,18 @@ define({
     "field": "Laukas",
     "operation": "Veiksmas",
     "disableUpdateGeometry": "Išjungti geometrijos atnaujinimą",
-    "preview": "Peržiūra"
+    "preview": "Peržiūra",
+    "date": "Data",
+    "time": "Laikas",
+    "show": "Rodyti",
+    "hide": "Slėpti",
+    "format": "Formatas",
+    "defaults": "Numatytas",
+    "add": "Pridėti",
+    "done": "Atlikta",
+    "remove": "Panaikinti",
+    "leave": "Išeiti",
+    "stay": "Likti"
   },
   "errorCode": "Kodas",
   "errorMessage": "Pranešimas",
@@ -99,10 +110,18 @@ define({
     "arrows": "Rodyklės",
     "business": "Verslas",
     "cartographic": "Kartografijos",
+    "damage": "Žala",
+    "disasters": "Stichinės nelaimės",
+    "emergencyManagement": "Ekstremalių situacijų valdymas",
+    "generalInfrastructure": "Bendra infrastruktūra",
+    "localGovernment": "Vietos valdžia",
     "nationalParkService": "Nacionalinių parkų paslaugos",
+    "numbers": "Skaičiai",
     "outdoorRecreation": "Pramogos lauke",
     "peoplePlaces": "Žmonių susibūrimo vietos",
+    "pointsOfInterest": "Lankytinos vietos",
     "safetyHealth": "Sauga ir sveikata",
+    "stateGovernment": "Valstijos valdžia",
     "shapes": "Formos",
     "transportation": "Transportas",
     "symbolSize": "Simbolio dydis",
@@ -204,7 +223,7 @@ define({
   },
   "filterBuilder": {
     "addAnotherExpression": "Pridėti išraišką",
-    "addSet": "Pridėti grupę",
+    "addSet": "Pridėti rinkinį",
     "matchMsg": "Gauti elementus sluoksnyje, kurie atitinka šias sąlygas: ${any_or_all}",
     "matchMsgSet": "${any_or_all} iš grupėje esančių sąlygų yra teisinga (-os)",
     "all": "Viskas",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "yra tuščias",
     "stringOperatorIsNotBlank": "nėra tuščias",
     "dateOperatorIsOn": "yra ant",
+    "dateOperatorIsIn": "yra (sąraše)",
+    "dateOperatorIsNotIn": "nėra",
     "dateOperatorIsNotOn": "yra ne ant",
     "dateOperatorIsBefore": "yra prieš",
     "dateOperatorIsAfter": "yra po",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Rodyti tik ankstesnių išraiškų atrinktas reikšmes.",
     "noneCascadeFilterTip": "Visos unikalios šio lauko reikšmės",
     "previousCascadeFilterTip": "Reikšmės išfiltruotos pagal ankstesnes išraiškas",
-    "allCascadeFilterTip": "Reikšmės išfiltruotos pagal visas kitas išraiškas"
+    "allCascadeFilterTip": "Reikšmės išfiltruotos pagal visas kitas išraiškas",
+    "custom": "data...",
+    "today": "šiandien",
+    "yesterday": "vakar",
+    "tomorrow": "rytoj",
+    "thisWeek": "ši savaitė",
+    "thisMonth": "šis mėnuo",
+    "thisQuarter": "šis ketvirtis",
+    "thisYear": "šie metai",
+    "inputType": "Įvesties tipas",
+    "setInputType": "Rinkinio įvesties tipas"
   },
   "featureLayerSource": {
     "layer": "Sluoksnis",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "JAV vietovės matavimo pėda",
     "uSSurveyFeetAbbr": "JAV pėd.",
+    "centimeters": "Centimetrai",
+    "centimetersAbbr": "cm",
+    "inches": "Coliai",
+    "inchesAbbr": "col.",
     "decimalDegree": "Dešimtainiai laipsniai",
     "decimalDegreeAbbr": "dd",
     "degreeMinuteSeconds": "Laipsnis minutė sekundės",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "kv.jard.",
     "squareUSSurveyFeet": "Kvadratinė JAV vietovės matavimo pėda",
     "squareUSSurveyFeetAbbr": "Kv. JAV pėda"
+  },
+  "timeUnit": {
+    "year": "Metai",
+    "month": "Mėnuo",
+    "day": "Diena",
+    "hour": "Valanda",
+    "minute": "Minutė",
+    "second": "Sekundė"
   },
   "featureSetChooser": {
     "select": "Pažymėti",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Susiję įrašai:",
     "noRelatedRecotds": "Susijusių įrašų nerasta.",
     "chooseFieldTip": "Pasirinkite sąraše rodytiną atributą",
-    "saveAsPopupTitle": "Toks pat kaip iššokantis pavadinimas"
+    "saveAsPopupTitle": "Toks pat kaip iššokantis pavadinimas",
+    "leaveConfirm": "Ar norite išeiti neįrašydami pakeitimų?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "Jūsų pasirinkime per daug elementų. Gali užtrukti, kol bus jie bus nuskaityti ir parodyti žemėlapyje.",
@@ -545,7 +589,7 @@ define({
   },
   "colorPalette": {
     "transparent": "Permatomas",
-    "custom": "Adaptuotas"
+    "custom": "Pasirinktinis"
   },
   "temperature": {
     "celsius": "Celsijaus laipsniai",

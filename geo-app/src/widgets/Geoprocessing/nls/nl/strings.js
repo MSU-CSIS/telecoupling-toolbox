@@ -20,5 +20,6 @@ define({
   "exportOutput": "Exporteren",
   "emptyResult": "Het resultaat is leeg.",
   "useSelectedFeatureset": "Gebruik het/de resulterende object(en).",
-  "closeSelectedFeatureset": "Wis en gebruik de geconfigureerde inputoptie."
+  "closeSelectedFeatureset": "Wis en gebruik de geconfigureerde inputoptie.",
+  "currentMapExtent": "Huidige kaartextent"
 });

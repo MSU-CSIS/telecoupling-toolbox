@@ -76,7 +76,18 @@ define({
     "field": "Felt",
     "operation": "Operasjon",
     "disableUpdateGeometry": "Deaktiver geometrioppdatering",
-    "preview": "Forhåndsvisning"
+    "preview": "Forhåndsvisning",
+    "date": "Dato",
+    "time": "Tid",
+    "show": "Vis",
+    "hide": "Skjul",
+    "format": "Format",
+    "defaults": "Standard",
+    "add": "Legg til",
+    "done": "Ferdig",
+    "remove": "Fjern",
+    "leave": "Forlat",
+    "stay": "Bli værende"
   },
   "errorCode": "Kode",
   "errorMessage": "Melding",
@@ -99,10 +110,18 @@ define({
     "arrows": "Piler",
     "business": "Næringsliv",
     "cartographic": "Kartografisk",
+    "damage": "Skade",
+    "disasters": "Katastrofer",
+    "emergencyManagement": "Krisehåndtering",
+    "generalInfrastructure": "Generell infrastruktur",
+    "localGovernment": "Lokale myndigheter",
     "nationalParkService": "National Park Service",
+    "numbers": "Tall",
     "outdoorRecreation": "Utendørsaktiviteter",
     "peoplePlaces": "Folk og steder",
+    "pointsOfInterest": "Interessepunkt",
     "safetyHealth": "Helse og sikkerhet",
+    "stateGovernment": "Statlige myndigheter",
     "shapes": "Former",
     "transportation": "Transport",
     "symbolSize": "Symbolstørrelse",
@@ -203,8 +222,8 @@ define({
     "invalidUrl": "Ugyldig URL."
   },
   "filterBuilder": {
-    "addAnotherExpression": "Legg til et uttrykk",
-    "addSet": "Legg til et sett",
+    "addAnotherExpression": "Legg til uttrykk",
+    "addSet": "Legg til sett",
     "matchMsg": "Hent geoobjekter i laget som samsvarer med ${any_or_all} av følgende uttrykk",
     "matchMsgSet": "${any_or_all} av de følgende uttrykkene i dette settet er sanne",
     "all": "Alt",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "er tomt",
     "stringOperatorIsNotBlank": "er ikke tomt",
     "dateOperatorIsOn": "er den",
+    "dateOperatorIsIn": "er i",
+    "dateOperatorIsNotIn": "er ikke i",
     "dateOperatorIsNotOn": "er ikke den",
     "dateOperatorIsBefore": "er før",
     "dateOperatorIsAfter": "er etter",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Vis kun verdier filtrert av tidligere uttrykk.",
     "noneCascadeFilterTip": "Alle unike verdier i dette feltet",
     "previousCascadeFilterTip": "Verdier filtrert etter tidligere uttrykk",
-    "allCascadeFilterTip": "Verdier filtrert etter alle andre uttrykk"
+    "allCascadeFilterTip": "Verdier filtrert etter alle andre uttrykk",
+    "custom": "datoen...",
+    "today": "i dag",
+    "yesterday": "i går",
+    "tomorrow": "i morgen",
+    "thisWeek": "denne uken",
+    "thisMonth": "denne måneden",
+    "thisQuarter": "dette kvartalet",
+    "thisYear": "i år",
+    "inputType": "Inndatatype",
+    "setInputType": "Angi inndatatype"
   },
   "featureLayerSource": {
     "layer": "Lag",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "US survey feet",
     "uSSurveyFeetAbbr": "ftUS",
+    "centimeters": "Centimeter",
+    "centimetersAbbr": "cm",
+    "inches": "Tommer",
+    "inchesAbbr": "tm",
     "decimalDegree": "Desimalgrader",
     "decimalDegreeAbbr": "dd",
     "degreeMinuteSeconds": "Grader minutter sekunder",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "yd²",
     "squareUSSurveyFeet": "US survey feet²",
     "squareUSSurveyFeetAbbr": "sq ftUS"
+  },
+  "timeUnit": {
+    "year": "År",
+    "month": "Måned",
+    "day": "Dag",
+    "hour": "Time",
+    "minute": "Minutt",
+    "second": "Sekund"
   },
   "featureSetChooser": {
     "select": "Velg",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Relaterte poster:",
     "noRelatedRecotds": "Ingen relaterte poster ble funnet.",
     "chooseFieldTip": "Velg et attributt for å vise listen",
-    "saveAsPopupTitle": "Samme som tittel på popup"
+    "saveAsPopupTitle": "Samme som tittel på popup",
+    "leaveConfirm": "Vil du forlate uten å lagre redigeringene?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "Det er for mange geoobjekter i utvalget. Det kan ta lang tid å hente og vise dem i kartet.",

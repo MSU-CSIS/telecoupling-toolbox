@@ -1,5 +1,6 @@
 define({
   "showLayerLabels": "시간 인식 레이어를 위젯에서 디스플레이합니다.",
+  "autoPlay": "위젯이 열리면 재생을 시작합니다.",
   "dateAndTimeFormat": "날짜 및 시간 형식",
   "mapDefault": "맵 기본값",
   "custom": "사용자 정의",

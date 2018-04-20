@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "URL set de obiecte spaţiale",
   "useShapefile": "Utilizare shapefile într-un sistem local de fişiere",
   "allowToExport": "Permitere exportare rezultate",
-  "useDynamicSchema": "Este posibil ca ieşirea să aibă o schemă diferită, utilizaţi schema dinamică în locul celei predefinite."
+  "useDynamicSchema": "Este posibil ca ieşirea să aibă o schemă diferită, utilizaţi schema dinamică în locul celei predefinite.",
+  "useCurrentMapExtent": "Utilizare extindere curentă a hărţii",
+  "ignoreOutput": "Ignoraţi acest rezultat",
+  "turnOffOutput": "Dezactivați acest strat tematic în mod implicit"
 });

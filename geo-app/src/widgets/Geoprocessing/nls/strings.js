@@ -21,7 +21,8 @@ define({
     exportOutput: "Export",
     emptyResult: "The result is empty.",
     useSelectedFeatureset: "Use the resultant feature(s).",
-    closeSelectedFeatureset: "Clear and use the configured input opion."
+    closeSelectedFeatureset: "Clear and use the configured input opion.",
+    currentMapExtent: "Current map extent"
   }),
   "ar": 1,
   "bs": 1,
@@ -49,6 +50,7 @@ define({
   "pt-pt": 1,
   "ro": 1,
   "ru": 1,
+  "sl": 1,
   "sr": 1,
   "sv": 1,
   "th": 1,

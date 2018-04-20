@@ -4,7 +4,11 @@ define({
     showActions: "Show actions on selected feature(s)",
     toggleSelectability: "Click to toggle selectability",
     showSelectedFeatures: "Click to show selected features",
-    actionsTitle: "Selection actions"
+    actionsTitle: "Selection actions",
+    turnonAll: "Make all layers selectable",
+    turnoffAll: "Make all layers unselectable",
+    toggleSelect: "Toggle selectability for all layers",
+    singleSelect: "Make this the only selectable layer"
   }),
   "ar": 1,
   "bs": 1,
@@ -32,6 +36,7 @@ define({
   "pt-pt": 1,
   "ro": 1,
   "ru": 1,
+  "sl": 1,
   "sr": 1,
   "sv": 1,
   "th": 1,

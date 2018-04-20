@@ -20,5 +20,6 @@ define({
   "exportOutput": "Eksportēt",
   "emptyResult": "Rezultāts ir tukšs.",
   "useSelectedFeatureset": "Izmantot rezultātā iegūto(-s) elementu(-s).",
-  "closeSelectedFeatureset": "Notīrīt un izmantot konfigurētās ievades opciju."
+  "closeSelectedFeatureset": "Notīrīt un izmantot konfigurētās ievades opciju.",
+  "currentMapExtent": "Pašreizējais kartes pārklājums"
 });

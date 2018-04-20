@@ -17,10 +17,11 @@ define([
   'dojo/text!./FeatureSetRenderer.html',
   '../BaseResultRenderer',
   '../LayerOrderUtil',
-  './defaultSymbol'
+  './defaultSymbol',
+  '../utils'
 ], function(declare, lang, array, domStyle, domAttr, on, domGeom, _TemplatedMixin, GraphicsLayer,
   FeatureLayer, graphicsUtils, SimpleRenderer, rendererUtils, InfoTemplate,
-  PopupMenu, template, BaseResultRenderer, LayerOrderUtil, defaultSymbol){
+  PopupMenu, template, BaseResultRenderer, LayerOrderUtil, defaultSymbol, gputils){
   return declare([BaseResultRenderer, _TemplatedMixin], {
     baseClass: 'jimu-gp-resultrenderer-base jimu-gp-renderer-draw-feature',
     templateString: template,
@@ -28,6 +29,7 @@ define([
     postCreate: function(){
       this.inherited(arguments);
       this.popupMenu = PopupMenu.getInstance();
+
       if(this.value.features && this.value.features.length > 0){
         this._displayText();
         this._drawResultFeature(this.param, this.value);
@@ -77,8 +79,8 @@ define([
     },
 
     _drawResultFeature: function(param, featureset){
-      var infoTemplate;
-      if(!param.popup){
+      var infoTemplate, useDynamicSchema = gputils.useDynamicSchema(param, this.config);
+      if(!param.popup || useDynamicSchema){
         param.popup = {
           enablePopup: true,
           title: '',
@@ -88,9 +90,9 @@ define([
       if(param.popup.enablePopup){
         //Use param.popup.title or a non-exist field name as the title of popup window.
         infoTemplate = new InfoTemplate(param.popup.title || '${Non-Exist-Field}',
-            this._generatePopupContent(featureset));
+            this._generatePopupContent(featureset, useDynamicSchema));
       }
-      if(this.config.shareResults && !this.config.useDynamicSchema){
+      if(this.config.shareResults && !useDynamicSchema){
         if(!param.defaultValue || !param.defaultValue.geometryType){
           throw Error('Output parameter default value does not provide enough information' +
             ' to draw feature layer.');
@@ -116,7 +118,7 @@ define([
       this.resultLayer.title = param.label || param.name;
 
       var renderer = param.renderer;
-      if(this.config.useDynamicSchema || !renderer){
+      if(useDynamicSchema || !renderer){
         if(featureset.geometryType === 'esriGeometryPoint' ||
             featureset.geometryType === 'esriGeometryMultipoint'){
           renderer = new SimpleRenderer(defaultSymbol.pointSymbol);
@@ -129,6 +131,7 @@ define([
         renderer = rendererUtils.fromJson(renderer);
       }
       this.resultLayer.setRenderer(renderer);
+      this.resultLayer.setVisibility(param.layerInvisible !== true);
       this._addResultLayer(param.name);
 
       try{
@@ -164,17 +167,19 @@ define([
       }
     },
 
-    _generatePopupContent: function(featureset){
+    _generatePopupContent: function(featureset, useDynamicSchema){
       var str = '<div class="geoprocessing-popup">' +
           '<table class="geoprocessing-popup-table" ' +
           'cellpadding="0" cellspacing="0">' + '<tbody>';
       var rowStr = '';
       var fields;
 
-      if(!this.config.useDynamicSchema &&
+      if(!useDynamicSchema &&
           this.param.popup.fields &&
           this.param.popup.fields.length > 0){
-        fields = this.param.popup.fields;
+        fields = array.filter(this.param.popup.fields, lang.hitch(this, function(field) {
+          return field.visible !== false;
+        }));
       }else{
         fields = featureset.fields;
       }

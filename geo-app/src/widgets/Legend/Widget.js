@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -38,9 +38,10 @@ _WidgetsInTemplateMixin, BaseWidget, LayerInfos, Legend) {
     },
 
     onOpen: function() {
-      /*
-      this.config.legend.map = this.map;
-      */
+      if(!this.config.layerState) {
+        // compatible before online5.4
+        this.config.layerState = {};
+      }
       this._jimuLayerInfos = LayerInfos.getInstanceSync();
       var legendParams = {
         arrangement: this.config.legend.arrangement,
@@ -58,7 +59,6 @@ _WidgetsInTemplateMixin, BaseWidget, LayerInfos, Legend) {
     onClose: function() {
       this.legend.destroy();
     },
-
 
     _bindEvent: function() {
       if(this.config.legend.autoUpdate) {
@@ -78,19 +78,8 @@ _WidgetsInTemplateMixin, BaseWidget, LayerInfos, Legend) {
 
     _getLayerInfosParam: function() {
       var layerInfosParam;
-      /*
-      this.config.legend.layerInfos = [{
-        id: "NapervilleShelters_8858",
-        hideLayers: []
-      }, {
-        id: "Wildfire_6998",
-        hideLayers: []
-      }, {
-        id: "911CallsHotspot_3066",
-        hideLayers: [0, 1]
-      }];
-      */
 
+      /*
       if(this.config.legend.layerInfos === undefined) {
         // widget has not been configed.
         layerInfosParam = legendUtils.getLayerInfosParam();
@@ -98,9 +87,10 @@ _WidgetsInTemplateMixin, BaseWidget, LayerInfos, Legend) {
         // widget has been configed, respect config.
         layerInfosParam = legendUtils.getLayerInfosParamByConfig(this.config.legend);
       }
+      */
 
-      // filter layerInfosParam
-      //return this._filterLayerInfsParam(layerInfosParam);
+      layerInfosParam = legendUtils.getLayerInfosParam(this.config);
+
       return layerInfosParam;
     },
 
@@ -109,42 +99,6 @@ _WidgetsInTemplateMixin, BaseWidget, LayerInfos, Legend) {
       this.legend.refresh(layerInfos);
     }
 
-    /*
-    _filterLayerInfsParam: function(layerInfosParam) {
-      var filteredLayerInfosParam;
-
-      filteredLayerInfosParam = array.filter(layerInfosParam, function(layerInfoParam) {
-        var result = true;
-        result = result && visiblilityFilter(layerInfoParam, this.config.legend)
-        return result;
-      }, this);
-
-      return filteredLayerInfosParam;
-      function visiblilityFilter(layerInfoParam, legendConfig) {
-        var filterResult;
-        if(legendConfig.autoUpdate) {
-          //filterResult = layerInfoParam.jimuLayerInfo.isShowInMap();
-          // filter sub layers
-          layerInfoParam.jimuLayerInfo.traversal(function(layerInfo) {
-            if(layerInfo.isLeaf()) {
-              if(layerInfo.isShowInMap()) {
-                filterResult = true;
-                if(layerInfo.originOperLayer.mapService &&
-                   layerInfo.originOperLayer.mapService.subId !== undefined) {
-                     layerInfoParam.hideLayers.push(layerInfo.originOperLayer.mapService.subId);
-                }
-              }
-            }
-          });
-
-          layerInfoParam.x = "abc";
-        } else {
-          filterResult = true;
-        }
-        return filterResult;
-      }
-    },
-  */
   });
   return clazz;
 });

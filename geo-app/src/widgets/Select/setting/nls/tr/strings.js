@@ -3,5 +3,6 @@ define({
   "selectionMode": "Etkileşimli seçim modu",
   "partiallyWithin": "Kısmen içinde",
   "whollyWithin": "Tümüyle içinde",
-  "allowExport": "Seçili detayların dışa aktarılmasına izin ver"
+  "allowExport": "Seçili detayların dışa aktarılmasına izin ver",
+  "layerToSelect": "Hangi katmanların seçileceğini seç"
 });

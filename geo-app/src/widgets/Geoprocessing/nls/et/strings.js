@@ -20,5 +20,6 @@ define({
   "exportOutput": "Ekspordi",
   "emptyResult": "Tulemus on tühi.",
   "useSelectedFeatureset": "Kasutage tulemusena saadud objekti (objekte).",
-  "closeSelectedFeatureset": "Kustutage ja kasutage konfigureeritud sisendivalikut."
+  "closeSelectedFeatureset": "Kustutage ja kasutage konfigureeritud sisendivalikut.",
+  "currentMapExtent": "Kaardi praegune ulatus"
 });

@@ -59,7 +59,10 @@ define([
       postCreate: function() {
         this.undoManager = new UndoManager();
         this.layerInfosObj = jimuLayerInfos.getInstanceSync();
-        this.originalJimuLayerInfo = this.layerInfosObj.getLayerInfoById(this.originalFeature.getLayer().id);
+        /* jscs:disable */
+        var originalFeatureLayerId =  lang.getObject("_wabProperties.referToFeatureLayerId", false, this.originalFeature) ||
+                                      this.originalFeature.getLayer().id;
+        this.originalJimuLayerInfo = this.layerInfosObj.getLayerInfoById(originalFeatureLayerId);
         this._temporaryData = {
           eventHandles: [],
           dijits: []

@@ -3,5 +3,6 @@ define({
   "selectionMode": "Interactieve selectiemodus",
   "partiallyWithin": "Gedeeltelijk binnen",
   "whollyWithin": "Volledig binnen",
-  "allowExport": "Toestaan om geselecteerde objecten te exporteren"
+  "allowExport": "Toestaan om geselecteerde objecten te exporteren",
+  "layerToSelect": "Kies de te selecteren lagen"
 });

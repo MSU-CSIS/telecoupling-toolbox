@@ -3,5 +3,6 @@ define({
   "selectionMode": "Interaktiivne valimismeetod",
   "partiallyWithin": "Osaliselt vahemikus",
   "whollyWithin": "Täielikult vahemikus",
-  "allowExport": "Luba valitud objektide eksportimine"
+  "allowExport": "Luba valitud objektide eksportimine",
+  "layerToSelect": "Valige, millised kihid valida"
 });

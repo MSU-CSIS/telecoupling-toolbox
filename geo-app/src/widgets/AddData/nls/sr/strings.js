@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "Shapefile (.zip, ZIP arhiva koja sadrži sve Shapefile datoteke)",
       "CSV": "CSV datoteka (.csv, sa adresom ili geografskom širinom/dužinom, uz razdvajanje zarezom, tačkom i zarezom ili tabulatorom)",
+      "KML": "KML datoteka (.kml)",
       "GPX": "GPX datoteka (.gpx, GPS Exchange Format)",
       "GeoJSON": "GeoJSON datoteka (.geo, .json ili .geojson)"
     },

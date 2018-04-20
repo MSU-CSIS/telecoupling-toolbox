@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "URL rangkaian fitur",
   "useShapefile": "Gunakan shapefile dalam sistem file lokal",
   "allowToExport": "Izinkan untuk mengekspor hasil",
-  "useDynamicSchema": "Output mungkin menggunakan skema yang berbeda, gunakan skema dinamik selain skema yang sudah ada."
+  "useDynamicSchema": "Output mungkin menggunakan skema yang berbeda, gunakan skema dinamik selain skema yang sudah ada.",
+  "useCurrentMapExtent": "Gunakan jangkauan peta saat ini",
+  "ignoreOutput": "Abaikan output ini",
+  "turnOffOutput": "Matikan layer ini secara default"
 });

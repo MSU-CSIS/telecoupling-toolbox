@@ -20,5 +20,6 @@ define({
   "exportOutput": "Xuất",
   "emptyResult": "Kết quả trống.",
   "useSelectedFeatureset": "Sử dụng (các) đối tượng kết quả.",
-  "closeSelectedFeatureset": "Xóa và sử dụng tùy chọn đầu vào được cấu hình."
+  "closeSelectedFeatureset": "Xóa và sử dụng tùy chọn đầu vào được cấu hình.",
+  "currentMapExtent": "Phạm vi bản đồ hiện tại"
 });

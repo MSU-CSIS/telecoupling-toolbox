@@ -1,5 +1,5 @@
 define({
-  "_widgetLabel": "Kopīgot",
+  "_widgetLabel": "Kopīgošana",
   "selectSocialNetwork": "Izvēlēties tālāk norādītās opcijas, lai koplietotu lietojumprogrammu:",
   "email": "E-pasts",
   "facebook": "Facebook",

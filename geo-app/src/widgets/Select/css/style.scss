@@ -15,11 +15,47 @@ $medium_font: 'Avenir Medium';
     }
   }
 
+  .tool-section {
+    height: 36px;
+    position: relative;
+    .label {
+      font-size: 14px;
+      line-height: 36px;
+      margin: 0 10px;
+    }
+    .setting {
+      width: 16px;
+      height: 16px;
+      margin: 10px;
+      cursor: pointer;
+    }
+  }
+
+  // CheckBox of the layer
+  .selectable-check {
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    background: url(images/unchecked.svg) no-repeat center;
+
+    &:hover {
+      background: url(images/unchecked_hover.svg) no-repeat center;
+    }
+
+    &.checked {
+      background: url(images/checked.svg) no-repeat center;
+
+      &:hover {
+        background: url(images/checked_hover.svg) no-repeat center;
+      }
+    }
+  }
+
   .seperator {
     width: 100%;
     height: 1px;
     background: #D7D7D7;
-    margin: 20px 0;
+    margin-top: 20px;
   }
 
   .title {
@@ -52,7 +88,7 @@ $medium_font: 'Avenir Medium';
 
   .layer-nodes {
     position: absolute;
-    top: 65px;
+    top: 100px;
     bottom: 0;
     width: 100%;
     overflow: auto;
@@ -61,13 +97,11 @@ $medium_font: 'Avenir Medium';
   .jimu-multiple-layers-featureset-chooser{
     .draw-item {
       padding: 0;
-      width: 60%;
     }
 
     .btn-clear {
       padding: 0;
       width: 30%;
-      float: right;
 
       .jimu-rtl & {
         float: left;
@@ -88,26 +122,6 @@ $medium_font: 'Avenir Medium';
 
       > div {
         display: inline-block;
-      }
-
-      // CheckBox of the layer
-      .selectable-check {
-        width: 36px;
-        height: 36px;
-        cursor: pointer;
-        background: url(images/unchecked.svg) no-repeat center;
-
-        &:hover {
-          background: url(images/unchecked_hover.svg) no-repeat center;
-        }
-
-        &.checked {
-          background: url(images/checked.svg) no-repeat center;
-
-          &:hover {
-            background: url(images/checked_hover.svg) no-repeat center;
-          }
-        }
       }
 
       .layer-name {
@@ -137,9 +151,12 @@ $medium_font: 'Avenir Medium';
         }
       }
 
-      .popup-menu-button {
+      .feature-action {
         position: absolute;
         right: 0;
+        width: 36px;
+        height: 36px;
+        padding: 10px;
 
         .jimu-rtl & {
           right: auto;
@@ -167,6 +184,13 @@ $medium_font: 'Avenir Medium';
 
       .layer-row {
         cursor: default;
+
+        .feature-action {
+          cursor: default;
+          &:hover {
+            color: rgba(0,0,0,0.5);
+          }
+        }
       }
 
       .selected-num {
@@ -174,12 +198,6 @@ $medium_font: 'Avenir Medium';
         &:hover {
           font-weight: normal;
         }
-      }
-
-      .popup-menu-button {
-        background: url(images/more_disabled.svg) no-repeat center;
-        cursor: default;
-        background-color: #FFFFFF;
       }
     }
 
@@ -270,6 +288,7 @@ $medium_font: 'Avenir Medium';
           .action-btn {
             position: absolute;
             right: 0;
+            padding: 10px;
 
             .jimu-rtl & {
               right: auto;

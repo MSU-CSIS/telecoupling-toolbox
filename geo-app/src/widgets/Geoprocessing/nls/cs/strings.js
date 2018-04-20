@@ -20,5 +20,6 @@ define({
   "exportOutput": "Exportovat",
   "emptyResult": "Výsledek je prázdný.",
   "useSelectedFeatureset": "Umožňuje použít výsledné prvky.",
-  "closeSelectedFeatureset": "Vymaže výběr a použije konfigurovanou možnost vstupu."
+  "closeSelectedFeatureset": "Vymaže výběr a použije konfigurovanou možnost vstupu.",
+  "currentMapExtent": "Aktuální rozsah mapy"
 });

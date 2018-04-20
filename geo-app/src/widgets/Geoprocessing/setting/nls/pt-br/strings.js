@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "URL de conjunto da feição",
   "useShapefile": "Utilizar shapefile no sistema de arquivos local",
   "allowToExport": "Permitir exportar os resultados",
-  "useDynamicSchema": "A saída pode ter um esquema diferente, utilize esquema dinâmico, ao invés de pré-definido."
+  "useDynamicSchema": "A saída pode ter um esquema diferente, utilize esquema dinâmico, ao invés de pré-definido.",
+  "useCurrentMapExtent": "Utilizar extensão de mapa atual",
+  "ignoreOutput": "Ignorar esta saída",
+  "turnOffOutput": "Desative esta camada por padrão"
 });

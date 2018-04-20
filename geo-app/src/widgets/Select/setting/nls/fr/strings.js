@@ -3,5 +3,6 @@ define({
   "selectionMode": "Mode de sélection interactif",
   "partiallyWithin": "Partiellement inclus",
   "whollyWithin": "Entièrement inclus",
-  "allowExport": "Autoriser l'exportation des entités sélectionnées"
+  "allowExport": "Autoriser l'exportation des entités sélectionnées",
+  "layerToSelect": "Choisir les couches à sélectionner"
 });

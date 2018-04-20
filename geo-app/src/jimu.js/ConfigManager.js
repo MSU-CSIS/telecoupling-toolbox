@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -536,14 +536,28 @@ function (declare, lang, array, html, topic, Deferred, on, jimuUtils, WidgetMana
       } else {
         // Update proxy items
         array.forEach(newJson.proxyItems, lang.hitch(this, function(item) {
-          array.some(this.appConfig.map.appProxy.proxyItems, function(configItem) {
+          var exists = array.some(this.appConfig.map.appProxy.proxyItems, function(configItem) {
             if (configItem.sourceUrl === item.sourceUrl) {
               configItem.useProxy = item.useProxy;
               configItem.proxyUrl = item.proxyUrl || '';
               configItem.proxyId = item.proxyId || '';
+              if (!isNaN(item.hitsPerInterval)) {
+                configItem.hitsPerInterval = item.hitsPerInterval;
+              }
+              if (!isNaN(item.intervalSeconds)) {
+                configItem.intervalSeconds = item.intervalSeconds;
+              }
               return true;
             }
           });
+          // web map may have added new premium layers in map viewer,
+          // To avoid changing appConfig, they will not be added until they are
+          // configured to use app proxy
+          if (!exists && item.useProxy && item.proxyUrl) {
+            var proxyItems = this.appConfig.map.appProxy.proxyItems || [];
+            proxyItems.push(item);
+            this.appConfig.map.appProxy.proxyItems = proxyItems;
+          }
         }));
       }
 

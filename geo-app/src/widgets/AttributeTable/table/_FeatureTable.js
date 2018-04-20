@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ define([
   'dojo/_base/declare',
   'dojo/_base/html',
   'dijit/_WidgetBase',
-  'jimu/dijit/Popup',
   'jimu/dijit/Message',
   'jimu/dijit/Filter',
   "dgrid/OnDemandGrid",
@@ -64,6 +63,7 @@ define([
   "dojo/_base/array",
   'jimu/dijit/LoadingIndicator',
   'jimu/dijit/FieldStatistics',
+  'jimu/dijit/Popup',
   'jimu/SelectionManager',
   'jimu/CSVUtils',
   'jimu/utils',
@@ -73,7 +73,6 @@ define([
   declare,
   html,
   _WidgetBase,
-  Popup,
   Message,
   Filter,
   OnDemandGrid,
@@ -120,6 +119,7 @@ define([
   array,
   LoadingIndicator,
   FieldStatistics,
+  Popup,
   SelectionManager,
   CSVUtils,
   jimuUtils,
@@ -223,6 +223,8 @@ define([
         })));
         this.own(on(this.map, 'extent-change', lang.hitch(this, '_onExtentChange')));
       }
+
+      this.own(on(window, 'resize', lang.hitch(this, this._resize)));
     },
 
     startup: function() {
@@ -630,13 +632,18 @@ define([
 
           var filter = new Filter({
             noFilterTip: this.nls.noFilterTip,
-            style: "width:100%;"
+            style: "width:100%;",
+            featureLayerId: this.layerInfo.id
           });
+
+          var size = this._getFilterPopupSize();
+
           this._filterPopup = new Popup({
             titleLabel: this.nls.filter,
-            width: 720,
-            height: 485,
+            width: size.w,
+            height: size.h,
             content: filter,
+            autoHeight: true,
             buttons: [{
               label: this.nls.ok,
               onClick: lang.hitch(this, function() {
@@ -662,6 +669,8 @@ define([
               label: this.nls.cancel
             }]
           });
+          filter.startup();
+          html.addClass(this._filterPopup.domNode, 'widget-at-filter-popup');
           var filterObj = this.getFilterObj();
           if (filterObj) {
             filter.buildByFilterObj(this.layer.url, filterObj, definition);
@@ -679,6 +688,29 @@ define([
       this.emit('show-filter', {
         layerInfoId: this.layerInfo.id
       });
+    },
+
+    _getFilterPopupSize: function(){
+      var size = {
+        w: 720,
+        h: 485
+      };
+
+      if(window.appInfo.isRunInMobile){
+        size = {
+          w: window.innerWidth,
+          h: window.innerHeight
+        };
+      }
+
+      return size;
+    },
+
+    _resize: function(){
+      if(this._filterPopup){
+        var size = this._getFilterPopupSize();
+        this._filterPopup.resize(size);
+      }
     },
 
     onToggleColumnsClick: function() {
@@ -708,8 +740,8 @@ define([
       });
     },
 
-    onSelectionComplete: function(evt) {
-      var features = evt.features;
+    onSelectionComplete: function() {
+      var features = this.layer && this.layer.getSelectedFeatures();
       if (!features) {
         return;
       }
@@ -717,7 +749,7 @@ define([
         this.clearSelection(false);
       } else if (!this._selectBySelf(features)) {
         this.clearSelection(false);
-        this._updateSelectRowsByFeatures(evt.features);
+        this._updateSelectRowsByFeatures(features);
       }
     },
 
@@ -925,89 +957,54 @@ define([
       if (!this.layerInfo || !this.layer || !this.tableCreated) {
         return;
       }
-      var _outFields = null;
-      var pk = this.layer.objectIdField;
       // var types = this.layer.types;
-      var data = this.getSelectedRowsData();
-
-      _outFields = this._getOutFieldsFromLayerInfos(pk);
-      _outFields = this._processExecuteFields(this.layer.fields, _outFields);
-
-      var options = {};
-      if (data && data.length > 0) {
-        options.datas = data;
-      } else if (this.grid.store instanceof Memory) {
-        data = this.grid.store.data;
-        options.datas = data;
-      }
-
-      //export geometry if shape type of layer is point
-      if ('datas' in options && this.layer.geometryType === 'esriGeometryPoint') {
-        var datas = lang.clone(options.datas);
-        array.forEach(datas, function(d) {
-          var geometry = d.geometry;
-          if (geometry && geometry.type === 'point') {
-            if ('x' in d) {
-              d._x = geometry.x;
-            } else {
-              d.x = geometry.x;
+      this.getSelectedRowsData().then(lang.hitch(
+          this,
+          function(datas) {
+            // seleted data process.
+            var oid = this.layer.objectIdField;
+            var rows = array.map(
+              this._getTableSelectedIds(),
+              lang.hitch(this, function(id) {
+                for (var i = 0, len = datas.length; i < len; i++) {
+                  if (datas[i] && datas[i][oid] === id) {
+                    return datas[i];
+                  }
+                }
+                return {};
+              })
+            );
+            var _selectedData = rows || [];// get selected data
+            // if table were in selection mode and no records were selected, we push an
+            // empty object to _selectedData, for the following logic compatible.
+            if(_selectedData.length === 0 && this.isSelectionMode()){
+              _selectedData.push({});
             }
 
-            if ('y' in d) {
-              d._y = geometry.y;
-            } else {
-              d.y = geometry.y;
+            var _exportData = _selectedData;
+            if(_selectedData.length === 0 &&  this.grid.store instanceof Memory){
+              _exportData = lang.clone(this.grid.store.data);
             }
+
+            if(_exportData.length){
+              this._appendXY(_exportData);
+            }
+            var options = {};
+            var _outFields = this.getOutFields(!!_exportData.length);
+            options.datas = _exportData;
+            options.fromClient = false;
+            options.withGeometry = this.layer.geometryType === 'esriGeometryPoint';
+            options.outFields = _outFields;
+            options.formatNumber = false;
+            options.formatDate = true;
+            options.formatCodedValue = true;
+            options.popupInfo = this.layerInfo.getPopupInfo();
+
+            return CSVUtils.exportCSVFromFeatureLayer(
+              fileName || this.configedInfo.name,
+              this.layer, options);
           }
-
-          delete d.geometry;
-        });
-        options.datas = datas;
-
-        _outFields = lang.clone(_outFields);
-        var name = "";
-        if (_outFields.indexOf('x') !== -1) {
-          name = '_x';
-        } else {
-          name = 'x';
-        }
-        _outFields.push({
-          'name': name,
-          alias: name,
-          format: {
-            'digitSeparator': false,
-            'places': 6
-          },
-          show: true,
-          type: "esriFieldTypeDouble"
-        });
-        if (_outFields.indexOf('y') !== -1) {
-          name = '_y';
-        } else {
-          name = 'y';
-        }
-        _outFields.push({
-          'name': name,
-          alias: name,
-          format: {
-            'digitSeparator': false,
-            'places': 6
-          },
-          show: true,
-          type: "esriFieldTypeDouble"
-        });
-      }
-
-      options.fromClient = false;
-      options.withGeometry = this.layer.geometryType === 'esriGeometryPoint';
-      options.outFields = _outFields;
-      options.formatNumber = false;
-      options.formatDate = true;
-      options.formatCodedValue = true;
-      options.popupInfo = this.layerInfo.getPopupInfo();
-      return CSVUtils.exportCSVFromFeatureLayer(
-        fileName || this.configedInfo.name,
-        this.layer, options);
+        ));
     },
 
     toggleColumns: function() {
@@ -1104,7 +1101,7 @@ define([
       if (features.length !== this._selectionResults.length) {
         return false;
       } else {
-        return array.every(this._selectionResults, function(sr) {
+        return array.every(this._selectionResults, function (sr) {
           return features.indexOf(sr) > -1;
         });
       }
@@ -1865,25 +1862,95 @@ define([
     },
 
     getSelectedRowsData: function() {
-      if (!this.grid) {
-        return null;
+      var def = new Deferred();
+      var selectedIds = this._getTableSelectedIds() || [];
+      if (!this.grid || !selectedIds.length) {
+        def.resolve(null);
+        return def;
       }
 
-      var oid = this.layer.objectIdField;
-      var store = this.grid.store;
-      var data = store._entityData || store.data;
-      var selectedIds = this.getSelectedRows();
+      if(this.grid.store instanceof Memory){
+        var results = lang.clone(this.grid.store.data);
+        def.resolve(results);
+      }else{
+        this.grid.store
+        .query(selectedIds, {_export_count: selectedIds.length})// count specific counts to fetch.
+        .then(lang.hitch(this, function(data) {
+          var results = data && lang.clone(this.grid.store._entityData || this.grid.store.data);
+          def.resolve(results);
+        }));
+      }
+      return def;
+    },
 
-      var rows = array.map(selectedIds, lang.hitch(this, function(id) {
-        for (var i = 0, len = data.length; i < len; i++) {
-          if (data[i] && data[i][oid] === id) {
-            return data[i];
+    _appendXY: function(datas){
+      //export geometry if shape type of layer is point
+      if (datas && this.layer.geometryType === "esriGeometryPoint") {
+        array.forEach(datas, function(d) {
+          var geometry = d.geometry;
+          if (geometry && geometry.type === "point") {
+            if ("x" in d) {
+              d._x = geometry.x;
+            } else {
+              d.x = geometry.x;
+            }
+
+            if ("y" in d) {
+              d._y = geometry.y;
+            } else {
+              d.y = geometry.y;
+            }
           }
-        }
-        return {};
-      }));
 
-      return rows || [];
+          delete d.geometry;
+        });
+      }
+    },
+
+    // get out fields for export.
+    // isSelectedData equals true means export selected data,
+    // we should append x,y fields to _outFields.
+    getOutFields: function(isSelectedData){
+      var _outFields = null;
+      var pk = this.layer.objectIdField;
+      _outFields = this._getOutFieldsFromLayerInfos(pk);
+      _outFields = this._processExecuteFields(this.layer.fields, _outFields);
+
+      _outFields = lang.clone(_outFields);
+      if(isSelectedData){
+        var name = "";
+        if (_outFields.indexOf('x') !== -1) {
+          name = '_x';
+        } else {
+          name = 'x';
+        }
+        _outFields.push({
+          'name': name,
+          alias: name,
+          format: {
+            'digitSeparator': false,
+            'places': 6
+          },
+          show: true,
+          type: "esriFieldTypeDouble"
+        });
+        if (_outFields.indexOf('y') !== -1) {
+          name = '_y';
+        } else {
+          name = 'y';
+        }
+        _outFields.push({
+          'name': name,
+          alias: name,
+          format: {
+            'digitSeparator': false,
+            'places': 6
+          },
+          show: true,
+          type: "esriFieldTypeDouble"
+        });
+      }
+      return _outFields;
     },
 
     setSelectedNumber: function() {
@@ -1919,11 +1986,31 @@ define([
         if (gExtent && this.domNode) {
           var def = null;
           if (gExtent.type === "point") {
-            var levelOrFactor = 15;
-            levelOrFactor = this.map.getMaxZoom() > -1 ? this.map.getMaxZoom() : 0.1;
-            def = this.map.centerAndZoom(gExtent, levelOrFactor);
+            // var levelOrFactor = 15;
+            // levelOrFactor = this.map.getMaxZoom() > -1 ? this.map.getMaxZoom() : 0.1;
+            // // def = this.map.centerAndZoom(gExtent, levelOrFactor);
+
+            var numLevels = this.map.getNumLevels(),
+              currentLevel = this.map.getLevel(),
+              last = this.map.getMaxZoom(),
+              factor = 4;
+
+            if (numLevels > 0) { // tiled base layer
+              var targetLevel;
+              if (currentLevel === last) {// if currentLevel is maxZoomLevel
+                targetLevel = currentLevel;
+              }else{
+                targetLevel = currentLevel + factor;
+                if (targetLevel > last) {
+                  targetLevel = last;
+                }
+              }
+              def = this.map.centerAndZoom(gExtent, targetLevel);
+            } else { // dynamic base layer
+              def = this.map.centerAndZoom(gExtent, (1 / Math.pow(2, factor)) * 2);
+            }
           } else {
-            def = this.map.setExtent(gExtent.expand(1.1));
+            def = this.map.setExtent(gExtent.expand(2));
           }
 
           return def.then((function() {
@@ -2600,6 +2687,41 @@ define([
       }
 
       return ids;
+    },
+
+    // different from fun:_getSelectedIds,table selected counts may differ
+    // from layer selected if filtered by extent.
+    _getTableSelectedIds: function(){
+      var ids = [];
+      var _ids = this.getSelectedRows();
+      if (this.grid) {
+        // selected number should change with current records in table.
+        if (this.grid.store instanceof Memory) {
+          var oids = array.map(this.grid.store.data, function(d) {
+            return d[this.layer.objectIdField];
+          }, this);
+          array.forEach(_ids, function(id) {
+            if (oids.indexOf(id) > -1) {
+              ids.push(parseInt(id, 10));
+            }
+          });
+        }else{
+          ids = _ids;// as default.
+        }
+      }
+      return ids;
+    },
+
+    // check table mode is selection mode.
+    isSelectionMode: function(){
+      //now dgid is created
+      var selectionRows = this.getSelectedRows();
+      if (this.tableCreated && selectionRows && selectionRows.length > 0 &&
+        this.layer && this.layer.objectIdField) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     _errorSelectFeatures: function(params) {

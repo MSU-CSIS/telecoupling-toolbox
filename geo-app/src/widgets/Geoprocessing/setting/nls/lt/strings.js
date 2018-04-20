@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "elementui nustatytas URL",
   "useShapefile": "Naudoti Shape failą vietinėje failų sistemoje",
   "allowToExport": "Leisti eksportuoti rezultatus",
-  "useDynamicSchema": "Išvesties schema gali būti kitokia, naudokite ne iš anksto nustatytą, o dinaminę schemą."
+  "useDynamicSchema": "Išvesties schema gali būti kitokia, naudokite ne iš anksto nustatytą, o dinaminę schemą.",
+  "useCurrentMapExtent": "Naudoti esamą žemėlapio aprėptį",
+  "ignoreOutput": "Nepaisyti šios išvesties",
+  "turnOffOutput": "Išjungti šį sluoksnį pagal numatytuosius nustatymus"
 });

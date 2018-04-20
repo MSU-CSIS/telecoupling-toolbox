@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "objektsæt-URL",
   "useShapefile": "Brug shapefil i lokalt filsystem",
   "allowToExport": "Tillad eksport af resultater",
-  "useDynamicSchema": "Output kan have et andet skema, brug dynamisk skema i stedet for et foruddefineret skema."
+  "useDynamicSchema": "Output kan have et andet skema, brug dynamisk skema i stedet for et foruddefineret skema.",
+  "useCurrentMapExtent": "Gem aktuelt kortområde",
+  "ignoreOutput": "Tilsidesæt dette output",
+  "turnOffOutput": "Deaktivér dette lag som standard"
 });

@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "圖徵設定 URL",
   "useShapefile": "使用本機檔案系統中的 shapefile",
   "allowToExport": "允許匯出結果",
-  "useDynamicSchema": "輸出可能有不同的方案，請使用動態方案而非預定義的方案。"
+  "useDynamicSchema": "輸出可能有不同的方案，請使用動態方案而非預定義的方案。",
+  "useCurrentMapExtent": "使用目前地圖範圍",
+  "ignoreOutput": "忽略此輸出",
+  "turnOffOutput": "預設會關閉此圖層"
 });

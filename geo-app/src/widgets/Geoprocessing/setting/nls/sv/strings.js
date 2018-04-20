@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "URL till geoobjektsuppsättning",
   "useShapefile": "Använd shapefilen i det lokala filsystemet",
   "allowToExport": "Tillåt export av resultat",
-  "useDynamicSchema": "Resultatet kan ha ett annat schema. Använd ett dynamiskt schema i stället för ett fördefinierat."
+  "useDynamicSchema": "Resultatet kan ha ett annat schema. Använd ett dynamiskt schema i stället för ett fördefinierat.",
+  "useCurrentMapExtent": "Använd aktuell kartutbredning",
+  "ignoreOutput": "Ignorera dessa utdata",
+  "turnOffOutput": "Stäng av det här lagret som standard"
 });

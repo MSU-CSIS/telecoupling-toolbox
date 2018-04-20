@@ -14,11 +14,12 @@ define({
   "invalidUrl": "Ungültige Feature-Service-URL",
   "urlPlaceholder": "Feature-Set-URL",
   "addShapefile": "Shapefile hinzufügen",
-  "generateShapefileError": "Fehler beim Erstellen der Shapefile; überprüfen Sie Folgendes: ",
+  "generateShapefileError": "Fehler beim Erstellen des Shapefiles; überprüfen Sie Folgendes: ",
   "cleared": "Das Ergebnis wurde gelöscht.",
   "enlargeView": "Ansicht vergrößern",
   "exportOutput": "Exportieren",
   "emptyResult": "Das Ergebnis ist leer.",
   "useSelectedFeatureset": "Verwenden Sie das/die resultierende(n) Feature(s).",
-  "closeSelectedFeatureset": "Löschen und verwenden Sie die konfigurierte Eingabe-Option."
+  "closeSelectedFeatureset": "Löschen und verwenden Sie die konfigurierte Eingabe-Option.",
+  "currentMapExtent": "Aktuelle Kartenausdehnung"
 });

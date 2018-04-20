@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,7 +14,8 @@
 // limitations under the License.
 ///////////////////////////////////////////////////////////////////////////
 
-define(['dojo/_base/declare',
+define([
+    'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
     'dojo/_base/html',
@@ -565,6 +566,19 @@ define(['dojo/_base/declare',
           array.forEach(this.enabledButtons, lang.hitch(this, function(itm) {
             html.setStyle(itm, 'display', 'none');
           }));
+        }
+      },
+
+      resize: function(size){
+        if(size){
+          this.width = size.w;
+          this.height = size.h;
+        }
+
+        this._positioning();
+
+        if (this.content && this.content.domNode && this.content.resize){
+          this.content.resize();
         }
       }
     });

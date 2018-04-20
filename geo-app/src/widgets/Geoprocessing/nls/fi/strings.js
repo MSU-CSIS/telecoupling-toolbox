@@ -20,5 +20,6 @@ define({
   "exportOutput": "Vie",
   "emptyResult": "Tulos on tyhjä.",
   "useSelectedFeatureset": "Käytä saatua kohdetta / saatuja kohteita.",
-  "closeSelectedFeatureset": "Tyhjennä ja käytä määritettyä lähtöaineistoasetusta."
+  "closeSelectedFeatureset": "Tyhjennä ja käytä määritettyä lähtöaineistoasetusta.",
+  "currentMapExtent": "Nykyinen kartan laajuus"
 });

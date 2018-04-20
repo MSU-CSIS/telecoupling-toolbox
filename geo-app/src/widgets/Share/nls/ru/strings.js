@@ -1,5 +1,5 @@
 define({
-  "_widgetLabel": "Публикация",
+  "_widgetLabel": "Опубликовать",
   "selectSocialNetwork": "Выберите следующие опции публикации приложения:",
   "email": "Электронная почта",
   "facebook": "Facebook",

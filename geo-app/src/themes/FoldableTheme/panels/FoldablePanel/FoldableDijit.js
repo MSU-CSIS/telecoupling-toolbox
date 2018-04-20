@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -57,10 +57,6 @@ define(['dojo/_base/declare',
         this.own(on(this.titleNode, 'click', lang.hitch(this, function(){
           this.onFoldableNodeClick();
         })));
-		//ADDED THIS CUSTOMIZATION!!! (Lines 60-63)
-		if(this.folded){
-          html.addClass(this.foldableNode, 'folded');
-        }//ADDED THIS CUSTOMIZATION!!!
       },
 
       setTitleLabel: function(label) {

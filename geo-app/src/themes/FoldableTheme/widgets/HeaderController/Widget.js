@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -116,7 +116,7 @@ define([
       startup: function() {
         this.inherited(arguments);
         this.resize();
-        // this.timeoutHandle = setTimeout(lang.hitch(this, this.resize), 100);
+        setTimeout(lang.hitch(this, this.resize), 100);
       },
 
       onAction: function(action, data) {
@@ -800,8 +800,8 @@ define([
         }
         //open the first openatstart widget
         if (openAtStartNode && !this.openAtStartWidget) {
+          this.openAtStartWidget = openAtStartNode.config.id;
           this._onIconClick(openAtStartNode);
-          this.openAtStartWidget = openAtStartNode.config.name;
         }
 
         if(this.openedId && this.getConfigById(this.openedId) &&

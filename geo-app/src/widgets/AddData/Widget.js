@@ -30,15 +30,19 @@ define(["dojo/_base/declare",
     "./search/SearchPane",
     "./search/AddFromUrlPane",
     "./search/AddFromFilePane",
-    "./search/LayerListPane"
+    "./search/LayerListPane",
+    "dojo/_base/array"
   ],
   function(declare, lang, on, aspect, Deferred, domClass, portalUrlUtils, portalUtils,
     tokenUtils, BaseWidget, TabContainer3, _WidgetsInTemplateMixin, SearchContext,
-    util, SearchPane, AddFromUrlPane, AddFromFilePane, LayerListPane) {
+    util, SearchPane, AddFromUrlPane, AddFromFilePane, LayerListPane, array) {
     return declare([BaseWidget, _WidgetsInTemplateMixin], {
 
       name: "AddData",
       baseClass: "jimu-widget-add-data",
+
+      batchGeocoderServers: null,
+      isPortal: false,
 
       _isOpen: false,
       _searchOnOpen: false,
@@ -143,6 +147,35 @@ define(["dojo/_base/declare",
         return dfd;
       },
 
+      _initBatchGeocoder: function(portal,user) {
+        //console.warn("_initBatchGeocoder.portal",portal);
+        //console.warn("_initBatchGeocoder.user",user);
+        var roleOK = false;
+        var regexWorld = /(arcgis.com\/arcgis\/rest\/services\/world\/geocodeserver).*/ig;
+        var regexWorldProxy = /(\/servers\/[\da-z\.-]+\/rest\/services\/world\/geocodeserver).*/ig;
+        var geocodeServers = portal && portal.helperServices && portal.helperServices.geocode || [];
+        var isWorld, isWorldProxy, batchGeocodeServers = [];
+        if (user && user.privileges) {
+          roleOK = array.indexOf(user.privileges, "premium:user:geocode") > -1;
+        }
+        array.forEach(geocodeServers, function (server) {
+          isWorld = !!server.url.match(regexWorld);
+          isWorldProxy = !!server.url.match(regexWorldProxy);
+          if ((isWorld && !portal.isPortal && roleOK) || isWorldProxy || !!server.batch) {
+            batchGeocodeServers.push({
+              "isWorldGeocodeServer": isWorld || isWorldProxy,
+              "isWorldGeocodeServerProxy": isWorldProxy,
+              "label": server.name,
+              "value": server.url,
+              "url": server.url,
+              "name": server.name
+            });
+          }
+        });
+        this.batchGeocoderServers = batchGeocodeServers;
+        //console.warn("batchGeocoderServers",this.batchGeocoderServers);
+      },
+
       _initContext: function(user) {
         var dfd = new Deferred(), bResolve = true;
         // TODO configure this?
@@ -151,6 +184,7 @@ define(["dojo/_base/declare",
         var hasUsername = (user && typeof user.username === "string" && user.username.length > 0);
         var searchContext = new SearchContext();
         var portal = portalUtils.getPortal(this.appConfig.portalUrl);
+        this.isPortal = portal.isPortal;
         searchContext.portal = portal;
         if (user) {
           if (typeof user.orgId === "string" && user.orgId.length > 0) {
@@ -166,8 +200,21 @@ define(["dojo/_base/declare",
           this.searchPane.searchContext = searchContext;
           this.searchPane.portal = portal;
         }
-        //console.warn("AddData.portal",portal);
+        this._initBatchGeocoder(portal,user);
 
+        // KML and GeoRSS utility services
+        if (portal.isPortal) {
+          try {
+            var kmlsvc = portalUrlUtils.getSharingUrl(portal.portalUrl) + "/kml";
+            kmlsvc = kmlsvc.replace("/sharing/rest/kml","/sharing/kml");
+            window.esri.config.defaults.kmlService = kmlsvc;
+            window.esri.config.defaults.geoRSSService = kmlsvc.replace("/kml","/rss");
+          } catch(ex) {
+            console.error(ex);
+          }
+        }
+
+        //console.warn("AddData.portal",portal);
         var msg = this.nls.search.loadError + arcgisOnlineUrl;
         var arcgisOnlineOption = scopeOptions.ArcGISOnline;
         searchContext.allowArcGISOnline = arcgisOnlineOption.allow;

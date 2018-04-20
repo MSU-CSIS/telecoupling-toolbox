@@ -3,5 +3,6 @@ define({
   "right": "Dešininė lygiuotė",
   "arrangement": "Išdėstymas",
   "autoUpdate": "Automatinis atnaujinimas",
-  "respectCurrentMapScale": "Atsižvelgti į dabartinio žemėlapio mastelį"
+  "respectCurrentMapScale": "Atsižvelgti į dabartinio žemėlapio mastelį",
+  "layerSelectorTitle": "Pasirinkite, kuriems sluoksniams rodyti legendas: "
 });

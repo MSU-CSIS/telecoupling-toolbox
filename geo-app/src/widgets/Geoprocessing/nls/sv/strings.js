@@ -20,5 +20,6 @@ define({
   "exportOutput": "Exportera",
   "emptyResult": "Resultatet är tomt.",
   "useSelectedFeatureset": "Använd resultatgeoobjekten.",
-  "closeSelectedFeatureset": "Rensa och använd det konfigurerade indataalternativet."
+  "closeSelectedFeatureset": "Rensa och använd det konfigurerade indataalternativet.",
+  "currentMapExtent": "Aktuell kartutbredning"
 });

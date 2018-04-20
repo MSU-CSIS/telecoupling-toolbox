@@ -20,5 +20,6 @@ define({
   "exportOutput": "ייצא",
   "emptyResult": "התוצאה ריקה.",
   "useSelectedFeatureset": "השתמש בישויות שעולות בתוצאות.",
-  "closeSelectedFeatureset": "נקה והשתמש באפשרות הקלט המוגדרת."
+  "closeSelectedFeatureset": "נקה והשתמש באפשרות הקלט המוגדרת.",
+  "currentMapExtent": "תיחום המפה הנוכחי"
 });

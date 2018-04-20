@@ -4,7 +4,8 @@ define({
     right: "Align right",
     arrangement: "Arrangement",
     autoUpdate: "Auto update",
-    respectCurrentMapScale: "Respect current map scale"
+    respectCurrentMapScale: "Respect current map scale",
+    layerSelectorTitle: "Choose which layers to show legends: "
   }),
   "ar": 1,
   "bs": 1,
@@ -32,6 +33,7 @@ define({
   "pt-pt": 1,
   "ro": 1,
   "ru": 1,
+  "sl": 1,
   "sr": 1,
   "sv": 1,
   "th": 1,

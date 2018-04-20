@@ -1,6 +1,6 @@
 
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -40,7 +40,23 @@ define([
         this._buffer[key] = new clazz.RequestProxy(this._realRequest, key);
       }
       return this._buffer[key];
+    },
+
+    request: function(key /*arguments of real request*/) {
+      var args = Array.prototype.slice.apply(arguments);
+      args.splice(0, 1);
+      var requestProxy = this.getRequest(key);
+      return requestProxy.request.apply(requestProxy, args);
+    },
+
+    setResponse: function(key, response) {
+      this.getRequest(key).setResponse(response);
+    },
+
+    isResolved: function(key){
+      return this.getRequest(key).isResolved();
     }
+
 
     /*
     // responseObj = {
@@ -77,8 +93,9 @@ define([
           if(err) {
             console.warn(err.message || err);
           }
-          this._deferred.resolve(null);
+          var tempDef = this._deferred;
           this._deferred = null;
+          tempDef.resolve(null);
         }));
       }
       return this._deferred;

@@ -3,5 +3,6 @@ define({
   "right": "ชิดขอบขวา",
   "arrangement": "การจัดเรียง",
   "autoUpdate": "อัพเดตอัตโนมัติ",
-  "respectCurrentMapScale": "ใช้ตามมาตราส่วนแผนที่ปัจจุบัน"
+  "respectCurrentMapScale": "ใช้ตามมาตราส่วนแผนที่ปัจจุบัน",
+  "layerSelectorTitle": "เลือกชั้นข้อมูลที่จะแสดงสัญลักษณ์: "
 });

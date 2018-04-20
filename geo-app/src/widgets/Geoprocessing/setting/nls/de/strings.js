@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "Feature-Set-URL",
   "useShapefile": "Shapefile in lokalem Dateisystem verwenden",
   "allowToExport": "Exportieren von Ergebnissen zulassen",
-  "useDynamicSchema": "Die Ausgabe kann verschiedene Schemas aufweisen; das dynamische anstelle des vordefinierten Schemas verwenden."
+  "useDynamicSchema": "Die Ausgabe kann verschiedene Schemas aufweisen; das dynamische anstelle des vordefinierten Schemas verwenden.",
+  "useCurrentMapExtent": "Aktuelle Kartenausdehnung verwenden",
+  "ignoreOutput": "Diese Ausgabe ignorieren",
+  "turnOffOutput": "Diesen Layer standardmäßig deaktivieren"
 });

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -57,7 +57,6 @@ function(declare, template, lang, Evented, on, _WidgetBase, _TemplatedMixin,
       }
 
       this.showExport.setValue(Boolean(config.showExportButton));
-      this.dynamicSchema.setValue(Boolean(config.useDynamicSchema));
     },
 
     setUserResultMapServer: function(checked) {
@@ -79,7 +78,6 @@ function(declare, template, lang, Evented, on, _WidgetBase, _TemplatedMixin,
       }
       this.config.shareResults = this.shareResults.getValue();
       this.config.showExportButton = this.showExport.getValue();
-      this.config.useDynamicSchema = this.dynamicSchema.getValue();
     }
   });
 });

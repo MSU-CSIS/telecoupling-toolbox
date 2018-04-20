@@ -21,11 +21,16 @@
 }
 
 .jimu-widget-draw-setting .tip{
-  color: #596679;
+  color: #000;
   font-size: 14px;
 }
 
 .jimu-widget-draw-setting .add-with-icon.jimu-state-disabled{
   color: #ccc;
   cursor: default;
+}
+
+.jimu-widget-draw-setting .jimu-simple-table .simple-table-cell .normal-text-div{
+  color: #000;
+  font-size: 14px;
 }

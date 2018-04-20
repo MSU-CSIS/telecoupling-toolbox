@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,9 +23,11 @@ define([
     'jimu/utils',
     'jimu/ServiceDefinitionManager',
     'esri/tasks/query',
-    'esri/tasks/QueryTask'
+    'esri/tasks/QueryTask',
+    'esri/tasks/FeatureSet'
   ],
-  function(declare, lang, array, all, Deferred, jimuUtils, ServiceDefinitionManager, EsriQuery, QueryTask) {
+  function(declare, lang, array, all, Deferred, jimuUtils, ServiceDefinitionManager, EsriQuery, QueryTask,
+    FeatureSet) {
 
     var clazz = declare(null, {
       //1 means service support orderby and pagination
@@ -109,7 +111,7 @@ define([
       },
 
       //return a deferred which resolves FeatureSet object
-      //if resolves null, it means no features
+      //always resovles a FeatureSet object, featureSet.features maybe an empty array
       getAllFeatures: function(){
         return this.getPageCount().then(lang.hitch(this, function(pageCount){
           if(pageCount > 0){
@@ -129,9 +131,26 @@ define([
               return featureSet;
             }));
           }else{
-            return null;
+            return this._getEmptyFeatureSet();
           }
         }));
+      },
+
+      _getEmptyFeatureSet: function(){
+        var featureSet = new FeatureSet();
+        featureSet.features = [];
+        featureSet.geometryType = this.layerDefinition.geometryType;
+        featureSet.fields = [];
+        var allFields = lang.clone(this.layerDefinition.fields);
+
+        if (this.query.outFields.indexOf('*') >= 0) {
+          featureSet.fields = allFields;
+        } else {
+          featureSet.fields = array.filter(allFields, lang.hitch(this, function(fieldInfo) {
+            return this.query.outFields.indexOf(fieldInfo.name) >= 0;
+          }));
+        }
+        return featureSet;
       },
 
       //return current page index, page index starts from 1, not zero
@@ -147,19 +166,20 @@ define([
         return this.queryByPage(pageIndex);
       },
 
-      //return a deferred which resolves FeatureSet by pageIndex, if resolves null, means no features
+      //return a deferred which resolves FeatureSet by pageIndex
       //pageIndex is 1-based, not 0-based
       //use queryByPage(this.getCurrentPageIndex()) to query current page
       //queryByPage doesn't change current page index, queryNextPage does
       queryByPage: function(pageIndex){
         var def = null;
+        var emptyFeatureSet = this._getEmptyFeatureSet();
         if(pageIndex <= 0){
           def = new Deferred();
-          def.resolve(null);
+          def.resolve(emptyFeatureSet);
         }else{
           def = this.getPageCount().then(lang.hitch(this, function(pageCount) {
             if (pageIndex > pageCount) {
-              return null;
+              return emptyFeatureSet;
             }
             if (this.queryType === 1) {
               return this._queryPageForType1(pageIndex);

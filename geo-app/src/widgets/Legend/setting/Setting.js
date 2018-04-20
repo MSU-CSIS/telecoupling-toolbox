@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,14 +16,24 @@
 
 define([
     'dojo/_base/declare',
+    'dojo/_base/array',
+    'dojo/_base/html',
+    'dojo/Deferred',
     'jimu/BaseWidgetSetting',
+    'jimu/dijit/LayerChooserFromMapLite',
+    'jimu/LayerInfos/LayerInfos',
     'dijit/_WidgetsInTemplateMixin',
     'dijit/form/NumberTextBox',
     'dijit/form/CheckBox'
   ],
   function(
     declare,
+    array,
+    html,
+    Deferred,
     BaseWidgetSetting,
+    LayerChooserFromMapLite,
+    LayerInfos,
     _WidgetsInTemplateMixin) {
     return declare([BaseWidgetSetting, _WidgetsInTemplateMixin], {
 
@@ -34,6 +44,7 @@ define([
         if (!this.config.legend) {
           this.config.legend = {};
         }
+
         this.setConfig(this.config);
       },
 
@@ -42,15 +53,70 @@ define([
         if (config.legend.arrangement !== undefined) {
           this.selectArrangement.set('value', config.legend.arrangement);
         }
-        this.autoUpdate.set('checked', config.legend.autoUpdate);
-        this.respectCurrentMapScale.set('checked', config.legend.respectCurrentMapScale);
+        this.autoUpdate.setValue(config.legend.autoUpdate);
+        this.respectCurrentMapScale.setValue(config.legend.respectCurrentMapScale);
+
+        //this._setLayerChooser();
       },
 
       getConfig: function() {
         this.config.legend.arrangement = parseInt(this.selectArrangement.get('value'), 10);
         this.config.legend.autoUpdate = this.autoUpdate.checked;
         this.config.legend.respectCurrentMapScale = this.respectCurrentMapScale.checked;
+        //this.config.layerState = this.layerChooser.getState();
         return this.config;
+      },
+
+      _setLayerChooser: function() {
+        // add layer chooser
+        // customFilter
+        var customFilter = function(layerInfo) {
+          var def = new Deferred();
+          var rootLayerInfo = null;
+
+          if(layerInfo.isTable) {
+            def.resolve(false);
+          } else if(layerInfo.isRootLayer()) {
+            def.resolve(true);
+          } else {
+            rootLayerInfo = layerInfo.getRootLayerInfo();
+            if(rootLayerInfo &&
+               rootLayerInfo.layerObject &&
+               (rootLayerInfo.layerObject.declaredClass === "esri.layers.ArcGISDynamicMapServiceLayer" ||
+                rootLayerInfo.layerObject.declaredClass === "esri.layers.ArcGISTiledMapServiceLayer" ||
+                rootLayerInfo.layerObject.declaredClass === "esri.layers.FeatureCollection")) {
+              def.resolve(true);
+            } else {
+              def.resolve(false);
+            }
+          }
+          return def;
+        };
+        // layerLegendStateController
+        this.layerChooser = new LayerChooserFromMapLite({
+          customFilter: customFilter,
+          layerState: this.config.layerState,
+          layerStateController: LayerChooserFromMapLite.layerLegendStateController
+        });
+        this.layerChooser.placeAt(this.layerChooserDiv);
+        this._updateLayerChooserUI();
+      },
+
+      _updateLayerChooserUI: function() {
+        var layerInfos = LayerInfos.getInstanceSync();
+        array.forEach(layerInfos.getLayerInfoArray(), function(layerInfo) {
+          if(layerInfo &&
+             layerInfo.layerObject &&
+             layerInfo.layerObject.declaredClass !== "esri.layers.ArcGISDynamicMapServiceLayer" &&
+             layerInfo.layerObject.declaredClass !== "esri.layers.ArcGISTiledMapServiceLayer" &&
+             layerInfo.layerObject.declaredClass !== "esri.layers.FeatureCollection") {
+            var domNodes = this.layerChooser.getLayerAssociateDomNodesById(layerInfo.id);
+            if(domNodes && domNodes.collapseIcon) {
+              html.setStyle(domNodes.collapseIcon, 'background-image', 'none');
+            }
+          }
+        }, this);
       }
+
     });
   });

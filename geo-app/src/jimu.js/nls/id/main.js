@@ -76,7 +76,18 @@ define({
     "field": "Kolom",
     "operation": "Operasi",
     "disableUpdateGeometry": "Nonaktifkan Pembaruan Geometri",
-    "preview": "Pratinjau"
+    "preview": "Pratinjau",
+    "date": "Tanggal",
+    "time": "Waktu",
+    "show": "Tampilkan",
+    "hide": "Sembunyikan",
+    "format": "Format",
+    "defaults": "Default",
+    "add": "Tambah",
+    "done": "Selesai",
+    "remove": "Hapus",
+    "leave": "Keluar",
+    "stay": "Tinggal"
   },
   "errorCode": "Kode",
   "errorMessage": "Pesan",
@@ -99,10 +110,18 @@ define({
     "arrows": "Panah",
     "business": "Bisnis",
     "cartographic": "Kartografi",
+    "damage": "Rusak",
+    "disasters": "Bencana",
+    "emergencyManagement": "Manajemen Darurat",
+    "generalInfrastructure": "Infrastruktur Umum",
+    "localGovernment": "Pemerintah Lokal",
     "nationalParkService": "Service taman nasional",
+    "numbers": "Angka",
     "outdoorRecreation": "Rekreasi luar ruangan",
     "peoplePlaces": "Tempat masyarakat",
+    "pointsOfInterest": "Titik Pilihan",
     "safetyHealth": "Kesehatan keselamatan",
+    "stateGovernment": "Pemerintah Negara Bagian",
     "shapes": "Bentuk",
     "transportation": "Transportasi",
     "symbolSize": "Ukuran simbol",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "kosong",
     "stringOperatorIsNotBlank": "tidak kosong",
     "dateOperatorIsOn": "berada di",
+    "dateOperatorIsIn": "di dalam",
+    "dateOperatorIsNotIn": "tidak di dalam",
     "dateOperatorIsNotOn": "tidak berada di",
     "dateOperatorIsBefore": "sebelum",
     "dateOperatorIsAfter": "setelah",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Hanya menampilkan nilai yang sudah difilter oleh ekspresi sebelumnya.",
     "noneCascadeFilterTip": "Semua nilai unik kolom ini",
     "previousCascadeFilterTip": "Nilai difilter menurut ekspresi sebelumnya",
-    "allCascadeFilterTip": "Nilai difilter menurut semua ekspresi lainnya"
+    "allCascadeFilterTip": "Nilai difilter menurut semua ekspresi lainnya",
+    "custom": "tanggal...",
+    "today": "hari ini",
+    "yesterday": "kemarin",
+    "tomorrow": "besok",
+    "thisWeek": "minggu ini",
+    "thisMonth": "bulan ini",
+    "thisQuarter": "kuartal ini",
+    "thisYear": "tahun ini",
+    "inputType": "Tipe input",
+    "setInputType": "Atur tipe input"
   },
   "featureLayerSource": {
     "layer": "Layer",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "Kaki survei AS",
     "uSSurveyFeetAbbr": "ftAS",
+    "centimeters": "Sentimeter",
+    "centimetersAbbr": "cm",
+    "inches": "Inci",
+    "inchesAbbr": "in",
     "decimalDegree": "Derajat desimal",
     "decimalDegreeAbbr": "dd",
     "degreeMinuteSeconds": "Derajat menit detik",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "yd persegi",
     "squareUSSurveyFeet": "Kaki survei AS persegi",
     "squareUSSurveyFeetAbbr": "ftAS persegi"
+  },
+  "timeUnit": {
+    "year": "Tahun",
+    "month": "Bulan",
+    "day": "Hari",
+    "hour": "Jam",
+    "minute": "Menit",
+    "second": "Detik"
   },
   "featureSetChooser": {
     "select": "Pilih",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Catatan terkait:",
     "noRelatedRecotds": "Tidak ada rekaman terkait yang ditemukan",
     "chooseFieldTip": "Pilih satu atribut untuk menampilkan daftar",
-    "saveAsPopupTitle": "Sama dengan judul pop-up"
+    "saveAsPopupTitle": "Sama dengan judul pop-up",
+    "leaveConfirm": "Apakah Anda ingin keluar tanpa menyimpan pengeditan?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "Ada terlalu banyak fitur dalam pilihan Anda. Mungkin perlu waktu lama untuk mengambil dan menampilkannya pada peta.",
@@ -545,7 +589,7 @@ define({
   },
   "colorPalette": {
     "transparent": "Transparan",
-    "custom": "Khusus"
+    "custom": "Kustom"
   },
   "temperature": {
     "celsius": "Celsius",

@@ -1,3 +1,3 @@
 define({
-  "selectSocialNetwork": "Способ публикации"
+  "selectSocialNetwork": "Выбрать опции публикации"
 });

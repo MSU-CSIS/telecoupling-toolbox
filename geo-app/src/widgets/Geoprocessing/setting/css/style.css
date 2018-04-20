@@ -11,6 +11,7 @@
 .jimu-widget-setting-gp .url-section{
   position: relative;
   height: 40px;
+  line-height: 40px;
 }
 .jimu-widget-setting-gp .url-section .label{
   left: 0;
@@ -22,6 +23,10 @@
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+.jimu-widget-setting-gp .url-section .jimu-btn{
+  height: 30px;
+  line-height: 30px;
 }
 .jimu-widget-setting-gp .service-browser{
   width: 850px;
@@ -108,8 +113,9 @@
   overflow: hidden;
 }
 .jimu-widget-setting-gp .field label{
-  width: 115px;
+  width: 90px;
   display: inline-block;
+  vertical-align: middle;
   padding-right: 5px;
 }
 .jimu-rtl .jimu-widget-setting-gp .field label{
@@ -119,20 +125,11 @@
 .jimu-widget-setting-gp .common-property .field{
   height: 36px;
   margin-top: 10px;
-}
-.jimu-widget-setting-gp .common-property .field label{
-  position: relative;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+  line-height: 36px;
 }
 .jimu-widget-setting-gp .common-property .field label.visibleLabel{
-  position: relative;
-  top: 20%;
-  -ms-transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+  max-width: 90%;
+  width: auto;
 }
 .jimu-widget-setting-gp .common-property .jimu-checkbox{
   width: 115px;
@@ -140,19 +137,18 @@
 .jimu-widget-setting-gp .common-property .jimu-checkbox.visibleCheck{
   width: 20px;
   margin-left:0;
+  vertical-align: middle;
 }
 .jimu-widget-setting-gp .common-property .field .common-input{
-  position: absolute;
-  left: 115px;
-  right: 10px;
-  top: 0px;
-  bottom: 0px;
-  width: auto
+  width: 570px;
 }
 
 .jimu-widget-setting-gp .special-property .field{
   height: 20px;
   margin-top: 5px;
+}
+.jimu-widget-setting-gp .special-property .field input{
+  vertical-align: middle;
 }
 .jimu-widget-setting-gp .special-property .jimu-gp-editor-base{
   display: block;

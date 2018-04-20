@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -147,6 +147,8 @@ define([
       _mapWkid: null,
       _configured: false,
       _markerGraphic: null,
+
+      moveTopOnActive: false,
 
       postMixInProperties: function() {
         this.nls.enableClick = this.nls.enableClick ||

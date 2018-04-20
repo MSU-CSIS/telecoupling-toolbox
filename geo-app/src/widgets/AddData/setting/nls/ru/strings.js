@@ -3,15 +3,15 @@ define({
   "scopeOptions": {
     "defaultScope": "Область поиска по умолчанию",
     "labelPlaceholder": "Дополнительная надпись",
-    "MyContent": "Разрешить Мои ресурсы",
-    "MyOrganization": "Разрешить Моя организации",
-    "ArcGISOnline": "Разрешить ArcGIS Online",
+    "MyContent": "Разрешить в Моих ресурсах",
+    "MyOrganization": "Разрешить в Моей организации",
+    "ArcGISOnline": "Разрешить в ArcGIS Online",
     "Curated": "Разрешить курирование",
     "CuratedFilter": "Фильтр курирования",
     "livingAtlasExample": "Пример Living atlas"
   },
   "addFromUrl": {
-    "caption": "Разрешить пустые значения (URL)"
+    "caption": "Разрешить URL"
   },
   "addFromFile": {
     "caption": "Разрешить файл",

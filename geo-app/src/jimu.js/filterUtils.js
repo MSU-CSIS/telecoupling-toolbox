@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,11 +19,13 @@ define([
   'dojo/_base/lang',
   'dojo/_base/array',
   'dojo/date/locale',
+  'dojo/number',
   'esri/lang',
   'dojo/data/ItemFileWriteStore',
-  'jimu/utils'
+  'jimu/utils',
+  'moment/moment'
 ],
-function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) {
+function(declare, lang, array, locale, dojoNumber, esriLang, ItemFileWriteStore, jimuUtils, moment) {
 
   //refer arcgisonline/sharing/dijit/dialog/FilterDlg.js
   var clazz = declare([], {
@@ -37,16 +39,18 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
     _supportFieldTypes: [],
     dayInMS : (24 * 60 * 60 * 1000) - 1000,// 1 sec less than 1 day
     fieldsStore: null,
-    isHosted: false,
+    isHosted: false,//indicate it is a hosted rest service or not
 
     //methods renamed:
     //parseDefinitionExpression->getFilterObjByExpr
     //builtCompleteFilter->getExprByFilterObj
 
     //public methods:
-    //prepare
-    //getFilterObjByExpr: expr->partsObj
-    //getExprByFilterObj: partsObj->expr
+    //isAskForValues: check partsObj has 'ask for value' option or not
+    //hasVirtualDate: check partsObj has virtual date (like today, yesterday) or not
+    //getExprByFilterObj: partsObj->expr, get sql expression by json partsObj
+    //getFilterObjByExpr: expr->partsObj, parse sql expression to json partsObj, this method is deprecated
+    //prepare:set url and fields, method getFilterObjByExpr will read info from fields
 
     //modify methods(with hint 'code for wab'):
     //builtSingleFilterString
@@ -118,6 +122,8 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
       dateOperatorIsNotBlank:'dateOperatorIsNotBlank',
       dateOperatorInTheLast:'dateOperatorInTheLast',
       dateOperatorNotInTheLast:'dateOperatorNotInTheLast',
+      dateOperatorIsIn:'dateOperatorIsIn',
+      dateOperatorIsNotIn:'dateOperatorIsNotIn',
 
       //not operators, date types used for dateOperatorInTheLast and dateOperatorNotInTheLast
       dateOperatorMinutes:'dateOperatorMinutes',
@@ -128,8 +134,11 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
       dateOperatorYears:'dateOperatorYears'
     },
 
+    //set url and fields, method getFilterObjByExpr will read info from fields
+    //allFieldsInfos: layerDefinition.fields
     prepare: function(url, allFieldsInfos){
       this.isHosted = jimuUtils.isHostedService(url);
+      allFieldsInfos = allFieldsInfos || [];
       this.setFieldsStoreByFieldInfos(allFieldsInfos);
     },
 
@@ -157,19 +166,14 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
       return !isValidPartsObj;
     },
 
+    //check partsObj has 'ask for value' option or not
     isAskForValues: function(partsObj){
-      var result = false;
-      var parts = partsObj.parts;
-      result = array.some(parts, lang.hitch(this, function(item) {
-        if (item.parts) {
-          return array.some(item.parts, lang.hitch(this, function(part) {
-            return !!part.interactiveObj;
-          }));
-        } else {
-          return !!item.interactiveObj;
-        }
-      }));
-      return result;
+      return clazz.isAskForValues(partsObj);
+    },
+
+    //check partsObj has virtual date (like today, yesterday) or not
+    hasVirtualDate: function(partsObj){
+      return clazz.hasVirtualDate(partsObj);
     },
 
     setFieldsStoreByFieldInfos: function(allFieldsInfos){
@@ -179,15 +183,15 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
       var items = array.map(fieldsInfos, function(fieldInfo, idx){
         var shortType;
         switch (fieldInfo.type) {
-        case "esriFieldTypeString":
-          shortType = "string";
-          break;
-        case "esriFieldTypeDate":
-          shortType = "date";
-          break;
-        default: // numbers
-          shortType = "number";
-          break;
+          case "esriFieldTypeString":
+            shortType = "string";
+            break;
+          case "esriFieldTypeDate":
+            shortType = "date";
+            break;
+          default: // numbers
+            shortType = "number";
+            break;
         }
 
         return {
@@ -245,6 +249,7 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
     /****  stringify                               ****/
     /**************************************************/
     //builtCompleteFilter
+    //partsObj->expr, get sql expression by json partsObj
     //1. If return null or empty string, it means we can't get a valid sql expresion
     //2. If return a non-empty string, it means we can get a valid sql expression
     getExprByFilterObj: function(partsObj) {
@@ -262,6 +267,9 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
         partsObj.expr = "";
         return partsObj.expr;
       }
+
+      //convert virtual date to real date
+      this._handleVirtualDate(partsObj);
 
       //real code to build filter string
       var filterString = "";
@@ -284,6 +292,59 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
       }
       partsObj.expr = filterString;
       return filterString;
+    },
+
+    _handleVirtualDate: function(partsObj){
+      if(!this.hasVirtualDate(partsObj)){
+        return;
+      }
+      array.forEach(partsObj.parts, lang.hitch(this, function(part){
+        if(part.parts){
+          array.forEach(part.parts, lang.hitch(this, function(singlePart){
+            this._updateRealDateByVirtualDate(singlePart);
+          }));
+        }else{
+          this._updateRealDateByVirtualDate(part);
+        }
+      }));
+    },
+
+    _updateRealDateByVirtualDate: function(singlePart){
+      var v;
+      var singleVirtualDateOpts = [
+        this.OPERATORS.dateOperatorIsOn,
+        this.OPERATORS.dateOperatorIsNotOn,
+        this.OPERATORS.dateOperatorIsBefore,
+        this.OPERATORS.dateOperatorIsAfter,
+        this.OPERATORS.dateOperatorIsOnOrBefore,
+        this.OPERATORS.dateOperatorIsOnOrAfter
+      ];
+      if(singlePart.valueObj.virtualDate){
+        if(singlePart.operator === this.OPERATORS.dateOperatorIsIn ||
+          singlePart.operator === this.OPERATORS.dateOperatorIsNotIn){
+          var values = clazz.getRealDateByVirtualDate(singlePart.valueObj.virtualDate);
+          singlePart.value1 = values[0];
+          singlePart.value2 = values[1];
+          singlePart.valueObj.value1 = values[0].toDateString();
+          singlePart.valueObj.value2 = values[1].toDateString();
+        }else if(singleVirtualDateOpts.indexOf(singlePart.operator) > -1){
+          v = clazz.getRealDateByVirtualDate(singlePart.valueObj.virtualDate);
+          singlePart.value = v;
+          singlePart.valueObj.value = v.toDateString();
+        }
+      }else{
+        if(singlePart.valueObj.virtualDate1){
+          v = clazz.getRealDateByVirtualDate(singlePart.valueObj.virtualDate1);
+          singlePart.value1 = v;
+          singlePart.valueObj.value1 = v.toDateString();
+        }
+
+        if(singlePart.valueObj.virtualDate2){
+          v = clazz.getRealDateByVirtualDate(singlePart.valueObj.virtualDate2);
+          singlePart.value2 = v;
+          singlePart.valueObj.value2 = v.toDateString();
+        }
+      }
     },
 
     //check it is ready or not to build filter string by askForValues opiton
@@ -337,7 +398,9 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
             return true;
           }
           else if(operator === this.OPERATORS.dateOperatorIsBetween ||
-                  operator === this.OPERATORS.dateOperatorIsNotBetween){
+                  operator === this.OPERATORS.dateOperatorIsNotBetween ||
+                  operator === this.OPERATORS.dateOperatorIsIn ||
+                  operator === this.OPERATORS.dateOperatorIsNotIn){
             return jimuUtils.isNotEmptyString(value1) && jimuUtils.isNotEmptyString(value2);
           }
           else if(operator === this.OPERATORS.dateOperatorInTheLast ||
@@ -467,107 +530,107 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
           }
         }
         switch (part.operator) {
-        case this.OPERATORS.stringOperatorIs:
-          if (part.valueObj.type === 'field') {
-            whereClause = part.fieldObj.name + " = " + value;
-          } else {
-            whereClause = part.fieldObj.name + " = " +
-             prefix + "'" + value.replace(/\'/g, "''") + "'";
-          }
-          break;
-        case this.OPERATORS.stringOperatorIsNot:
-          if (part.valueObj.type === 'field') {
-            whereClause = part.fieldObj.name + " <> " + value;
-          } else {
-            whereClause = part.fieldObj.name + " <> " + prefix +
-             "'" + value.replace(/\'/g, "''") + "'";
-          }
-          break;
-        case this.OPERATORS.stringOperatorStartsWith:
-          if(part.caseSensitive){
-            whereClause = part.fieldObj.name + " LIKE " + prefix +
-             "'" + value.replace(/\'/g, "''") + "%'";
-          }
-          else{
-            //UPPER(County) LIKE UPPER(N'石景山区%')
-            whereClause = "UPPER(" + part.fieldObj.name + ") LIKE " +
-             "UPPER(" + prefix + "'" + value.replace(/\'/g, "''") + "%')";
-          }
-          break;
-        case this.OPERATORS.stringOperatorEndsWith:
-          if(part.caseSensitive){
-            whereClause = part.fieldObj.name + " LIKE " + prefix +
-           "'%" + value.replace(/\'/g, "''") + "'";
-          }
-          else{
-            //UPPER(County) LIKE UPPER(N'%石景山区')
-            whereClause = "UPPER(" + part.fieldObj.name + ") LIKE " +
-           "UPPER(" + prefix + "'%" + value.replace(/\'/g, "''") + "')";
-          }
-          break;
-        case this.OPERATORS.stringOperatorContains:
-          if(part.caseSensitive){
-            whereClause = part.fieldObj.name + " LIKE " + prefix +
-           "'%" + value.replace(/\'/g, "''") + "%'";
-          }
-          else{
-            //UPPER(County) LIKE UPPER(N'%石景山区%')
-            whereClause = "UPPER(" + part.fieldObj.name + ") LIKE " +
-           "UPPER(" + prefix + "'%" + value.replace(/\'/g, "''") + "%')";
-          }
-          break;
-        case this.OPERATORS.stringOperatorDoesNotContain:
-          if(part.caseSensitive){
-            whereClause = part.fieldObj.name + " NOT LIKE " + prefix +
-           "'%" + value.replace(/\'/g, "''") + "%'";
-          }
-          else{
-            //UPPER(County) NOT LIKE UPPER(N'%石景山区%')
-            whereClause = "UPPER(" + part.fieldObj.name + ") NOT LIKE " +
-           "UPPER(" +  prefix + "'%" + value.replace(/\'/g, "''") + "%')";
-          }
-          break;
-        case this.OPERATORS.stringOperatorIsBlank:
-          whereClause = part.fieldObj.name + " IS NULL";
-          break;
-        case this.OPERATORS.stringOperatorIsNotBlank:
-          whereClause = part.fieldObj.name + " IS NOT NULL";
-          break;
+          case this.OPERATORS.stringOperatorIs:
+            if (part.valueObj.type === 'field') {
+              whereClause = part.fieldObj.name + " = " + value;
+            } else {
+              whereClause = part.fieldObj.name + " = " +
+               prefix + "'" + value.replace(/\'/g, "''") + "'";
+            }
+            break;
+          case this.OPERATORS.stringOperatorIsNot:
+            if (part.valueObj.type === 'field') {
+              whereClause = part.fieldObj.name + " <> " + value;
+            } else {
+              whereClause = part.fieldObj.name + " <> " + prefix +
+               "'" + value.replace(/\'/g, "''") + "'";
+            }
+            break;
+          case this.OPERATORS.stringOperatorStartsWith:
+            if(part.caseSensitive){
+              whereClause = part.fieldObj.name + " LIKE " + prefix +
+               "'" + value.replace(/\'/g, "''") + "%'";
+            }
+            else{
+              //UPPER(County) LIKE UPPER(N'石景山区%')
+              whereClause = "UPPER(" + part.fieldObj.name + ") LIKE " +
+               "UPPER(" + prefix + "'" + value.replace(/\'/g, "''") + "%')";
+            }
+            break;
+          case this.OPERATORS.stringOperatorEndsWith:
+            if(part.caseSensitive){
+              whereClause = part.fieldObj.name + " LIKE " + prefix +
+             "'%" + value.replace(/\'/g, "''") + "'";
+            }
+            else{
+              //UPPER(County) LIKE UPPER(N'%石景山区')
+              whereClause = "UPPER(" + part.fieldObj.name + ") LIKE " +
+             "UPPER(" + prefix + "'%" + value.replace(/\'/g, "''") + "')";
+            }
+            break;
+          case this.OPERATORS.stringOperatorContains:
+            if(part.caseSensitive){
+              whereClause = part.fieldObj.name + " LIKE " + prefix +
+             "'%" + value.replace(/\'/g, "''") + "%'";
+            }
+            else{
+              //UPPER(County) LIKE UPPER(N'%石景山区%')
+              whereClause = "UPPER(" + part.fieldObj.name + ") LIKE " +
+             "UPPER(" + prefix + "'%" + value.replace(/\'/g, "''") + "%')";
+            }
+            break;
+          case this.OPERATORS.stringOperatorDoesNotContain:
+            if(part.caseSensitive){
+              whereClause = part.fieldObj.name + " NOT LIKE " + prefix +
+             "'%" + value.replace(/\'/g, "''") + "%'";
+            }
+            else{
+              //UPPER(County) NOT LIKE UPPER(N'%石景山区%')
+              whereClause = "UPPER(" + part.fieldObj.name + ") NOT LIKE " +
+             "UPPER(" +  prefix + "'%" + value.replace(/\'/g, "''") + "%')";
+            }
+            break;
+          case this.OPERATORS.stringOperatorIsBlank:
+            whereClause = part.fieldObj.name + " IS NULL";
+            break;
+          case this.OPERATORS.stringOperatorIsNotBlank:
+            whereClause = part.fieldObj.name + " IS NOT NULL";
+            break;
         }
 
       } else if (part.fieldObj.shortType === "number") {
 
         switch (part.operator) {
-        case this.OPERATORS.numberOperatorIs:
-          whereClause = part.fieldObj.name + " = " + value;
-          break;
-        case this.OPERATORS.numberOperatorIsNot:
-          whereClause = part.fieldObj.name + " <> " + value;
-          break;
-        case this.OPERATORS.numberOperatorIsAtLeast:
-          whereClause = part.fieldObj.name + " >= " + value;
-          break;
-        case this.OPERATORS.numberOperatorIsLessThan:
-          whereClause = part.fieldObj.name + " < " + value;
-          break;
-        case this.OPERATORS.numberOperatorIsAtMost:
-          whereClause = part.fieldObj.name + " <= " + value;
-          break;
-        case this.OPERATORS.numberOperatorIsGreaterThan:
-          whereClause = part.fieldObj.name + " > " + value;
-          break;
-        case this.OPERATORS.numberOperatorIsBetween:
-          whereClause = part.fieldObj.name + " BETWEEN " + value1 + " AND " + value2;
-          break;
-        case this.OPERATORS.numberOperatorIsNotBetween:
-          whereClause = part.fieldObj.name + " NOT BETWEEN " + value1 + " AND " + value2;
-          break;
-        case this.OPERATORS.numberOperatorIsBlank:
-          whereClause = part.fieldObj.name + " IS NULL";
-          break;
-        case this.OPERATORS.numberOperatorIsNotBlank:
-          whereClause = part.fieldObj.name + " IS NOT NULL";
-          break;
+          case this.OPERATORS.numberOperatorIs:
+            whereClause = part.fieldObj.name + " = " + value;
+            break;
+          case this.OPERATORS.numberOperatorIsNot:
+            whereClause = part.fieldObj.name + " <> " + value;
+            break;
+          case this.OPERATORS.numberOperatorIsAtLeast:
+            whereClause = part.fieldObj.name + " >= " + value;
+            break;
+          case this.OPERATORS.numberOperatorIsLessThan:
+            whereClause = part.fieldObj.name + " < " + value;
+            break;
+          case this.OPERATORS.numberOperatorIsAtMost:
+            whereClause = part.fieldObj.name + " <= " + value;
+            break;
+          case this.OPERATORS.numberOperatorIsGreaterThan:
+            whereClause = part.fieldObj.name + " > " + value;
+            break;
+          case this.OPERATORS.numberOperatorIsBetween:
+            whereClause = part.fieldObj.name + " BETWEEN " + value1 + " AND " + value2;
+            break;
+          case this.OPERATORS.numberOperatorIsNotBetween:
+            whereClause = part.fieldObj.name + " NOT BETWEEN " + value1 + " AND " + value2;
+            break;
+          case this.OPERATORS.numberOperatorIsBlank:
+            whereClause = part.fieldObj.name + " IS NULL";
+            break;
+          case this.OPERATORS.numberOperatorIsNotBlank:
+            whereClause = part.fieldObj.name + " IS NOT NULL";
+            break;
         }
 
       } else { // date
@@ -595,106 +658,108 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
         //end
 
         switch (part.operator) {
-        case this.OPERATORS.dateOperatorIsOn:
-          if (part.valueObj.type === 'field') {
-            whereClause = part.fieldObj.name + " = " + value;
-          } else {
-            if (parameterizeValues) {
-              whereClause = part.fieldObj.name + " BETWEEN " + (this.isHosted ? "" : "timestamp ") +
-               "'{" + parameterizeCount + "}' AND " + (this.isHosted ? "" : "timestamp ") +
-                "'{" + (parameterizeCount + 1) + "}'";
+          case this.OPERATORS.dateOperatorIsOn:
+            if (part.valueObj.type === 'field') {
+              whereClause = part.fieldObj.name + " = " + value;
             } else {
-              whereClause = part.fieldObj.name + " BETWEEN " + (this.isHosted ? "" : "timestamp ") +
-               "'" + this.formatDate(value) + "' AND " + (this.isHosted ? "" : "timestamp ") +
-                "'" + this.formatDate(this.addDay(value)) + "'";
+              if (parameterizeValues) {
+                whereClause = part.fieldObj.name + " BETWEEN " + (this.isHosted ? "" : "timestamp ") +
+                 "'{" + parameterizeCount + "}' AND " + (this.isHosted ? "" : "timestamp ") +
+                  "'{" + (parameterizeCount + 1) + "}'";
+              } else {
+                whereClause = part.fieldObj.name + " BETWEEN " + (this.isHosted ? "" : "timestamp ") +
+                 "'" + this.formatDate(value) + "' AND " + (this.isHosted ? "" : "timestamp ") +
+                  "'" + this.formatDate(this.addDay(value)) + "'";
+              }
             }
-          }
-          break;
-        case this.OPERATORS.dateOperatorIsNotOn:
-          if (part.valueObj.type === 'field') {
-            whereClause = part.fieldObj.name + " <> " + value;
-          } else {
-            if (parameterizeValues) {
-              whereClause = part.fieldObj.name +
-               " NOT BETWEEN " + (this.isHosted ? "" : "timestamp ") +
-               "'{" + parameterizeCount + "}' AND " + (this.isHosted ? "" : "timestamp ") +
-                "'{" + (parameterizeCount + 1) + "}'";
+            break;
+          case this.OPERATORS.dateOperatorIsNotOn:
+            if (part.valueObj.type === 'field') {
+              whereClause = part.fieldObj.name + " <> " + value;
             } else {
-              whereClause = part.fieldObj.name +
-               " NOT BETWEEN " + (this.isHosted ? "" : "timestamp ") +
-               "'" + this.formatDate(value) + "' AND " + (this.isHosted ? "" : "timestamp ") +
-                "'" + this.formatDate(this.addDay(value)) + "'";
+              if (parameterizeValues) {
+                whereClause = part.fieldObj.name +
+                 " NOT BETWEEN " + (this.isHosted ? "" : "timestamp ") +
+                 "'{" + parameterizeCount + "}' AND " + (this.isHosted ? "" : "timestamp ") +
+                  "'{" + (parameterizeCount + 1) + "}'";
+              } else {
+                whereClause = part.fieldObj.name +
+                 " NOT BETWEEN " + (this.isHosted ? "" : "timestamp ") +
+                 "'" + this.formatDate(value) + "' AND " + (this.isHosted ? "" : "timestamp ") +
+                  "'" + this.formatDate(this.addDay(value)) + "'";
+              }
             }
-          }
-          break;
-        case this.OPERATORS.dateOperatorIsBefore:
-          if (part.valueObj.type === 'field') {
-            whereClause = part.fieldObj.name + " < " + value;
-          } else {
-            whereClause = part.fieldObj.name + " < " +
-             (this.isHosted ? "" : "timestamp ") + "'" + this.formatDate(value) + "'";
-          }
-          break;
-        case this.OPERATORS.dateOperatorIsAfter:
-          if (part.valueObj.type === 'field') {
-            whereClause = part.fieldObj.name + " > " + value;
-          } else {
-            whereClause = part.fieldObj.name + " > " +
-             (this.isHosted ? "" : "timestamp ") + "'" + this.formatDate(this.addDay(value)) + "'";
-          }
-          break;
-        case this.OPERATORS.dateOperatorIsOnOrBefore:
-          if (part.valueObj.type === 'field') {
-            whereClause = part.fieldObj.name + " <= " + value;
-          } else {
-            whereClause = part.fieldObj.name + " <= " +
-             (this.isHosted ? "" : "timestamp ") + "'" + this.formatDate(this.addDay(value)) + "'";
-          }
-          break;
-        case this.OPERATORS.dateOperatorIsOnOrAfter:
-          if (part.valueObj.type === 'field') {
-            whereClause = part.fieldObj.name + " >= " + value;
-          } else {
-            whereClause = part.fieldObj.name + " >= " +
-             (this.isHosted ? "" : "timestamp ") + "'" + this.formatDate(value) + "'";
-          }
-          break;
-        case this.OPERATORS.dateOperatorInTheLast:
-          whereClause = part.fieldObj.name + " BETWEEN CURRENT_TIMESTAMP - " +
-            this._convertRangeToDays(part.valueObj.value, part.valueObj.range) +
-            " AND CURRENT_TIMESTAMP";
-          break;
-        case this.OPERATORS.dateOperatorNotInTheLast:
-          whereClause = part.fieldObj.name + " NOT BETWEEN CURRENT_TIMESTAMP - " +
-            this._convertRangeToDays(part.valueObj.value, part.valueObj.range) +
-            " AND CURRENT_TIMESTAMP";
-          break;
-        case this.OPERATORS.dateOperatorIsBetween:
-          if (parameterizeValues) {
-            whereClause = part.fieldObj.name + " BETWEEN '" + value1 + "' AND '" + value2 + "'";
-          } else {
-            whereClause = part.fieldObj.name + " BETWEEN " +
-             (this.isHosted ? "" : "timestamp ") +
-              "'" + this.formatDate(value1) + "' AND " + (this.isHosted ? "" : "timestamp ") +
-               "'" + this.formatDate(this.addDay(value2)) + "'";
-          }
-          break;
-        case this.OPERATORS.dateOperatorIsNotBetween:
-          if (parameterizeValues) {
-            whereClause = part.fieldObj.name + " NOT BETWEEN '" + value1 + "' AND '" + value2 + "'";
-          } else {
-            whereClause = part.fieldObj.name + " NOT BETWEEN " +
-             (this.isHosted ? "" : "timestamp ") + "'" + this.formatDate(value1) +
-              "' AND " + (this.isHosted ? "" : "timestamp ") +
-               "'" + this.formatDate(this.addDay(value2)) + "'";
-          }
-          break;
-        case this.OPERATORS.dateOperatorIsBlank:
-          whereClause = part.fieldObj.name + " IS NULL";
-          break;
-        case this.OPERATORS.dateOperatorIsNotBlank:
-          whereClause = part.fieldObj.name + " IS NOT NULL";
-          break;
+            break;
+          case this.OPERATORS.dateOperatorIsBefore:
+            if (part.valueObj.type === 'field') {
+              whereClause = part.fieldObj.name + " < " + value;
+            } else {
+              whereClause = part.fieldObj.name + " < " +
+               (this.isHosted ? "" : "timestamp ") + "'" + this.formatDate(value) + "'";
+            }
+            break;
+          case this.OPERATORS.dateOperatorIsAfter:
+            if (part.valueObj.type === 'field') {
+              whereClause = part.fieldObj.name + " > " + value;
+            } else {
+              whereClause = part.fieldObj.name + " > " +
+               (this.isHosted ? "" : "timestamp ") + "'" + this.formatDate(this.addDay(value)) + "'";
+            }
+            break;
+          case this.OPERATORS.dateOperatorIsOnOrBefore:
+            if (part.valueObj.type === 'field') {
+              whereClause = part.fieldObj.name + " <= " + value;
+            } else {
+              whereClause = part.fieldObj.name + " <= " +
+               (this.isHosted ? "" : "timestamp ") + "'" + this.formatDate(this.addDay(value)) + "'";
+            }
+            break;
+          case this.OPERATORS.dateOperatorIsOnOrAfter:
+            if (part.valueObj.type === 'field') {
+              whereClause = part.fieldObj.name + " >= " + value;
+            } else {
+              whereClause = part.fieldObj.name + " >= " +
+               (this.isHosted ? "" : "timestamp ") + "'" + this.formatDate(value) + "'";
+            }
+            break;
+          case this.OPERATORS.dateOperatorInTheLast:
+            whereClause = part.fieldObj.name + " BETWEEN CURRENT_TIMESTAMP - " +
+              this._convertRangeToDays(part.valueObj.value, part.valueObj.range) +
+              " AND CURRENT_TIMESTAMP";
+            break;
+          case this.OPERATORS.dateOperatorNotInTheLast:
+            whereClause = part.fieldObj.name + " NOT BETWEEN CURRENT_TIMESTAMP - " +
+              this._convertRangeToDays(part.valueObj.value, part.valueObj.range) +
+              " AND CURRENT_TIMESTAMP";
+            break;
+          case this.OPERATORS.dateOperatorIsBetween:
+          case this.OPERATORS.dateOperatorIsIn:
+            if (parameterizeValues) {
+              whereClause = part.fieldObj.name + " BETWEEN '" + value1 + "' AND '" + value2 + "'";
+            } else {
+              whereClause = part.fieldObj.name + " BETWEEN " +
+               (this.isHosted ? "" : "timestamp ") +
+                "'" + this.formatDate(value1) + "' AND " + (this.isHosted ? "" : "timestamp ") +
+                 "'" + this.formatDate(this.addDay(value2)) + "'";
+            }
+            break;
+          case this.OPERATORS.dateOperatorIsNotBetween:
+          case this.OPERATORS.dateOperatorIsNotIn:
+            if (parameterizeValues) {
+              whereClause = part.fieldObj.name + " NOT BETWEEN '" + value1 + "' AND '" + value2 + "'";
+            } else {
+              whereClause = part.fieldObj.name + " NOT BETWEEN " +
+               (this.isHosted ? "" : "timestamp ") + "'" + this.formatDate(value1) +
+                "' AND " + (this.isHosted ? "" : "timestamp ") +
+                 "'" + this.formatDate(this.addDay(value2)) + "'";
+            }
+            break;
+          case this.OPERATORS.dateOperatorIsBlank:
+            whereClause = part.fieldObj.name + " IS NULL";
+            break;
+          case this.OPERATORS.dateOperatorIsNotBlank:
+            whereClause = part.fieldObj.name + " IS NOT NULL";
+            break;
         }
       }
       return {
@@ -726,23 +791,13 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
     },
 
     formatDate: function(value){
-      // see also parseDate()
-      // to bypass the locale dependent connector character format date and time separately
-      var s1 = locale.format(value, {
-        datePattern: "yyyy-MM-dd",
-        selector: "date"
-      });
-      var s2 = locale.format(value, {
-        selector: "time",
-        timePattern: "HH:mm:ss"
-      });
-      return s1 + " " + s2;
-      /* contains comma '2013-03-01, 00:00:00' for locale 'en'
-      return dojo.date.locale.format(value, {
-        datePattern: "yyyy-MM-dd",
-        timePattern: "HH:mm:ss"
-      });
-      */
+      var date = new Date(value);
+      return "" + date.getUTCFullYear() + "-" +
+        dojoNumber.format(date.getUTCMonth() + 1, {pattern: "00"}) + "-" +
+        dojoNumber.format(date.getUTCDate(), {pattern: "00"}) + " " +
+        dojoNumber.format(date.getUTCHours(), {pattern: "00"}) + ":" +
+        dojoNumber.format(date.getUTCMinutes(), {pattern: "00"}) + ":" +
+        dojoNumber.format(date.getSeconds(), {pattern: "00"});
     },
 
     addDay: function(date){
@@ -753,6 +808,7 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
     /****  parse                                   ****/
     /**************************************************/
     //expr->partsObj
+    //expr->partsObj, parse sql expression to json partsObj
     //if we can parse the expr successfully, the function returns a object
     //otherwise, null or undefined is returned
     getFilterObjByExpr: function(defExpr){
@@ -1675,6 +1731,80 @@ function(declare, lang, array, locale, esriLang, ItemFileWriteStore, jimuUtils) 
       return date;
     }
   });
+
+  clazz.VIRTUAL_DATE_TODAY = 'today';
+  clazz.VIRTUAL_DATE_YESTERDAY = 'yesterday';
+  clazz.VIRTUAL_DATE_TOMORROW = 'tomorrow';
+  clazz.VIRTUAL_DATE_THIS_WEEK = 'thisWeek';
+  clazz.VIRTUAL_DATE_THIS_MONTH = 'thisMonth';
+  clazz.VIRTUAL_DATE_THIS_QUARTER = 'thisQuarter';
+  clazz.VIRTUAL_DATE_THIS_YEAR = 'thisYear';
+
+  //check partsObj has 'ask for value' option or not
+  clazz.isAskForValues = function(partsObj){
+    var result = false;
+    var parts = partsObj.parts;
+    result = array.some(parts, function(item) {
+      if (item.parts) {
+        return array.some(item.parts, function(part) {
+          return !!part.interactiveObj;
+        });
+      } else {
+        return !!item.interactiveObj;
+      }
+    });
+    return result;
+  };
+
+  //check partsObj has virtual date (like today, yesterday) or not
+  clazz.hasVirtualDate = function(partsObj){
+    var result = false;
+    var parts = partsObj.parts;
+    result = array.some(parts, function(item) {
+      if (item.parts) {
+        return array.some(item.parts, function(part) {
+          return !!part.valueObj.virtualDate || !!part.valueObj.virtualDate1 || !!part.valueObj.virtualDate2;
+        });
+      } else {
+        return !!item.valueObj.virtualDate || !!item.valueObj.virtualDate1 || !!item.valueObj.virtualDate2;
+      }
+    });
+    return result;
+  };
+
+  //get real date by virtual date
+  clazz.getRealDateByVirtualDate = function(virtualDate){
+    var date = null;
+    var currentDate = new Date();
+    var currentTime = currentDate.getTime();
+    var oneDayMillseconds = 24 * 60 * 60 * 1000;
+    switch(virtualDate){
+      case clazz.VIRTUAL_DATE_TODAY:
+        date = currentDate;
+        break;
+      case clazz.VIRTUAL_DATE_YESTERDAY:
+        date = new Date(currentTime - oneDayMillseconds);
+        break;
+      case clazz.VIRTUAL_DATE_TOMORROW:
+        date = new Date(currentTime + oneDayMillseconds);
+        break;
+      case clazz.VIRTUAL_DATE_THIS_WEEK:
+        date = [moment().startOf('week').toDate(), moment().endOf('week').toDate()];
+        break;
+      case clazz.VIRTUAL_DATE_THIS_MONTH:
+        date = [moment().startOf('month').toDate(), moment().endOf('month').toDate()];
+        break;
+      case clazz.VIRTUAL_DATE_THIS_QUARTER:
+        date = [moment().startOf('quarter').toDate(), moment().endOf('quarter').toDate()];
+        break;
+      case clazz.VIRTUAL_DATE_THIS_YEAR:
+        date = [moment().startOf('year').toDate(), moment().endOf('year').toDate()];
+        break;
+      default:
+        break;
+    }
+    return date;
+  };
 
   return clazz;
 });

@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "elementu kopas URL",
   "useShapefile": "Izmantot Shape failu lokālajā failu sistēmā",
   "allowToExport": "Atļaut eksportēt rezultātus",
-  "useDynamicSchema": "Izvadei varētu būt cita shēma; izmantojiet dinamisko shēmu, nevis iepriekš noteiktu shēmu."
+  "useDynamicSchema": "Izvadei varētu būt cita shēma; izmantojiet dinamisko shēmu, nevis iepriekš noteiktu shēmu.",
+  "useCurrentMapExtent": "Lieto pašreizējo kartes pārklājumu",
+  "ignoreOutput": "Ignorēt šo izvadi",
+  "turnOffOutput": "Pēc noklusējuma izslēgt šo slāni"
 });

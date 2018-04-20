@@ -20,5 +20,6 @@ define({
   "exportOutput": "エクスポート",
   "emptyResult": "結果が空です。",
   "useSelectedFeatureset": "得られたフィーチャを使用します。",
-  "closeSelectedFeatureset": "構成済みの入力オプションを消去するか、使用します。"
+  "closeSelectedFeatureset": "構成済みの入力オプションを消去するか、使用します。",
+  "currentMapExtent": "現在のマップ範囲"
 });

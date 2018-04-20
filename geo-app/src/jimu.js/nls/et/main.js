@@ -76,7 +76,18 @@ define({
     "field": "Väli",
     "operation": "Toiming",
     "disableUpdateGeometry": "Keela geomeetria uuendamine",
-    "preview": "Eelvaade"
+    "preview": "Eelvaade",
+    "date": "Kuupäev",
+    "time": "Aeg",
+    "show": "Kuva",
+    "hide": "Peida",
+    "format": "Vorming",
+    "defaults": "Vaikimisi",
+    "add": "Lisa",
+    "done": "Tehtud",
+    "remove": "Eemalda",
+    "leave": "Lahku",
+    "stay": "Jää siia"
   },
   "errorCode": "Kood",
   "errorMessage": "Sõnum",
@@ -99,10 +110,18 @@ define({
     "arrows": "Nooled",
     "business": "Äriettevõtted",
     "cartographic": "Kartograafia",
+    "damage": "Kahjustused",
+    "disasters": "Katastroofid",
+    "emergencyManagement": "Hädaolukordade haldus",
+    "generalInfrastructure": "Üldine infrastruktuur",
+    "localGovernment": "Kohalik omavalitsus",
     "nationalParkService": "Rahvuspargi teenus",
+    "numbers": "Numbrid",
     "outdoorRecreation": "Rekreatsioon",
     "peoplePlaces": "Inimeste paigad",
+    "pointsOfInterest": "Huvipunktid",
     "safetyHealth": "Tervishoid",
+    "stateGovernment": "Valitsusasutused",
     "shapes": "Kujundid",
     "transportation": "Transport",
     "symbolSize": "Sümboli suurus",
@@ -203,7 +222,7 @@ define({
     "invalidUrl": "Vigane URL."
   },
   "filterBuilder": {
-    "addAnotherExpression": "Lisa väljend",
+    "addAnotherExpression": "Lisa avaldis",
     "addSet": "Lisa tingimus",
     "matchMsg": "Too kihi objektid, millega ühtivad ${any_or_all} järgmised avaldised",
     "matchMsgSet": "${any_or_all} järgmistest avaldistest on tõesed",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "on tühi",
     "stringOperatorIsNotBlank": "ei ole tühi",
     "dateOperatorIsOn": "on",
+    "dateOperatorIsIn": "on loendis",
+    "dateOperatorIsNotIn": "pole loendis",
     "dateOperatorIsNotOn": "ei ole",
     "dateOperatorIsBefore": "on enne",
     "dateOperatorIsAfter": "on pärast",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Kuva ainult eelmiste avaldiste alusel filtreeritud väärtused.",
     "noneCascadeFilterTip": "Sellel välja kõik kordumatud väärtused",
     "previousCascadeFilterTip": "Eelmiste avaldiste alusel filtreeritud väärtused",
-    "allCascadeFilterTip": "Kõigi muude avaldiste alusel filtreeritud väärtused"
+    "allCascadeFilterTip": "Kõigi muude avaldiste alusel filtreeritud väärtused",
+    "custom": "kuupäev...",
+    "today": "täna",
+    "yesterday": "eile",
+    "tomorrow": "homme",
+    "thisWeek": "see nädal",
+    "thisMonth": "see kuu",
+    "thisQuarter": "see kvartal",
+    "thisYear": "see aasta",
+    "inputType": "Sisendi tüüp",
+    "setInputType": "Määra sisendi tüüp"
   },
   "featureLayerSource": {
     "layer": "Kiht",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "NM",
     "uSSurveyFeet": "USA jalg",
     "uSSurveyFeetAbbr": "jlUS",
+    "centimeters": "Sentimeetrit",
+    "centimetersAbbr": "cm",
+    "inches": "Tolli",
+    "inchesAbbr": ":",
     "decimalDegree": "Kümnendkraadid",
     "decimalDegreeAbbr": "g",
     "degreeMinuteSeconds": "Kraad minutid sekundid",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "jr²",
     "squareUSSurveyFeet": "USA ruutjalg",
     "squareUSSurveyFeetAbbr": "ruutjlUS"
+  },
+  "timeUnit": {
+    "year": "Aasta",
+    "month": "Kuu",
+    "day": "Päev",
+    "hour": "Tund",
+    "minute": "Minut",
+    "second": "Sekund"
   },
   "featureSetChooser": {
     "select": "Vali",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Seotud kirjed:",
     "noRelatedRecotds": "Seotud kirjeid ei leitud.",
     "chooseFieldTip": "Valige loendi kuvamiseks atribuut",
-    "saveAsPopupTitle": "Sama, mis hüpikakna nimi"
+    "saveAsPopupTitle": "Sama, mis hüpikakna nimi",
+    "leaveConfirm": "Kas soovite muudatusi salvestamata lahkuda?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "Valikus on liiga palju objekte. Nende toomine ja kaardil kuvamine võib kaua aega võtta.",

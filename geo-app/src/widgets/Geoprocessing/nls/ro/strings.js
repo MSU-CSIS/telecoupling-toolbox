@@ -20,5 +20,6 @@ define({
   "exportOutput": "Export",
   "emptyResult": "Rezultatul este gol.",
   "useSelectedFeatureset": "Utilizaţi obiectele spaţiale rezultate.",
-  "closeSelectedFeatureset": "Ştergeţi şi utilizaţi opţiunea de introducere configurată."
+  "closeSelectedFeatureset": "Ştergeţi şi utilizaţi opţiunea de introducere configurată.",
+  "currentMapExtent": "Extinderea curentă a hărţii"
 });

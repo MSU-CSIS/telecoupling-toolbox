@@ -26,7 +26,7 @@ define({
     "output": "Izvade",
     "type": "Tips",
     "required": "Nepieciešams",
-    "options": "Varianti",
+    "options": "Iespējas",
     "label": "Kartes teksts",
     "tooltip": "Rīka padoms",
     "visible": "Redzams",
@@ -39,7 +39,7 @@ define({
     "clear": "Notīrīt",
     "error": "Kļūda",
     "zoomTo": "Pietuvināt",
-    "attribute": "Atribūts",
+    "attribute": "Atribūti",
     "exports": "Eksportēt",
     "check": "Pārbaudīt",
     "save": "Saglabāt",
@@ -76,7 +76,18 @@ define({
     "field": "Lauks",
     "operation": "Operācija",
     "disableUpdateGeometry": "Deaktivizēt ģeometrijas atjaunināšanu",
-    "preview": "Priekšskatījums"
+    "preview": "Priekšskatījums",
+    "date": "Datums",
+    "time": "Laiks",
+    "show": "Parādīt",
+    "hide": "Paslēpt",
+    "format": "Formāts",
+    "defaults": "Noklusējums",
+    "add": "Pievienot",
+    "done": "Gatavs",
+    "remove": "Noņemt",
+    "leave": "Iziet",
+    "stay": "Palikt"
   },
   "errorCode": "Kods",
   "errorMessage": "Ziņojums",
@@ -99,10 +110,18 @@ define({
     "arrows": "Bultiņas",
     "business": "Bizness",
     "cartographic": "Kartogrāfisks",
+    "damage": "Bojājumi",
+    "disasters": "Ārkārtas situācijas",
+    "emergencyManagement": "Ārkārtas situāciju pārvaldība",
+    "generalInfrastructure": "Vispārīgā infrastruktūra",
+    "localGovernment": "Pašvaldības iestāde",
     "nationalParkService": "Nacionālā parka serviss",
+    "numbers": "Skaitļi",
     "outdoorRecreation": "Aktīvā atpūta",
     "peoplePlaces": "Cilvēki, vietas",
+    "pointsOfInterest": "Apskates objekti",
     "safetyHealth": "Veselība, drošība",
+    "stateGovernment": "Valsts iestāde",
     "shapes": "Formas",
     "transportation": "Transports",
     "symbolSize": "Simbola izmērs",
@@ -194,7 +213,7 @@ define({
   "basicServiceChooser": {
     "validate": "Pārbaudīt",
     "example": "Piemērs",
-    "set": "Kopa"
+    "set": "Iestatīt"
   },
   "urlInput": {
     "invalidUrl": "Nederīgs URL."
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "ir tukšs",
     "stringOperatorIsNotBlank": "nav tukšs",
     "dateOperatorIsOn": "ir šajā datumā",
+    "dateOperatorIsIn": "ir šeit",
+    "dateOperatorIsNotIn": "nav šeit",
     "dateOperatorIsNotOn": "nav šajā datumā",
     "dateOperatorIsBefore": "ir pirms",
     "dateOperatorIsAfter": "ir pēc",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "Rādīt tikai iepriekšējo izteiksmju filtrētās vērtības.",
     "noneCascadeFilterTip": "Visas šī lauka unikālās vērtības",
     "previousCascadeFilterTip": "Iepriekšējo izteiksmju filtrētās vērtības",
-    "allCascadeFilterTip": "Visu citu izteiksmju filtrētās vērtības"
+    "allCascadeFilterTip": "Visu citu izteiksmju filtrētās vērtības",
+    "custom": "datumā...",
+    "today": "šodien",
+    "yesterday": "vakar",
+    "tomorrow": "rīt",
+    "thisWeek": "šonedēļ",
+    "thisMonth": "šomēnes",
+    "thisQuarter": "šajā ceturksnī",
+    "thisYear": "šogad",
+    "inputType": "Ievades veids",
+    "setInputType": "Iestatīt ievades veidu"
   },
   "featureLayerSource": {
     "layer": "Slānis",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "jūras jūdzes",
     "uSSurveyFeet": "ASV mērāmā pēda",
     "uSSurveyFeetAbbr": "ASV pēda",
+    "centimeters": "Centimetri",
+    "centimetersAbbr": "cm",
+    "inches": "Collas",
+    "inchesAbbr": "in",
     "decimalDegree": "Decimālie grādi",
     "decimalDegreeAbbr": "dg",
     "degreeMinuteSeconds": "Grādi minūtes sekundes",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "kv jardi",
     "squareUSSurveyFeet": "ASV mērāmā kvadrātpēda",
     "squareUSSurveyFeetAbbr": "ASV kv pēda"
+  },
+  "timeUnit": {
+    "year": "Gads",
+    "month": "Mēnesis",
+    "day": "Diena",
+    "hour": "Stunda",
+    "minute": "Minūte",
+    "second": "Sekunde"
   },
   "featureSetChooser": {
     "select": "Izvēlēties",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "Saistītie ieraksti:",
     "noRelatedRecotds": "Nav atrasts neviens saistīts ieraksts.",
     "chooseFieldTip": "Izvēlieties atribūtu saraksta rādīšanai",
-    "saveAsPopupTitle": "Tāds pats kā uznirstošais virsraksts"
+    "saveAsPopupTitle": "Tāds pats kā uznirstošais virsraksts",
+    "leaveConfirm": "Vai vēlaties iziet, nesaglabājot izmaiņas?"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "Jūsu izvēlē ir pārāk daudz elementu. Iespējams, būs nepieciešams ilgs laiks, lai tos izgūtu un parādītu kartē.",
@@ -597,7 +641,7 @@ define({
     "selectCustomDataTip": "Atlasiet datu avotu no šīs lietotnes.",
     "widgetOutputs": "Logrīku attēlošana",
     "noExtraDsAvailable": "Nav pieejami papildu datu avoti.",
-    "addExtraDsTip": "Dodieties uz veidotāja cilni Atribūts un noklikšķiniet uz Papildu datu avots, lai pievienotu datus.",
+    "addExtraDsTip": "Dodieties uz veidotāja cilni Atribūti un noklikšķiniet uz Papildu datu avots, lai pievienotu datus.",
     "widgetOutpusListTip": "Šeit ir norādītas arī logrīku izvades, ja tādas ir."
   },
   "gridLayout": {

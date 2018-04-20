@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "Shapefile‏ (קובץ ZIP, ארכיון ZIP המכיל את כל קבצי ה-shapefile‏)",
       "CSV": "קובץ CSV (‏csv. בעלי כתובת או קו אורך, קו רוחב המופרדים באמצעות פסיק, נקודה פסיק או Tab)",
+      "KML": "קובץ KML ‏(.kml)",
       "GPX": "קובץ GPX (‏gpx., פורמט GPS Exchange)",
       "GeoJSON": "קובץ GeoJSON (‏.geo.json או geojson)"
     },

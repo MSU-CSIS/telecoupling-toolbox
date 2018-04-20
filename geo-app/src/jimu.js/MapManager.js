@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -295,18 +295,21 @@ define([
           map._initialExtent = map.extent;
 
           this.layerInfosObj = LayerInfos.getInstanceSyncForInit(map, map.itemInfo);
+
+          //save layer's original refreshInterval
+          this.layerInfosObj.traversalLayerInfosOfWebmap(lang.hitch(this, function(layerInfo){
+            layerInfo.getLayerObject().then(lang.hitch(this, function(layerObject){
+              if(layerObject){
+                lang.setObject("_wabProperties.originalRefreshinterval", layerObject.refreshInterval, layerObject);
+              }
+            }), lang.hitch(this, function(err){
+              console.error("can't get layerObject", err);
+            }));
+          }));
+
           if(appConfig.map.mapRefreshInterval && !appConfig.map.mapRefreshInterval.useWebMapRefreshInterval){
-            this._updateRefreshInterval(map.itemInfo.itemData, this.layerInfosObj, appConfig.map.mapRefreshInterval);
+            this._updateRefreshInterval(appConfig.map.mapRefreshInterval);
           }
-          // this.layerInfosObj.traversalLayerInfosOfWebmap(lang.hitch(this, function(layerInfo){
-          //   layerInfo.getLayerObject().then(lang.hitch(this, function(layerObject){
-          //     if(layerObject.url && layerObject.declaredClass === "esri.layers.FeatureLayer"){
-          //       this._handleRefreshLayer(layerObject);
-          //     }
-          //   }), lang.hitch(this, function(err){
-          //     console.error("can't get layerObject", err);
-          //   }));
-          // }));
 
           this._showUnreachableLayersTitleMessage();
           this._publishMapEvent(map);
@@ -391,6 +394,7 @@ define([
             var esriLocaleNls = cache[key];
             var str = lang.getObject("arcgis.utils.baseLayerError", false, esriLocaleNls);
             if(str && error.message.indexOf(str) >= 0){
+              //The original basemap is not available. We can create the webmap with another basemap layer.
               new Message({
                 message: window.jimuNls.map.basemapNotAvailable + window.jimuNls.map.displayDefaultBasemap
               });
@@ -585,12 +589,12 @@ define([
         }else if(reason === 'mapRefreshIntervalChange'){
           var itemData = this.map && this.map.itemInfo.itemData;
           if (itemData && this.layerInfosObj) {
-            this._updateRefreshInterval(itemData, this.layerInfosObj, changedJson);
+            this._updateRefreshInterval(changedJson);
           }
         }
       },
 
-      _updateRefreshInterval: function(itemData, layerInfosObj, refreshInterval){
+      _updateRefreshInterval: function(refreshInterval){
         var minutes = -1;
 
         if (refreshInterval.useWebMapRefreshInterval) {
@@ -601,22 +605,28 @@ define([
           minutes = refreshInterval.minutes;
         }
 
-        var operationalLayers = itemData.operationalLayers || [];
-        array.forEach(operationalLayers, lang.hitch(this, function(operationalLayer){
-          if(operationalLayer.refreshInterval > 0){
-            var layerInfo = layerInfosObj.getLayerInfoById(operationalLayer.id);
-            if(layerInfo){
-              layerInfo.getLayerObject().then(lang.hitch(this, function(layer){
-                if(layer && typeof layer.setRefreshInterval === 'function'){
-                  if(minutes < 0){
-                    layer.setRefreshInterval(operationalLayer.refreshInterval);
-                  }else{
-                    layer.setRefreshInterval(minutes);
-                  }
-                }
-              }));
+        this.layerInfosObj.traversalLayerInfosOfWebmap(lang.hitch(this, function(layerInfo) {
+          layerInfo.getLayerObject().then(lang.hitch(this, function(layerObject) {
+            if(!layerObject){
+              return;
             }
-          }
+            //only handle non-static layer
+            var originalRefreshinterval = lang.getObject("_wabProperties.originalRefreshinterval", false, layerObject);
+
+            if(originalRefreshinterval > 0){
+              if (typeof layerObject.setRefreshInterval === 'function') {
+                if (minutes < 0) {
+                  //Honor the individual interval of each layer
+                  layerObject.setRefreshInterval(originalRefreshinterval);
+                } else {
+                  //Use a single interval for all layers
+                  layerObject.setRefreshInterval(minutes);
+                }
+              }
+            }
+          }), lang.hitch(this, function(err) {
+            console.error("can't get layerObject", err);
+          }));
         }));
       },
 

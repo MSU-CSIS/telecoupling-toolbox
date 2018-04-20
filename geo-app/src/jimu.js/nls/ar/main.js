@@ -76,7 +76,18 @@ define({
     "field": "حقل",
     "operation": "العملية",
     "disableUpdateGeometry": "تعطيل تحديث هندسة الشكل",
-    "preview": "معاينة"
+    "preview": "معاينة",
+    "date": "التاريخ",
+    "time": "الوقت",
+    "show": "إظهار",
+    "hide": "إخفاء",
+    "format": "تنسيق",
+    "defaults": "الوضع الافتراضي",
+    "add": "إضافة",
+    "done": "تم",
+    "remove": "إزالة",
+    "leave": "مغادرة",
+    "stay": "يقيم"
   },
   "errorCode": "كود",
   "errorMessage": "رسالة",
@@ -99,10 +110,18 @@ define({
     "arrows": "الأسهم",
     "business": "أعمال تجارية",
     "cartographic": "رسم الخرائط",
+    "damage": "ضرر",
+    "disasters": "الكوارث",
+    "emergencyManagement": "إدارة الطوارئ",
+    "generalInfrastructure": "البنية الأساسية العامة",
+    "localGovernment": "حكومة محلية",
     "nationalParkService": "خدمة المتنزه الوطني",
+    "numbers": "الأرقام",
     "outdoorRecreation": "ترفيه خارجي",
     "peoplePlaces": "أماكن التجمعات",
+    "pointsOfInterest": "نقاط الاهتمام",
     "safetyHealth": "الصحة المهنية",
+    "stateGovernment": "حكومة الولاية",
     "shapes": "الأشكال",
     "transportation": "نقل",
     "symbolSize": "حجم الرمز",
@@ -226,6 +245,8 @@ define({
     "stringOperatorIsBlank": "فارغ",
     "stringOperatorIsNotBlank": "ليس فارغًا",
     "dateOperatorIsOn": "هو",
+    "dateOperatorIsIn": "يكون في",
+    "dateOperatorIsNotIn": "ليس في",
     "dateOperatorIsNotOn": "ليس",
     "dateOperatorIsBefore": "قبل",
     "dateOperatorIsAfter": "بعد",
@@ -255,7 +276,7 @@ define({
     "numberOperatorIsNotBlank": "ليس فارغًا",
     "string": "سلسلة",
     "number": "عدد",
-    "date": "التاريخ",
+    "date": "تاريخ",
     "askForValues": "اسأل عن القيم",
     "prompt": "ترقية",
     "hint": "تلميح",
@@ -273,7 +294,17 @@ define({
     "cascadeFilterTip": "عرض القيم التي يتم تصفيتها بواسطة التعبيرات السابقة.",
     "noneCascadeFilterTip": "جميع القيم المميزة لهذا الحقل",
     "previousCascadeFilterTip": "القيم التي يتم تصفيتها بواسطة التعبيرات السابقة",
-    "allCascadeFilterTip": "القيم التي يتم تصفيتها بواسطة جميع التعبيرات الأخرى"
+    "allCascadeFilterTip": "القيم التي يتم تصفيتها بواسطة جميع التعبيرات الأخرى",
+    "custom": "التاريخ...",
+    "today": "اليوم",
+    "yesterday": "أمس",
+    "tomorrow": "غدًا",
+    "thisWeek": "هذا الأسبوع",
+    "thisMonth": "هذا الشهر",
+    "thisQuarter": "هذا الربع",
+    "thisYear": "هذه السنة",
+    "inputType": "نوع المُدخل",
+    "setInputType": "تعيين نوع المُدخَل"
   },
   "featureLayerSource": {
     "layer": "طبقة",
@@ -434,6 +465,10 @@ define({
     "nauticalMilesAbbr": "nmi",
     "uSSurveyFeet": "قدم US",
     "uSSurveyFeetAbbr": "ftUS",
+    "centimeters": "سنتيميتر",
+    "centimetersAbbr": "سم",
+    "inches": "بوصة",
+    "inchesAbbr": "في",
     "decimalDegree": "الدرجات العشرية",
     "decimalDegreeAbbr": "dd",
     "degreeMinuteSeconds": "درجة دقيقة ثانية",
@@ -450,6 +485,14 @@ define({
     "squareYardsAbbr": "ياردة مربعة",
     "squareUSSurveyFeet": "قدم مسح مربع US",
     "squareUSSurveyFeetAbbr": "sq ftUS"
+  },
+  "timeUnit": {
+    "year": "سنة",
+    "month": "شهر",
+    "day": "يوم",
+    "hour": "ساعة",
+    "minute": "دقيقة",
+    "second": "الثاني"
   },
   "featureSetChooser": {
     "select": "تحديد",
@@ -537,7 +580,8 @@ define({
     "relatedRecords": "السجلات ذات الصلة:",
     "noRelatedRecotds": "لم يتم العثور على سجلات ذات صلة.",
     "chooseFieldTip": "اختر بيانات جدولية لإظهار القائمة",
-    "saveAsPopupTitle": "كما هو الأمر في العنوان المنبثق"
+    "saveAsPopupTitle": "كما هو الأمر في العنوان المنبثق",
+    "leaveConfirm": "هل تريد المغادرة دون حفظ التحريرات؟"
   },
   "queryFeatures": {
     "tooManyFeaturesTip": "يوجد الكثير جدًا من المعالم في التحديد الخاص بك. قد يستغرق وقتًا طويلاً لاستعادتهم وعرضهم على الخريطة.",
@@ -545,7 +589,7 @@ define({
   },
   "colorPalette": {
     "transparent": "شفاف",
-    "custom": "تخصيص"
+    "custom": "مخصص"
   },
   "temperature": {
     "celsius": "سلزيوس",

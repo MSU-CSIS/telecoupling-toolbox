@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -48,11 +48,10 @@ define([
     _getATagLabel: function() {
       var url;
       var label;
-      var itemLayerId = this._layerInfo.isItemLayer && this._layerInfo.isItemLayer();
       var layerUrl = this._layerInfo.getUrl();
-
-      if (itemLayerId) {
-        url = this._getItemDetailsPageUrl() || layerUrl;
+      var basicItemInfo = this._layerInfo.isItemLayer();
+      if (basicItemInfo) {
+        url = this._getItemDetailsPageUrl(basicItemInfo) || layerUrl;
         label = this.nls.itemShowItemDetails;
       } else if (layerUrl &&
         (this._layerType === "CSVLayer" || this._layerType === "KMLLayer")) {
@@ -71,23 +70,14 @@ define([
         url = '';
         label = this.nls.itemDesc;
       }
-
+      this._ATagLabelUrl = url;
       return '<a class="menu-item-description" target="_blank" href="' +
         url + '">' + label + '</a>';
     },
 
-    _getItemDetailsPageUrl: function() {
+    _getItemDetailsPageUrl: function(basicItemInfo) {
       var itemUrl = "";
-      var portalUrl;
-      var appConfig = this.layerListWidget.appConfig;
-      var itemLayerInfo = lang.getObject("_wabProperties.itemLayerInfo", false, this._layerInfo.layerObject);
-      if(this._layerInfo.originOperLayer.itemId) {
-        portalUrl = portalUrlUtils.getStandardPortalUrl(appConfig.map.portalUrl || appConfig.portalUrl);
-        itemUrl = portalUrlUtils.getItemDetailsPageUrl(portalUrl, this._layerInfo.originOperLayer.itemId);
-      } else if(itemLayerInfo && itemLayerInfo.portalUrl && itemLayerInfo.itemId){
-        portalUrl = portalUrlUtils.getStandardPortalUrl(itemLayerInfo.portalUrl);
-        itemUrl = portalUrlUtils.getItemDetailsPageUrl(portalUrl, itemLayerInfo.itemId);
-      }
+      itemUrl = portalUrlUtils.getItemDetailsPageUrl(basicItemInfo.portalUrl, basicItemInfo.itemId);
       return itemUrl;
     },
 
@@ -197,7 +187,7 @@ define([
         });
       }
 
-      if (!this._layerInfo.getUrl()) {
+      if (!this._ATagLabelUrl) {
         dynamicDeniedItems.push({
           'key': 'url',
           'denyType': 'disable'

@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "Shapefile (.zip, tüm shapefile dosyalarını kapsayan ZIP arşivi)",
       "CSV": "CSV Dosyası (.csv, adres veya enlem, boylam ve virgül, noktalı virgül veya sekme ayırmalı)",
+      "KML": "KML Dosyası (.kml)",
       "GPX": "GPX Dosyası (.gpx, GPS Takas Biçimi)",
       "GeoJSON": "GeoJSON Dosyası (.geo.json veya .geojson)"
     },

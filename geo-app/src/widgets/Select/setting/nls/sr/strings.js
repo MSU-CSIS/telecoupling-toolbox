@@ -3,5 +3,6 @@ define({
   "selectionMode": "Interaktivni režim izbora",
   "partiallyWithin": "Delimično unutar",
   "whollyWithin": "Potpuno unutar",
-  "allowExport": "Dozvoli izvoz izabranih geoobjekata"
+  "allowExport": "Dozvoli izvoz izabranih geoobjekata",
+  "layerToSelect": "Odaberite slojeve za selektovanje"
 });

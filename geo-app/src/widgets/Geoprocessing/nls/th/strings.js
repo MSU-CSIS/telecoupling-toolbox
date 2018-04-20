@@ -20,5 +20,6 @@ define({
   "exportOutput": "ส่งออก",
   "emptyResult": "ผลที่ได้ว่างเปล่า",
   "useSelectedFeatureset": "ใช้ฟีเจอร์ผลลัพธ์",
-  "closeSelectedFeatureset": "ล้าง และใช้ตัวเลือกในการกำหนดค่าอินพุท"
+  "closeSelectedFeatureset": "ล้าง และใช้ตัวเลือกในการกำหนดค่าอินพุท",
+  "currentMapExtent": "ขอบเขตแผนที่ปัจจุบัน"
 });

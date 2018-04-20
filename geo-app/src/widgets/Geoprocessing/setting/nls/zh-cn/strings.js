@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "要素集 URL",
   "useShapefile": "在本地文件系统中使用 shapefile",
   "allowToExport": "允许导出结果",
-  "useDynamicSchema": "输出可能具有不同方案，请使用动态方案代替预定义方案。"
+  "useDynamicSchema": "输出可能具有不同方案，请使用动态方案代替预定义方案。",
+  "useCurrentMapExtent": "使用当前地图范围",
+  "ignoreOutput": "忽略此输出",
+  "turnOffOutput": "默认情况下关闭此图层"
 });

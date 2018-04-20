@@ -11,7 +11,7 @@
       "purple",
       "blue"
     ],
-    "version": "2.5",
+    "version": "2.7",
     "customStyles": {
       "mainBackgroundColor": "#18453b"
     },
@@ -40,13 +40,13 @@
     },
     {
       "label": "Contact Us",
-      "url": "mailto:ftonini@msu.edu"
+      "url": "mailto:ftonini@anr.msu.edu"
     },
     {
       "label": "Sample Data",
       "url": "https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_GeoApp.zip"
     },
-	{
+  	{ 
 	  "label": "Start Tutorial",
 	  "url": "javascript:Appcues.show('-Kv3nDbFglJEc5-QfGAa')"
 	}
@@ -62,7 +62,7 @@
           "height": 40,
           "relativeTo": "browser"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "themes_FoldableTheme_widgets_HeaderController_Widget_19",
         "name": "HeaderController",
         "config": "configs/HeaderController/config_HeaderController.json"
@@ -74,7 +74,7 @@
           "bottom": 25,
           "relativeTo": "map"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_Scalebar_Widget_20",
         "name": "Scalebar"
       },
@@ -85,7 +85,7 @@
           "top": 12,
           "relativeTo": "map"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_Search_Widget_21",
         "name": "Search"
       },
@@ -96,7 +96,7 @@
           "bottom": 5,
           "relativeTo": "map"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_Coordinate_Widget_22",
         "name": "Coordinate"
       },
@@ -109,7 +109,7 @@
         "placeholderIndex": 1,
         "id": "_23",
         "name": "Measurement",
-        "version": "2.5",
+        "version": "2.7",
         "closeable": true,
         "uri": "widgets/Measurement/Widget",
         "config": "configs/Measurement/config_Measurement.json"
@@ -123,7 +123,7 @@
         "placeholderIndex": 1,
         "id": "_24",
         "name": "Share",
-        "version": "2.5",
+        "version": "2.7",
         "closeable": true,
         "uri": "widgets/Share/Widget",
         "config": "configs/Share/config_Share.json"
@@ -137,7 +137,7 @@
         "placeholderIndex": 1,
         "id": "_25",
         "name": "Print",
-        "version": "2.5",
+        "version": "2.7",
         "closeable": true,
         "uri": "widgets/Print/Widget",
         "config": "configs/Print/config_Print.json"
@@ -151,7 +151,7 @@
         "placeholderIndex": 1,
         "id": "_26",
         "name": "BasemapGallery",
-        "version": "2.5",
+        "version": "2.7",
         "closeable": true,
         "uri": "widgets/BasemapGallery/Widget",
         "config": "configs/BasemapGallery/config_BasemapGallery.json"
@@ -164,7 +164,7 @@
         },
         "placeholderIndex": 1,
         "id": "_27",
-        "version": "2.5",
+        "version": "2.7",
         "closeable": true,
         "uri": "widgets/TimeSlider/Widget",
         "name": "TimeSlider",
@@ -178,7 +178,7 @@
           "zIndex": 1,
           "relativeTo": "map"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_OverviewMap_Widget_28",
         "name": "OverviewMap"
       },
@@ -189,7 +189,7 @@
           "bottom": 126,
           "relativeTo": "map"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_HomeButton_Widget_29",
         "name": "HomeButton"
       },
@@ -200,13 +200,13 @@
           "bottom": 164,
           "relativeTo": "map"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_MyLocation_Widget_30",
         "name": "MyLocation"
       },
       {
         "uri": "widgets/AttributeTable/Widget",
-        "version": "2.5",
+        "version": "2.7",
         "position": {
           "relativeTo": "browser"
         },
@@ -219,11 +219,10 @@
         "position": {
           "relativeTo": "browser"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_Splash_Widget_32",
         "name": "Splash",
-        "config": "configs/Splash/config_Splash.json",
-        "visible": false
+        "config": "configs/Splash/config_Splash.json"
       },
       {
         "uri": "widgets/ZoomSlider/Widget",
@@ -232,7 +231,7 @@
           "bottom": 58,
           "relativeTo": "map"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_ZoomSlider_Widget_33",
         "name": "ZoomSlider"
       },
@@ -244,7 +243,7 @@
           "bottom": 203,
           "relativeTo": "map"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_ExtentNavigate_Widget_34",
         "name": "ExtentNavigate"
       },
@@ -256,7 +255,7 @@
           "top": 8,
           "relativeTo": "map"
         },
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_FullScreen_Widget_80",
         "name": "FullScreen"
       }
@@ -306,14 +305,14 @@
     "widgets": [
       {
         "uri": "widgets/Legend/Widget",
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_Legend_Widget_17",
         "name": "Legend",
         "index": 2
       },
       {
         "uri": "widgets/LayerList/Widget",
-        "version": "2.5",
+        "version": "2.7",
         "id": "widgets_LayerList_Widget_18",
         "name": "LayerList",
         "index": 3,
@@ -321,26 +320,26 @@
       },
       {
         "name": "AddData",
-        "version": "2.5",
+        "version": "2.7",
         "uri": "widgets/AddData/Widget",
-        "index": 11,
+        "index": 15,
         "id": "widgets_AddData_Widget_35",
         "config": "configs/AddData/config_AddData.json"
       },
       {
         "name": "Select",
-        "version": "2.5",
+        "version": "2.7",
         "uri": "widgets/Select/Widget",
         "config": "configs/Select/config_Select.json",
-        "index": 12,
+        "index": 16,
         "id": "widgets_Select_Widget_65"
       },
       {
         "name": "Draw",
-        "version": "2.5",
+        "version": "2.7",
         "uri": "widgets/Draw/Widget",
         "config": "configs/Draw/config_Draw.json",
-        "index": 21,
+        "index": 17,
         "id": "widgets_Draw_Widget_36"
       }
     ],
@@ -352,7 +351,7 @@
           {
             "name": "Geoprocessing",
             "label": "Add Systems",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Add Systems.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Add Systems.json",
@@ -363,12 +362,22 @@
           {
             "name": "Geoprocessing",
             "label": "Upload Systems from Table",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Upload Systems from Table.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Upload Systems from Table.json",
             "index": 23,
             "id": "widgets_Geoprocessing_Widget_75"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Network Analysis Grouping",
+            "version": "2.7",
+            "icon": "configs\\Geoprocessing\\icon_Network Analysis Grouping.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_Network Analysis Grouping.json",
+            "index": 19,
+            "id": "widgets_Geoprocessing_Widget_108"
           }
         ],
         "index": 4,
@@ -387,12 +396,12 @@
       },
       {
         "label": "Agents",
-        "icon": "jimu.js/images/AgentsWidgetGroup_icon.png",
+        "icon": "jimu.js/images/AgentWidgetGroup_icon.png",
         "widgets": [
           {
             "name": "Geoprocessing",
             "label": "Add Agents",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Add Agents.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Add Agents.json",
@@ -403,7 +412,7 @@
           {
             "name": "Geoprocessing",
             "label": "Upload Agents from Table",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Upload Agents from Table.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Upload Agents from Table.json",
@@ -411,7 +420,7 @@
             "id": "widgets_Geoprocessing_Widget_76"
           }
         ],
-        "index": 5,
+        "index": 9,
         "id": "_43",
         "visible": true,
         "panel": {
@@ -432,7 +441,7 @@
           {
             "name": "Geoprocessing",
             "label": "Add Media Flows",
-            "version": "2.5",
+            "version": "2.7",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Add Media Flows.json",
             "index": 18,
@@ -443,7 +452,7 @@
           {
             "name": "Geoprocessing",
             "label": "Draw Radial Flows",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Draw Radial Flows.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Draw Radial Flows.json",
@@ -451,7 +460,7 @@
             "id": "widgets_Geoprocessing_Widget_96"
           }
         ],
-        "index": 6,
+        "index": 10,
         "id": "_67",
         "visible": true,
         "panel": {
@@ -472,7 +481,7 @@
           {
             "name": "Geoprocessing",
             "label": "Factor Analysis for Mixed Data",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Factor Analysis for Mixed Data.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Factor Analysis for Mixed Data.json",
@@ -483,7 +492,7 @@
           {
             "name": "Geoprocessing",
             "label": "Model Selection (OLS)",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Model Selection (OLS).png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Model Selection (OLS).json",
@@ -491,7 +500,7 @@
             "id": "widgets_Geoprocessing_Widget_48"
           }
         ],
-        "index": 7,
+        "index": 11,
         "id": "_54",
         "visible": true,
         "panel": {
@@ -512,7 +521,7 @@
           {
             "name": "Geoprocessing",
             "label": "Calculate Flows CO2 Emissions",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Calculate Flows CO2 Emissions.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Calculate Flows CO2 Emissions.json",
@@ -523,7 +532,7 @@
           {
             "name": "Geoprocessing",
             "label": "Crop Production",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Crop Production.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Crop Production.json",
@@ -534,7 +543,7 @@
           {
             "name": "Geoprocessing",
             "label": "Habitat Quality",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Habitat Quality.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Habitat Quality.json",
@@ -545,7 +554,7 @@
           {
             "name": "Geoprocessing",
             "label": "Forest Carbon Edge Effect",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Forest Carbon Edge Effect.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Forest Carbon Edge Effect.json",
@@ -556,7 +565,7 @@
           {
             "name": "Geoprocessing",
             "label": "Nutrient Delivery Ratio",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Nutrient Delivery Ratio.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Nutrient Delivery Ratio.json",
@@ -566,7 +575,7 @@
           {
             "name": "Geoprocessing",
             "label": "Habitat Risk Assessment Preprocessor",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Habitat Risk Assessment Preprocessor.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Habitat Risk Assessment Preprocessor.json",
@@ -577,7 +586,7 @@
           {
             "name": "Geoprocessing",
             "label": "Habitat Risk Assessment",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Habitat Risk Assessment.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Habitat Risk Assessment.json",
@@ -585,7 +594,7 @@
             "id": "widgets_Geoprocessing_Widget_91"
           }
         ],
-        "index": 8,
+        "index": 12,
         "id": "_55",
         "visible": true,
         "panel": {
@@ -606,7 +615,7 @@
           {
             "name": "Geoprocessing",
             "label": "Visitation Rate",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Visitation Rate.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Visitation Rate.json",
@@ -617,7 +626,7 @@
           {
             "name": "Geoprocessing",
             "label": "Cost-Benefit Analysis",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Cost-Benefit Analysis.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Cost-Benefit Analysis.json",
@@ -627,7 +636,7 @@
           {
             "name": "Geoprocessing",
             "label": "Nutrition Metrics",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Nutrition Metrics.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Nutrition Metrics.json",
@@ -637,7 +646,7 @@
           {
             "name": "Geoprocessing",
             "label": "Population Count and Density",
-            "version": "2.5",
+            "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Population Count and Density.png",
             "uri": "widgets/Geoprocessing/Widget",
             "config": "configs/Geoprocessing/config_Population Count and Density.json",
@@ -645,7 +654,7 @@
             "id": "widgets_Geoprocessing_Widget_106"
           }
         ],
-        "index": 9,
+        "index": 13,
         "id": "_72",
         "visible": true,
         "panel": {
@@ -665,7 +674,6 @@
         "widgets": [
           {
             "name": "ISLayers",
-            "version": "",
             "uri": "widgets/ISLayers/Widget",
             "config": "configs/ISLayers/config_Pick Imagery Layers.json",
             "index": 13,
@@ -675,7 +683,6 @@
           },
           {
             "name": "ISRenderer",
-            "version": "",
             "uri": "widgets/ISRenderer/Widget",
             "config": "configs/ISRenderer/config_ISRenderer.json",
             "index": 15,
@@ -685,7 +692,6 @@
           {
             "name": "ISImageSelector",
             "label": "Temporal Selector",
-            "version": "",
             "uri": "widgets/ISImageSelector/Widget",
             "config": "configs/ISImageSelector/config_Temporal Selector.json",
             "index": 14,
@@ -694,7 +700,6 @@
           },
           {
             "name": "ISCompare",
-            "version": "",
             "uri": "widgets/ISCompare/Widget",
             "config": "configs/ISCompare/config_Imagery Comparison.json",
             "index": 14,
@@ -704,7 +709,6 @@
           },
           {
             "name": "ISChangeDetection",
-            "version": "",
             "uri": "widgets/ISChangeDetection/Widget",
             "config": "configs/ISChangeDetection/config_Change Detection.json",
             "index": 14,
@@ -715,7 +719,6 @@
           {
             "name": "ISProfile",
             "label": "Temporal & Spectral Profile",
-            "version": "",
             "uri": "widgets/ISProfile/Widget",
             "config": "configs/ISProfile/config_Temporal & Spectral Profile.json",
             "index": 14,
@@ -725,7 +728,6 @@
           {
             "name": "ISExport",
             "label": "Export to Disk",
-            "version": "",
             "uri": "widgets/ISExport/Widget",
             "config": "configs/ISExport/config_Export to Disk.json",
             "index": 14,
@@ -733,7 +735,7 @@
             "folded": true
           }
         ],
-        "index": 10,
+        "index": 14,
         "id": "_88",
         "visible": true,
         "panel": {
@@ -927,7 +929,7 @@
       "height": 125
     }
   },
-  "wabVersion": "2.5",
+  "wabVersion": "2.7",
   "isTemplateApp": true,
   "isWebTier": false,
   "httpProxy": {
@@ -937,16 +939,16 @@
     "rules": [
 	{
 		"urlPrefix": "https://msugis.maps.arcgis.com",
-		"proxyUrl": "https://telecoupling.msu.edu/DotNet/proxy.ashx"
+		"proxyUrl": "http://telecoupling.msu.edu/DotNet/proxy.ashx"
 	},{
 		"urlPrefix": "https://landscape7.arcgis.com",
-		"proxyUrl": "https://telecoupling.msu.edu/DotNet/proxy.ashx"
+		"proxyUrl": "http://telecoupling.msu.edu/DotNet/proxy.ashx"
 	},{
 		"urlPrefix": "https://landscape6.arcgis.com",
-		"proxyUrl": "https://telecoupling.msu.edu/DotNet/proxy.ashx"
+		"proxyUrl": "http://telecoupling.msu.edu/DotNet/proxy.ashx"
 	},{
 		"urlPrefix": "https://earthobs2.arcgis.com",
-		"proxyUrl": "https://telecoupling.msu.edu/DotNet/proxy.ashx"
+		"proxyUrl": "http://telecoupling.msu.edu/DotNet/proxy.ashx"
 	}
 	]
   },

@@ -77,7 +77,18 @@ define({
       field: "Field",
       operation: "Operation",
       disableUpdateGeometry: "Disable Update Geometry",
-      preview: "Preview"
+      preview: "Preview",
+      date:"Date",
+      time:"Time",
+      show: "Show",
+      hide: "Hide",
+      format:"Format",
+      defaults:"Default",
+      add: "Add",
+      done: "Done",
+      remove: "Remove",
+      leave: "Leave",
+      stay: "Stay"
     },
     errorCode: "Code",
     errorMessage: "Message",
@@ -100,10 +111,18 @@ define({
       arrows: "Arrows",
       business: "Business",
       cartographic: "Cartographic",
+      damage: "Damage",
+      disasters: "Disasters",
+      emergencyManagement: "Emergency Management",
+      generalInfrastructure: "General Infrastructure",
+      localGovernment: "Local Government",
       nationalParkService: "National park service",
+      numbers: "Numbers",
       outdoorRecreation: "Outdoor recreation",
       peoplePlaces: "People places",
+      pointsOfInterest: "Points of Interest",
       safetyHealth: "Safety health",
+      stateGovernment: "State Government",
       shapes: "Shapes",
       transportation: "Transportation",
       symbolSize: "Symbol size",
@@ -204,8 +223,8 @@ define({
       invalidUrl: "Invalid URL."
     },
     filterBuilder: {
-      addAnotherExpression: "Add an expression",
-      addSet: "Add a set",
+      addAnotherExpression: "Add expression",
+      addSet: "Add set",
       matchMsg: "Get features in the layer that match ${any_or_all} of the following expressions",
       matchMsgSet: "${any_or_all} of the following expressions in this set are true",
       all: "All",
@@ -227,6 +246,8 @@ define({
       stringOperatorIsBlank: "is blank",
       stringOperatorIsNotBlank: "is not blank",
       dateOperatorIsOn: "is on", // e.g. <dateFieldName> is on "1/1/2012"
+      dateOperatorIsIn: "is in",
+      dateOperatorIsNotIn: "is not in",
       dateOperatorIsNotOn: "is not on",
       dateOperatorIsBefore: "is before",
       dateOperatorIsAfter: "is after",
@@ -274,7 +295,17 @@ define({
       cascadeFilterTip: "Only show values filtered by previous expressions.",
       noneCascadeFilterTip: "All unique values of this field",
       previousCascadeFilterTip: "Values filtered by previous expressions",
-      allCascadeFilterTip: "Values filtered by all other expressions"
+      allCascadeFilterTip: "Values filtered by all other expressions",
+      custom: "the date...",
+      today: "today",
+      yesterday: "yesterday",
+      tomorrow: "tomorrow",
+      thisWeek: "this week",
+      thisMonth: "this month",
+      thisQuarter: "this quarter",
+      thisYear: "this year",
+      inputType: "Input type",
+      setInputType: "Set input type"
     },
 
     featureLayerSource: {
@@ -436,6 +467,10 @@ define({
       nauticalMilesAbbr: "nmi",
       uSSurveyFeet: "US survey feet",
       uSSurveyFeetAbbr: "ftUS",
+      centimeters: "Centimeters",
+      centimetersAbbr: "cm",
+      inches: "Inches",
+      inchesAbbr: "in",
       decimalDegree: "Decimal degrees",
       decimalDegreeAbbr: "dd",
       degreeMinuteSeconds: "Degree minute seconds",
@@ -452,6 +487,14 @@ define({
       squareYardsAbbr: "sq yd",
       squareUSSurveyFeet: "Square US survey feet",
       squareUSSurveyFeetAbbr: "sq ftUS"
+    },
+    timeUnit: {
+      year:"Year",
+      month:"Month",
+      day:"Day",
+      hour:"Hour",
+      minute:"Minute",
+      second:"Second"
     },
     featureSetChooser: {
       select: "Select",
@@ -540,7 +583,8 @@ define({
       relatedRecords: "Related records:",
       noRelatedRecotds: "No related records were found.",
       chooseFieldTip: "Choose an attribute to show the list",
-      saveAsPopupTitle: "Same as the pop-up title"
+      saveAsPopupTitle: "Same as the pop-up title",
+      leaveConfirm: "Do you want to leave without saving edits?"
     },
     queryFeatures: {
       tooManyFeaturesTip: "There are too many features in your selection. It may take long time to retrieve and display them on the map.",
@@ -639,6 +683,7 @@ define({
   "pt-pt": 1,
   "ro": 1,
   "ru": 1,
+  "sl": 1,
   "sr": 1,
   "sv": 1,
   "th": 1,

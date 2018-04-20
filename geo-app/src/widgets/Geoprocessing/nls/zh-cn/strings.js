@@ -20,5 +20,6 @@ define({
   "exportOutput": "导出",
   "emptyResult": "结果为空。",
   "useSelectedFeatureset": "使用生成的要素。",
-  "closeSelectedFeatureset": "清除并使用已配置的输入选项。"
+  "closeSelectedFeatureset": "清除并使用已配置的输入选项。",
+  "currentMapExtent": "当前地图范围"
 });

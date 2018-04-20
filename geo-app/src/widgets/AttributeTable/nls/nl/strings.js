@@ -14,7 +14,7 @@ define({
   "highlight": "Grafische elementen markeren",
   "selectAll": "Records op alle pagina´s selecteren",
   "selectPage": "Records op huidige pagina selecteren",
-  "clearSelection": "Clear selection",
+  "clearSelection": "Selectie opheffen",
   "filter": "Filter",
   "setFilterTip": "Stel filters correct in.",
   "noFilterTip": "Zonder filterexpressie zal deze querytaak alle functies in de opgegeven gegevensbron weergeven.",

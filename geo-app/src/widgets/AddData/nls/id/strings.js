@@ -112,6 +112,7 @@ define({
     "types": {
       "Shapefile": "Shapefile (arsip .zip, ZIP berisi semua file shapefile)",
       "CSV": "File CSV (.csv, dengan alamat atau garis lintang, garis bujur dan koma, dibatasi titik koma atau tab)",
+      "KML": "File KML (.kml)",
       "GPX": "File GPX (.gpx, GPS Exchange Format)",
       "GeoJSON": "File GeoJSON File (.geo.json, atau .geojson)"
     },

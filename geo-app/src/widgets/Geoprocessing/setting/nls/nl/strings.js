@@ -25,5 +25,8 @@ define({
   "urlPlaceholder": "Feature set URL",
   "useShapefile": "Gebruik shapefile in het lokale bestandssysteem",
   "allowToExport": "Resultaten exporteren",
-  "useDynamicSchema": "Uitvoer kan ander schema hebben, gebruik dynamisch schema in plaats van voorgedefinieerd."
+  "useDynamicSchema": "Uitvoer kan ander schema hebben, gebruik dynamisch schema in plaats van voorgedefinieerd.",
+  "useCurrentMapExtent": "Huidig kaartextent gebruiken",
+  "ignoreOutput": "Deze uitvoer negeren",
+  "turnOffOutput": "Deze laag standaard uitschakelen"
 });

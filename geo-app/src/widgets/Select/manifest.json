@@ -1,13 +1,14 @@
 {
   "name": "Select",
   "platform": "HTML",
-  "version": "2.5",
-  "wabVersion": "2.5",
+  "version": "2.7",
+  "wabVersion": "2.7",
   "author": "Esri R&D Center Beijing",
   "description": "",
   "copyright": "",
   "license": "http://www.apache.org/licenses/LICENSE-2.0",
   "properties": {
-    "supportMultiInstance": false
+    "supportMultiInstance": false,
+    "keepConfigAfterMapSwitched": false
   }
 }

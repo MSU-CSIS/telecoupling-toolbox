@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -223,7 +223,7 @@ function(declare, lang, array, html, on, query, Deferred, all,
           imageSpatialReference: this.map.spatialReference
         });
         var resultMapServiceParam = this._getResultMapServiceParam();
-        if (!resultMapServiceParam || resultMapServiceParam.visible === true) {
+        if (!resultMapServiceParam || resultMapServiceParam.ignore !== true) {
           this.gp.getResultImageLayer(jobInfo.jobInfo.jobId, null, imageParameters);
           // add outputs that are not contained in result map service
           array.forEach(this.config.outputParams, function(param){
@@ -237,7 +237,7 @@ function(declare, lang, array, html, on, query, Deferred, all,
         }
         // add outputs whose type is not geo dataset
         array.forEach(this.config.outputParams, function(param){
-          if(param.visible &&
+          if(param.ignore !== true &&
             param.dataType !== 'GPFeatureRecordSetLayer' &&
             param.dataType !== 'GPRasterDataLayer' &&
             param.dataType !== 'GPRecordSet') {
@@ -246,7 +246,7 @@ function(declare, lang, array, html, on, query, Deferred, all,
         }, this);
       }else{
         array.forEach(this.config.outputParams, function(param){
-          if(param.visible) {
+          if(param.ignore !== true) {
             this.gp.getResultData(jobInfo.jobInfo.jobId, param.name);
           }
         }, this);
@@ -287,15 +287,16 @@ function(declare, lang, array, html, on, query, Deferred, all,
           name: layerName,
           title: layerName,
           tooltip: layerName,
-          dataType: 'result map service',
-          visible: true
+          dataType: 'result map service'
         };
         lyr._wab_type = 'ArcGISDynamicMapServiceLayer';
         var resultMapServiceParam = this._getResultMapServiceParam();
         if (resultMapServiceParam) {
           outputParam.label = resultMapServiceParam.label;
           outputParam.tooltip = resultMapServiceParam.tooltip;
+          outputParam.layerInvisible = resultMapServiceParam.layerInvisible;
           lyr.title = resultMapServiceParam.label;
+          lyr.setVisibility(resultMapServiceParam.layerInvisible !== true);
         }
         var outputNode = this._createOutputNode(outputParam, lyr);
 
@@ -563,7 +564,7 @@ function(declare, lang, array, html, on, query, Deferred, all,
     _createOutputNode: function(param, value) {
       var resultRenderer;
 
-      if(param.visible){
+      if(param.ignore !== true){
         try{
           resultRenderer = resultRendererManager.createResultRenderer(param, value, {
             uid: this.uniqueID,
@@ -601,12 +602,14 @@ function(declare, lang, array, html, on, query, Deferred, all,
         node.resultRenderer = resultRenderer;
 
         // update datasource
-        if(!this.config.useDynamicSchema && !this.config.useResultMapServer &&
+        if(!this.config.useResultMapServer &&
           (param.dataType === 'GPFeatureRecordSetLayer' || param.dataType === 'GPRecordSet') &&
           param.defaultValue && param.defaultValue.fields) {
-          this.updateDataSourceData('filter-' + param.name, {
-            features: value.value.features
-          });
+          if(!gputils.useDynamicSchema(param, this.config)) {
+            this.updateDataSourceData('filter-' + param.name, {
+              features: value.value.features
+            });
+          }
         }
         return node;
       }else{

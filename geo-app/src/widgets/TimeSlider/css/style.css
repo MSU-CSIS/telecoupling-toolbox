@@ -13,6 +13,9 @@
 	-webkit-transition: height 0.5s ease;
 	-o-transition: height 0.5s ease;
 }
+.jimu-rtl .jimu-widget-timeslider{
+	right: auto !important;
+}
 .jimu-widget-timeslider .esriTimeSlider{
 	z-index: 99;
 }
@@ -128,6 +131,9 @@
 /*******************************************************************/
 .jimu-widget-timeslider .esriTimeSlider .tsTicks{
 	display: none;
+}
+.jimu-widget-timeslider .esriTimeSlider .ts {
+	padding: 0;/*for FF*/
 }
 
 .jimu-widget-timeslider.mobile {

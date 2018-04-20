@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// Copyright © 2014 - 2016 Esri. All Rights Reserved.
+// Copyright © 2014 - 2017 Esri. All Rights Reserved.
 //
 // Licensed under the Apache License Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -130,6 +130,9 @@ function(array, on, aspect,
         o.value = param.defaultValue;
       }
       editor = new RasterLayerEditor(o);
+    }else if(editorName === 'SelectFeatureSetFromMap'){
+      o.message = nls.currentMapExtent;
+      editor = new simpleEditors.currentExtentEditor(o);
     }else if(editorName === 'SelectFeatureSetFromDraw'){
       if(param.defaultValue === undefined){
         o.message = 'No defaultValue property.';
@@ -265,6 +268,8 @@ function(array, on, aspect,
           return 'SelectFeatureSetFromUrl';
         }else if(param.featureSetMode === 'file'){
           return 'SelectFeatureSetFromFile';
+        }else if(param.featureSetMode === 'map'){
+          return 'SelectFeatureSetFromMap';
         }else{
           return 'UnsupportEditor';
         }

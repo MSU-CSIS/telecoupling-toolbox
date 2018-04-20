@@ -20,5 +20,6 @@ define({
   "exportOutput": "Eksportér",
   "emptyResult": "Resultatet er tomt.",
   "useSelectedFeatureset": "Brug det/de resulterende objekt(er).",
-  "closeSelectedFeatureset": "Ryd, og brug den konfigurerede input-indstilling."
+  "closeSelectedFeatureset": "Ryd, og brug den konfigurerede input-indstilling.",
+  "currentMapExtent": "Aktuel kortudstrækning"
 });
