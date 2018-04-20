@@ -20,13 +20,13 @@ The innovative, free and open-source (see [LICENSE](LICENSE) for details) toolbo
 
 ## ArcGIS Toolbox 
 
-<a href="https://github.com/MSU-CSIS/telecoupling-toolbox/tree/master/arcgis-toolbox" target="_blank"><img src="arcgis-toolbox/Figs/ArcGIS_Toolbox_icon.png" alt="ArcGIS Toolbox Icon" title="ArcGIS Toolbox Icon" height="200"></a>
+<a href="https://github.com/MSU-CSIS/telecoupling-toolbox/tree/master/arcgis-toolbox" target="_blank"><img src="/img/ArcGIS_Toolbox_icon.png" alt="ArcGIS Toolbox Icon" title="ArcGIS Toolbox Icon" height="200"></a>
 
 The ArcGIS Toolbox is a large collection of mapping and analysis tools for use within ESRI's ArcGIS Desktop (version 10.3.1 or later) to systematically study telecoupling. Test the current version of the ArcGIS Toolbox by using your own data or by downloading our [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.5b.zip). Look inside the [ArcGIS Toolbox](./arcgis-toolbox) project folder for code, images, documentation, and detailed instructions on installation and use.
 
 ## GeoApp
 
-<a href="https://telecoupling.msu.edu/geo-app/" target="_blank"><img src="geo-app/img/chansnet_globe_bkgr.png" alt="GeoApp Icon" title="GeoApp Icon" height="200"></a>
+<a href="https://telecoupling.msu.edu/geo-app/" target="_blank"><img src="/img/chansnet_globe_bkgr.png" alt="GeoApp Icon" title="GeoApp Icon" height="200"></a>
 
 The GeoApp offers a dynamic, interactive, online geo-enabled platform along with a large collection of mapping and analysis tools to systematically study telecoupling. Check out and test our brand new [GeoApp](https://telecoupling.msu.edu/geo-app/) (_beta_) by using your own data or by downloading our [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_GeoApp.zip). Help yourself with our introductory tutorial if you need more time to familiarize yourself with the app widgets and tools. Look inside the [GeoApp](./geo-app) project folder for source code and images linked to the GeoApp.
 
