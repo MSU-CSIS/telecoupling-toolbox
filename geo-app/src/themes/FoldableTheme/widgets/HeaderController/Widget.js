@@ -400,6 +400,32 @@ define([
         }, this);
       },
 
+      //New CUSTOMIZED function
+      getMenuPosition: function(myLink){
+        var position = {
+          relativeTo: 'map'
+        };
+        var pbox = html.getMarginBox(myLink);
+        var sbox = {
+          h: 300,
+          w: 220
+        };
+        var containerBox = html.getMarginBox(this.map.id);
+        var top = pbox.t + pbox.h + 16; //put under icon by default
+        if(top + sbox.h > containerBox.h){
+          position.bottom = containerBox.h - pbox.t + 1;
+        }else{
+          position.top = top;
+        }
+        if(pbox.l + sbox.w > containerBox.w){
+          position.right = 0;
+        }else{
+          position.left = pbox.l + 12;
+        }
+        return position;
+      },
+	  
+	  // modified function
       _createDynamicLinks: function(links) {
         if (window.isRTL) {
           var _links = [];
@@ -411,7 +437,7 @@ define([
         html.empty(this.dynamicLinksNode);
         array.forEach(links, function(link) {
           /*ADDED FOR CUSTOMIZATION*/
-		  if (link.label.toUpperCase() === 'CONTACT US'){
+		  if (link.label.toUpperCase() === 'SAMPLE DATA'){
 			  html.create('a', {
 				href: link.url,
 				rel: 'noopener noreferrer',
@@ -421,16 +447,65 @@ define([
 				  lineHeight: this.height + 'px'
 				}
 			  }, this.dynamicLinksNode);			  	  
-		  }else if (link.label.toUpperCase() === 'SAMPLE DATA'){
-			  html.create('a', {
-				href: link.url,
-				rel: 'noopener noreferrer',
-				innerHTML: utils.sanitizeHTML(link.label),
-				'class': "jimu-link jimu-align-leading jimu-leading-margin1",
-				style: {
-				  lineHeight: this.height + 'px'
-				}
-			  }, this.dynamicLinksNode);	
+		  }else if (link.label.toUpperCase() === 'CASE STUDIES'){
+              var myLink = html.create('span', {
+                innerHTML: utils.sanitizeHTML(link.label),
+                'class': "jimu-link jimu-align-leading jimu-leading-margin1",
+                style: {
+                  lineHeight: this.height + 'px',
+                  cursor: 'pointer'
+                }
+              }, this.dynamicLinksNode);
+              setTimeout(lang.hitch(this, function(){
+                var style = utils.getPositionStyle(this.getMenuPosition(myLink));
+                style.height = 'auto';
+                style.width = 'auto';
+                style.display = 'none';
+                style['padding-right'] = '12px';
+                style.position = 'absolute';
+                style['padding-right'] = '12px';
+                style['border-radius'] = '2px';
+                style['z-index'] = '111';
+                var menu = html.create('div', {
+                  'class': "myMenu jimu-main-background",
+                  style: style
+                }, this.dynamicLinksNode);
+                html.create('a', {
+                  href: link.url[0],
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  innerHTML: utils.sanitizeHTML('Agricultural Trade'),
+                  'class': "jimu-link jimu-align-leading jimu-leading-margin1",
+                  style: {
+                    lineHeight: this.height + 'px',
+                    float: 'left',
+                    clear: 'both'
+                  }
+                }, menu);
+                html.create('a', {
+                  href: link.url[1],
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  innerHTML: utils.sanitizeHTML('International Tourism'),
+                  'class': "jimu-link jimu-align-leading jimu-leading-margin1",
+                  style: {
+                    lineHeight: this.height + 'px',
+                    float: 'left',
+                    clear: 'both'
+                  }
+                }, menu);
+
+                on(myLink, 'click', lang.hitch(this, function(){
+                  if(html.getStyle(menu, 'display') === 'block'){
+                    html.setStyle(menu, 'display', 'none');
+                  }else{
+                    html.setStyle(menu, 'display', 'block');
+                  }
+                }));
+              }), 200);
+
+              return;
+
 		  }else if (link.label.toUpperCase() === 'START TUTORIAL'){
 			  html.create('a', {
 				href: link.url,

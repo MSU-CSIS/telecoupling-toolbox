@@ -32,20 +32,19 @@
   "links": [
     {
       "label": "Home",
-      "url": "https://msu-csis.github.io/telecoupling-toolbox/"
-    },
-    {
-      "label": "About",
-      "url": "http://csis.msu.edu/about-us"
-    },
-    {
-      "label": "Contact Us",
-      "url": "mailto:ftonini@anr.msu.edu"
+      "url": "http://telecouplingtoolbox.org"
     },
     {
       "label": "Sample Data",
       "url": "https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_GeoApp.zip"
     },
+    {
+      "label": "Case Studies",
+      "url": [
+	  "https://telecoupling.msu.edu/geo-app/agri-trade",
+	  "https://telecoupling.msu.edu/geo-app/tourism"
+	  ]
+    },	
   	{ 
 	  "label": "Start Tutorial",
 	  "url": "javascript:Appcues.show('-Kv3nDbFglJEc5-QfGAa')"
