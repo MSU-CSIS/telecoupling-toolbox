@@ -25,7 +25,7 @@ description:
 navbar-links:
   Home: ""
   About Us: "http://csis.msu.edu/"
-  Example Applications:
+  Case Studies:
     - Brazil-China Soybean Trade: "https://msugis.maps.arcgis.com/apps/MapJournal/index.html?appid=dec6a70920734576959e1d6b073379cf"
     - Tourism at the Wolong Nature Reserve: "https://msugis.maps.arcgis.com/apps/MapJournal/index.html?appid=a00a0e1f6546410eaac5306f85c01f9e"
   Forum: "https://join.slack.com/t/telecoupling-toolbox/shared_invite/enQtMzQ1OTQyMzM0OTc3LTQ1MjEyZGM0ZTc3ODI5N2M5N2IzOTliNjFjMTZkZTU5NDg1YTI3Nzk3NDkwNTEwOTA2YmYwMzFlNTc0NzYyNmQ"
