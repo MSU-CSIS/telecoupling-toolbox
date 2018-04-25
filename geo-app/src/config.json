@@ -26,13 +26,13 @@
   "authorizedCrossOriginDomains": ["https://lb.telecoupling.msu.edu"],
   "title": "<div class=\"attribute-custom-style\"><b>Telecoupling GeoApp</b> <i>(beta)</i></div>",
   "subtitle": "<div class=\"attribute-custom-style\"></div>",
-  "keepAppState": false,
+  "keepAppState": true,
   "logo": "images/logo.png",
   "geometryService": "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer",
   "links": [
     {
       "label": "Home",
-      "url": "http://telecouplingtoolbox.org"
+      "url": "https://msu-csis.github.io/telecoupling-toolbox/"
     },
     {
       "label": "Sample Data",
@@ -64,7 +64,7 @@
         "version": "2.7",
         "id": "themes_FoldableTheme_widgets_HeaderController_Widget_19",
         "name": "HeaderController",
-        "config": "configs/HeaderController/config_HeaderController.json"
+        "config": "configs/HeaderController/config_themes_FoldableTheme_widgets_HeaderController_Widget_19.json"
       },
       {
         "uri": "widgets/Scalebar/Widget",
@@ -111,7 +111,7 @@
         "version": "2.7",
         "closeable": true,
         "uri": "widgets/Measurement/Widget",
-        "config": "configs/Measurement/config_Measurement.json"
+        "config": "configs/Measurement/config__23.json"
       },
       {
         "position": {
@@ -125,7 +125,7 @@
         "version": "2.7",
         "closeable": true,
         "uri": "widgets/Share/Widget",
-        "config": "configs/Share/config_Share.json"
+        "config": "configs/Share/config__24.json"
       },
       {
         "position": {
@@ -139,7 +139,7 @@
         "version": "2.7",
         "closeable": true,
         "uri": "widgets/Print/Widget",
-        "config": "configs/Print/config_Print.json"
+        "config": "configs/Print/config__25.json"
       },
       {
         "position": {
@@ -153,7 +153,7 @@
         "version": "2.7",
         "closeable": true,
         "uri": "widgets/BasemapGallery/Widget",
-        "config": "configs/BasemapGallery/config_BasemapGallery.json"
+        "config": "configs/BasemapGallery/config__26.json"
       },
       {
         "position": {
@@ -167,7 +167,7 @@
         "closeable": true,
         "uri": "widgets/TimeSlider/Widget",
         "name": "TimeSlider",
-        "config": "configs/TimeSlider/config_TimeSlider.json"
+        "config": "configs/TimeSlider/config__27.json"
       },
       {
         "uri": "widgets/OverviewMap/Widget",
@@ -179,7 +179,8 @@
         },
         "version": "2.7",
         "id": "widgets_OverviewMap_Widget_28",
-        "name": "OverviewMap"
+        "name": "OverviewMap",
+        "config": "configs/OverviewMap/config_widgets_OverviewMap_Widget_28.json"
       },
       {
         "uri": "widgets/HomeButton/Widget",
@@ -201,7 +202,9 @@
         },
         "version": "2.7",
         "id": "widgets_MyLocation_Widget_30",
-        "name": "MyLocation"
+        "name": "MyLocation",
+        "config": "configs/MyLocation/config_widgets_MyLocation_Widget_30.json",
+        "visible": false
       },
       {
         "uri": "widgets/AttributeTable/Widget",
@@ -211,7 +214,7 @@
         },
         "id": "widgets_AttributeTable_Widget_31",
         "name": "AttributeTable",
-        "config": "configs/AttributeTable/config_AttributeTable.json"
+        "config": "configs/AttributeTable/config_widgets_AttributeTable_Widget_31.json"
       },
       {
         "uri": "widgets/Splash/Widget",
@@ -221,7 +224,7 @@
         "version": "2.7",
         "id": "widgets_Splash_Widget_32",
         "name": "Splash",
-        "config": "configs/Splash/config_Splash.json"
+        "config": "configs/Splash/config_widgets_Splash_Widget_32.json"
       },
       {
         "uri": "widgets/ZoomSlider/Widget",
@@ -244,7 +247,8 @@
         },
         "version": "2.7",
         "id": "widgets_ExtentNavigate_Widget_34",
-        "name": "ExtentNavigate"
+        "name": "ExtentNavigate",
+        "config": null
       },
       {
         "uri": "widgets/FullScreen/Widget",
@@ -256,7 +260,8 @@
         },
         "version": "2.7",
         "id": "widgets_FullScreen_Widget_80",
-        "name": "FullScreen"
+        "name": "FullScreen",
+        "config": null
       }
     ],
     "panel": {
@@ -315,7 +320,7 @@
         "id": "widgets_LayerList_Widget_18",
         "name": "LayerList",
         "index": 3,
-        "config": "configs/LayerList/config_LayerList.json"
+        "config": "configs/LayerList/config_widgets_LayerList_Widget_18.json"
       },
       {
         "name": "AddData",
@@ -323,13 +328,13 @@
         "uri": "widgets/AddData/Widget",
         "index": 15,
         "id": "widgets_AddData_Widget_35",
-        "config": "configs/AddData/config_AddData.json"
+        "config": "configs/AddData/config_widgets_AddData_Widget_35.json"
       },
       {
         "name": "Select",
         "version": "2.7",
         "uri": "widgets/Select/Widget",
-        "config": "configs/Select/config_Select.json",
+        "config": "configs/Select/config_widgets_Select_Widget_65.json",
         "index": 16,
         "id": "widgets_Select_Widget_65"
       },
@@ -337,7 +342,7 @@
         "name": "Draw",
         "version": "2.7",
         "uri": "widgets/Draw/Widget",
-        "config": "configs/Draw/config_Draw.json",
+        "config": "configs/Draw/config_widgets_Draw_Widget_36.json",
         "index": 17,
         "id": "widgets_Draw_Widget_36"
       }
@@ -353,7 +358,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Add Systems.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Add Systems.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_39.json",
             "index": 8,
             "id": "widgets_Geoprocessing_Widget_39",
             "folded": true
@@ -364,7 +369,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Upload Systems from Table.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Upload Systems from Table.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_75.json",
             "index": 23,
             "id": "widgets_Geoprocessing_Widget_75"
           },
@@ -374,7 +379,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Network Analysis Grouping.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Network Analysis Grouping.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_108.json",
             "index": 19,
             "id": "widgets_Geoprocessing_Widget_108"
           }
@@ -403,7 +408,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Add Agents.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Add Agents.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_42.json",
             "index": 9,
             "id": "widgets_Geoprocessing_Widget_42",
             "folded": true
@@ -414,7 +419,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Upload Agents from Table.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Upload Agents from Table.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_76.json",
             "index": 23,
             "id": "widgets_Geoprocessing_Widget_76"
           }
@@ -442,7 +447,7 @@
             "label": "Add Media Flows",
             "version": "2.7",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Add Media Flows.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_69.json",
             "index": 18,
             "id": "widgets_Geoprocessing_Widget_69",
             "icon": "configs\\Geoprocessing\\icon_Add Media Flows.png",
@@ -454,7 +459,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Draw Radial Flows.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Draw Radial Flows.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_96.json",
             "index": 22,
             "id": "widgets_Geoprocessing_Widget_96"
           }
@@ -483,7 +488,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Factor Analysis for Mixed Data.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Factor Analysis for Mixed Data.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_97.json",
             "index": 22,
             "id": "widgets_Geoprocessing_Widget_97",
             "folded": true
@@ -494,7 +499,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Model Selection (OLS).png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Model Selection (OLS).json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_48.json",
             "index": 11,
             "id": "widgets_Geoprocessing_Widget_48"
           }
@@ -523,7 +528,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Calculate Flows CO2 Emissions.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Calculate Flows CO2 Emissions.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_101.json",
             "index": 23,
             "id": "widgets_Geoprocessing_Widget_101",
             "folded": true
@@ -534,7 +539,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Crop Production.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Crop Production.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_99.json",
             "index": 26,
             "id": "widgets_Geoprocessing_Widget_99",
             "folded": true
@@ -545,7 +550,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Habitat Quality.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Habitat Quality.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_56.json",
             "index": 22,
             "id": "widgets_Geoprocessing_Widget_56",
             "folded": true
@@ -556,7 +561,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Forest Carbon Edge Effect.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Forest Carbon Edge Effect.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_100.json",
             "index": 23,
             "id": "widgets_Geoprocessing_Widget_100",
             "folded": true
@@ -567,7 +572,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Nutrient Delivery Ratio.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Nutrient Delivery Ratio.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_107.json",
             "index": 23,
             "id": "widgets_Geoprocessing_Widget_107"
           },
@@ -577,7 +582,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Habitat Risk Assessment Preprocessor.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Habitat Risk Assessment Preprocessor.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_102.json",
             "index": 23,
             "id": "widgets_Geoprocessing_Widget_102",
             "folded": true
@@ -588,7 +593,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Habitat Risk Assessment.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Habitat Risk Assessment.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_91.json",
             "index": 23,
             "id": "widgets_Geoprocessing_Widget_91"
           }
@@ -617,7 +622,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Visitation Rate.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Visitation Rate.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_71.json",
             "index": 18,
             "id": "widgets_Geoprocessing_Widget_71",
             "folded": true
@@ -628,7 +633,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Cost-Benefit Analysis.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Cost-Benefit Analysis.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_57.json",
             "index": 17,
             "id": "widgets_Geoprocessing_Widget_57"
           },
@@ -638,7 +643,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Nutrition Metrics.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Nutrition Metrics.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_103.json",
             "index": 19,
             "id": "widgets_Geoprocessing_Widget_103"
           },
@@ -648,7 +653,7 @@
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_Population Count and Density.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_Population Count and Density.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_106.json",
             "index": 20,
             "id": "widgets_Geoprocessing_Widget_106"
           }
@@ -674,64 +679,71 @@
           {
             "name": "ISLayers",
             "uri": "widgets/ISLayers/Widget",
-            "config": "configs/ISLayers/config_Pick Imagery Layers.json",
+            "config": "configs/ISLayers/config_widgets_ISLayers_Widget_81.json",
             "index": 13,
             "id": "widgets_ISLayers_Widget_81",
             "openAtStart": false,
-            "label": "Pick Imagery Layers"
+            "label": "Pick Imagery Layers",
+            "version": ""
           },
           {
             "name": "ISRenderer",
             "uri": "widgets/ISRenderer/Widget",
-            "config": "configs/ISRenderer/config_ISRenderer.json",
+            "config": "configs/ISRenderer/config_widgets_ISRenderer_Widget_89.json",
             "index": 15,
             "id": "widgets_ISRenderer_Widget_89",
-            "folded": true
+            "folded": true,
+            "version": ""
           },
           {
             "name": "ISImageSelector",
             "label": "Temporal Selector",
             "uri": "widgets/ISImageSelector/Widget",
-            "config": "configs/ISImageSelector/config_Temporal Selector.json",
+            "config": "configs/ISImageSelector/config_widgets_ISImageSelector_Widget_87.json",
             "index": 14,
             "id": "widgets_ISImageSelector_Widget_87",
-            "folded": true
+            "folded": true,
+            "version": ""
           },
           {
             "name": "ISCompare",
             "uri": "widgets/ISCompare/Widget",
-            "config": "configs/ISCompare/config_Imagery Comparison.json",
+            "config": "configs/ISCompare/config_widgets_ISCompare_Widget_84.json",
             "index": 14,
             "id": "widgets_ISCompare_Widget_84",
             "label": "Imagery Comparison",
-            "folded": true
+            "folded": true,
+            "version": ""
           },
           {
             "name": "ISChangeDetection",
             "uri": "widgets/ISChangeDetection/Widget",
-            "config": "configs/ISChangeDetection/config_Change Detection.json",
+            "config": "configs/ISChangeDetection/config_widgets_ISChangeDetection_Widget_82.json",
             "index": 14,
             "id": "widgets_ISChangeDetection_Widget_82",
             "label": "Change Detection",
-            "folded": true
+            "folded": true,
+            "version": ""
           },
           {
             "name": "ISProfile",
             "label": "Temporal & Spectral Profile",
             "uri": "widgets/ISProfile/Widget",
-            "config": "configs/ISProfile/config_Temporal & Spectral Profile.json",
+            "config": "configs/ISProfile/config_widgets_ISProfile_Widget_86.json",
             "index": 14,
             "id": "widgets_ISProfile_Widget_86",
-            "folded": true
+            "folded": true,
+            "version": ""
           },
           {
             "name": "ISExport",
             "label": "Export to Disk",
             "uri": "widgets/ISExport/Widget",
-            "config": "configs/ISExport/config_Export to Disk.json",
+            "config": "configs/ISExport/config_widgets_ISExport_Widget_85.json",
             "index": 14,
             "id": "widgets_ISExport_Widget_85",
-            "folded": true
+            "folded": true,
+            "version": ""
           }
         ],
         "index": 14,
