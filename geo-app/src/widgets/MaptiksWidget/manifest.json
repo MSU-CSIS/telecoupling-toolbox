@@ -1,0 +1,26 @@
+{
+  "name": "MaptiksWidget",
+  "label": "Maptiks",
+  "2D": true,
+  "3D": false,
+  "platform": "HTML",
+  "version": "0.0.1",
+  "wabVersion": "2.3",
+  "author": "",
+  "description": "ESRI Web AppBuilder widget, enabling Maptiks analytics",
+  "copyright": "",
+  "license": "",
+  "properties": {
+    "inPanel": false,
+    "hasLocale": false,
+    "hasStyle": false,
+    "hasConfig": true,
+    "hasUIFile": false,
+    "hasSettingPage": true,
+    "hasSettingUIFile": true,
+    "hasSettingLocale": false,
+    "hasSettingStyle": true,
+    "IsController": false,
+    "openAtStart": true
+  }
+}
