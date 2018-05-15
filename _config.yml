@@ -28,7 +28,9 @@ navbar-links:
   Case Studies:
     - Brazil-China Soybean Trade: "https://telecoupling.msu.edu/geo-app/agri-trade"
     - Tourism at the Wolong Nature Reserve: "https://telecoupling.msu.edu/geo-app/tourism"
-  Forum: "https://join.slack.com/t/telecoupling-toolbox/shared_invite/enQtMzQ1OTQyMzM0OTc3LTQ1MjEyZGM0ZTc3ODI5N2M5N2IzOTliNjFjMTZkZTU5NDg1YTI3Nzk3NDkwNTEwOTA2YmYwMzFlNTc0NzYyNmQ"
+  Community:
+    - Forum: "https://join.slack.com/t/telecoupling-toolbox/shared_invite/enQtMzQ1OTQyMzM0OTc3LTQ1MjEyZGM0ZTc3ODI5N2M5N2IzOTliNjFjMTZkZTU5NDg1YTI3Nzk3NDkwNTEwOTA2YmYwMzFlNTc0NzYyNmQ"
+    - Events: "events"
   View on Github: "https://github.com/MSU-CSIS/telecoupling-toolbox"
   
 # Image to show in the navigation bar - image must be a square (width = height)
