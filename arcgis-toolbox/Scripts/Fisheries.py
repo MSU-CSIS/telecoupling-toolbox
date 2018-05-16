@@ -27,17 +27,14 @@ def GetArgs():
 	spawn_units = arcpy.GetParameterAsText(8)
 	alpha = arcpy.GetParameter(9)
 	beta = arcpy.GetParameter(10)
-	total_recur_recruits = arcpy.GetParameter(11)
-	migratory_yorn = arcpy.GetParameterAsText(12)
-	migration_dir = arcpy.GetParameterAsText(13)
-	valuation_yorn = arcpy.GetParameterAsText(14)
-	frac_post_process = arcpy.GetParameter(15)
-	unit_price = arcpy.GetParameter(16)
-	outputWorkspace = arcpy.GetParameterAsText(17)
+	migratory_yorn = arcpy.GetParameterAsText(11)
+	migration_dir = arcpy.GetParameterAsText(12)
+	valuation_yorn = arcpy.GetParameterAsText(13)
+	frac_post_process = arcpy.GetParameter(14)
+	unit_price = arcpy.GetParameter(15)
+	outputWorkspace = arcpy.GetParameterAsText(16)
 	
 	try:
-	
-		arcpy.AddMessage("just before dictionary is created")
 	
 		args = {
 				u'aoi_uri': aoi,
@@ -68,19 +65,10 @@ def GetArgs():
 			args[u'val_cont'] = True
 			args[u'frac_post_process'] = frac_post_process
 			args[u'unit_price'] = unit_price
-		
-		if recruit_func == "Fixed":
-			args[u'total_recur_recruits'] = total_recur_recruits
 	
 	except Exception:
 		e = sys.exc_info()[1]
 		arcpy.AddError('An error occurred: {}'.format(e.args[0]))
-	
-	arcpy.AddMessage("dictoinary was created")
-	
-	for keys,values in args.items():
-		arcpy.AddMessage(keys)
-		arcpy.AddMessage(values)
 	
 	return args, aoi, outputWorkspace
 	
@@ -118,8 +106,4 @@ if __name__ == '__main__':
 	DefineProj(aoi, outAOI)
 	
 	#Add outputs to map viewer and open tables
-	arcpy.SetParameter(18, outAOI)
-	
-	
-	
-	
+	arcpy.SetParameter(17, outAOI)
