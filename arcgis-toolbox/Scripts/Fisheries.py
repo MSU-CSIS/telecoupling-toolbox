@@ -8,12 +8,7 @@ import shutil
 import ntpath
 
 arcpy.env.overwriteOutput = True
-workspace_dir = arcpy.env.scratchFolder
-
-#List of output files
-_OUTPUT = {
-	'NEED TO FIGURE OUT HOW TO SET THIS UP': r'NEED TO WORK ON THIS'
-}
+#workspace_dir = arcpy.env.scratchFolder
 
 def GetArgs():
 	aoi = arcpy.GetParameterAsText(0)
@@ -99,11 +94,15 @@ if __name__ == '__main__':
 	shpName1 = ntpath.basename(aoi)
 	shpName2 = shpName1[:-4] + "_results_aoi_.shp"
 	
-	#Obtain the output shapefile and CSV file
+	#Obtain the output shapefile
 	outAOI = os.path.join(outputWorkspace, "output", shpName2)
+	#outCSV = os.path.join(arcpy.env.scratchFolder, "output", "results_table_.csv")
 	
 	#Run the DefineProj function to correct projection alignment issues.
 	DefineProj(aoi, outAOI)
 	
-	#Add outputs to map viewer and open tables
+	#Remove intermediate files created by InVEST script
+	shutil.rmtree(os.path.join(outputWorkspace, 'intermediate'))
+	
+	#Add outputs to map viewer
 	arcpy.SetParameter(17, outAOI)
