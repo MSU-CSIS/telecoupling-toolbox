@@ -11,9 +11,9 @@ workspace_dir = arcpy.env.scratchFolder
 
 #List of output files
 _OUTPUT = {
-    'aggregated_results': r'aggregated_results.shp',
-    'B': r'B.tif',
-    'B_sum': r'B_sum.tif',
+	'aggregated_results': r'aggregated_results.shp',
+	'B': r'B.tif',
+	'B_sum': r'B_sum.tif',
 	'CN': r'CN.tif',
 	'L': r'L.tif',
 	'L_avail': r'L_avail.tif',
@@ -64,7 +64,6 @@ def GetArgs():
 			u'user_defined_local_recharge': False,
 			u'workspace_dir': workspace_dir
 		}
-		arcpy.AddMessage("adding all of the parameters to the arguments dictionary")
 		
 	except Exception:
 		e = sys.exc_info()[1]
@@ -77,17 +76,14 @@ def defProj(coord_ref, out_rast1, out_rast2, out_rast3, out_rast4, out_rast5, ou
 	try:
 		#Get the coordinate system of the DEM
 		coordSys = arcpy.Describe(coord_ref).spatialReference
-		arcpy.AddMessage("the spatial reference for defProj is " + coordSys.name)
 		
 		#Apply the DEM's spatial reference to the output rasters
 		rasterList = [out_rast1, out_rast2, out_rast3, out_rast4, out_rast5, out_rast6, out_rast7, out_rast8, out_rast9]
 		for r in rasterList:
 			arcpy.DefineProjection_management(r, coordSys)
-			arcpy.AddMessage("raster spatial reference updated")
 			
 		#Apply the DEM's spatial reference to the output shapefile
 		arcpy.DefineProjection_management(out_shp, coordSys)
-		arcpy.AddMessage("all coordinate systems have been updated.")
 		
 	except arcpy.ExecuteError:
 		arcpy.AddError(arcpy.GetMessages(2))
@@ -101,7 +97,6 @@ if __name__ == '__main__':
 	
 	#Run the Nat Cap module
 	natcap.invest.seasonal_water_yield.seasonal_water_yield.execute(args)
-	arcpy.AddMessage("finished running the nat cap model.")
 	
 	#Assign Nat Cap model output to variables
 	agg_results_shp = os.path.join(arcpy.env.scratchFolder, _OUTPUT['aggregated_results'])
