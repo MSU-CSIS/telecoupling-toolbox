@@ -127,6 +127,3 @@ if __name__ == '__main__':
 	arcpy.SetParameter(19, qf_rast)
 	arcpy.SetParameter(20, vri_rast)
 	arcpy.SetParameter(21, agg_results_shp)
-	
-	
-	
