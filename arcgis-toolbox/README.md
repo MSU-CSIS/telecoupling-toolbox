@@ -1,8 +1,16 @@
-Telecoupling Toolbox: ArcGIS Toolbox v1.5b
+Telecoupling Toolbox: ArcGIS Toolbox v1.7b
 ========================
 
 ## Major Releases
 ------------------
+* Version 1.7 (_beta_)
+
+This release adds a new tool within the Environmental Analysis toolset, called *Seasonal Water Yield*, customized from InVEST (3.3.3). This tool can be used to estimate the contribution of a pixel in a watershed to baseflow, quickflow, and local recharge.
+
+* Version 1.6 (_beta_)
+
+This release adds a new tool within the Environmental Analysis toolset, called *Fisheries Harvest*, customized from InVEST (3.3.3). This tool can be used to quantify catch volume and economic value.
+
 * Version 1.5 (_beta_)
 
 This release adds a new tool within the Systems toolset, called Network Analysis Grouping, written in R and connected to ArcGIS using the R-Bridge from ESRI. This tool uses network information (i.e. nodes, links, and directions) of units (e.g. countries, areas, administrative units) within a telecoupling system and aggregates them into groups (clusters) based on their network connectivity.
@@ -130,7 +138,7 @@ Follow these steps to add the Toolbox to your ArcMap document:
 
 1. Open ArcMap
 2. Right-click on the ArcToolbox folder and select "Add Toolbox"
-3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v1.3b.tbx`
+3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v1.7b.tbx`
 
 Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__environmental analysis__*, *__socioeconomic analysis__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. 
 
@@ -141,7 +149,7 @@ To learn more about what each tool script does and what parameters it takes, ple
 ![Figure 6](Figs/ex6.png)
 ![Figure 7](Figs/ex7.png)
 
-That's it! The Telecoupling Toolbox is now added to the ArcToolbox list and you can start using it with the set of [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.3b.zip)
+That's it! The Telecoupling Toolbox is now added to the ArcToolbox list and you can start using it with the set of [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.7b.zip)
 After unzipping the sample data folder, you will see a mix of GIS (vector, raster) data and tables (.csv) needed as input parameters by the script tools.
 
 ## Credits and Contacts
