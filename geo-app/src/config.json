@@ -35,6 +35,10 @@
       "url": "https://msu-csis.github.io/telecoupling-toolbox/"
     },
     {
+      "label": "Contact Us",
+      "url": "mailto:ftonini@msu.edu"
+    },
+    {
       "label": "Sample Data",
       "url": "https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_GeoApp.zip"
     },
