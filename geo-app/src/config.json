@@ -336,7 +336,7 @@
         "name": "AddData",
         "version": "2.7",
         "uri": "widgets/AddData/Widget",
-        "index": 15,
+        "index": 11,
         "id": "widgets_AddData_Widget_35",
         "config": "configs/AddData/config_widgets_AddData_Widget_35.json"
       },
@@ -345,7 +345,7 @@
         "version": "2.7",
         "uri": "widgets/Select/Widget",
         "config": "configs/Select/config_widgets_Select_Widget_65.json",
-        "index": 16,
+        "index": 12,
         "id": "widgets_Select_Widget_65"
       },
       {
@@ -353,7 +353,7 @@
         "version": "2.7",
         "uri": "widgets/Draw/Widget",
         "config": "configs/Draw/config_widgets_Draw_Widget_36.json",
-        "index": 17,
+        "index": 21,
         "id": "widgets_Draw_Widget_36"
       }
     ],
@@ -545,14 +545,13 @@
           },
           {
             "name": "Geoprocessing",
-            "label": "Crop Production",
+            "label": "Seasonal Water Yield",
             "version": "2.7",
-            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_99.png",
+            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_113.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_99.json",
-            "index": 26,
-            "id": "widgets_Geoprocessing_Widget_99",
-            "folded": true
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_113.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_113"
           },
           {
             "name": "Geoprocessing",
@@ -649,6 +648,17 @@
           },
           {
             "name": "Geoprocessing",
+            "label": "Crop Production",
+            "version": "2.7",
+            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_99.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_99.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_99",
+            "folded": true
+          },
+          {
+            "name": "Geoprocessing",
             "label": "Population Count and Density",
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_106.png",
@@ -656,9 +666,19 @@
             "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_106.json",
             "index": 20,
             "id": "widgets_Geoprocessing_Widget_106"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Fisheries Harvest",
+            "version": "2.7",
+            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_114.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_114.json",
+            "index": 15,
+            "id": "widgets_Geoprocessing_Widget_114"
           }
         ],
-        "index": 13,
+        "index": 9,
         "id": "_72",
         "visible": true,
         "panel": {
@@ -746,7 +766,7 @@
             "version": ""
           }
         ],
-        "index": 14,
+        "index": 10,
         "id": "_88",
         "visible": true,
         "panel": {

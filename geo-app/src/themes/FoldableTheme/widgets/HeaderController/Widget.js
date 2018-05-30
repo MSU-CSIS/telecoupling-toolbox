@@ -530,7 +530,7 @@ define([
 		  }
         }, this);
       },
-	  
+
       _showSwitchableElements: function(showElement) {
         var es = this.switchableElements;
 
