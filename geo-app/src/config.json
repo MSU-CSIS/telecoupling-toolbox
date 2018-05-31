@@ -264,18 +264,6 @@
         "version": "2.7",
         "id": "widgets_FullScreen_Widget_80",
         "name": "FullScreen"
-      },
-      {
-        "uri": "widgets/MaptiksWidget/Widget",
-        "id": "widgets_MaptiksWidget_Widget_109",
-        "IsController": false,
-        "openAtStart": true,
-        "name": "MaptiksWidget",
-        "version": "0.0.1",
-        "config": "configs/MaptiksWidget/config_widgets_MaptiksWidget_Widget_109.json",
-        "position": {
-          "relativeTo": "map"
-        }
       }
     ],
     "panel": {
