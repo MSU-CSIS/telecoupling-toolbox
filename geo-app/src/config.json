@@ -975,6 +975,9 @@
 	},{
 		"urlPrefix": "https://elevation.arcgis.com",
 		"proxyUrl": "http://telecoupling.msu.edu/DotNet/proxy.ashx"
+	},{
+		"urlPrefix": "https://sentinel.arcgis.com",
+		"proxyUrl": "http://telecoupling.msu.edu/DotNet/proxy.ashx"
 	}
 	]
   },
