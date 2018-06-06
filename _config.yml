@@ -1,4 +1,6 @@
 # --- General options --- #
+source: app
+destination: web
 
 # url is the full website URL
 # baseurl is the website's URL without the hostname
