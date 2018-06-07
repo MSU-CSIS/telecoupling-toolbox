@@ -34,7 +34,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, rasterList):
 
 	#Create intermediate folder where output will be temporarily saved
 	arcpy.CreateFolder_management(arcpy.env.scratchFolder, "intOutput")
-	arcpy.AddMessage("scratch folder was created")
+	#arcpy.AddMessage("scratch folder was created")
 	os.chdir(os.path.join(arcpy.env.scratchFolder, "intOutput"))
 	arcpy.AddMessage("Calculating nutrition metrics... ")
 	
@@ -54,7 +54,6 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, rasterList):
 	#Get a list of the clipped rasters
 	arcpy.env.workspace = os.path.join(arcpy.env.scratchFolder, "intOutput")
 	clippedRasterList = arcpy.ListRasters()
-	arcpy.AddMessage(clippedRasterList)
 	
 	#Calculate nutrition metrics
 	LLER = 0    #This will keep the tally of 'Lower Limit of Energy Requirement' in kcal/day for the study area (AOI).
@@ -62,6 +61,7 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, rasterList):
 	groupList = []
 	maleStatureInt = float(maleStature)
 	femaleStatureInt = float(femaleStature)
+	#arcpy.AddMessage(clippedRasterList)
 	for r in clippedRasterList:
 		
 		#The appropriate equation is added to each age group and a running tally of LLER is kept.
@@ -470,8 +470,11 @@ def nutritionMetrics(AOI, year, maleStature, femaleStature, rasterList):
 			row[2] = LLER
 			cursor.updateRow(row)
 	
-	#Output the final shapefile to disk
+	#Output the final shapefile
 	result = arcpy.CopyFeatures_management(copyAOIDis, os.path.join(arcpy.env.scratchFolder, "intOutput", "finalOutput"))
+	
+	#Create a csv file with information from the attribute table
+	table = arcpy.TableToTable_conversion(result, arcpy.env.scratchFolder, "outputTable.dbf")
 
 	
 if __name__ == '__main__':
@@ -506,7 +509,6 @@ if __name__ == '__main__':
 	#obtain a list of rasters for the chosen continent
 	arcpy.env.workspace = rasterFolder
 	rasterList = arcpy.ListRasters()
-	arcpy.AddMessage(rasterList)
 	
 	
 	#Run the nutrition function
@@ -518,8 +520,10 @@ if __name__ == '__main__':
 		arcpy.AddError('An error occurred: {}'.format(e.args[0]))
 	result = os.path.join(arcpy.env.scratchFolder, "intOutput", "finalOutput.shp")
 	copyresult = arcpy.CopyFeatures_management(result, os.path.join(arcpy.env.scratchFolder, "finalOutput"))
+	table = os.path.join(arcpy.env.scratchFolder, "outputTable.dbf")
 	#Remove the scratch folder and add output to map.
 	os.chdir(arcpy.env.scratchFolder)
 	shutil.rmtree(os.path.join(arcpy.env.scratchFolder, 'intOutput'))
 	arcpy.SetParameter(5, copyresult)
+	arcpy.SetParameter(6, table)
 	#I'll need to add some code here to also output a csv (dbf) file
