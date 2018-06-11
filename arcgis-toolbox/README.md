@@ -1,4 +1,4 @@
-Telecoupling Toolbox: ArcGIS Toolbox v1.7.1b
+Telecoupling Toolbox: ArcGIS Toolbox v1.7.2b
 ========================
 
 ## Major Releases
@@ -54,6 +54,10 @@ The toolbox is still in _alpha_ development stage and is being tested for bugs a
 
 ## Minor Releases
 ------------------
+* Version 1.7.2 (_beta_)
+
+This release removed the dependence on mosaic data sets from the *Nutrition Metrics* tool. This tool now relies on rasters grouped in a common folder rather than construction of a mosaic data set.
+
 * Version 1.7.1 (_beta_)
 
 This release re-organizes the *Crop Production* and the *Fisheries Harvest* InVEST __3.3.3__ tools into the Socioeconomic Analysis toolset.
@@ -142,7 +146,7 @@ Follow these steps to add the Toolbox to your ArcMap document:
 
 1. Open ArcMap
 2. Right-click on the ArcToolbox folder and select "Add Toolbox"
-3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v1.7.1b.tbx`
+3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v1.7.2b.tbx`
 
 Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__environmental analysis__*, *__socioeconomic analysis__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. 
 
@@ -153,7 +157,7 @@ To learn more about what each tool script does and what parameters it takes, ple
 ![Figure 6](Figs/ex6.png)
 ![Figure 7](Figs/ex7.png)
 
-That's it! The Telecoupling Toolbox is now added to the ArcToolbox list and you can start using it with the set of [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.7.1b.zip)
+That's it! The Telecoupling Toolbox is now added to the ArcToolbox list and you can start using it with the set of [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.7.2b.zip)
 After unzipping the sample data folder, you will see a mix of GIS (vector, raster) data and tables (.csv) needed as input parameters by the script tools.
 
 ## Credits and Contacts
