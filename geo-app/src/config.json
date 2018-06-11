@@ -651,6 +651,16 @@
           },
           {
             "name": "Geoprocessing",
+            "label": "Nutrition Metrics",
+            "version": "2.7",
+            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_103.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_103.json",
+            "index": 19,
+            "id": "widgets_Geoprocessing_Widget_103"
+          },
+          {
+            "name": "Geoprocessing",
             "label": "Population Count and Density",
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_106.png",
