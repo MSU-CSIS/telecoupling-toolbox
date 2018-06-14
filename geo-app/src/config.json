@@ -621,12 +621,11 @@
             "name": "Geoprocessing",
             "label": "Visitation Rate",
             "version": "2.7",
-            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_71.png",
+            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_116.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_71.json",
-            "index": 18,
-            "id": "widgets_Geoprocessing_Widget_71",
-            "folded": true
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_116.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_116"
           },
           {
             "name": "Geoprocessing",
