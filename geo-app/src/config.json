@@ -592,11 +592,11 @@
             "name": "Geoprocessing",
             "label": "Habitat Risk Assessment",
             "version": "2.7",
-            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_91.png",
+            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_118.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_91.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_118.json",
             "index": 23,
-            "id": "widgets_Geoprocessing_Widget_91"
+            "id": "widgets_Geoprocessing_Widget_118"
           }
         ],
         "index": 8,
