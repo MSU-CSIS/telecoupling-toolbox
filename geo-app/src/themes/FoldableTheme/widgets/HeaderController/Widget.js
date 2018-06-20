@@ -447,6 +447,16 @@ define([
 				  lineHeight: this.height + 'px'
 				}
 			  }, this.dynamicLinksNode);			  	  
+		  }else if (link.label.toUpperCase() === 'USER GUIDE') {
+			  html.create('a', {
+				href: link.url,
+				rel: 'noopener noreferrer',
+				innerHTML: utils.sanitizeHTML(link.label),
+				'class': "jimu-link jimu-align-leading jimu-leading-margin1",
+				style: {
+				  lineHeight: this.height + 'px'
+				}
+			  }, this.dynamicLinksNode);			  
 		  }else if (link.label.toUpperCase() === 'CASE STUDIES'){
               var myLink = html.create('span', {
                 innerHTML: utils.sanitizeHTML(link.label),

@@ -43,12 +43,16 @@
       "url": "https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_GeoApp.zip"
     },
     {
+	  "label": "User Guide",
+      "url": "https://s3.amazonaws.com/telecoupling-toolbox-sample-data/Telecoupling+GeoApp+User+Guide.pdf"
+	},
+    {
 	  "label": "Case Studies",
       "url": [
 		"https://telecoupling.msu.edu/geo-app/agri-trade",
 		"https://telecoupling.msu.edu/geo-app/tourism" 
 		]
-	},	 
+	}, 	
    	{
 	  "label": "Start Tutorial",
 	  "url": "javascript:Appcues.show('-Kv3nDbFglJEc5-QfGAa')"
