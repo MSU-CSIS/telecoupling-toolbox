@@ -1,0 +1,158 @@
+---
+layout: page
+title: ArcGIS Toolbox
+subtitle: A large collection of mapping and analysis tools for use within ESRI’s ArcGIS Desktop
+---
+
+<div class="container" role=<"main">
+    <div class="row">
+        <div class="col-lg-12">
+            <img src="/img/ArcGIS_Toolbox_icon_pageLogo.png" class="center-block" alt="">
+        </div>
+    </div>
+</div>
+
+<div class="container" role="main">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <h2>ArcGIS Toolbox Versions</h2>
+            <ul>
+               <li><a href="/releases-arcgis-toolbox" alt="">Major and Minor Releases</a></li>
+            </ul>
+            <h2>User Guide</h2>
+            <p>
+                <div>
+                    <a href="https://s3.amazonaws.com/telecoupling-toolbox-sample-data/Telecoupling+Toolbox+User+Guide_v1.7.2b.pdf"><img src="/img/user_guide_icon.png"></a>
+                </div>
+                <p>
+                    <a href="https://s3.amazonaws.com/telecoupling-toolbox-sample-data/Telecoupling+Toolbox+User+Guide_v1.7.2b.pdf">Download</a> our user guide (.pdf) to read more about the ArcGIS Toolbox, its tools, and a set of tutorials.
+                </p>
+            </p>
+            <h2>Sample Data</h2>
+            <p>
+                <div>
+                    <a href="https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.7.2b.zip" alt=""><img src="/img/beige-folder-downloads_arcgis.png"></a>
+                </div>
+                <a href="https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v1.7.2b.zip">Download</a> and unzip our sample data folder if you would like to follow along the tutorials found inside the user guide. This data repository contains all the tables and spatial data necessary to run the set of telecoupling mapping and analysis tools we developed. 
+                For further information on any of the dataset provided, please feel free to <a href="mailto:ftonini@msu.edu">contact us</a>.
+            </p>
+            <h2>Prerequisites</h2>
+            <p>
+                To install the Telecoupling Toolbox for ArcGIS, make sure to follow all the steps specified below.
+                <ul>
+                    <li><a href="https://www.r-project.org/" alt="">R (3.2.0 or later)</a></li>
+                    <li>ArcGIS (10.3.1 or later)</li>
+                    <li>Python 2.7.x <strong>(ArcGIS comes with Python, so no need to install a standalone version of Python!)</strong></li>
+                </ul>
+                <strong><em>NOTE: versions of ArcGIS prior to 10.3.1 may still work with some of our tools but have NOT been tested. ArcGIS Pro has also NOT been tested yet! Python 2.7.x ships together with ArcGIS and is automatically installed with it. If possible, avoid installing multiple versions of Python on your system as it may create conflicts and errors. If you are using Anaconda, you may need additional settings to make sure you can run the tools smoothly. For more info, check <a href="https://pymorton.wordpress.com/2014/06/17/using-arcpy-with-anaconda/" alt="">this website</a></em></strong>.
+            </p>
+            <h2>Install Python libraries for 3rd party external software</h2>
+            <p>
+                The Telecoupling Toolbox for ArcGIS relies on a number of python libraries that are required to run tools that use external software (e.g. NatCap InVEST). If you skip this step, tools using any external software will NOT work. 
+                <ol>
+                    <li>Although your computer may already have a C++ compiler installed, follow this step and <strong>Download</strong> and <strong>the <a href="https://www.microsoft.com/en-us/download/details.aspx?id=44266" alt="">Microsoft Visual C++ Compiler for Python 2.7</a></strong></li>
+                    <li>Follow the instructions below depending on the version of ArcGIS installed on your system:</li>
+                    <ul>
+                        <li><strong>ArcGIS 10.3.1 (standard 32-bit version)</strong>:</li>
+                        <ul>
+                            <li><a href="https://bootstrap.pypa.io/get-pip.py" alt="">Download</a> <code>get-pip.py</code> and save it on a local folder</li>
+                            <li>Open the CMD prompt on Windows and type: <code>C:\Python27\ArcGIS10.3\python.exe</code> followed by the <strong>full path</strong> to <code>get-pip.py</code> 
+                                (<strong>for example if you downloaded and saved the file on your <code>D:\</code> drive, the full path would be <code>D:\get-pip.py</code></strong>)</li>
+                            <li>Hit <em>Enter</em> to run the command above</li>
+                            <li>Make sure <code>pip</code> is installed and upgraded to latest version by running the command <code>C:\Python27\ArcGIS10.3\python.exe -m pip install -U pip</code></li>
+                            <li><a href="https://s3.amazonaws.com/telecoupling-toolbox-sample-data/PyLibs.zip" alt="">Download</a> and unzip the <em>PyLibs</em> folder</li>
+                            <li>Inside the folder, double-click on the <code>ArcGIS103_Py32_libs.bat</code> file</li>
+                            <li>If you get errors that prevent installation of any of the required packages, please <a href="mailto:ftonini@msu.edu">contact us</a> with detailed information</li>
+                        </ul>
+                        <li><strong>ArcGIS 10.4.x (standard 32-bit version)</strong>:</li>
+                        <ul>
+                            <li>Open the CMD prompt on Windows and make sure the Python package manager <code>pip</code> is installed and upgraded to latest version by running the command <code>C:\Python27\ArcGIS10.4\python.exe -m pip install -U pip</code></li>
+                            <li><a href="https://s3.amazonaws.com/telecoupling-toolbox-sample-data/PyLibs.zip" alt="">Download</a> and unzip the <em>PyLibs</em> folder</li>
+                            <li>Inside the folder, double-click on the <code>ArcGIS104_Py32_libs.bat</code> file</li>
+                            <li>If you get errors that prevent installation of any of the required packages, please <a href="mailto:ftonini@msu.edu">contact us</a> with detailed information</li>
+                        </ul>
+                        <li><strong>ArcGIS 10.5.x (standard 32-bit version)</strong>:</li>
+                        <ul>
+                            <li>Open the CMD prompt on Windows and make sure the Python package manager <code>pip</code> is installed and upgraded to latest version by running the command <code>C:\Python27\ArcGIS10.5\python.exe -m pip install -U pip</code></li>
+                            <li><a href="https://s3.amazonaws.com/telecoupling-toolbox-sample-data/PyLibs.zip" alt="">Download</a> and unzip the <em>PyLibs</em> folder</li>
+                            <li>Inside the folder, double-click on the <code>ArcGIS105_Py32_libs.bat</code> file</li>
+                            <li>If you get errors that prevent installation of any of the required packages, please <a href="mailto:ftonini@msu.edu">contact us</a> with detailed information</li>
+                        </ul>
+                    </ul>
+                </ol>
+            </p>
+            <h2>Install the R-ArcGIS Bridge</h2> 
+            <h4>(<em>this step does NOT depend on the previous section and can be completed separately!</em>)</h4>
+            <p>
+                In order to allow interaction between ArcGIS and the R software, you will need to follow the next few steps:
+                <ul>
+                    <li><a href="https://s3.amazonaws.com/telecoupling-toolbox-sample-data/r-bridge-install-master.zip" alt="">Download</a> and unzip the <em>r-bridge-install-master</em> folder</li>
+                    <li>Open ArcMap (<strong>NOTE: make sure you have admin rights on your computer or the next steps will not work!</strong>)</li>
+                    <li>
+                        Find and open the Geoprocessing ArcToolbox window (Menu > Geoprocessing > ArcToolbox) 
+                        <div>
+                            <img src="/img/ex1.png">
+                        </div>
+                    </li>
+                    <li>
+                        Right-click the ArcToolbox folder and select "Add Toolbox..."
+                        <div>
+                            <img src="/img/ex2.png">
+                        </div>
+                    </li>
+                    <li>
+                        Browse to the <em>r-bridge-install-master</em> folder and select the <code>R Integration.pyt</code> toolbox
+                        <div>
+                            <img src="/img/ex3.png">
+                        </div>
+                    </li>
+                    <li>
+                        After the toolbox has been added to the ArcToolbox list, click on it to open it and double-click on the <code>Install R Bindings</code> tool to open its interface. Click on OK to run it. 
+                        <div>
+                            <img src="/img/ex4.png">
+                        </div>
+                    </li>
+                </ul>
+                If you need more details and information, ESRI has developed a nice <a href="https://github.com/R-ArcGIS/r-bridge-install" alt="">Github webpage</a> with lots of useful documentation on how to install a set of libraries to make sure R and ArcGIS can talk to each other.
+            </p>
+            <h2>Add the Telecoupling Toolbox to ArcGIS</h2>
+            <p>
+                You are almost done! Now that you installed all Python 3rd party libraries and the R-ArcGIS Bridge, you are ready to use and test the <strong>Telecoupling Toolbox for ArcGIS</strong>. 
+            </p>
+            <p>
+                Follow these steps to add the Toolbox to your ArcMap document: 
+                <ol>
+                    <li>
+                        <a href="https://s3.amazonaws.com/telecoupling-toolbox-sample-data/Telecoupling+Toolbox+v1.7.2b.zip" alt="">Download</a> and unzip the `Telecoupling Toolbox v1.7.2b` folder. 
+                        <br>
+                        <strong>NOTE: if you are using ArcGIS 10.3.1, instead <a href="https://s3.amazonaws.com/telecoupling-toolbox-sample-data/ArcGIS103_Telecoupling+Toolbox+v1.7.2b.zip" alt="">download</a> and unzip the <em>Telecoupling Toolbox v1.7.2b</em> folder for ArcGIS103</strong>
+                    </li>
+                    <li>Open ArcMap</li>
+                    <li>Right-click on the ArcToolbox folder and select "Add Toolbox"</li>
+                    <li>Browse to the unzipped ArcGIS Toolbox folder and select <code>Telecoupling Toolbox v1.7.2b.tbx</code></li>
+                </ol> 
+            </p>
+            <p>
+                Inside the Telecoupling Toolbox you should see 5 toolsets (<em><strong>agents</strong></em>, <em><strong>causes</strong></em>, <em><strong>environmental analysis</strong></em>, <em><strong>socioeconomic analysis</strong></em>, <em><strong>flows</strong></em>, <em><strong>systems</strong></em>) and a number of python tool scripts inside each one of them. 
+                <div>
+                    <img src="/img/ex5.png">
+                </div>
+            </p>
+            <p>
+                To learn more about what each tool script does and what parameters it takes, please refer to the User Guide. 
+                Alternatively, each tool will have a help window associated with it explaining what each parameter is and a general description of the tool. To open the help window, click on the 'show help' button found at the bottom of each tool script after opening it (double-click on the tool script to open the user interface).
+                <div>
+                    <img src="/img/ex6.png">
+                </div>
+                <p>
+                    <div>
+                        <img src="/img/ex7.png">
+                    </div>
+                </p>
+            </p>
+            <p>
+                That's it! The Telecoupling Toolbox is now added to the ArcToolbox list and you can start using it with the set of sample data.
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+---
+layout: page
+title: ArcGIS Toolbox
+subtitle: Major and Minor Releases
+---
+
+<div class="container" role=<"main">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <h2>Major Releases</h2>
+            <p>
+                <ul>
+                    <li>Version 1.7 (<em>beta</em>)</li>
+                    <p>This release adds a new tool within the Environmental Analysis toolset, called <em>Seasonal Water Yield</em>, customized from InVEST (3.3.3). This tool can be used to estimate the contribution of a pixel in a watershed to baseflow, quickflow, and local recharge.</p>
+                    <li>Version 1.6 (<em>beta</em>)</li>
+                    <p>This release adds a new tool within the Environmental Analysis toolset, called <em>Fisheries Harvest</em>, customized from InVEST (3.3.3). This tool can be used to quantify catch volume and economic value.</p>
+                    <li>Version 1.5 (<em>beta</em>)</li>
+                    <p>This release adds a new tool within the Systems toolset, called <em>Network Analysis Grouping</em>, written in R and connected to ArcGIS using the R-Bridge from ESRI. This tool uses network information (i.e. nodes, links, and directions) of units (e.g. countries, areas, administrative units) within a telecoupling system and aggregates them into groups (clusters) based on their network connectivity.</p>
+                    <li>Version 1.4 (<em>beta</em>)</li>
+                    <p>This release adds a new tool within the Environmental Analysis toolset, called <em>NDR (Nutrient Delivery Ratio)</em>, customized from InVEST (3.3.3). This tools can be used to map nutrient sources from watersheds and their transport to the stream.</p>
+                    <li>Version 1.3 (<em>beta</em>)</li>
+                    <p>This release adds a new tool within the Socieconomic Analysis toolset, called <em>Nutrition Metrics</em>, a custom tool that estimates the population within an Area of Interest (AOI) by age groups and then calculates the Lower Limit of Energy Requirement (LLER; in kilocalories / day) for age groups within the AOI. <em>NOTE: This tool will only run with Areas of Interest in Africa, Asia, or South America / Central America / Caribbean.</em></p>
+                    <li>Version 1.2 (<em>beta</em>)</li>
+                    <p>This release adds a new tool within the Socieconomic Analysis toolset, called <em>Population Count and Density</em>, a modified version of the Population Density Metrics tool from the Analytical Tools Interface for Landscape Assessments (ATtILA) by the United States Environmental Protection Agency (EPA).</p>
+                    <li>Version 1.1 (<em>beta</em>)</li>
+                    <p>This release adds two new tools, the <em>Habitat Risk Assessment Preprocessor</em> and the <em>Habitat Risk Assessment</em>, both customized from InVEST (3.3.3). Sample data is now shipped separately from the main code repository to reduce its size. The main toolbox file (.tbx) has been updated to reflect the change in version and development stage as well as naming convention (Telecoupling <em>Toolbox</em> instead of <em>Tools</em>). The old ‘Effect’ toolset has now been partitioned into two new toolsets: Environmental Analysis and Socioeconomic Analysis. </p>
+                    <li>Version 1.0 (<em>beta</em>)</li>
+                    <p>This version moves the development stage from <em>alpha</em> to <em>beta</em> after several months of testing. Some tools might still return errors or have bugs in it, but testing was successful on several different machines and settings. This version updates the InVEST tools to version <strong>3.3.3</strong> and its dependencies such as the PyGeoprocessing library (<em>updated to version 0.3.2</em>). All .bat files inside the PyLibs folder have been updated to reflect this change. The main toolbox file (.tbx) has been updated to reflect the change in version and development stage.</p>
+                    <li>Version 1.2 (<em>alpha</em>)</li>
+                    <p>
+                        This release eliminates the redundant presence of the “Draw Radial Flows and Nodes” tool (Flows toolset) while incorporating its old functionality into the existing “Draw Radial Flows” tool. 
+                        The latter can now optionally draw and additional layer on top of the default flow lines, showing nodes at each flow destination, which can then be symbolized according to an attribute (quantity) of interest. 
+                        The toolbox is still in <em>alpha</em> development stage and is being tested for bugs and errors that need to be addressed before releasing a more stable <em>beta</em> version.
+                    </p>
+                    <li>Version 1.1 (<em>alpha</em>)</li>
+                    <p>
+                        This release includes an upgrade in the CO2 emission script tool accounting for number of wildlife units transferred and transportation capacity of the medium used. 
+                        The tool now allows testing of future CO2 emission scenarios for wildlife transfer compared to current conditions.
+                        The toolbox is still in <em>alpha</em> development stage and is being tested for bugs and errors that need to be addressed before releasing a more stable <em>beta</em> version.
+                    </p>
+                    <li>Version 1.0 (<em>alpha</em>)</li>
+                    <p>This is the first version officially released for the Telecoupling Toolbox for ArcGIS. The toolbox is still in <em>alpha</em> development stage and is being tested for bugs and errors that need to be addressed before releasing a more stable <em>beta</em> version.</p>
+                </ul>
+            </p>
+            <h2>Minor Releases</h2>
+            <p>
+                <ul>
+                    <li>Version 1.7.2 (<em>beta</em>)</li>
+                    <p>This release removed the dependence on mosaic data sets from the <em>Nutrition Metrics</em> tool. This tool now relies on rasters grouped in a common folder rather than construction of a mosaic data set.</p>
+                    <li>Version 1.7.1 (<em>beta</em>)</li>
+                    <p>This release re-organizes the <em>Crop Production</em> and the <em>Fisheries Harvest</em> InVEST <strong>3.3.3</strong> tools into the Socioeconomic Analysis toolset.</p>
+                    <li>Version 1.2.1 (<em>alpha</em>)</li>
+                    <p>Fixed bug in the Habitat Quality tool (Effects toolset) potentially producing negative values for habitat quality and degradation output rasters.</p>
+                    <li>Version 1.1.1 (<em>alpha</em>)</li>
+                    <p>Added output layer name fields in the Cost-Benefit Analysis (Wildlife Transfer) and Draw Radial Flows tools.</p>
+                    <li>Version 1.0.1 (<em>alpha</em>)</li>
+                    <p>Fixed bug in the script tools linked to InVEST (3.3.1) that caused any output vector and raster files to incorrectly align with the input layers. The issue seems to be caused by the way ArcGIS interprets the spatial reference (projection string) of output files saved by the InVEST software. A workaround has been implemented, automatically re-defining the projection of the output layers before showing in the table of content in ArcGIS.</p>
+                </ul>
+            </p>
+        </div>  
+    </div>
+</div>
