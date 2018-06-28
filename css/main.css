@@ -95,6 +95,16 @@ img {
   max-width: 100%;
 }
 
+.thumbnail {
+  position: relative;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.thumbnail img {
+  width: 100%;
+}
+
 .disqus-comments {
   margin-top: 30px;
 }
@@ -580,9 +590,10 @@ footer .theme-by {
 
 .caption {
   text-align: center;
-  font-size: 14px;
-  padding: 10px;
-  font-style: italic;
+  color: #008AFF !important;
+  font-size: 25px;
+  /*padding: 10px;*/
+  /*font-style: italic;*/
   margin: 0;
   display: block;
   border-bottom-right-radius: 5px;
