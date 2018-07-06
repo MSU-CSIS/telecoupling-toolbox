@@ -103,7 +103,7 @@ url-pretty: "TelecouplingToolbox.org"  # eg. "deanattali.com/beautiful-jekyll"
 #disqus: ""
 
 # Fill in your Google Analytics ID to track your website using GA
-#google_analytics: ""
+google_analytics: "UA-105699884-1"
 
 # Character used to separate site title and description in HTML document title
 # and RSS feed title
