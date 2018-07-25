@@ -34,6 +34,7 @@ tool_exec <- function(in_params, out_params)
   #### Set output parameters ####
   out_pdf <- out_params[[1]]
   out_fc <- out_params[[2]]
+  out_csv <- out_params[[3]]
   
   # To control thinkness/distances between nodes 
   edge.weights <- function(community, network, weight.within = weight_within, weight.between = weight_between) 
@@ -113,21 +114,32 @@ tool_exec <- function(in_params, out_params)
   message("Creating Output Shapefile...")
   SPDF = SpatialPolygonsDataFrame(tc_systems_spdf, data=tc_systems_df_join)
   shape_info <- list(type="Polygon", WKT=arc.shapeinfo(arc.shape(tc_systems_df))$WKT)
-  
+
+  message("Creating Output CSV file...")
+  deg_stat = degree(network_graph)
+  clo_stat = closeness(network_graph,normalized = TRUE)
+  betw_stat = betweenness(network_graph)
+  cen_stat = eigen_centrality(network_graph)$vector
+  inte_csv = data.frame(degree = deg_stat,closeness = clo_stat,betweenness = betw_stat,centrality = cen_stat)
+  print("Network Analysis Report:", quote = FALSE)
+  print(inte_csv)
+
   message("Creating Plots for Clusters...")
   result = tryCatch({
     pdf(out_pdf)
     
     suppressWarnings(plot(x=MyClusters.community, y=network_graph, layout=test.Layout.drl, 
-         mark.groups=NULL, edge.color = c("tomato2", "darkgrey")[crossing(MyClusters.community, network_graph)+1],
-         edge.arrow.size=0, rescale=F, xlim=c(xmin,xmax),ylim=c(ymin,ymax), asp=0, col = MyClusters.col))
+                          mark.groups=NULL, edge.color = c("tomato2", "darkgrey")[crossing(MyClusters.community, network_graph)+1],
+                          edge.arrow.size=0, rescale=F, xlim=c(xmin,xmax),ylim=c(ymin,ymax), asp=0, col = MyClusters.col))
     
-    arc.write(path=out_fc, data=SPDF, shape_info=shape_info)
+    #arc.write(path=out_fc, data=SPDF, shape_info=shape_info)
     
   }, finally = {
     dev.off()
   }
   )
+  arc.write(path=out_fc, data=SPDF, shape_info=shape_info)
+  write.csv(inte_csv,file = out_csv)
   return(out_params)
 }
 

@@ -1,4 +1,4 @@
-Telecoupling Toolbox: ArcGIS Toolbox v1.7.2b
+Telecoupling Toolbox: ArcGIS Toolbox v1.7.3b
 ========================
 
 ## Major Releases
@@ -54,6 +54,10 @@ The toolbox is still in _alpha_ development stage and is being tested for bugs a
 
 ## Minor Releases
 ------------------
+* Version 1.7.3 (_beta_)
+
+This release adds network analysis metrics (within an output .csv file) to the *Network Analysis Grouping* tool.
+
 * Version 1.7.2 (_beta_)
 
 This release removed the dependence on mosaic data sets from the *Nutrition Metrics* tool. This tool now relies on rasters grouped in a common folder rather than construction of a mosaic data set.
