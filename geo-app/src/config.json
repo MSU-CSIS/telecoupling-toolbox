@@ -332,7 +332,7 @@
         "name": "AddData",
         "version": "2.7",
         "uri": "widgets/AddData/Widget",
-        "index": 11,
+        "index": 15,
         "id": "widgets_AddData_Widget_35",
         "config": "configs/AddData/config_widgets_AddData_Widget_35.json"
       },
@@ -341,7 +341,7 @@
         "version": "2.7",
         "uri": "widgets/Select/Widget",
         "config": "configs/Select/config_widgets_Select_Widget_65.json",
-        "index": 12,
+        "index": 16,
         "id": "widgets_Select_Widget_65"
       },
       {
@@ -349,7 +349,7 @@
         "version": "2.7",
         "uri": "widgets/Draw/Widget",
         "config": "configs/Draw/config_widgets_Draw_Widget_36.json",
-        "index": 21,
+        "index": 17,
         "id": "widgets_Draw_Widget_36"
       }
     ],
@@ -383,11 +383,11 @@
             "name": "Geoprocessing",
             "label": "Network Analysis Grouping",
             "version": "2.7",
-            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_115.png",
+            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_119.png",
             "uri": "widgets/Geoprocessing/Widget",
-            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_115.json",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_119.json",
             "index": 18,
-            "id": "widgets_Geoprocessing_Widget_115"
+            "id": "widgets_Geoprocessing_Widget_119"
           }
         ],
         "index": 4,
@@ -431,7 +431,7 @@
             "id": "widgets_Geoprocessing_Widget_76"
           }
         ],
-        "index": 5,
+        "index": 9,
         "id": "_43",
         "visible": true,
         "panel": {
@@ -471,7 +471,7 @@
             "id": "widgets_Geoprocessing_Widget_96"
           }
         ],
-        "index": 6,
+        "index": 10,
         "id": "_67",
         "visible": true,
         "panel": {
@@ -491,7 +491,7 @@
         "widgets": [
           {
             "name": "Geoprocessing",
-            "label": "Factor Analysis for Mixed Data",
+            "label": "Factor Analysis for Mixed Data 2",
             "version": "2.7",
             "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_111.png",
             "uri": "widgets/Geoprocessing/Widget",
@@ -510,7 +510,7 @@
             "id": "widgets_Geoprocessing_Widget_48"
           }
         ],
-        "index": 7,
+        "index": 11,
         "id": "_54",
         "visible": true,
         "panel": {
@@ -603,7 +603,7 @@
             "id": "widgets_Geoprocessing_Widget_118"
           }
         ],
-        "index": 8,
+        "index": 12,
         "id": "_55",
         "visible": true,
         "panel": {
@@ -683,7 +683,7 @@
             "id": "widgets_Geoprocessing_Widget_114"
           }
         ],
-        "index": 9,
+        "index": 13,
         "id": "_72",
         "visible": true,
         "panel": {
@@ -771,7 +771,7 @@
             "version": ""
           }
         ],
-        "index": 10,
+        "index": 14,
         "id": "_88",
         "visible": true,
         "panel": {
@@ -1299,47 +1299,6 @@
           }
         }
       },
-      "widget~widgets_Geoprocessing_Widget_91~filter-Output_Risk_Shapefiles": {
-        "id": "widget~widgets_Geoprocessing_Widget_91~filter-Output_Risk_Shapefiles",
-        "type": "Features",
-        "label": "Output_Risk_Shapefiles",
-        "dataSchema": {
-          "geometryType": "esriGeometryPolygon",
-          "fields": [
-            {
-              "name": "FID",
-              "type": "esriFieldTypeOID",
-              "alias": "FID"
-            },
-            {
-              "name": "VALUE",
-              "type": "esriFieldTypeDouble",
-              "alias": "VALUE"
-            },
-            {
-              "name": "CLASSIFY",
-              "type": "esriFieldTypeString",
-              "alias": "CLASSIFY",
-              "length": 80
-            },
-            {
-              "name": "Shape_Length",
-              "type": "esriFieldTypeDouble",
-              "alias": "Shape_Length"
-            },
-            {
-              "name": "Shape_Area",
-              "type": "esriFieldTypeDouble",
-              "alias": "Shape_Area"
-            }
-          ],
-          "objectIdField": {
-            "name": "FID",
-            "type": "esriFieldTypeOID",
-            "alias": "FID"
-          }
-        }
-      },
       "widget~widgets_Geoprocessing_Widget_57~filter-Output_Feature": {
         "id": "widget~widgets_Geoprocessing_Widget_57~filter-Output_Feature",
         "type": "Features",
@@ -1404,6 +1363,87 @@
             "name": "OBJECTID",
             "type": "esriFieldTypeOID",
             "alias": "OBJECTID"
+          }
+        }
+      },
+      "widget~widgets_Geoprocessing_Widget_118~filter-Output_Risk_Shapefiles": {
+        "id": "widget~widgets_Geoprocessing_Widget_118~filter-Output_Risk_Shapefiles",
+        "type": "Features",
+        "label": "Output_Risk_Shapefiles",
+        "dataSchema": {
+          "geometryType": "esriGeometryPolygon",
+          "fields": [
+            {
+              "name": "FID",
+              "type": "esriFieldTypeOID",
+              "alias": "FID"
+            },
+            {
+              "name": "VALUE",
+              "type": "esriFieldTypeDouble",
+              "alias": "VALUE"
+            },
+            {
+              "name": "CLASSIFY",
+              "type": "esriFieldTypeString",
+              "alias": "CLASSIFY",
+              "length": 80
+            },
+            {
+              "name": "Shape_Length",
+              "type": "esriFieldTypeDouble",
+              "alias": "Shape_Length"
+            },
+            {
+              "name": "Shape_Area",
+              "type": "esriFieldTypeDouble",
+              "alias": "Shape_Area"
+            }
+          ],
+          "objectIdField": {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
+          }
+        }
+      },
+      "widget~widgets_Geoprocessing_Widget_119~filter-Group_Number": {
+        "id": "widget~widgets_Geoprocessing_Widget_119~filter-Group_Number",
+        "type": "Features",
+        "label": "Group_Number",
+        "dataSchema": {
+          "geometryType": "esriGeometryPolygon",
+          "fields": [
+            {
+              "name": "FID",
+              "type": "esriFieldTypeOID",
+              "alias": "FID"
+            },
+            {
+              "name": "FID_",
+              "type": "esriFieldTypeInteger",
+              "alias": "FID_"
+            },
+            {
+              "name": "cluster_N",
+              "type": "esriFieldTypeDouble",
+              "alias": "cluster_N"
+            },
+            {
+              "name": "Shape_Length",
+              "type": "esriFieldTypeDouble",
+              "alias": "Shape_Length"
+            },
+            {
+              "name": "Shape_Area",
+              "type": "esriFieldTypeDouble",
+              "alias": "Shape_Area"
+            }
+          ],
+          "objectIdField": {
+            "name": "FID",
+            "type": "esriFieldTypeOID",
+            "alias": "FID"
           }
         }
       }
