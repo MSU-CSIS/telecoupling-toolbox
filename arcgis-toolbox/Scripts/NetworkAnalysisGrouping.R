@@ -119,8 +119,7 @@ tool_exec <- function(in_params, out_params)
   deg_stat = degree(network_graph)
   clo_stat = closeness(network_graph,normalized = TRUE)
   betw_stat = betweenness(network_graph)
-  cen_stat = eigen_centrality(network_graph)$vector
-  inte_csv = data.frame(degree = deg_stat,closeness = clo_stat,betweenness = betw_stat,centrality = cen_stat)
+  inte_csv = data.frame(degree = deg_stat, closeness = clo_stat, betweenness = betw_stat)
   print("Network Analysis Report:", quote = FALSE)
   print(inte_csv)
 
