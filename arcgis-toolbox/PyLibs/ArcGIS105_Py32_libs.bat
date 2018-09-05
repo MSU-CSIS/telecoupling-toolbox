@@ -15,4 +15,7 @@ C:\Python27\ArcGIS10.5\python.exe -m pip install bs4
 C:\Python27\ArcGIS10.5\python.exe -m pip install BeautifulSoup
 C:\Python27\ArcGIS10.5\python.exe -m pip install Pyro4
 C:\Python27\ArcGIS10.5\python.exe -m pip install lxml
+C:\Python27\ArcGIS10.5\python.exe -m pip install google-api-python-client
+C:\Python27\ArcGIS10.5\python.exe -m pip install oauth2client
+C:\Python27\ArcGIS10.5\python.exe -m pip install earthengine-api
 PAUSE
