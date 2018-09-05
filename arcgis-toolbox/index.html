@@ -81,6 +81,18 @@ subtitle: A large collection of mapping and analysis tools for use within ESRIâ€
                     </ul>
                 </ol>
             </p>
+            <h2>Authorize Earth Engine with your Google Account</h2>
+            <h4>(<em>this step is at the moment required ONLY if you intend to use the Food Security tool (Socioeconomic Analysis toolset)!</em>)</h4>
+            <p>
+            If you would like to use the Food Security tool inside the Socioeconomic Analysis toolset, you need to make sure to complete a couple of steps first:
+                <ul>
+                    <li>Open the CMD prompt on Windows and type: <code>C:\Python27\<em><strong>ArcGIS10.X</strong></em>\Scripts\earthengine.exe authenticate</code>, replacing <code>ArcGIS10.X</code> with the main version of ArcGIS you are using (e.g. 10.3, 10.4, 10.5)</li>
+                    <li>A web browser window should automatically open at this point. Select the Google Account you would like to use to authorize earth engine</li>
+                    <li>Copy the long code on the screen and paste it inside the CMD prompt that you had opened already. This should finish the authorization step and return a message like <code>Successfully saved authorization token</code></li>
+                    <li>In the same CMD prompt, type <code>C:\Python27\<em><strong>ArcGIS10.X</strong></em>\python.exe -c "import ee; ee.Initialize()"</code>, replacing <code>ArcGIS10.X</code> with the main version of ArcGIS you are using (e.g. 10.3, 10.4, 10.5)</li>
+                </ul>
+            If you do not get any errors, then you are all set!       
+            </p> 
             <h2>Install the R-ArcGIS Bridge</h2> 
             <h4>(<em>this step does NOT depend on the previous section and can be completed separately!</em>)</h4>
             <p>
