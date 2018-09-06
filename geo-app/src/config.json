@@ -24,7 +24,7 @@
   "portalUrl": "https://msugis.maps.arcgis.com",
   "appId": "",
   "authorizedCrossOriginDomains": ["https://lb.telecoupling.msu.edu"],
-  "title": "<div class=\"attribute-custom-style\"><b>Telecoupling GeoApp</b> <i>(beta)</i></div>",
+  "title": "<div class=\"attribute-custom-style\"><b>Telecoupling GeoApp</b></div>",
   "subtitle": "<div class=\"attribute-custom-style\"></div>",
   "keepAppState": true,
   "logo": "images/logo.png",
