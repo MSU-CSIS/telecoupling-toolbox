@@ -22,7 +22,7 @@ The innovative, free and open-source (see [LICENSE](LICENSE) for details) toolbo
 
 <a href="https://github.com/MSU-CSIS/telecoupling-toolbox/tree/master/arcgis-toolbox" target="_blank"><img src="/img/ArcGIS_Toolbox_icon.png" alt="ArcGIS Toolbox Icon" title="ArcGIS Toolbox Icon" height="200"></a>
 
-The ArcGIS Toolbox is a large collection of mapping and analysis tools for use within ESRI's ArcGIS Desktop (version 10.3.1 or later) to systematically study telecoupling. Test the current version of the ArcGIS Toolbox by using your own data or by downloading our [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v2.0.zip). Look inside the [ArcGIS Toolbox](./arcgis-toolbox) project folder for code, images, documentation, and detailed instructions on installation and use.
+The ArcGIS Toolbox is a large collection of mapping and analysis tools for use within ESRI's ArcGIS Desktop (version 10.3.1 or later) to systematically study telecoupling. Test the current version of the ArcGIS Toolbox by using your own data or by downloading our [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v2.1.zip). Look inside the [ArcGIS Toolbox](./arcgis-toolbox) project folder for code, images, documentation, and detailed instructions on installation and use.
 
 ## GeoApp
 
@@ -37,7 +37,7 @@ The GeoApp offers a dynamic, interactive, online geo-enabled platform along with
 
 <img src="img/beige-folder-downloads_arcgis.png" alt="Sample Data ArcGIS Icon" title="Sample Data ArcGIS Icon" height="200" >
 
-[Download](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v2.0.zip) and unzip our sample data folder for use with both our ArcGIS Toolbox and GeoApp. This data repository contains all the tables and spatial data necessary to run the set of telecoupling mapping and analysis tools we developed. For further information on any of the dataset provided, please feel free to contact us.
+[Download](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v2.1.zip) and unzip our sample data folder for use with both our ArcGIS Toolbox and GeoApp. This data repository contains all the tables and spatial data necessary to run the set of telecoupling mapping and analysis tools we developed. For further information on any of the dataset provided, please feel free to contact us.
 
 ## GeoApp Data
 
