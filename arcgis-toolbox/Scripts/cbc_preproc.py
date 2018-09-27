@@ -33,8 +33,8 @@ def GetArgs():
 		}
 		
 		
-		if results_suffix:
-			args[u'results_suffix'] = results_suffix
+		#if results_suffix:
+			#args[u'results_suffix'] = results_suffix
 		
 	except Exception:
 		e = sys.exc_info()[1]
@@ -44,10 +44,15 @@ def GetArgs():
 	
 	
 if __name__ == '__main__':
-	args = GetArgs()
 	
+	args = GetArgs()
+	arcpy.AddMessage("test")
+	arcpy.AddMessage(lulc_snapshots)
 	#Run the Nat Cap module
 	natcap.invest.coastal_blue_carbon.preprocessor.execute(args)
+	
+	#Test read-in snapshot files
+	arcpy.AddMessage(lulc_snapshots)
 	
 	#Assign Nat Cap model output to variables
 	carbon_pool_initial_template = os.path.join(arcpy.env.scratchFolder, _OUTPUT['carbon_pool_initial_template'])
