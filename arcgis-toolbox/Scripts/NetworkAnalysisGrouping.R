@@ -24,12 +24,12 @@ tool_exec <- function(in_params, out_params)
   in_telecoupling_layer <- in_params[[4]]
   in_telecoupling_layer_join <- in_params[[5]]
   clustering_algorithm <- in_params[[6]]
-  weight_within <- in_params[[7]]
-  weight_between <- in_params[[8]]
+  weight_within <- as.numeric(in_params[[7]])
+  weight_between <- as.numeric(in_params[[8]])
   color_set <- in_params[[9]]
-  node_size <- in_params[[10]]
-  edge_width <- in_params[[11]]
-  label_size <- in_params[[12]]
+  node_size <- as.numeric(in_params[[10]])
+  edge_width <- as.numeric(in_params[[11]])
+  label_size <- as.numeric(in_params[[12]])
     
   #### Set output parameters ####
   out_pdf <- out_params[[1]]
@@ -49,8 +49,8 @@ tool_exec <- function(in_params, out_params)
   links_df <- read.csv(file=link_table, header=T, stringsAsFactors=FALSE, check.names=FALSE)
   
   #USE THESE TWO LINES ONLY WHEN YOU RUN THE SCRIPT IN ARCGIS
-  env <- arc.env()
-  wkspath <- env$workspace	
+  #env <- arc.env()
+  #wkspath <- env$workspace	
   
   # change data frame format to igraph format
   network_graph <- graph_from_data_frame(d=links_df, vertices=nodes_df, directed=T)
@@ -108,9 +108,10 @@ tool_exec <- function(in_params, out_params)
   message("Joining Network Table to Telecoupling Systems Layer...")
   tc_systems_df_join <- inner_join(tc_systems_df, community_df, by = setNames(nm=in_telecoupling_layer_join, nodes_table_join))
   #tc_systems_df_join <- merge(tc_systems_df, community_df, by.x = in_telecoupling_layer_join, by.y = nodes_table_join)
-	
+  tc_systems_df_join <- tc_systems_df_join[ , names(tc_systems_df_join) %in% c("FID", "cluster_N")]  #keep only cluster number column
+  
   tc_systems_spdf <- arc.shape2sp(arc.shape(tc_systems_df))
-
+  
   message("Creating Output Shapefile...")
   SPDF = SpatialPolygonsDataFrame(tc_systems_spdf, data=tc_systems_df_join)
   shape_info <- list(type="Polygon", WKT=arc.shapeinfo(arc.shape(tc_systems_df))$WKT)
@@ -120,23 +121,23 @@ tool_exec <- function(in_params, out_params)
   clo_stat = closeness(network_graph,normalized = TRUE)
   betw_stat = betweenness(network_graph)
   inte_csv = data.frame(degree = deg_stat, closeness = clo_stat, betweenness = betw_stat)
-  print("Network Analysis Report:", quote = FALSE)
-  print(inte_csv)
-
+  
   message("Creating Plots for Clusters...")
   result = tryCatch({
     pdf(out_pdf)
     
     suppressWarnings(plot(x=MyClusters.community, y=network_graph, layout=test.Layout.drl, 
-                          mark.groups=NULL, edge.color = c("tomato2", "darkgrey")[crossing(MyClusters.community, network_graph)+1],
-                          edge.arrow.size=0, rescale=F, xlim=c(xmin,xmax),ylim=c(ymin,ymax), asp=0, col = MyClusters.col))
-    
+         mark.groups=NULL, edge.color = c("tomato2", "darkgrey")[crossing(MyClusters.community, network_graph)+1],
+         edge.arrow.size=0, rescale=F, xlim=c(xmin,xmax),ylim=c(ymin,ymax), asp=0, col = MyClusters.col))
+ 
     #arc.write(path=out_fc, data=SPDF, shape_info=shape_info)
     
   }, finally = {
     dev.off()
   }
   )
+  #### Set Output Parameters ####  
+  message("Saving Output Files ...")
   arc.write(path=out_fc, data=SPDF, shape_info=shape_info)
   write.csv(inte_csv,file = out_csv)
   return(out_params)
