@@ -18,4 +18,5 @@ C:\Python27\ArcGIS10.3\python.exe -m pip install lxml
 C:\Python27\ArcGIS10.3\python.exe -m pip install google-api-python-client
 C:\Python27\ArcGIS10.3\python.exe -m pip install oauth2client
 C:\Python27\ArcGIS10.3\python.exe -m pip install earthengine-api
+C:\Python27\ArcGIS10.3\python.exe -m pip install pygal
 PAUSE
