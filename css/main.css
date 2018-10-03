@@ -101,6 +101,10 @@ img {
   margin-bottom: 15px;
 }
 
+.thumbnail-systems{
+  border: 0px !important;
+}
+
 .thumbnail img {
   width: 100%;
 }
