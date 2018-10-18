@@ -119,27 +119,44 @@ if __name__ == '__main__':
 	
 	
 	#Assign Nat Cap model output to variables
-	
+	carbon_stock_list = []
+	carbon_accumulation_list = []
+	carbon_emission_list = []
+	carbon_net_sequestration_list = []
 	for i in range(len(year_list)):
-		carbon_stock = os.path.join(arcpy.env.scratchFolder, _OUTPUT['carbon_stock'] + str(year_list[i]) + '.tif')
+		carbon_stock = os.path.join(arcpy.env.scratchFolder,  "outputs_core", _OUTPUT['carbon_stock'] + str(year_list[i]) + '.tif')
+		defProj(args[u'lulc_baseline_map_uri'],carbon_stock)
+		carbon_stock_list.append(carbon_stock)
 		if i < len(year_list)-1:
-			carbon_accumulation = os.path.join(arcpy.env.scratchFolder, _OUTPUT['carbon_accumulation'] + str(year_list[i]) + '_and_' + str(year_list[i+1]) + '.tif')
-			carbon_emissions = os.path.join(arcpy.env.scratchFolder, _OUTPUT['carbon_emissions'] + str(year_list[i]) + '_and_' + str(year_list[i+1]) + '.tif')
-			carbon_net_sequestration = os.path.join(arcpy.env.scratchFolder, _OUTPUT['carbon_net_sequestration'] + str(year_list[i]) + '_and_' + str(year_list[i+1]) + '.tif')
-	net_present_value = os.path.join(arcpy.env.scratchFolder, _OUTPUT['net_present_value'])
-	total_net_carbon_sequestration = os.path.join(arcpy.env.scratchFolder, _OUTPUT['total_net_carbon_sequestration'])
+			carbon_accumulation = os.path.join(arcpy.env.scratchFolder, "outputs_core", _OUTPUT['carbon_accumulation'] + str(year_list[i]) + '_and_' + str(year_list[i+1]) + '.tif')
+			defProj(args[u'lulc_baseline_map_uri'],carbon_accumulation)
+			carbon_accumulation_list.append(carbon_accumulation)
+			
+			carbon_emissions = os.path.join(arcpy.env.scratchFolder, "outputs_core", _OUTPUT['carbon_emissions'] + str(year_list[i]) + '_and_' + str(year_list[i+1]) + '.tif')
+			defProj(args[u'lulc_baseline_map_uri'],carbon_emissions)
+			carbon_emission_list.append(carbon_emissions)
+			
+			carbon_net_sequestration = os.path.join(arcpy.env.scratchFolder, "outputs_core", _OUTPUT['carbon_net_sequestration'] + str(year_list[i]) + '_and_' + str(year_list[i+1]) + '.tif')
+			defProj(args[u'lulc_baseline_map_uri'],carbon_net_sequestration)
+			carbon_net_sequestration_list.append(carbon_net_sequestration)
+	net_present_value = os.path.join(arcpy.env.scratchFolder, "outputs_core", _OUTPUT['net_present_value'])
+	total_net_carbon_sequestration = os.path.join(arcpy.env.scratchFolder, "outputs_core", _OUTPUT['total_net_carbon_sequestration'])
 	
 	
-	os.chdir(os.path.join(arcpy.env.scratchFolder, "outputs_core"))
-	for lyr in glob.glob("*.tif"):
+	#os.chdir(os.path.join(arcpy.env.scratchFolder, "outputs_core"))
+	#for lyr in glob.glob("*.tif"):
         ##This step is a workaround to correct proj alignment issue in ArcGIS with output from InVEST
-		defProj(args[u'lulc_baseline_map_uri'], lyr)
+		#defProj(args[u'lulc_baseline_map_uri'], lyr)
 	#Add outputs to map viewer
+	carbon_stock_list = ";".join(carbon_stock_list)
+	carbon_accumulation_list = ";".join(carbon_accumulation_list)
+	carbon_emission_list = ";".join(carbon_emission_list)
+	carbon_net_sequestration_list = ";".join(carbon_net_sequestration_list)
 	
-	arcpy.SetParameter(15, carbon_stock)
-	arcpy.SetParameter(16, carbon_accumulation)
-	arcpy.SetParameter(17, carbon_emissions)
-	arcpy.SetParameter(18, carbon_net_sequestration)
+	arcpy.SetParameter(15, carbon_stock_list)
+	arcpy.SetParameter(16, carbon_accumulation_list)
+	arcpy.SetParameter(17, carbon_emission_list)
+	arcpy.SetParameter(18, carbon_net_sequestration_list)
 	arcpy.SetParameter(19, net_present_value)
 	arcpy.SetParameter(20, total_net_carbon_sequestration)
 	
