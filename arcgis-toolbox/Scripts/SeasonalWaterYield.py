@@ -94,6 +94,8 @@ def defProj(coord_ref, out_rast1, out_rast2, out_rast3, out_rast4, out_rast5, ou
 
 if __name__ == '__main__':
 	args = GetArgs()
+	arcpy.AddMessage("Test!")
+	arcpy.AddMessage(args['dem_raster_path'])
 	
 	#Run the Nat Cap module
 	natcap.invest.seasonal_water_yield.seasonal_water_yield.execute(args)
