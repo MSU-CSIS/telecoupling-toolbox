@@ -13,14 +13,15 @@ workspace_dir = arcpy.env.scratchFolder
 _OUTPUT = {
     'carbon_pool_initial_template': r'carbon_pool_initial_template.csv',
     'carbon_pool_transient_template': r'carbon_pool_transient_template.csv',
-    'lulc_transitions': r'transitions.csv'
+    'transitions': r'transitions.csv'
 }
 
 #Get the arguments to include in the invest.coastal_blue_carbon.preprocessor model run
 def GetArgs():
 	lulc_lookup_table = arcpy.GetParameterAsText(0)
 	lulc_snapshots = arcpy.GetParameterAsText(1)
-	results_suffix = arcpy.GetParameterAsText(2)
+	lulc_snapshots = lulc_snapshots.split(";")
+	lulc_snapshots = [rast.replace("'","") for rast in lulc_snapshots]
 	
 	outList = []
 	
@@ -33,8 +34,7 @@ def GetArgs():
 		}
 		
 		
-		#if results_suffix:
-			#args[u'results_suffix'] = results_suffix
+		
 		
 	except Exception:
 		e = sys.exc_info()[1]
@@ -46,22 +46,14 @@ def GetArgs():
 if __name__ == '__main__':
 	
 	args = GetArgs()
-	arcpy.AddMessage("test")
-	arcpy.AddMessage(lulc_snapshots)
-	#Run the Nat Cap module
-	natcap.invest.coastal_blue_carbon.preprocessor.execute(args)
 	
-	#Test read-in snapshot files
-	arcpy.AddMessage(lulc_snapshots)
+	#Run the Nat Cap module
+	
+	natcap.invest.coastal_blue_carbon.preprocessor.execute(args)
 	
 	#Assign Nat Cap model output to variables
 	carbon_pool_initial_template = os.path.join(arcpy.env.scratchFolder, _OUTPUT['carbon_pool_initial_template'])
 	carbon_pool_transient_template = os.path.join(arcpy.env.scratchFolder, _OUTPUT['carbon_pool_transient_template'])
-	lulc_transitions = os.path.join(arcpy.env.scratchFolder, _OUTPUT['lulc_transitions'])
+	transitions = os.path.join(arcpy.env.scratchFolder, _OUTPUT['transitions'])
 	
-	
-	#Remove the intermediate folder
-	shutil.rmtree(os.path.join(arcpy.env.scratchFolder, 'intermediate_outputs'))
-	
-
 	
