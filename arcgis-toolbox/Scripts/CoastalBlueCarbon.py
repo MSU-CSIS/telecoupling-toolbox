@@ -110,8 +110,11 @@ if __name__ == '__main__':
 	year_list.append(args['lulc_baseline_year'])
 	for i in args['lulc_transition_years_list']:
 		year_list.append(i)
+	
+	if args[u'analysis_year']:
+		year_list.append(args[u'analysis_year'])
 		
-		
+	#arcpy.AddMessage(year_list)
 	
 	#Run the Nat Cap module
 	natcap.invest.coastal_blue_carbon.coastal_blue_carbon.execute(args)
