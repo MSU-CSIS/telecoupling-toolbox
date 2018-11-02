@@ -7,6 +7,7 @@
 #Import modules
 import arcpy
 import pandas as pd
+import numpy as np
 import os
 import sys
 
@@ -20,7 +21,8 @@ def CommodityTrade():
 	commodityItem = arcpy.GetParameterAsText(3) #select commodity of interest from list
 	startYear = arcpy.GetParameterAsText(4) #start year of analysis
 	endYear = arcpy.GetParameterAsText(5) #end year of analysis
-	limit = arcpy.GetParameterAsText(6) #gives users the ability to limit trade partners to top ten
+	limit = arcpy.GetParameterAsText(6) #gives users the ability to limit trade partners
+	numLimit = arcpy.GetParameterAsText(7) #the number of trade partners to limit output to
 	
 	try:
 		#make sure end year follows the start year
@@ -42,19 +44,21 @@ def CommodityTrade():
 
 		#subset by exporting or importing country
 		if direction == "Export":
-			df_trade = df_comm_yr[df_comm_yr["country_origin"] == countrySelection]
+			df_trade = df_comm_yr[df_comm_yr["country_origin"] == countrySelection] #select the exporting country
+			df_trade = df_trade[np.isfinite(df_trade["export_val"])] #remove NaN values from export_val 
 		else:
-			df_trade = df_comm_yr[df_comm_yr["country_dest"] == countrySelection]
+			df_trade = df_comm_yr[df_comm_yr["country_dest"] == countrySelection] #select the importing country
+			df_trade = df_trade[np.isfinite(df_trade["import_val"])] #remove NaN values from import_val
 		
-		#Trying to split DF by year, but I'm not doing the naming correctly
-		for year in yearList:
-			df_year = df5[df5["year"] == year]
-			year = str(year)
-			outName = "df_trade_" + year
-			outName = df_year
-		
-		
-		
+		#limit the number of output linkages if limit is TRUE
+		if limit == True:
+			if direction == "Export":
+				df_trade = df_trade.groupby(["year"], sort = False).apply(lambda x: x.sort_values(["export_val"], ascending = False)) #group data by year and sort descending by export_val
+				df_trade = df_trade.groupby("year").head(numLimit).reset_index(drop=True) #Take only as many top trading partners as specified in numLimit
+			else:
+				df_trade = df_trade.groupby(["year"], sort = False).apply(lambda x: x.sort_values(["import_val"], ascending = False)) #group data by year and sort descending by import_val 
+				df_trade = df_trade.groupby("year").head(numLimit).reset_index(drop=True) #Take only as many top trading partners as specified in numLimit
+
 		
 		
 		
