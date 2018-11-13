@@ -520,7 +520,7 @@ define([
                   href: link.url[3],
                   target: '_blank',
                   rel: 'noopener noreferrer',
-                  innerHTML: utils.sanitizeHTML('Payment of Ecosystem Services'),
+                  innerHTML: utils.sanitizeHTML('Payment for Ecosystem Services'),
                   'class': "jimu-link jimu-align-leading jimu-leading-margin1",
                   style: {
                     lineHeight: this.height + 'px',
