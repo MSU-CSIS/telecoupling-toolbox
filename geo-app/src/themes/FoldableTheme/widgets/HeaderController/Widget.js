@@ -516,6 +516,18 @@ define([
                     clear: 'both'
                   }
                 }, menu);
+                html.create('a', {
+                  href: link.url[3],
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  innerHTML: utils.sanitizeHTML('Payment of Ecosystem Services'),
+                  'class': "jimu-link jimu-align-leading jimu-leading-margin1",
+                  style: {
+                    lineHeight: this.height + 'px',
+                    float: 'left',
+                    clear: 'both'
+                  }
+                }, menu);
 
                 on(myLink, 'click', lang.hitch(this, function(){
                   if(html.getStyle(menu, 'display') === 'block'){
