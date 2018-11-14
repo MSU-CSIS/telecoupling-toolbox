@@ -31,9 +31,8 @@ def CommodityTrade():
 		if endYear < startYear:
 			arcpy.AddMessage("End year must follow the start year.")
 			sys.exit()
-		#read CSV as a dataframe and apply column headers
-		df = pd.read_csv(commodityData, names=["id", "orgid", "year", "origin", "dest", "comm_code", "export_val", "import_val", "comm_name", 
-												"country_origin", "lat_origin", "long_origin", "country_dest", "lat_dest", "long_dest"])
+		#read CSV as a dataframe
+		df = pd.read_csv(commodityData)
 		
 		#subset by year
 		yearList = range(startYear, endYear + 1)
