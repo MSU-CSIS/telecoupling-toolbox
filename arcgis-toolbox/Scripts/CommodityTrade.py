@@ -57,15 +57,3 @@ def CommodityTrade():
 			else:
 				df_trade = df_trade.groupby(["year"], sort = False).apply(lambda x: x.sort_values(["import_val"], ascending = False)) #group data by year and sort descending by import_val 
 				df_trade = df_trade.groupby("year").head(numLimit).reset_index(drop=True) #Take only as many top trading partners as specified in numLimit
-
-		
-		
-		
-		
-		"""
-		ILL EVENTUALLY NEED TO RUN THIS CODE
-		#limit output to the top ten export destinations or import origins
-		if limit == True:
-			if direction == "Export":
-				sortDF = df_trade.sort_values("export_val", ascending=False)
-		"""
