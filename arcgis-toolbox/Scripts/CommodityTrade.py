@@ -26,6 +26,7 @@ def CommodityTrade():
 	
 	try:
 		#make sure end year follows the start year
+		arcpy.AddMessage("here0")
 		startYear = int(startYear)
 		endYear = int(endYear)
 		if endYear < startYear:
@@ -57,3 +58,16 @@ def CommodityTrade():
 			else:
 				df_trade = df_trade.groupby(["year"], sort = False).apply(lambda x: x.sort_values(["import_val"], ascending = False)) #group data by year and sort descending by import_val 
 				df_trade = df_trade.groupby("year").head(numLimit).reset_index(drop=True) #Take only as many top trading partners as specified in numLimit
+		
+		#testing xy to line
+		arcpy.AddMessage("here1")
+		arcpy.XYToLine_management(df_trade, "C:\\Users\\Paul McCord\\Google Drive\\Toolbox\\Tool_First\\CommodityTrade\\testOutput\\test1.shp", 
+									"long_origin", "lat_origin", "long_dest", "lat_dest", "GEODESIC")
+		arcpy.AddMessage("here2")
+	
+	except Exception:
+		e = sys.exc_info()[1]
+		arcpy.AddError('An error occurred: {}'.format(e.args[0]))
+
+if __name__ == '__main__':
+	CommodityTrade()
