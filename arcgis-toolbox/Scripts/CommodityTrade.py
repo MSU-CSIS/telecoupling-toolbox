@@ -54,23 +54,48 @@ def CommodityTrade():
 			df_trade["export_val"].fillna(0, inplace=True) #export values not important. replace NaN with 0
 		
 		#limit the number of output linkages if limit is TRUE
-		if limit == True:
+		if limit:
+			numLimit = int(numLimit)
 			if direction == "Export":
-				df_trade = df_trade.groupby(["year"], sort = False).apply(lambda x: x.sort_values(["export_val"], ascending = False)) #group data by year and sort descending by export_val
-				df_trade = df_trade.groupby("year").head(numLimit).reset_index(drop=True) #Take only as many top trading partners as specified in numLimit
+				df_trade = df_trade.groupby("year", group_keys = False).apply(lambda g: g.nlargest(numLimit, "export_val")) #group data by year and return the top trading partners as specified in numLimit
 			else:
-				df_trade = df_trade.groupby(["year"], sort = False).apply(lambda x: x.sort_values(["import_val"], ascending = False)) #group data by year and sort descending by import_val 
-				df_trade = df_trade.groupby("year").head(numLimit).reset_index(drop=True) #Take only as many top trading partners as specified in numLimit
-		
-		arcpy.AddMessage(df_trade["export_val"])
+				df_trade = df_trade.groupby("year", group_keys = False).apply(lambda g: g.nlargest(numLimit, "export_val")) #group data by year and return the top trading partners as specified in numLimit
+		arcpy.AddMessage(df_trade)
 		arcpy.AddMessage(limit)
 		
-		#create ArcGIS table. this will be used to put Pandas DataFrame content within fc
+		#create dbase table. this will be used to put Pandas DataFrame content within fc
 		arr = np.array(np.rec.fromrecords(df_trade.values))
 		names = df_trade.dtypes.index.tolist()
 		arr.dtype.names = tuple(names)
-		table = arcpy.da.NumPyArrayToTable(arr, os.path.join(arcpy.env.scratchFolder, "df_table.dbf"))
+		arcpy.da.NumPyArrayToTable(arr, os.path.join(arcpy.env.scratchFolder, "df_table.dbf"))
+		table = os.path.join(arcpy.env.scratchFolder, "df_table.dbf")
 		
+		#draw radial flows using dbase table
+		wgs = arcpy.SpatialReference(4326)
+		flowsOutputFC = os.path.join(arcpy.env.scratchFolder, outputName + ".shp")
+		if direction == "Export":
+			arcpy.XYToLine_management(in_table = table, out_featureclass = flowsOutputFC,
+										startx_field = "lon_origin", starty_field = "lat_origin",
+										endx_field = "lon_dest", endy_field = "lat_dest",
+										line_type="GEODESIC", id_field = "id", spatial_reference = wgs)
+		else:
+			arcpy.XYToLine_management(in_table = table, out_featureclass = flowsOutputFC,
+										startx_field = "lon_dest", starty_field = "lat_dest",
+										endx_field = "lon_origin", endy_field = "lat_origin",
+										line_type="GEODESIC", id_field = "id", spatial_reference = wgs)
+		
+		arcpy.AddMessage("I'm here at 5")
+		#join commodity trade data from dbase table to radial flows feature class
+		arcpy.JoinField_management(in_data = flowsOutputFC, in_field = "id", join_table = table, join_field = "id")
+		
+		#drop unnecesary fields
+		if direction == "Export":
+			dropFields = ["Unnamed__0", "id", "orgid", "origin", "dest", "comm_code", "import_val", "lat_origin", "lon_origin", "lat_dest", "lon_dest", "id_1", "lat_orig_1", "lon_orig_1", "lat_dest_1", "lon_dest_1"]
+		else:
+			dropFields = ["Unnamed__0", "id", "orgid", "origin", "dest", "comm_code", "export_val", "lat_origin", "lon_origin", "lat_dest", "lon_dest", "id_1", "lat_orig_1", "lon_orig_1", "lat_dest_1", "lon_dest_1"]
+		arcpy.DeleteField_management(flowsOutputFC, dropFields)
+		
+		"""
 		#create feature class for commodity output
 		wgs = arcpy.SpatialReference(4326)
 		fc = arcpy.CreateFeatureclass_management(arcpy.env.scratchFolder, outputName, "Polyline", "", "", "", wgs)
@@ -82,6 +107,7 @@ def CommodityTrade():
 		cursor = arcpy.InsertCursor(fc)
 		
 		arcpy.AddMessage("established cursor")
+		
 		
 		#second, if direction == "Export", draw the Export flows
 		#flows are drawn by 1) plotting origin and destination points, then 2) drawing line between points
@@ -130,7 +156,7 @@ def CommodityTrade():
 			for searchRow in searchRows:
 				updateRows.updateRow(searchRow)
 			del searchRow, searchRows, updateRows
-		"""
+		
 		#add year, value, commodity name, origin, and destination information
 		j = 0
 		with arcpy.da.UpdateCursor(fc, ("Year", "Value", "Commodity", "Origin", "Dest")) as cursor:
