@@ -10,6 +10,7 @@ import pandas as pd
 import numpy as np
 import os
 import sys
+import shutil
 
 arcpy.env.overwriteOutput = True
 arcpy.env.outputCoordinateSystem = arcpy.SpatialReference(3857)
@@ -22,12 +23,11 @@ def CommodityTrade():
 	startYear = arcpy.GetParameterAsText(4) #start year of analysis
 	endYear = arcpy.GetParameterAsText(5) #end year of analysis
 	outputName = arcpy.GetParameterAsText(6) #name of output feature class
-	limit = arcpy.GetParameterAsText(7) #gives users the ability to limit trade partners
+	limit = arcpy.GetParameter(7) #gives users the ability to limit trade partners
 	numLimit = arcpy.GetParameterAsText(8) #the number of trade partners to limit output to
 	
 	try:
 		#make sure end year follows the start year
-		arcpy.AddMessage("here0")
 		startYear = int(startYear)
 		endYear = int(endYear)
 		if endYear < startYear:
@@ -46,10 +46,16 @@ def CommodityTrade():
 		#subset by exporting or importing country
 		if direction == "Export":
 			df_trade = df_comm_yr[df_comm_yr["cntry_orig"] == countrySelection] #select the exporting country
+			if df_trade["export_val"].isnull().all():
+				arcpy.AddMessage("Nothing to map! " + countrySelection + " did not export " + commodityItem + " from " + str(startYear) + " to " + str(endYear) + ".")
+				sys.exit()
 			df_trade = df_trade[np.isfinite(df_trade["export_val"])] #remove NaN values from export_val
 			df_trade["import_val"].fillna(0, inplace=True) #import values not important. replace NaN with 0
 		else:
 			df_trade = df_comm_yr[df_comm_yr["cntry_dest"] == countrySelection] #select the importing country
+			if df_trade["import_val"].isnull().all():
+				arcpy.AddMessage("Nothing to map! " + countrySelection + " did not import " + commodityItem + " from " + str(startYear) + " to " + str(endYear) + ".")
+				sys.exit()
 			df_trade = df_trade[np.isfinite(df_trade["import_val"])] #remove NaN values from import_val
 			df_trade["export_val"].fillna(0, inplace=True) #export values not important. replace NaN with 0
 		
@@ -59,9 +65,12 @@ def CommodityTrade():
 			if direction == "Export":
 				df_trade = df_trade.groupby("year", group_keys = False).apply(lambda g: g.nlargest(numLimit, "export_val")) #group data by year and return the top trading partners as specified in numLimit
 			else:
-				df_trade = df_trade.groupby("year", group_keys = False).apply(lambda g: g.nlargest(numLimit, "export_val")) #group data by year and return the top trading partners as specified in numLimit
-		arcpy.AddMessage(df_trade)
-		arcpy.AddMessage(limit)
+				df_trade = df_trade.groupby("year", group_keys = False).apply(lambda g: g.nlargest(numLimit, "import_val")) #group data by year and return the top trading partners as specified in numLimit
+			#count number of records in each year. if record count is below numLimit for any year, then below message is printed to inform user that there are fewer returned records than the number requested
+			count_occur = df_trade.groupby(["year"]).size()
+			count_occur = count_occur.to_frame(name="size").reset_index()
+			if (count_occur["size"] == numLimit).all() == False:
+				arcpy.AddMessage("FYI, the number of returned trade partners is less than the specified limit for some or all analysis years.")
 		
 		#create dbase table. this will be used to put Pandas DataFrame content within fc
 		arr = np.array(np.rec.fromrecords(df_trade.values))
@@ -84,7 +93,6 @@ def CommodityTrade():
 										endx_field = "lon_origin", endy_field = "lat_origin",
 										line_type="GEODESIC", id_field = "id", spatial_reference = wgs)
 		
-		arcpy.AddMessage("I'm here at 5")
 		#join commodity trade data from dbase table to radial flows feature class
 		arcpy.JoinField_management(in_data = flowsOutputFC, in_field = "id", join_table = table, join_field = "id")
 		
@@ -95,84 +103,13 @@ def CommodityTrade():
 			dropFields = ["Unnamed__0", "id", "orgid", "origin", "dest", "comm_code", "export_val", "lat_origin", "lon_origin", "lat_dest", "lon_dest", "id_1", "lat_orig_1", "lon_orig_1", "lat_dest_1", "lon_dest_1"]
 		arcpy.DeleteField_management(flowsOutputFC, dropFields)
 		
-		"""
-		#create feature class for commodity output
-		wgs = arcpy.SpatialReference(4326)
-		fc = arcpy.CreateFeatureclass_management(arcpy.env.scratchFolder, outputName, "Polyline", "", "", "", wgs)
-		
-		arcpy.AddMessage("created fc")
-		
-		#populate feature class with geographic and commodity trade information
-		#first, establish cursor
-		cursor = arcpy.InsertCursor(fc)
-		
-		arcpy.AddMessage("established cursor")
-		
-		
-		#second, if direction == "Export", draw the Export flows
-		#flows are drawn by 1) plotting origin and destination points, then 2) drawing line between points
-		if direction == "Export":
-			point = arcpy.Point()
-			array = arcpy.Array()
-			featureList = []
-			feat = cursor.newRow()
-			for i, row in df_trade.iterrows():
-				point.X = row["lon_origin"]
-				point.Y = row["lat_origin"]
-				array.add(point)
-				point.X = row["lon_dest"]
-				point.Y = row["lat_dest"]
-				array.add(point)
-				polyline = arcpy.Polyline(array)
-				array.removeAll()
-				featureList.append(polyline)
-				feat.shape = polyline
-				cursor.insertRow(feat)
-			del feat
-			del cursor
-		
-		#if direction == "Import" draw the Import flows
-		#flows are drawn by 1) plotting origin and destination points, then 2) drawing line between points
-		
-		arcpy.AddMessage("geometry added to fc")
-		
-		#third, add columns to fc for Year, Value, Commodity, Origin, and Destination
-		arcpy.AddField_management(fc, "Year", "SHORT")  #add year field
-		arcpy.AddField_management(fc, "Value", "DOUBLE")  #add export/import value field
-		arcpy.AddField_management(fc, "Commodity", "TEXT")  #add commodity name field
-		arcpy.AddField_management(fc, "Origin", "TEXT")  #add flow origin field
-		arcpy.AddField_management(fc, "Dest", "TEXT") #add flow destination field
-		
-		#finally, add year, value, commodity name, origin, and destination information from pandas DataFrame to fc - according to selected direction (ie, Import or Export)
-		if direction == "Export":
-			searchRows = arcpy.da.SearchCursor(table, ["year", "export_val", "comm_name", "cntry_orig", "cntry_dest"])
-			updateRows = arcpy.da.UpdateCursor(fc, ["Year", "Value", "Commodity", "Origin", "Dest"])
-			for searchRow in searchRows:
-				updateRows.updateRow(searchRow)
-			del searchRow, searchRows, updateRows
-		else:
-			searchRows = arcpy.da.SearchCursor(table, ["year", "import_val", "comm_name", "cntry_orig", "cntry_dest"])
-			updateRows = arcpy.da.UpdateCursor(fc, ["Year", "Value", "Commodity", "Origin", "Dest"])
-			for searchRow in searchRows:
-				updateRows.updateRow(searchRow)
-			del searchRow, searchRows, updateRows
-		
-		#add year, value, commodity name, origin, and destination information
-		j = 0
-		with arcpy.da.UpdateCursor(fc, ("Year", "Value", "Commodity", "Origin", "Dest")) as cursor:
-			for ROW in cursor:
-				ROW[0] = df_trade["year"][j]
-				ROW[1] = df_trade["export_val"][j]
-				ROW[2] = df_trade["comm_name"][j]
-				ROW[3] = df_trade["country_origin"][j]
-				ROW[4] = df_trade["country_dest"][j]
-				cursor.updateRow(ROW)
-				j += 1
-		
-		arcpy.AddMessage("commodity trade information added")
-		
-		arcpy.AddMessage("here2")
-		"""
+		#remove the dbase table from the scratch folder
+		os.chdir(arcpy.env.scratchFolder)
+		os.remove(os.path.join(arcpy.env.scratchFolder, 'df_table.dbf'))
+
+		#add output to map
+		arcpy.SetParameter(9, flowsOutputFC)
+
 	except Exception:
 		e = sys.exc_info()[1]
 		arcpy.AddError('An error occurred: {}'.format(e.args[0]))
