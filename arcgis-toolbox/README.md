@@ -1,8 +1,21 @@
-Telecoupling Toolbox: ArcGIS Toolbox v2.1
+Telecoupling Toolbox: ArcGIS Toolbox v2.2
 ========================
 
 ## Major Releases
 ------------------
+
+* Version 2.2
+
+This release adds two new tools to the Environmental Analysis toolset, called *Coastal Blue Carbon* and *Coastal Blue Carbon Preprocessor*, respectively, customized from InVEST (3.3.3). This tools can be used to predict the amount of carbon stored and sequestered over a coastal zone at particular points in time due to changes in land cover.
+
+* Version 2.1
+
+This release adds a new tool to the Environmental Analysis toolset, called *Sedimenty Delivery Ratio*, customized from InVEST (3.3.3). This tool can be used to estimate overland sediment generation and delivery to the stream.
+
+* Version 2.0
+
+This release adds a new tool to the Socioeconomic Analysis toolset, called *Food Security*. This tool can be used to estimate rainfall and distance to market within an area of interest.
+
 * Version 1.7 (_beta_)
 
 This release adds a new tool within the Environmental Analysis toolset, called *Seasonal Water Yield*, customized from InVEST (3.3.3). This tool can be used to estimate the contribution of a pixel in a watershed to baseflow, quickflow, and local recharge.
