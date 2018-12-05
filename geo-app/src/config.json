@@ -594,6 +594,16 @@
             "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_118.json",
             "index": 23,
             "id": "widgets_Geoprocessing_Widget_118"
+          },
+          {
+            "name": "Geoprocessing",
+            "label": "Coastal Blue Carbon",
+            "version": "2.7",
+            "icon": "configs\\Geoprocessing\\icon_widgets_Geoprocessing_Widget_133.png",
+            "uri": "widgets/Geoprocessing/Widget",
+            "config": "configs/Geoprocessing/config_widgets_Geoprocessing_Widget_133.json",
+            "index": 23,
+            "id": "widgets_Geoprocessing_Widget_133"
           }
         ],
         "index": 8,
