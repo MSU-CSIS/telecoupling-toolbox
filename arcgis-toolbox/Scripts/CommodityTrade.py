@@ -11,6 +11,7 @@ import numpy as np
 import os
 import sys
 import shutil
+import glob
 
 arcpy.env.overwriteOutput = True
 arcpy.env.outputCoordinateSystem = arcpy.SpatialReference(3857)
@@ -26,6 +27,11 @@ def CommodityTrade():
 	limit = arcpy.GetParameter(7) #gives users the ability to limit trade partners
 	numLimit = arcpy.GetParameterAsText(8) #the number of trade partners to limit output to
 	
+	#remove commodity trade shapefile if if already exists from a previous run
+	if os.path.exists(os.path.join(arcpy.env.scratchFolder, outputName + ".shp")):
+		for filename in glob.glob(os.path.join(arcpy.env.scratchFolder, outputName + "*")):
+			os.remove(filename)
+
 	try:
 		#make sure end year follows the start year
 		startYear = int(startYear)
