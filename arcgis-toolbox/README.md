@@ -1,8 +1,12 @@
-Telecoupling Toolbox: ArcGIS Toolbox v2.2
+Telecoupling Toolbox: ArcGIS Toolbox v2.3
 ========================
 
 ## Major Releases
 ------------------
+
+* Version 2.3
+
+This release adds a new tool to the Flows toolset, called *Commodity Trade*. This tool maps the trade of commodities between 2010 and 2014 for a select set of commodities.
 
 * Version 2.2
 
@@ -163,7 +167,7 @@ Follow these steps to add the Toolbox to your ArcMap document:
 
 1. Open ArcMap
 2. Right-click on the ArcToolbox folder and select "Add Toolbox"
-3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v2.1.tbx`
+3. Browse to the unzipped ArcGIS Toolbox folder and select `Telecoupling Toolbox v2.3.tbx`
 
 Inside the Telecoupling Toolbox you should see 5 toolsets (*__agents__*, *__causes__*, *__environmental analysis__*, *__socioeconomic analysis__*, *__flows__*, *__systems__*) and a number of python tool scripts inside each one of them. 
 
@@ -174,7 +178,7 @@ To learn more about what each tool script does and what parameters it takes, ple
 ![Figure 6](Figs/ex6.png)
 ![Figure 7](Figs/ex7.png)
 
-That's it! The Telecoupling Toolbox is now added to the ArcToolbox list and you can start using it with the set of [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v2.1.zip)
+That's it! The Telecoupling Toolbox is now added to the ArcToolbox list and you can start using it with the set of [sample data](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v2.3.zip)
 After unzipping the sample data folder, you will see a mix of GIS (vector, raster) data and tables (.csv) needed as input parameters by the script tools.
 
 ## Credits and Contacts
