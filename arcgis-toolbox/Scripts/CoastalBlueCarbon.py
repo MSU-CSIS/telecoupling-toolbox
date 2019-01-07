@@ -56,6 +56,7 @@ def GetArgs():
 			u'lulc_transition_matrix_uri': lulc_transition_effect_of_carbon_table,
 			u'lulc_transition_years_list': transition_year_list,
 			u'workspace_dir': workspace_dir,
+			u'analysis_year':u'',
 			#u'discount_rate': discount_rate
 		}
 		
@@ -114,7 +115,7 @@ if __name__ == '__main__':
 	if args[u'analysis_year']:
 		year_list.append(args[u'analysis_year'])
 		
-	#arcpy.AddMessage(year_list)
+	arcpy.AddMessage(year_list)
 	
 	#Run the Nat Cap module
 	natcap.invest.coastal_blue_carbon.coastal_blue_carbon.execute(args)
