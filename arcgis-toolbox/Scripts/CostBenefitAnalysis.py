@@ -77,15 +77,6 @@ def run_CBA():
                     revenues_lst = [float(v) for k, v in strataDict[strata].iteritems() if 'revenue' in k]
                     revenues += sum(revenues_lst)
 
-                    costs = float(strataDict[strata]['cost_per_animal_transfer']) + \
-                            float(strataDict[strata]['cost_feeding_per_animal']) + \
-                            float(strataDict[strata]['cost_transportation_per_travel']) + \
-                            float(strataDict[strata]['cost_maintenance_per_animal'])
-
-                    revenues = float(strataDict[strata]['revenue_from_transfer_per_animal']) + \
-                               float(strataDict[strata]['revenue_from_tourism']) + \
-                               float(strataDict[strata]['revenue_from_food_prod'])
-
                     returns = revenues - costs
 
                     row[1] = costs
