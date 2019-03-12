@@ -26,7 +26,7 @@ description:
 # List of links in the navigation bar
 navbar-links:
   Home: ""
-  About Us: "http://csis.msu.edu/"
+  Code: "https://github.com/MSU-CSIS/telecoupling-toolbox"
   Components:
     - ArcGIS Toolbox: "arcgis-toolbox"
     - GeoApp: "geo-app"
