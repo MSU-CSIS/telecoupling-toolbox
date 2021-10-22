@@ -49,9 +49,9 @@ The GeoApp offers a dynamic, interactive, online geo-enabled platform along with
 ## Credits and Contacts
 ---------------------
 
-© 2018 Michigan State University 
+© 2021 Michigan State University 
 
-Francesco Tonini: <ftonini@msu.edu>
+Nan Jia: <jianan2@msu.edu>
 
 Paul McCord: <mccordpa@msu.edu>
 
