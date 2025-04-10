@@ -45,11 +45,7 @@ The innovative, free and open-source (see [LICENSE](LICENSE) for details) toolbo
 
 [Download](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_ArcGIS_v2.3.zip) and unzip our sample data folder for use with both our ArcGIS Toolbox and GeoApp. This data repository contains all the tables and spatial data necessary to run the set of telecoupling mapping and analysis tools we developed. For further information on any of the dataset provided, please feel free to contact us.
 
-## GeoApp Data
 
-<img src="img/beige-folder-downloads_geoapp.png" alt="Sample Data GeoApp Icon" title="Sample Data GeoApp Icon" height="200" >
-
-[Download](https://s3.amazonaws.com/telecoupling-toolbox-sample-data/SampleData_GeoApp.zip) and unzip our sample data folder for use with both our ArcGIS Toolbox and GeoApp. This data repository contains all the tables and spatial data necessary to run the set of telecoupling mapping and analysis tools we developed. For further information on any of the dataset provided, please feel free to contact us.
 
 
 ## Credits and Contacts
