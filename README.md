@@ -18,7 +18,6 @@ The innovative, free and open-source (see [LICENSE](LICENSE) for details) toolbo
 # What's in the Toolbox? 
 ------------------
 
-## ArcGIS Toolbox 
 
 <div style="text-align: center; margin-top: 50px; margin-bottom: 50px;">
   <h2>ArcGIS Toolbox</h2>
